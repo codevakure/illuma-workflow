@@ -1,0 +1,29 @@
+{
+  "name": "sim-v2",
+  "version": "0.0.1",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:api": "cd apps/api && bun run dev",
+    "dev:web": "cd apps/web && bun run dev",
+    "dev:marketplace": "cd apps/marketplace && bun run dev",
+    "dev": "bun run dev:marketplace & bun run dev:api & bun run dev:web",
+    "build:cli": "cd packages/cli && bun run build",
+    "build:ts-sdk": "cd packages/ts-sdk && bun run build",
+    "test:ts-sdk": "cd packages/ts-sdk && bun run test",
+    "type-check": "bun run type-check:api && bun run type-check:web && bun run type-check:marketplace",
+    "type-check:api": "cd apps/api && bun run type-check",
+    "type-check:web": "cd apps/web && bun run type-check",
+    "type-check:marketplace": "cd apps/marketplace && bun run type-check",
+    "db:up": "docker compose up -d db",
+    "db:down": "docker compose down",
+    "db:push": "cd apps/api && bun run db:push",
+    "db:migrate": "cd apps/api && bun run db:migrate",
+    "db:studio": "cd apps/api && bun run db:studio",
+    "db:seed": "cd apps/api && bun run src/scripts/seed.ts",
+    "setup": "docker compose up -d db && sleep 3 && cd apps/api && bun run db:push"
+  }
+}

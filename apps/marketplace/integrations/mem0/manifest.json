@@ -1,0 +1,149 @@
+{
+  "id": "mem0",
+  "name": "Mem0",
+  "version": "1.0.0",
+  "description": "Agent memory management",
+  "icon": "Mem0Icon",
+  "block": {
+    "type": "mem0",
+    "name": "Mem0",
+    "description": "Agent memory management",
+    "longDescription": "Integrate Mem0 into the workflow. Can add, search, and retrieve memories.",
+    "docsLink": "https://docs.sim.ai/tools/mem0",
+    "category": "tools",
+    "bgColor": "#181C1E",
+    "icon": "Mem0Icon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "placeholder": "Select an operation",
+        "options": [
+          {
+            "label": "Add Memories",
+            "value": "add"
+          },
+          {
+            "label": "Search Memories",
+            "value": "search"
+          },
+          {
+            "label": "Get Memories",
+            "value": "get"
+          }
+        ]
+      },
+      {
+        "id": "userId",
+        "type": "short-input",
+        "title": "User ID",
+        "placeholder": "Enter user identifier"
+      },
+      {
+        "id": "messages",
+        "type": "code",
+        "title": "Messages",
+        "placeholder": "JSON array, e.g. [{"
+      },
+      {
+        "id": "query",
+        "type": "long-input",
+        "title": "Search Query",
+        "placeholder": "Enter search query to find relevant memories"
+      },
+      {
+        "id": "memoryId",
+        "type": "short-input",
+        "title": "Memory ID",
+        "placeholder": "Specific memory ID to retrieve"
+      },
+      {
+        "id": "startDate",
+        "type": "short-input",
+        "title": "Start Date",
+        "placeholder": "YYYY-MM-DD"
+      },
+      {
+        "id": "endDate",
+        "type": "short-input",
+        "title": "End Date",
+        "placeholder": "YYYY-MM-DD"
+      },
+      {
+        "id": "apiKey",
+        "type": "short-input",
+        "title": "API Key",
+        "placeholder": "Enter your Mem0 API key",
+        "password": true
+      },
+      {
+        "id": "limit",
+        "type": "slider",
+        "title": "Result Limit",
+        "min": 1,
+        "max": 50,
+        "step": 1
+      }
+    ],
+    "tools": {
+      "access": [
+        "mem0_add_memories",
+        "mem0_search_memories",
+        "mem0_get_memories"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "ids": {
+        "type": "json"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "mem0_add_memories",
+      "name": "Add Memories",
+      "description": "Add memories to Mem0 for persistent storage and retrieval",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "mem0",
+        "operation": "mem0_add_memories"
+      }
+    },
+    {
+      "id": "mem0_get_memories",
+      "name": "Get Memories",
+      "description": "Retrieve memories from Mem0 by ID or filter criteria",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "mem0",
+        "operation": "mem0_get_memories"
+      }
+    },
+    {
+      "id": "mem0_search_memories",
+      "name": "Search Memories",
+      "description": "Search for memories in Mem0 using semantic search",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "mem0",
+        "operation": "mem0_search_memories"
+      }
+    }
+  ]
+}

@@ -1,0 +1,240 @@
+{
+  "id": "langsmith",
+  "name": "LangSmith",
+  "version": "1.0.0",
+  "description": "Forward workflow runs to LangSmith for observability",
+  "icon": "LangsmithIcon",
+  "block": {
+    "type": "langsmith",
+    "name": "LangSmith",
+    "description": "Forward workflow runs to LangSmith for observability",
+    "longDescription": "Send run data to LangSmith to trace executions, attach metadata, and monitor workflow performance.",
+    "docsLink": "https://docs.sim.ai/tools/langsmith",
+    "category": "tools",
+    "bgColor": "#181C1E",
+    "icon": "LangsmithIcon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Create Run",
+            "value": "langsmith_create_run"
+          },
+          {
+            "label": "Create Runs Batch",
+            "value": "langsmith_create_runs_batch"
+          }
+        ]
+      },
+      {
+        "id": "apiKey",
+        "type": "short-input",
+        "title": "API Key",
+        "placeholder": "Enter your LangSmith API key",
+        "password": true
+      },
+      {
+        "id": "id",
+        "type": "short-input",
+        "title": "Run ID",
+        "placeholder": "Auto-generated if blank"
+      },
+      {
+        "id": "name",
+        "type": "short-input",
+        "title": "Name",
+        "placeholder": "Run name"
+      },
+      {
+        "id": "run_type",
+        "type": "dropdown",
+        "title": "Run Type",
+        "options": [
+          {
+            "label": "Chain",
+            "value": "chain"
+          },
+          {
+            "label": "Tool",
+            "value": "tool"
+          },
+          {
+            "label": "LLM",
+            "value": "llm"
+          },
+          {
+            "label": "Retriever",
+            "value": "retriever"
+          },
+          {
+            "label": "Embedding",
+            "value": "embedding"
+          },
+          {
+            "label": "Prompt",
+            "value": "prompt"
+          },
+          {
+            "label": "Parser",
+            "value": "parser"
+          }
+        ]
+      },
+      {
+        "id": "start_time",
+        "type": "short-input",
+        "title": "Start Time",
+        "placeholder": "e.g. 2025-01-01T12:00:00Z (defaults to now)"
+      },
+      {
+        "id": "end_time",
+        "type": "short-input",
+        "title": "End Time",
+        "placeholder": "2025-01-01T12:00:30Z",
+        "mode": "advanced"
+      },
+      {
+        "id": "inputs",
+        "type": "code",
+        "title": "Inputs",
+        "placeholder": "{",
+        "mode": "advanced"
+      },
+      {
+        "id": "outputs",
+        "type": "code",
+        "title": "Outputs",
+        "placeholder": "{",
+        "mode": "advanced"
+      },
+      {
+        "id": "extra",
+        "type": "code",
+        "title": "Metadata",
+        "placeholder": "{",
+        "mode": "advanced"
+      },
+      {
+        "id": "tags",
+        "type": "code",
+        "title": "Tags",
+        "placeholder": "[",
+        "mode": "advanced"
+      },
+      {
+        "id": "parent_run_id",
+        "type": "short-input",
+        "title": "Parent Run ID",
+        "placeholder": "Parent run identifier",
+        "mode": "advanced"
+      },
+      {
+        "id": "trace_id",
+        "type": "short-input",
+        "title": "Trace ID",
+        "placeholder": "Auto-generated if blank",
+        "mode": "advanced"
+      },
+      {
+        "id": "session_id",
+        "type": "short-input",
+        "title": "Session ID",
+        "placeholder": "Session identifier",
+        "mode": "advanced"
+      },
+      {
+        "id": "session_name",
+        "type": "short-input",
+        "title": "Session Name",
+        "placeholder": "Session name",
+        "mode": "advanced"
+      },
+      {
+        "id": "status",
+        "type": "short-input",
+        "title": "Status",
+        "placeholder": "success",
+        "mode": "advanced"
+      },
+      {
+        "id": "error",
+        "type": "long-input",
+        "title": "Error",
+        "placeholder": "Error message",
+        "mode": "advanced"
+      },
+      {
+        "id": "dotted_order",
+        "type": "short-input",
+        "title": "Dotted Order",
+        "placeholder": "Defaults to <YYYYMMDDTHHMMSSffffff>Z<id>",
+        "mode": "advanced"
+      },
+      {
+        "id": "events",
+        "type": "code",
+        "title": "Events",
+        "placeholder": "[{",
+        "mode": "advanced"
+      },
+      {
+        "id": "post",
+        "type": "code",
+        "title": "Post Runs",
+        "placeholder": "[{"
+      },
+      {
+        "id": "patch",
+        "type": "code",
+        "title": "Patch Runs",
+        "placeholder": "[{",
+        "mode": "advanced"
+      }
+    ],
+    "tools": {
+      "access": [
+        "langsmith_create_run",
+        "langsmith_create_runs_batch"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {}
+  },
+  "tools": [
+    {
+      "id": "langsmith_create_run",
+      "name": "LangSmith Create Run",
+      "description": "Forward a single run to LangSmith for ingestion.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "langsmith",
+        "operation": "langsmith_create_run"
+      }
+    },
+    {
+      "id": "langsmith_create_runs_batch",
+      "name": "LangSmith Create Runs Batch",
+      "description": "Forward multiple runs to LangSmith in a single batch.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "langsmith",
+        "operation": "langsmith_create_runs_batch"
+      }
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "id": "wait",
+  "name": "Wait",
+  "version": "1.0.0",
+  "description": "Pause workflow execution for a specified time delay",
+  "icon": "WaitIcon",
+  "block": {
+    "type": "wait",
+    "name": "Wait",
+    "description": "Pause workflow execution for a specified time delay",
+    "longDescription": "Pauses workflow execution for a specified time interval. The wait executes a simple sleep for the configured duration.",
+    "docsLink": "https://docs.sim.ai/blocks/wait",
+    "category": "blocks",
+    "bgColor": "#F59E0B",
+    "icon": "WaitIcon",
+    "subBlocks": [
+      {
+        "id": "timeValue",
+        "title": "Wait Amount",
+        "type": "short-input",
+        "placeholder": "10",
+        "required": true
+      },
+      {
+        "id": "timeUnit",
+        "title": "Unit",
+        "type": "dropdown",
+        "options": [
+          {
+            "label": "Seconds",
+            "value": "seconds"
+          },
+          {
+            "label": "Minutes",
+            "value": "minutes"
+          }
+        ],
+        "required": true
+      }
+    ],
+    "tools": {
+      "access": [],
+      "config": {
+        "tool": ""
+      }
+    },
+    "inputs": {
+      "timeValue": {
+        "type": "string",
+        "description": "Wait duration value"
+      },
+      "timeUnit": {
+        "type": "string",
+        "description": "Wait duration unit (seconds or minutes)"
+      }
+    },
+    "outputs": {
+      "waitDuration": {
+        "type": "number",
+        "description": "Wait duration in milliseconds"
+      },
+      "status": {
+        "type": "string",
+        "description": "Status of the wait block (waiting, completed, cancelled)"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "wait_execute",
+      "name": "wait execute",
+      "description": "",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "wait",
+        "operation": "execute"
+      }
+    }
+  ]
+}

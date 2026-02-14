@@ -1,0 +1,2633 @@
+{
+  "id": "github",
+  "name": "GitHub (Legacy)",
+  "version": "1.0.0",
+  "description": "Interact with GitHub or trigger workflows from GitHub events",
+  "icon": "GithubIcon",
+  "block": {
+    "type": "github",
+    "name": "GitHub (Legacy)",
+    "description": "Interact with GitHub or trigger workflows from GitHub events",
+    "longDescription": "Integrate Github into the workflow. Can get get PR details, create PR comment, get repository info, and get latest commit. Can be used in trigger mode to trigger a workflow when a PR is created, commented on, or a commit is pushed.",
+    "docsLink": "https://docs.sim.ai/tools/github",
+    "category": "tools",
+    "bgColor": "#181C1E",
+    "icon": "GithubIcon",
+    "authMode": "api_key",
+    "hideFromToolbar": true,
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Get PR details",
+            "value": "github_pr"
+          },
+          {
+            "label": "Create PR comment",
+            "value": "github_comment"
+          },
+          {
+            "label": "Get repository info",
+            "value": "github_repo_info"
+          },
+          {
+            "label": "Get latest commit",
+            "value": "github_latest_commit"
+          },
+          {
+            "label": "Create issue comment",
+            "value": "github_issue_comment"
+          },
+          {
+            "label": "List issue comments",
+            "value": "github_list_issue_comments"
+          },
+          {
+            "label": "Update comment",
+            "value": "github_update_comment"
+          },
+          {
+            "label": "Delete comment",
+            "value": "github_delete_comment"
+          },
+          {
+            "label": "List PR comments",
+            "value": "github_list_pr_comments"
+          },
+          {
+            "label": "Create pull request",
+            "value": "github_create_pr"
+          },
+          {
+            "label": "Update pull request",
+            "value": "github_update_pr"
+          },
+          {
+            "label": "Merge pull request",
+            "value": "github_merge_pr"
+          },
+          {
+            "label": "List pull requests",
+            "value": "github_list_prs"
+          },
+          {
+            "label": "Get PR files",
+            "value": "github_get_pr_files"
+          },
+          {
+            "label": "Close pull request",
+            "value": "github_close_pr"
+          },
+          {
+            "label": "Request PR reviewers",
+            "value": "github_request_reviewers"
+          },
+          {
+            "label": "Get file content",
+            "value": "github_get_file_content"
+          },
+          {
+            "label": "Create file",
+            "value": "github_create_file"
+          },
+          {
+            "label": "Update file",
+            "value": "github_update_file"
+          },
+          {
+            "label": "Delete file",
+            "value": "github_delete_file"
+          },
+          {
+            "label": "Get directory tree",
+            "value": "github_get_tree"
+          },
+          {
+            "label": "List branches",
+            "value": "github_list_branches"
+          },
+          {
+            "label": "Get branch",
+            "value": "github_get_branch"
+          },
+          {
+            "label": "Create branch",
+            "value": "github_create_branch"
+          },
+          {
+            "label": "Delete branch",
+            "value": "github_delete_branch"
+          },
+          {
+            "label": "Get branch protection",
+            "value": "github_get_branch_protection"
+          },
+          {
+            "label": "Update branch protection",
+            "value": "github_update_branch_protection"
+          },
+          {
+            "label": "Create issue",
+            "value": "github_create_issue"
+          },
+          {
+            "label": "Update issue",
+            "value": "github_update_issue"
+          },
+          {
+            "label": "List issues",
+            "value": "github_list_issues"
+          },
+          {
+            "label": "Get issue",
+            "value": "github_get_issue"
+          },
+          {
+            "label": "Close issue",
+            "value": "github_close_issue"
+          },
+          {
+            "label": "Add issue labels",
+            "value": "github_add_labels"
+          },
+          {
+            "label": "Remove issue label",
+            "value": "github_remove_label"
+          },
+          {
+            "label": "Add issue assignees",
+            "value": "github_add_assignees"
+          },
+          {
+            "label": "Create release",
+            "value": "github_create_release"
+          },
+          {
+            "label": "Update release",
+            "value": "github_update_release"
+          },
+          {
+            "label": "List releases",
+            "value": "github_list_releases"
+          },
+          {
+            "label": "Get release",
+            "value": "github_get_release"
+          },
+          {
+            "label": "Delete release",
+            "value": "github_delete_release"
+          },
+          {
+            "label": "List workflows",
+            "value": "github_list_workflows"
+          },
+          {
+            "label": "Get workflow",
+            "value": "github_get_workflow"
+          },
+          {
+            "label": "Trigger workflow",
+            "value": "github_trigger_workflow"
+          },
+          {
+            "label": "List workflow runs",
+            "value": "github_list_workflow_runs"
+          },
+          {
+            "label": "Get workflow run",
+            "value": "github_get_workflow_run"
+          },
+          {
+            "label": "Cancel workflow run",
+            "value": "github_cancel_workflow_run"
+          },
+          {
+            "label": "Rerun workflow",
+            "value": "github_rerun_workflow"
+          },
+          {
+            "label": "List projects",
+            "value": "github_list_projects"
+          },
+          {
+            "label": "Get project",
+            "value": "github_get_project"
+          },
+          {
+            "label": "Create project",
+            "value": "github_create_project"
+          },
+          {
+            "label": "Update project",
+            "value": "github_update_project"
+          },
+          {
+            "label": "Delete project",
+            "value": "github_delete_project"
+          },
+          {
+            "label": "Search code",
+            "value": "github_search_code"
+          },
+          {
+            "label": "Search commits",
+            "value": "github_search_commits"
+          },
+          {
+            "label": "Search issues",
+            "value": "github_search_issues"
+          },
+          {
+            "label": "Search repositories",
+            "value": "github_search_repos"
+          },
+          {
+            "label": "Search users",
+            "value": "github_search_users"
+          },
+          {
+            "label": "List commits",
+            "value": "github_list_commits"
+          },
+          {
+            "label": "Get commit",
+            "value": "github_get_commit"
+          },
+          {
+            "label": "Compare commits",
+            "value": "github_compare_commits"
+          },
+          {
+            "label": "Create gist",
+            "value": "github_create_gist"
+          },
+          {
+            "label": "Get gist",
+            "value": "github_get_gist"
+          },
+          {
+            "label": "List gists",
+            "value": "github_list_gists"
+          },
+          {
+            "label": "Update gist",
+            "value": "github_update_gist"
+          },
+          {
+            "label": "Delete gist",
+            "value": "github_delete_gist"
+          },
+          {
+            "label": "Fork gist",
+            "value": "github_fork_gist"
+          },
+          {
+            "label": "Star gist",
+            "value": "github_star_gist"
+          },
+          {
+            "label": "Unstar gist",
+            "value": "github_unstar_gist"
+          },
+          {
+            "label": "Fork repository",
+            "value": "github_fork_repo"
+          },
+          {
+            "label": "List forks",
+            "value": "github_list_forks"
+          },
+          {
+            "label": "Create milestone",
+            "value": "github_create_milestone"
+          },
+          {
+            "label": "Get milestone",
+            "value": "github_get_milestone"
+          },
+          {
+            "label": "List milestones",
+            "value": "github_list_milestones"
+          },
+          {
+            "label": "Update milestone",
+            "value": "github_update_milestone"
+          },
+          {
+            "label": "Delete milestone",
+            "value": "github_delete_milestone"
+          },
+          {
+            "label": "Add issue reaction",
+            "value": "github_create_issue_reaction"
+          },
+          {
+            "label": "Remove issue reaction",
+            "value": "github_delete_issue_reaction"
+          },
+          {
+            "label": "Add comment reaction",
+            "value": "github_create_comment_reaction"
+          },
+          {
+            "label": "Remove comment reaction",
+            "value": "github_delete_comment_reaction"
+          },
+          {
+            "label": "Star repository",
+            "value": "github_star_repo"
+          },
+          {
+            "label": "Unstar repository",
+            "value": "github_unstar_repo"
+          },
+          {
+            "label": "Check if starred",
+            "value": "github_check_star"
+          },
+          {
+            "label": "List stargazers",
+            "value": "github_list_stargazers"
+          }
+        ]
+      },
+      {
+        "id": "owner",
+        "type": "short-input",
+        "title": "Repository Owner",
+        "placeholder": "e.g., microsoft"
+      },
+      {
+        "id": "repo",
+        "type": "short-input",
+        "title": "Repository Name",
+        "placeholder": "e.g., vscode"
+      },
+      {
+        "id": "pullNumber",
+        "type": "short-input",
+        "title": "Pull Request Number",
+        "placeholder": "e.g., 123"
+      },
+      {
+        "id": "body",
+        "type": "long-input",
+        "title": "Comment",
+        "placeholder": "Enter comment text"
+      },
+      {
+        "id": "pullNumber",
+        "type": "short-input",
+        "title": "Pull Request Number",
+        "placeholder": "e.g., 123"
+      },
+      {
+        "id": "branch",
+        "type": "short-input",
+        "title": "Branch Name",
+        "placeholder": "e.g., main (leave empty for default)"
+      },
+      {
+        "id": "issue_number",
+        "type": "short-input",
+        "title": "Issue Number",
+        "placeholder": "e.g., 123"
+      },
+      {
+        "id": "body",
+        "type": "long-input",
+        "title": "Comment Text",
+        "placeholder": "Enter comment text"
+      },
+      {
+        "id": "issue_number",
+        "type": "short-input",
+        "title": "Issue Number",
+        "placeholder": "e.g., 123"
+      },
+      {
+        "id": "per_page",
+        "type": "short-input",
+        "title": "Results Per Page",
+        "placeholder": "e.g., 30 (default: 30, max: 100)",
+        "max": 100
+      },
+      {
+        "id": "comment_id",
+        "type": "short-input",
+        "title": "Comment ID",
+        "placeholder": "e.g., 987654321"
+      },
+      {
+        "id": "body",
+        "type": "long-input",
+        "title": "Updated Comment Text",
+        "placeholder": "Enter updated comment text"
+      },
+      {
+        "id": "comment_id",
+        "type": "short-input",
+        "title": "Comment ID",
+        "placeholder": "e.g., 987654321"
+      },
+      {
+        "id": "pullNumber",
+        "type": "short-input",
+        "title": "Pull Request Number",
+        "placeholder": "e.g., 123"
+      },
+      {
+        "id": "per_page",
+        "type": "short-input",
+        "title": "Results Per Page",
+        "placeholder": "e.g., 30 (default: 30, max: 100)",
+        "max": 100
+      },
+      {
+        "id": "title",
+        "type": "short-input",
+        "title": "PR Title",
+        "placeholder": "Enter pull request title"
+      },
+      {
+        "id": "head",
+        "type": "short-input",
+        "title": "Head Branch",
+        "placeholder": "e.g., feature-branch"
+      },
+      {
+        "id": "base",
+        "type": "short-input",
+        "title": "Base Branch",
+        "placeholder": "e.g., main"
+      },
+      {
+        "id": "body",
+        "type": "long-input",
+        "title": "PR Description",
+        "placeholder": "Enter pull request description (optional)"
+      },
+      {
+        "id": "draft",
+        "type": "dropdown",
+        "title": "Create as Draft",
+        "options": [
+          {
+            "label": "No",
+            "value": "false"
+          },
+          {
+            "label": "Yes",
+            "value": "true"
+          }
+        ]
+      },
+      {
+        "id": "pullNumber",
+        "type": "short-input",
+        "title": "Pull Request Number",
+        "placeholder": "e.g., 123"
+      },
+      {
+        "id": "title",
+        "type": "short-input",
+        "title": "New Title",
+        "placeholder": "Enter new title (optional)"
+      },
+      {
+        "id": "body",
+        "type": "long-input",
+        "title": "New Description",
+        "placeholder": "Enter new description (optional)"
+      },
+      {
+        "id": "state",
+        "type": "dropdown",
+        "title": "State",
+        "options": [
+          {
+            "label": "Open",
+            "value": "open"
+          },
+          {
+            "label": "Closed",
+            "value": "closed"
+          }
+        ]
+      },
+      {
+        "id": "pullNumber",
+        "type": "short-input",
+        "title": "Pull Request Number",
+        "placeholder": "e.g., 123"
+      },
+      {
+        "id": "merge_method",
+        "type": "dropdown",
+        "title": "Merge Method",
+        "options": [
+          {
+            "label": "Merge",
+            "value": "merge"
+          },
+          {
+            "label": "Squash",
+            "value": "squash"
+          },
+          {
+            "label": "Rebase",
+            "value": "rebase"
+          }
+        ]
+      },
+      {
+        "id": "commit_title",
+        "type": "short-input",
+        "title": "Commit Title",
+        "placeholder": "Enter commit title (optional)"
+      },
+      {
+        "id": "state",
+        "type": "dropdown",
+        "title": "State Filter",
+        "options": [
+          {
+            "label": "Open",
+            "value": "open"
+          },
+          {
+            "label": "Closed",
+            "value": "closed"
+          },
+          {
+            "label": "All",
+            "value": "all"
+          }
+        ]
+      },
+      {
+        "id": "per_page",
+        "type": "short-input",
+        "title": "Results Per Page",
+        "placeholder": "e.g., 30 (default: 30, max: 100)",
+        "max": 100
+      },
+      {
+        "id": "pullNumber",
+        "type": "short-input",
+        "title": "Pull Request Number",
+        "placeholder": "e.g., 123"
+      },
+      {
+        "id": "pullNumber",
+        "type": "short-input",
+        "title": "Pull Request Number",
+        "placeholder": "e.g., 123"
+      },
+      {
+        "id": "pullNumber",
+        "type": "short-input",
+        "title": "Pull Request Number",
+        "placeholder": "e.g., 123"
+      },
+      {
+        "id": "reviewers",
+        "type": "short-input",
+        "title": "Reviewer Usernames",
+        "placeholder": "Comma-separated: user1,user2"
+      },
+      {
+        "id": "team_reviewers",
+        "type": "short-input",
+        "title": "Team Slugs",
+        "placeholder": "Comma-separated: team1,team2"
+      },
+      {
+        "id": "path",
+        "type": "short-input",
+        "title": "File Path",
+        "placeholder": "e.g., src/main.ts"
+      },
+      {
+        "id": "ref",
+        "type": "short-input",
+        "title": "Branch/Tag/Commit",
+        "placeholder": "e.g., main (optional)"
+      },
+      {
+        "id": "path",
+        "type": "short-input",
+        "title": "File Path",
+        "placeholder": "e.g., src/main.ts"
+      },
+      {
+        "id": "content",
+        "type": "long-input",
+        "title": "File Content",
+        "placeholder": "Enter file content"
+      },
+      {
+        "id": "message",
+        "type": "short-input",
+        "title": "Commit Message",
+        "placeholder": "Enter commit message"
+      },
+      {
+        "id": "branch",
+        "type": "short-input",
+        "title": "Branch Name",
+        "placeholder": "e.g., main (optional)"
+      },
+      {
+        "id": "path",
+        "type": "short-input",
+        "title": "File Path",
+        "placeholder": "e.g., src/main.ts"
+      },
+      {
+        "id": "content",
+        "type": "long-input",
+        "title": "New File Content",
+        "placeholder": "Enter updated file content"
+      },
+      {
+        "id": "message",
+        "type": "short-input",
+        "title": "Commit Message",
+        "placeholder": "Enter commit message"
+      },
+      {
+        "id": "sha",
+        "type": "short-input",
+        "title": "File SHA",
+        "placeholder": "File SHA from get operation"
+      },
+      {
+        "id": "branch",
+        "type": "short-input",
+        "title": "Branch Name",
+        "placeholder": "e.g., main (optional)"
+      },
+      {
+        "id": "path",
+        "type": "short-input",
+        "title": "File Path",
+        "placeholder": "e.g., src/main.ts"
+      },
+      {
+        "id": "message",
+        "type": "short-input",
+        "title": "Commit Message",
+        "placeholder": "Enter commit message"
+      },
+      {
+        "id": "sha",
+        "type": "short-input",
+        "title": "File SHA",
+        "placeholder": "File SHA from get operation"
+      },
+      {
+        "id": "branch",
+        "type": "short-input",
+        "title": "Branch Name",
+        "placeholder": "e.g., main (optional)"
+      },
+      {
+        "id": "path",
+        "type": "short-input",
+        "title": "Directory Path",
+        "placeholder": "e.g., src (leave empty for root)"
+      },
+      {
+        "id": "ref",
+        "type": "short-input",
+        "title": "Branch/Tag/Commit",
+        "placeholder": "e.g., main (optional)"
+      },
+      {
+        "id": "protected",
+        "type": "dropdown",
+        "title": "Filter by Protection",
+        "options": [
+          {
+            "label": "All",
+            "value": "all"
+          },
+          {
+            "label": "Protected",
+            "value": "true"
+          },
+          {
+            "label": "Unprotected",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "id": "branch",
+        "type": "short-input",
+        "title": "Branch Name",
+        "placeholder": "e.g., main"
+      },
+      {
+        "id": "branch",
+        "type": "short-input",
+        "title": "New Branch Name",
+        "placeholder": "e.g., feature-branch"
+      },
+      {
+        "id": "sha",
+        "type": "short-input",
+        "title": "Source Commit SHA",
+        "placeholder": "SHA to create branch from"
+      },
+      {
+        "id": "branch",
+        "type": "short-input",
+        "title": "Branch Name",
+        "placeholder": "e.g., feature-branch"
+      },
+      {
+        "id": "branch",
+        "type": "short-input",
+        "title": "Branch Name",
+        "placeholder": "e.g., main"
+      },
+      {
+        "id": "branch",
+        "type": "short-input",
+        "title": "Branch Name",
+        "placeholder": "e.g., main"
+      },
+      {
+        "id": "required_status_checks",
+        "type": "short-input",
+        "title": "Required Status Checks",
+        "placeholder": "JSON: {"
+      },
+      {
+        "id": "enforce_admins",
+        "type": "dropdown",
+        "title": "Enforce for Admins",
+        "options": [
+          {
+            "label": "No",
+            "value": "false"
+          },
+          {
+            "label": "Yes",
+            "value": "true"
+          }
+        ]
+      },
+      {
+        "id": "required_pull_request_reviews",
+        "type": "short-input",
+        "title": "Required PR Reviews",
+        "placeholder": "JSON: {"
+      },
+      {
+        "id": "title",
+        "type": "short-input",
+        "title": "Issue Title",
+        "placeholder": "Enter issue title"
+      },
+      {
+        "id": "body",
+        "type": "long-input",
+        "title": "Issue Description",
+        "placeholder": "Enter issue description (optional)"
+      },
+      {
+        "id": "labels",
+        "type": "short-input",
+        "title": "Labels",
+        "placeholder": "Comma-separated: bug,enhancement"
+      },
+      {
+        "id": "assignees",
+        "type": "short-input",
+        "title": "Assignees",
+        "placeholder": "Comma-separated: user1,user2"
+      },
+      {
+        "id": "issue_number",
+        "type": "short-input",
+        "title": "Issue Number",
+        "placeholder": "e.g., 123"
+      },
+      {
+        "id": "title",
+        "type": "short-input",
+        "title": "New Title",
+        "placeholder": "Enter new title (optional)"
+      },
+      {
+        "id": "body",
+        "type": "long-input",
+        "title": "New Description",
+        "placeholder": "Enter new description (optional)"
+      },
+      {
+        "id": "state",
+        "type": "dropdown",
+        "title": "State",
+        "options": [
+          {
+            "label": "Open",
+            "value": "open"
+          },
+          {
+            "label": "Closed",
+            "value": "closed"
+          }
+        ]
+      },
+      {
+        "id": "state",
+        "type": "dropdown",
+        "title": "State Filter",
+        "options": [
+          {
+            "label": "Open",
+            "value": "open"
+          },
+          {
+            "label": "Closed",
+            "value": "closed"
+          },
+          {
+            "label": "All",
+            "value": "all"
+          }
+        ]
+      },
+      {
+        "id": "per_page",
+        "type": "short-input",
+        "title": "Results Per Page",
+        "placeholder": "e.g., 30 (default: 30, max: 100)",
+        "max": 100
+      },
+      {
+        "id": "issue_number",
+        "type": "short-input",
+        "title": "Issue Number",
+        "placeholder": "e.g., 123"
+      },
+      {
+        "id": "issue_number",
+        "type": "short-input",
+        "title": "Issue Number",
+        "placeholder": "e.g., 123"
+      },
+      {
+        "id": "issue_number",
+        "type": "short-input",
+        "title": "Issue Number",
+        "placeholder": "e.g., 123"
+      },
+      {
+        "id": "labels",
+        "type": "short-input",
+        "title": "Labels",
+        "placeholder": "Comma-separated: bug,enhancement"
+      },
+      {
+        "id": "issue_number",
+        "type": "short-input",
+        "title": "Issue Number",
+        "placeholder": "e.g., 123"
+      },
+      {
+        "id": "name",
+        "type": "short-input",
+        "title": "Label Name",
+        "placeholder": "e.g., bug"
+      },
+      {
+        "id": "issue_number",
+        "type": "short-input",
+        "title": "Issue Number",
+        "placeholder": "e.g., 123"
+      },
+      {
+        "id": "assignees",
+        "type": "short-input",
+        "title": "Assignees",
+        "placeholder": "Comma-separated: user1,user2"
+      },
+      {
+        "id": "tag_name",
+        "type": "short-input",
+        "title": "Tag Name",
+        "placeholder": "e.g., v1.0.0"
+      },
+      {
+        "id": "name",
+        "type": "short-input",
+        "title": "Release Name",
+        "placeholder": "e.g., Version 1.0.0"
+      },
+      {
+        "id": "body",
+        "type": "long-input",
+        "title": "Release Notes",
+        "placeholder": "Enter release notes (optional)"
+      },
+      {
+        "id": "draft",
+        "type": "dropdown",
+        "title": "Draft",
+        "options": [
+          {
+            "label": "No",
+            "value": "false"
+          },
+          {
+            "label": "Yes",
+            "value": "true"
+          }
+        ]
+      },
+      {
+        "id": "prerelease",
+        "type": "dropdown",
+        "title": "Prerelease",
+        "options": [
+          {
+            "label": "No",
+            "value": "false"
+          },
+          {
+            "label": "Yes",
+            "value": "true"
+          }
+        ]
+      },
+      {
+        "id": "release_id",
+        "type": "short-input",
+        "title": "Release ID",
+        "placeholder": "e.g., 123456"
+      },
+      {
+        "id": "tag_name",
+        "type": "short-input",
+        "title": "New Tag Name",
+        "placeholder": "e.g., v1.0.1 (optional)"
+      },
+      {
+        "id": "name",
+        "type": "short-input",
+        "title": "New Release Name",
+        "placeholder": "Enter new name (optional)"
+      },
+      {
+        "id": "body",
+        "type": "long-input",
+        "title": "New Release Notes",
+        "placeholder": "Enter updated notes (optional)"
+      },
+      {
+        "id": "per_page",
+        "type": "short-input",
+        "title": "Results Per Page",
+        "placeholder": "e.g., 30 (default: 30, max: 100)",
+        "max": 100
+      },
+      {
+        "id": "release_id",
+        "type": "short-input",
+        "title": "Release ID",
+        "placeholder": "e.g., 123456"
+      },
+      {
+        "id": "release_id",
+        "type": "short-input",
+        "title": "Release ID",
+        "placeholder": "e.g., 123456"
+      },
+      {
+        "id": "per_page",
+        "type": "short-input",
+        "title": "Results Per Page",
+        "placeholder": "e.g., 30 (default: 30, max: 100)",
+        "max": 100
+      },
+      {
+        "id": "workflow_id",
+        "type": "short-input",
+        "title": "Workflow ID or Filename",
+        "placeholder": "e.g., 123456 or ci.yml"
+      },
+      {
+        "id": "workflow_id",
+        "type": "short-input",
+        "title": "Workflow ID or Filename",
+        "placeholder": "e.g., 123456 or ci.yml"
+      },
+      {
+        "id": "ref",
+        "type": "short-input",
+        "title": "Branch/Tag to Run On",
+        "placeholder": "e.g., main"
+      },
+      {
+        "id": "inputs",
+        "type": "long-input",
+        "title": "Workflow Inputs",
+        "placeholder": "JSON: {"
+      },
+      {
+        "id": "workflow_id",
+        "type": "short-input",
+        "title": "Workflow ID or Filename",
+        "placeholder": "e.g., 123456 or ci.yml (optional)"
+      },
+      {
+        "id": "status",
+        "type": "dropdown",
+        "title": "Status Filter",
+        "options": [
+          {
+            "label": "All",
+            "value": "all"
+          },
+          {
+            "label": "Queued",
+            "value": "queued"
+          },
+          {
+            "label": "In Progress",
+            "value": "in_progress"
+          },
+          {
+            "label": "Completed",
+            "value": "completed"
+          }
+        ]
+      },
+      {
+        "id": "per_page",
+        "type": "short-input",
+        "title": "Results Per Page",
+        "placeholder": "e.g., 30 (default: 30, max: 100)",
+        "max": 100
+      },
+      {
+        "id": "run_id",
+        "type": "short-input",
+        "title": "Workflow Run ID",
+        "placeholder": "e.g., 123456789"
+      },
+      {
+        "id": "run_id",
+        "type": "short-input",
+        "title": "Workflow Run ID",
+        "placeholder": "e.g., 123456789"
+      },
+      {
+        "id": "run_id",
+        "type": "short-input",
+        "title": "Workflow Run ID",
+        "placeholder": "e.g., 123456789"
+      },
+      {
+        "id": "owner_login",
+        "type": "short-input",
+        "title": "Owner Login",
+        "placeholder": "e.g., octocat or org-name"
+      },
+      {
+        "id": "owner_type",
+        "type": "dropdown",
+        "title": "Owner Type",
+        "options": [
+          {
+            "label": "User",
+            "value": "user"
+          },
+          {
+            "label": "Organization",
+            "value": "org"
+          }
+        ]
+      },
+      {
+        "id": "project_number",
+        "type": "short-input",
+        "title": "Project Number",
+        "placeholder": "e.g., 1"
+      },
+      {
+        "id": "owner_login",
+        "type": "short-input",
+        "title": "Owner Login",
+        "placeholder": "e.g., octocat or org-name"
+      },
+      {
+        "id": "owner_type",
+        "type": "dropdown",
+        "title": "Owner Type",
+        "options": [
+          {
+            "label": "User",
+            "value": "user"
+          },
+          {
+            "label": "Organization",
+            "value": "org"
+          }
+        ]
+      },
+      {
+        "id": "owner_id",
+        "type": "short-input",
+        "title": "Owner ID",
+        "placeholder": "User or org node ID"
+      },
+      {
+        "id": "title",
+        "type": "short-input",
+        "title": "Project Title",
+        "placeholder": "Enter project title"
+      },
+      {
+        "id": "project_id",
+        "type": "short-input",
+        "title": "Project ID",
+        "placeholder": "Project node ID"
+      },
+      {
+        "id": "title",
+        "type": "short-input",
+        "title": "New Title",
+        "placeholder": "Enter new title (optional)"
+      },
+      {
+        "id": "project_public",
+        "type": "dropdown",
+        "title": "Public",
+        "options": [
+          {
+            "label": "Private",
+            "value": "false"
+          },
+          {
+            "label": "Public",
+            "value": "true"
+          }
+        ]
+      },
+      {
+        "id": "project_id",
+        "type": "short-input",
+        "title": "Project ID",
+        "placeholder": "Project node ID"
+      },
+      {
+        "id": "q",
+        "type": "short-input",
+        "title": "Search Query",
+        "placeholder": "e.g., react language:typescript"
+      },
+      {
+        "id": "sort",
+        "type": "dropdown",
+        "title": "Sort By",
+        "options": [
+          {
+            "label": "Stars",
+            "value": "stars"
+          },
+          {
+            "label": "Forks",
+            "value": "forks"
+          },
+          {
+            "label": "Updated",
+            "value": "updated"
+          }
+        ]
+      },
+      {
+        "id": "order",
+        "type": "dropdown",
+        "title": "Order",
+        "options": [
+          {
+            "label": "Descending",
+            "value": "desc"
+          },
+          {
+            "label": "Ascending",
+            "value": "asc"
+          }
+        ]
+      },
+      {
+        "id": "sha",
+        "type": "short-input",
+        "title": "SHA or Branch",
+        "placeholder": "e.g., main or abc123"
+      },
+      {
+        "id": "author",
+        "type": "short-input",
+        "title": "Author Filter",
+        "placeholder": "GitHub username or email"
+      },
+      {
+        "id": "since",
+        "type": "short-input",
+        "title": "Since Date",
+        "placeholder": "ISO 8601: 2024-01-01T00:00:00Z"
+      },
+      {
+        "id": "until",
+        "type": "short-input",
+        "title": "Until Date",
+        "placeholder": "ISO 8601: 2024-12-31T23:59:59Z"
+      },
+      {
+        "id": "ref",
+        "type": "short-input",
+        "title": "Commit Reference",
+        "placeholder": "SHA, branch, or tag"
+      },
+      {
+        "id": "base",
+        "type": "short-input",
+        "title": "Base Reference",
+        "placeholder": "Base branch/tag/SHA"
+      },
+      {
+        "id": "head",
+        "type": "short-input",
+        "title": "Head Reference",
+        "placeholder": "Head branch/tag/SHA"
+      },
+      {
+        "id": "gist_id",
+        "type": "short-input",
+        "title": "Gist ID",
+        "placeholder": "e.g., aa5a315d61ae9438b18d"
+      },
+      {
+        "id": "description",
+        "type": "short-input",
+        "title": "Description",
+        "placeholder": "Gist description"
+      },
+      {
+        "id": "files",
+        "type": "long-input",
+        "title": "Files (JSON)",
+        "placeholder": "{"
+      },
+      {
+        "id": "files",
+        "type": "long-input",
+        "title": "Files (JSON)",
+        "placeholder": "{"
+      },
+      {
+        "id": "gist_public",
+        "type": "dropdown",
+        "title": "Public",
+        "options": [
+          {
+            "label": "Secret",
+            "value": "false"
+          },
+          {
+            "label": "Public",
+            "value": "true"
+          }
+        ]
+      },
+      {
+        "id": "username",
+        "type": "short-input",
+        "title": "Username",
+        "placeholder": "GitHub username (optional)"
+      },
+      {
+        "id": "organization",
+        "type": "short-input",
+        "title": "Organization",
+        "placeholder": "Fork to org (optional)"
+      },
+      {
+        "id": "fork_name",
+        "type": "short-input",
+        "title": "Fork Name",
+        "placeholder": "Custom name (optional)"
+      },
+      {
+        "id": "default_branch_only",
+        "type": "dropdown",
+        "title": "Default Branch Only",
+        "options": [
+          {
+            "label": "No",
+            "value": "false"
+          },
+          {
+            "label": "Yes",
+            "value": "true"
+          }
+        ]
+      },
+      {
+        "id": "fork_sort",
+        "type": "dropdown",
+        "title": "Sort By",
+        "options": [
+          {
+            "label": "Newest",
+            "value": "newest"
+          },
+          {
+            "label": "Oldest",
+            "value": "oldest"
+          },
+          {
+            "label": "Stargazers",
+            "value": "stargazers"
+          },
+          {
+            "label": "Watchers",
+            "value": "watchers"
+          }
+        ]
+      },
+      {
+        "id": "milestone_title",
+        "type": "short-input",
+        "title": "Milestone Title",
+        "placeholder": "e.g., v1.0 Release"
+      },
+      {
+        "id": "milestone_title",
+        "type": "short-input",
+        "title": "New Title",
+        "placeholder": "Updated title (optional)"
+      },
+      {
+        "id": "milestone_description",
+        "type": "long-input",
+        "title": "Description",
+        "placeholder": "Milestone description"
+      },
+      {
+        "id": "due_on",
+        "type": "short-input",
+        "title": "Due Date",
+        "placeholder": "ISO 8601: 2024-12-31T23:59:59Z"
+      },
+      {
+        "id": "milestone_number",
+        "type": "short-input",
+        "title": "Milestone Number",
+        "placeholder": "e.g., 1"
+      },
+      {
+        "id": "milestone_state",
+        "type": "dropdown",
+        "title": "State Filter",
+        "options": [
+          {
+            "label": "Open",
+            "value": "open"
+          },
+          {
+            "label": "Closed",
+            "value": "closed"
+          },
+          {
+            "label": "All",
+            "value": "all"
+          }
+        ]
+      },
+      {
+        "id": "milestone_sort",
+        "type": "dropdown",
+        "title": "Sort By",
+        "options": [
+          {
+            "label": "Due Date",
+            "value": "due_on"
+          },
+          {
+            "label": "Completeness",
+            "value": "completeness"
+          }
+        ]
+      },
+      {
+        "id": "reaction_content",
+        "type": "dropdown",
+        "title": "Reaction",
+        "options": [
+          {
+            "label": "👍 +1",
+            "value": "+1"
+          },
+          {
+            "label": "👎 -1",
+            "value": "-1"
+          },
+          {
+            "label": "😄 Laugh",
+            "value": "laugh"
+          },
+          {
+            "label": "😕 Confused",
+            "value": "confused"
+          },
+          {
+            "label": "❤️ Heart",
+            "value": "heart"
+          },
+          {
+            "label": "🎉 Hooray",
+            "value": "hooray"
+          },
+          {
+            "label": "🚀 Rocket",
+            "value": "rocket"
+          },
+          {
+            "label": "👀 Eyes",
+            "value": "eyes"
+          }
+        ]
+      },
+      {
+        "id": "issue_number",
+        "type": "short-input",
+        "title": "Issue Number",
+        "placeholder": "e.g., 123"
+      },
+      {
+        "id": "reaction_id",
+        "type": "short-input",
+        "title": "Reaction ID",
+        "placeholder": "e.g., 12345678"
+      },
+      {
+        "id": "comment_id",
+        "type": "short-input",
+        "title": "Comment ID",
+        "placeholder": "e.g., 987654321"
+      },
+      {
+        "id": "per_page",
+        "type": "short-input",
+        "title": "Results Per Page",
+        "placeholder": "e.g., 30 (default: 30, max: 100)",
+        "max": 100
+      },
+      {
+        "id": "apiKey",
+        "type": "short-input",
+        "title": "GitHub Token",
+        "placeholder": "Enter GitHub Token",
+        "password": true
+      },
+      {
+        "id": "commentType",
+        "type": "dropdown",
+        "title": "Comment Type",
+        "options": [
+          {
+            "label": "General PR Comment",
+            "value": "pr_comment"
+          },
+          {
+            "label": "File-specific Comment",
+            "value": "file_comment"
+          }
+        ]
+      },
+      {
+        "id": "path",
+        "type": "short-input",
+        "title": "File Path",
+        "placeholder": "e.g., src/main.ts"
+      },
+      {
+        "id": "line",
+        "type": "short-input",
+        "title": "Line Number",
+        "placeholder": "e.g., 42"
+      }
+    ],
+    "tools": {
+      "access": [
+        "github_pr",
+        "github_comment",
+        "github_repo_info",
+        "github_latest_commit",
+        "github_issue_comment",
+        "github_list_issue_comments",
+        "github_update_comment",
+        "github_delete_comment",
+        "github_list_pr_comments",
+        "github_create_pr",
+        "github_update_pr",
+        "github_merge_pr",
+        "github_list_prs",
+        "github_get_pr_files",
+        "github_close_pr",
+        "github_request_reviewers",
+        "github_get_file_content",
+        "github_create_file",
+        "github_update_file",
+        "github_delete_file",
+        "github_get_tree",
+        "github_list_branches",
+        "github_get_branch",
+        "github_create_branch",
+        "github_delete_branch",
+        "github_get_branch_protection",
+        "github_update_branch_protection",
+        "github_create_issue",
+        "github_update_issue",
+        "github_list_issues",
+        "github_get_issue",
+        "github_close_issue",
+        "github_add_labels",
+        "github_remove_label",
+        "github_add_assignees",
+        "github_create_release",
+        "github_update_release",
+        "github_list_releases",
+        "github_get_release",
+        "github_delete_release",
+        "github_list_workflows",
+        "github_get_workflow",
+        "github_trigger_workflow",
+        "github_list_workflow_runs",
+        "github_get_workflow_run",
+        "github_cancel_workflow_run",
+        "github_rerun_workflow",
+        "github_list_projects",
+        "github_get_project",
+        "github_create_project",
+        "github_update_project",
+        "github_delete_project",
+        "github_search_code",
+        "github_search_commits",
+        "github_search_issues",
+        "github_search_repos",
+        "github_search_users",
+        "github_list_commits",
+        "github_get_commit",
+        "github_compare_commits",
+        "github_create_gist",
+        "github_get_gist",
+        "github_list_gists",
+        "github_update_gist",
+        "github_delete_gist",
+        "github_fork_gist",
+        "github_star_gist",
+        "github_unstar_gist",
+        "github_fork_repo",
+        "github_list_forks",
+        "github_create_milestone",
+        "github_get_milestone",
+        "github_list_milestones",
+        "github_update_milestone",
+        "github_delete_milestone",
+        "github_create_issue_reaction",
+        "github_delete_issue_reaction",
+        "github_create_comment_reaction",
+        "github_delete_comment_reaction",
+        "github_star_repo",
+        "github_unstar_repo",
+        "github_check_star",
+        "github_list_stargazers"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "content": {
+        "type": "string"
+      }
+    },
+    "triggerAllowed": true
+  },
+  "tools": [
+    {
+      "id": "github_add_assignees",
+      "name": "GitHub Add Assignees",
+      "description": "Add assignees to an issue in a GitHub repository",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_add_assignees"
+      }
+    },
+    {
+      "id": "github_add_labels",
+      "name": "GitHub Add Labels",
+      "description": "Add labels to an issue in a GitHub repository",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_add_labels"
+      }
+    },
+    {
+      "id": "github_cancel_workflow_run",
+      "name": "GitHub Cancel Workflow Run",
+      "description": "Cancel a workflow run. Returns 202 Accepted if cancellation is initiated, or 409 Conflict if the run cannot be cancelled (already completed).",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_cancel_workflow_run"
+      }
+    },
+    {
+      "id": "github_check_star",
+      "name": "GitHub Check Star",
+      "description": "Check if you have starred a repository",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_check_star"
+      }
+    },
+    {
+      "id": "github_close_issue",
+      "name": "GitHub Close Issue",
+      "description": "Close an issue in a GitHub repository",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_close_issue"
+      }
+    },
+    {
+      "id": "github_close_pr",
+      "name": "GitHub Close Pull Request",
+      "description": "Close a pull request in a GitHub repository",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_close_pr"
+      }
+    },
+    {
+      "id": "github_comment",
+      "name": "GitHub PR Commenter",
+      "description": "Create comments on GitHub PRs",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_comment"
+      }
+    },
+    {
+      "id": "github_compare_commits",
+      "name": "GitHub Compare Commits",
+      "description": "Compare two commits or branches to see the diff, commits between them, and changed files",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_compare_commits"
+      }
+    },
+    {
+      "id": "github_create_branch",
+      "name": "GitHub Create Branch",
+      "description": "Create a new branch in a GitHub repository by creating a git reference pointing to a specific commit SHA.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_create_branch"
+      }
+    },
+    {
+      "id": "github_create_comment_reaction",
+      "name": "GitHub Create Comment Reaction",
+      "description": "Add a reaction to an issue comment",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_create_comment_reaction"
+      }
+    },
+    {
+      "id": "github_create_file",
+      "name": "GitHub Create File",
+      "description": "Create a new file in a GitHub repository. The file content will be automatically Base64 encoded. Supports files up to 1MB.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_create_file"
+      }
+    },
+    {
+      "id": "github_create_gist",
+      "name": "GitHub Create Gist",
+      "description": "Create a new gist with one or more files",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_create_gist"
+      }
+    },
+    {
+      "id": "github_create_issue",
+      "name": "GitHub Create Issue",
+      "description": "Create a new issue in a GitHub repository",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_create_issue"
+      }
+    },
+    {
+      "id": "github_create_issue_reaction",
+      "name": "GitHub Create Issue Reaction",
+      "description": "Add a reaction to an issue",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_create_issue_reaction"
+      }
+    },
+    {
+      "id": "github_create_milestone",
+      "name": "GitHub Create Milestone",
+      "description": "Create a milestone in a repository",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_create_milestone"
+      }
+    },
+    {
+      "id": "github_create_pr",
+      "name": "GitHub Create Pull Request",
+      "description": "Create a new pull request in a GitHub repository",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_create_pr"
+      }
+    },
+    {
+      "id": "github_create_project",
+      "name": "GitHub Create Project",
+      "description": "Create a new GitHub Project V2. Requires the owner Node ID (not login name). Returns the created project with ID, title, and URL.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_create_project"
+      }
+    },
+    {
+      "id": "github_create_release",
+      "name": "GitHub Create Release",
+      "description": "Create a new release for a GitHub repository. Specify tag name, target commit, title, description, and whether it should be a draft or prerelease.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_create_release"
+      }
+    },
+    {
+      "id": "github_delete_branch",
+      "name": "GitHub Delete Branch",
+      "description": "Delete a branch from a GitHub repository by removing its git reference. Protected branches cannot be deleted.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_delete_branch"
+      }
+    },
+    {
+      "id": "github_delete_comment",
+      "name": "GitHub Comment Deleter",
+      "description": "Delete a comment on a GitHub issue or pull request",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_delete_comment"
+      }
+    },
+    {
+      "id": "github_delete_comment_reaction",
+      "name": "GitHub Delete Comment Reaction",
+      "description": "Remove a reaction from an issue comment",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_delete_comment_reaction"
+      }
+    },
+    {
+      "id": "github_delete_file",
+      "name": "GitHub Delete File",
+      "description": "Delete a file from a GitHub repository. Requires the file SHA. This operation cannot be undone through the API.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_delete_file"
+      }
+    },
+    {
+      "id": "github_delete_gist",
+      "name": "GitHub Delete Gist",
+      "description": "Delete a gist by ID",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_delete_gist"
+      }
+    },
+    {
+      "id": "github_delete_issue_reaction",
+      "name": "GitHub Delete Issue Reaction",
+      "description": "Remove a reaction from an issue",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_delete_issue_reaction"
+      }
+    },
+    {
+      "id": "github_delete_milestone",
+      "name": "GitHub Delete Milestone",
+      "description": "Delete a milestone from a repository",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_delete_milestone"
+      }
+    },
+    {
+      "id": "github_delete_project",
+      "name": "GitHub Delete Project",
+      "description": "Delete a GitHub Project V2. This action is permanent and cannot be undone. Requires the project Node ID.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_delete_project"
+      }
+    },
+    {
+      "id": "github_delete_release",
+      "name": "GitHub Delete Release",
+      "description": "Delete a GitHub release by ID. This permanently removes the release but does not delete the associated Git tag.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_delete_release"
+      }
+    },
+    {
+      "id": "github_fork_gist",
+      "name": "GitHub Fork Gist",
+      "description": "Fork a gist to create your own copy",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_fork_gist"
+      }
+    },
+    {
+      "id": "github_fork_repo",
+      "name": "GitHub Fork Repository",
+      "description": "Fork a repository to your account or an organization",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_fork_repo"
+      }
+    },
+    {
+      "id": "github_get_branch",
+      "name": "GitHub Get Branch",
+      "description": "Get detailed information about a specific branch in a GitHub repository, including commit details and protection status.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_get_branch"
+      }
+    },
+    {
+      "id": "github_get_branch_protection",
+      "name": "GitHub Get Branch Protection",
+      "description": "Get the branch protection rules for a specific branch, including status checks, review requirements, and restrictions.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_get_branch_protection"
+      }
+    },
+    {
+      "id": "github_get_commit",
+      "name": "GitHub Get Commit",
+      "description": "Get detailed information about a specific commit including files changed and stats",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_get_commit"
+      }
+    },
+    {
+      "id": "github_get_file_content",
+      "name": "GitHub Get File Content",
+      "description": "Get the content of a file from a GitHub repository. Supports files up to 1MB. Content is returned decoded and human-readable.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_get_file_content"
+      }
+    },
+    {
+      "id": "github_get_gist",
+      "name": "GitHub Get Gist",
+      "description": "Get a gist by ID including its file contents",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_get_gist"
+      }
+    },
+    {
+      "id": "github_get_issue",
+      "name": "GitHub Get Issue",
+      "description": "Get detailed information about a specific issue in a GitHub repository",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_get_issue"
+      }
+    },
+    {
+      "id": "github_get_milestone",
+      "name": "GitHub Get Milestone",
+      "description": "Get a specific milestone by number",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_get_milestone"
+      }
+    },
+    {
+      "id": "github_get_project",
+      "name": "GitHub Get Project",
+      "description": "Get detailed information about a specific GitHub Project V2 by its number. Returns project details including ID, title, description, URL, and status.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_get_project"
+      }
+    },
+    {
+      "id": "github_get_pr_files",
+      "name": "GitHub Get PR Files",
+      "description": "Get the list of files changed in a pull request",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_get_pr_files"
+      }
+    },
+    {
+      "id": "github_get_release",
+      "name": "GitHub Get Release",
+      "description": "Get detailed information about a specific GitHub release by ID. Returns release metadata including assets and download URLs.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_get_release"
+      }
+    },
+    {
+      "id": "github_get_tree",
+      "name": "GitHub Get Repository Tree",
+      "description": "Get the contents of a directory in a GitHub repository. Returns a list of files and subdirectories. Use empty path or omit to get root directory contents.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_get_tree"
+      }
+    },
+    {
+      "id": "github_get_workflow",
+      "name": "GitHub Get Workflow",
+      "description": "Get details of a specific GitHub Actions workflow by ID or filename. Returns workflow information including name, path, state, and badge URL.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_get_workflow"
+      }
+    },
+    {
+      "id": "github_get_workflow_run",
+      "name": "GitHub Get Workflow Run",
+      "description": "Get detailed information about a specific workflow run by ID. Returns status, conclusion, timing, and links to the run.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_get_workflow_run"
+      }
+    },
+    {
+      "id": "github_issue_comment",
+      "name": "GitHub Issue Comment Creator",
+      "description": "Create a comment on a GitHub issue",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_issue_comment"
+      }
+    },
+    {
+      "id": "github_latest_commit",
+      "name": "GitHub Latest Commit",
+      "description": "Retrieve the latest commit from a GitHub repository",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_latest_commit"
+      }
+    },
+    {
+      "id": "github_list_branches",
+      "name": "GitHub List Branches",
+      "description": "List all branches in a GitHub repository. Optionally filter by protected status and control pagination.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_list_branches"
+      }
+    },
+    {
+      "id": "github_list_commits",
+      "name": "GitHub List Commits",
+      "description": "List commits in a repository with optional filtering by SHA, path, author, committer, or date range",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_list_commits"
+      }
+    },
+    {
+      "id": "github_list_forks",
+      "name": "GitHub List Forks",
+      "description": "List forks of a repository",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_list_forks"
+      }
+    },
+    {
+      "id": "github_list_gists",
+      "name": "GitHub List Gists",
+      "description": "List gists for a user or the authenticated user",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_list_gists"
+      }
+    },
+    {
+      "id": "github_list_issues",
+      "name": "GitHub List Issues",
+      "description": "List issues in a GitHub repository. Note: This includes pull requests as PRs are considered issues in GitHub",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_list_issues"
+      }
+    },
+    {
+      "id": "github_list_issue_comments",
+      "name": "GitHub Issue Comments Lister",
+      "description": "List all comments on a GitHub issue",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_list_issue_comments"
+      }
+    },
+    {
+      "id": "github_list_milestones",
+      "name": "GitHub List Milestones",
+      "description": "List milestones in a repository",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_list_milestones"
+      }
+    },
+    {
+      "id": "github_list_projects",
+      "name": "GitHub List Projects",
+      "description": "List GitHub Projects V2 for an organization or user. Returns up to 20 projects with their details including ID, title, number, URL, and status.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_list_projects"
+      }
+    },
+    {
+      "id": "github_list_prs",
+      "name": "GitHub List Pull Requests",
+      "description": "List pull requests in a GitHub repository",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_list_prs"
+      }
+    },
+    {
+      "id": "github_list_pr_comments",
+      "name": "GitHub PR Review Comments Lister",
+      "description": "List all review comments on a GitHub pull request",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_list_pr_comments"
+      }
+    },
+    {
+      "id": "github_list_releases",
+      "name": "GitHub List Releases",
+      "description": "List all releases for a GitHub repository. Returns release information including tags, names, and download URLs.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_list_releases"
+      }
+    },
+    {
+      "id": "github_list_stargazers",
+      "name": "GitHub List Stargazers",
+      "description": "List users who have starred a repository",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_list_stargazers"
+      }
+    },
+    {
+      "id": "github_list_workflows",
+      "name": "GitHub List Workflows",
+      "description": "List all workflows in a GitHub repository. Returns workflow details including ID, name, path, state, and badge URL.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_list_workflows"
+      }
+    },
+    {
+      "id": "github_list_workflow_runs",
+      "name": "GitHub List Workflow Runs",
+      "description": "List workflow runs for a repository. Supports filtering by actor, branch, event, and status. Returns run details including status, conclusion, and links.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_list_workflow_runs"
+      }
+    },
+    {
+      "id": "github_merge_pr",
+      "name": "GitHub Merge Pull Request",
+      "description": "Merge a pull request in a GitHub repository",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_merge_pr"
+      }
+    },
+    {
+      "id": "github_pr",
+      "name": "GitHub PR Reader",
+      "description": "Fetch PR details including diff and files changed",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_pr"
+      }
+    },
+    {
+      "id": "github_remove_label",
+      "name": "GitHub Remove Label",
+      "description": "Remove a label from an issue in a GitHub repository",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_remove_label"
+      }
+    },
+    {
+      "id": "github_repo_info",
+      "name": "GitHub Repository Info",
+      "description": "Retrieve comprehensive GitHub repository metadata including stars, forks, issues, and primary language. Supports both public and private repositories with optional authentication.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_repo_info"
+      }
+    },
+    {
+      "id": "github_request_reviewers",
+      "name": "GitHub Request Reviewers",
+      "description": "Request reviewers for a pull request",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_request_reviewers"
+      }
+    },
+    {
+      "id": "github_rerun_workflow",
+      "name": "GitHub Rerun Workflow",
+      "description": "Rerun a workflow run. Optionally enable debug logging for the rerun. Returns 201 Created on success.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_rerun_workflow"
+      }
+    },
+    {
+      "id": "github_search_code",
+      "name": "GitHub Search Code",
+      "description": "Search for code across GitHub repositories. Use qualifiers like repo:owner/name, language:js, path:src, extension:py",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_search_code"
+      }
+    },
+    {
+      "id": "github_search_commits",
+      "name": "GitHub Search Commits",
+      "description": "Search for commits across GitHub. Use qualifiers like repo:owner/name, author:user, committer:user, author-date:>2023-01-01",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_search_commits"
+      }
+    },
+    {
+      "id": "github_search_issues",
+      "name": "GitHub Search Issues",
+      "description": "Search for issues and pull requests across GitHub. Use qualifiers like repo:owner/name, is:issue, is:pr, state:open, label:bug, author:user",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_search_issues"
+      }
+    },
+    {
+      "id": "github_search_repos",
+      "name": "GitHub Search Repositories",
+      "description": "Search for repositories across GitHub. Use qualifiers like language:python, stars:>1000, topic:react, user:owner, org:name",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_search_repos"
+      }
+    },
+    {
+      "id": "github_search_users",
+      "name": "GitHub Search Users",
+      "description": "Search for users and organizations on GitHub. Use qualifiers like type:user, type:org, followers:>1000, repos:>10, location:city",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_search_users"
+      }
+    },
+    {
+      "id": "github_star_gist",
+      "name": "GitHub Star Gist",
+      "description": "Star a gist",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_star_gist"
+      }
+    },
+    {
+      "id": "github_star_repo",
+      "name": "GitHub Star Repository",
+      "description": "Star a repository",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_star_repo"
+      }
+    },
+    {
+      "id": "github_trigger_workflow",
+      "name": "GitHub Trigger Workflow",
+      "description": "Trigger a workflow dispatch event for a GitHub Actions workflow. The workflow must have a workflow_dispatch trigger configured. Returns 204 No Content on success.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_trigger_workflow"
+      }
+    },
+    {
+      "id": "github_unstar_gist",
+      "name": "GitHub Unstar Gist",
+      "description": "Unstar a gist",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_unstar_gist"
+      }
+    },
+    {
+      "id": "github_unstar_repo",
+      "name": "GitHub Unstar Repository",
+      "description": "Remove star from a repository",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_unstar_repo"
+      }
+    },
+    {
+      "id": "github_update_branch_protection",
+      "name": "GitHub Update Branch Protection",
+      "description": "Update branch protection rules for a specific branch, including status checks, review requirements, admin enforcement, and push restrictions.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_update_branch_protection"
+      }
+    },
+    {
+      "id": "github_update_comment",
+      "name": "GitHub Comment Updater",
+      "description": "Update an existing comment on a GitHub issue or pull request",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_update_comment"
+      }
+    },
+    {
+      "id": "github_update_file",
+      "name": "GitHub Update File",
+      "description": "Update an existing file in a GitHub repository. Requires the file SHA. Content will be automatically Base64 encoded. Supports files up to 1MB.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_update_file"
+      }
+    },
+    {
+      "id": "github_update_gist",
+      "name": "GitHub Update Gist",
+      "description": "Update a gist description or files. To delete a file, set its value to null in files object",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_update_gist"
+      }
+    },
+    {
+      "id": "github_update_issue",
+      "name": "GitHub Update Issue",
+      "description": "Update an existing issue in a GitHub repository",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_update_issue"
+      }
+    },
+    {
+      "id": "github_update_milestone",
+      "name": "GitHub Update Milestone",
+      "description": "Update a milestone in a repository",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_update_milestone"
+      }
+    },
+    {
+      "id": "github_update_pr",
+      "name": "GitHub Update Pull Request",
+      "description": "Update an existing pull request in a GitHub repository",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_update_pr"
+      }
+    },
+    {
+      "id": "github_update_project",
+      "name": "GitHub Update Project",
+      "description": "Update an existing GitHub Project V2. Can update title, description, visibility (public), or status (closed). Requires the project Node ID.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_update_project"
+      }
+    },
+    {
+      "id": "github_update_release",
+      "name": "GitHub Update Release",
+      "description": "Update an existing GitHub release. Modify tag name, target commit, title, description, draft status, or prerelease status.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "github",
+        "operation": "github_update_release"
+      }
+    }
+  ]
+}

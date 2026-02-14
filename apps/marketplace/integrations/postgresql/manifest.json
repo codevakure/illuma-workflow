@@ -1,0 +1,257 @@
+{
+  "id": "postgresql",
+  "name": "PostgreSQL",
+  "version": "1.0.0",
+  "description": "Connect to PostgreSQL database",
+  "icon": "PostgresIcon",
+  "block": {
+    "type": "postgresql",
+    "name": "PostgreSQL",
+    "description": "Connect to PostgreSQL database",
+    "longDescription": "Integrate PostgreSQL into the workflow. Can query, insert, update, delete, and execute raw SQL.",
+    "docsLink": "https://docs.sim.ai/tools/postgresql",
+    "category": "tools",
+    "bgColor": "#336791",
+    "icon": "PostgresIcon",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Query (SELECT)",
+            "value": "query"
+          },
+          {
+            "label": "Insert Data",
+            "value": "insert"
+          },
+          {
+            "label": "Update Data",
+            "value": "update"
+          },
+          {
+            "label": "Delete Data",
+            "value": "delete"
+          },
+          {
+            "label": "Execute Raw SQL",
+            "value": "execute"
+          },
+          {
+            "label": "Introspect Schema",
+            "value": "introspect"
+          }
+        ]
+      },
+      {
+        "id": "host",
+        "type": "short-input",
+        "title": "Host",
+        "placeholder": "localhost or your.database.host"
+      },
+      {
+        "id": "port",
+        "type": "short-input",
+        "title": "Port",
+        "placeholder": "5432"
+      },
+      {
+        "id": "database",
+        "type": "short-input",
+        "title": "Database Name",
+        "placeholder": "your_database"
+      },
+      {
+        "id": "username",
+        "type": "short-input",
+        "title": "Username",
+        "placeholder": "postgres"
+      },
+      {
+        "id": "password",
+        "type": "short-input",
+        "title": "Password",
+        "placeholder": "Your database password",
+        "password": true
+      },
+      {
+        "id": "ssl",
+        "type": "dropdown",
+        "title": "SSL Mode",
+        "options": [
+          {
+            "label": "Disabled",
+            "value": "disabled"
+          },
+          {
+            "label": "Required",
+            "value": "required"
+          },
+          {
+            "label": "Preferred",
+            "value": "preferred"
+          }
+        ]
+      },
+      {
+        "id": "table",
+        "type": "short-input",
+        "title": "Table Name",
+        "placeholder": "users"
+      },
+      {
+        "id": "table",
+        "type": "short-input",
+        "title": "Table Name",
+        "placeholder": "users"
+      },
+      {
+        "id": "table",
+        "type": "short-input",
+        "title": "Table Name",
+        "placeholder": "users"
+      },
+      {
+        "id": "query",
+        "type": "code",
+        "title": "SQL Query",
+        "placeholder": "SELECT * FROM users WHERE active = true"
+      },
+      {
+        "id": "query",
+        "type": "code",
+        "title": "SQL Query",
+        "placeholder": "SELECT * FROM table_name"
+      },
+      {
+        "id": "data",
+        "type": "code",
+        "title": "Data (JSON)",
+        "placeholder": "{\\n  "
+      },
+      {
+        "id": "data",
+        "type": "code",
+        "title": "Update Data (JSON)",
+        "placeholder": "{\\n  "
+      },
+      {
+        "id": "where",
+        "type": "short-input",
+        "title": "WHERE Condition",
+        "placeholder": "id = 1"
+      },
+      {
+        "id": "where",
+        "type": "short-input",
+        "title": "WHERE Condition",
+        "placeholder": "id = 1"
+      },
+      {
+        "id": "schema",
+        "type": "short-input",
+        "title": "Schema Name",
+        "placeholder": "public"
+      }
+    ],
+    "tools": {
+      "access": [
+        "postgresql_query",
+        "postgresql_insert",
+        "postgresql_update",
+        "postgresql_delete",
+        "postgresql_execute",
+        "postgresql_introspect"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "message": {
+        "type": "string"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "postgresql_delete",
+      "name": "PostgreSQL Delete",
+      "description": "Delete data from PostgreSQL database",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "postgresql",
+        "operation": "postgresql_delete"
+      }
+    },
+    {
+      "id": "postgresql_execute",
+      "name": "PostgreSQL Execute",
+      "description": "Execute raw SQL query on PostgreSQL database",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "postgresql",
+        "operation": "postgresql_execute"
+      }
+    },
+    {
+      "id": "postgresql_insert",
+      "name": "PostgreSQL Insert",
+      "description": "Insert data into PostgreSQL database",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "postgresql",
+        "operation": "postgresql_insert"
+      }
+    },
+    {
+      "id": "postgresql_introspect",
+      "name": "PostgreSQL Introspect",
+      "description": "Introspect PostgreSQL database schema to retrieve table structures, columns, and relationships",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "postgresql",
+        "operation": "postgresql_introspect"
+      }
+    },
+    {
+      "id": "postgresql_query",
+      "name": "PostgreSQL Query",
+      "description": "Execute a SELECT query on PostgreSQL database",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "postgresql",
+        "operation": "postgresql_query"
+      }
+    },
+    {
+      "id": "postgresql_update",
+      "name": "PostgreSQL Update",
+      "description": "Update data in PostgreSQL database",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "postgresql",
+        "operation": "postgresql_update"
+      }
+    }
+  ]
+}

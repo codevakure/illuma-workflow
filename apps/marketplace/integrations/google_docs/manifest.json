@@ -1,0 +1,153 @@
+{
+  "id": "google_docs",
+  "name": "Google Docs",
+  "version": "1.0.0",
+  "description": "Read, write, and create documents",
+  "icon": "GoogleDocsIcon",
+  "block": {
+    "type": "google_docs",
+    "name": "Google Docs",
+    "description": "Read, write, and create documents",
+    "longDescription": "Integrate Google Docs into the workflow. Can read, write, and create documents.",
+    "docsLink": "https://docs.sim.ai/tools/google_docs",
+    "category": "tools",
+    "bgColor": "#E0E0E0",
+    "icon": "GoogleDocsIcon",
+    "authMode": "oauth",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Read Document",
+            "value": "read"
+          },
+          {
+            "label": "Write to Document",
+            "value": "write"
+          },
+          {
+            "label": "Create Document",
+            "value": "create"
+          }
+        ]
+      },
+      {
+        "id": "credential",
+        "type": "oauth-input",
+        "title": "Google Account",
+        "placeholder": "Select Google account"
+      },
+      {
+        "id": "documentId",
+        "type": "file-selector",
+        "title": "Select Document",
+        "placeholder": "Select a document",
+        "mode": "basic",
+        "canonicalParamId": "documentId"
+      },
+      {
+        "id": "manualDocumentId",
+        "type": "short-input",
+        "title": "Document ID",
+        "placeholder": "Enter document ID",
+        "mode": "advanced",
+        "canonicalParamId": "documentId"
+      },
+      {
+        "id": "title",
+        "type": "short-input",
+        "title": "Document Title",
+        "placeholder": "Enter title for the new document"
+      },
+      {
+        "id": "folderSelector",
+        "type": "file-selector",
+        "title": "Select Parent Folder",
+        "placeholder": "Select a parent folder",
+        "mode": "basic",
+        "canonicalParamId": "folderId"
+      },
+      {
+        "id": "folderId",
+        "type": "short-input",
+        "title": "Parent Folder ID",
+        "placeholder": "Enter parent folder ID (leave empty for root folder)",
+        "mode": "advanced",
+        "canonicalParamId": "folderId"
+      },
+      {
+        "id": "content",
+        "type": "long-input",
+        "title": "Content",
+        "placeholder": "Enter document content"
+      },
+      {
+        "id": "content",
+        "type": "long-input",
+        "title": "Content",
+        "placeholder": "Enter document content"
+      }
+    ],
+    "tools": {
+      "access": [
+        "google_docs_read",
+        "google_docs_write",
+        "google_docs_create"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "content": {
+        "type": "string"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "google_docs_create",
+      "name": "Create Google Docs Document",
+      "description": "Create a new Google Docs document",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_docs",
+        "operation": "google_docs_create"
+      }
+    },
+    {
+      "id": "google_docs_read",
+      "name": "Read Google Docs Document",
+      "description": "Read content from a Google Docs document",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_docs",
+        "operation": "google_docs_read"
+      }
+    },
+    {
+      "id": "google_docs_write",
+      "name": "Write to Google Docs Document",
+      "description": "Write or update content in a Google Docs document",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_docs",
+        "operation": "google_docs_write"
+      }
+    }
+  ]
+}

@@ -1,0 +1,299 @@
+{
+  "id": "sharepoint",
+  "name": "Sharepoint",
+  "version": "1.0.0",
+  "description": "Work with pages and lists",
+  "icon": "MicrosoftSharepointIcon",
+  "block": {
+    "type": "sharepoint",
+    "name": "Sharepoint",
+    "description": "Work with pages and lists",
+    "longDescription": "Integrate SharePoint into the workflow. Read/create pages, list sites, and work with lists (read, create, update items). Requires OAuth.",
+    "docsLink": "https://docs.sim.ai/tools/sharepoint",
+    "category": "tools",
+    "bgColor": "#E0E0E0",
+    "icon": "MicrosoftSharepointIcon",
+    "authMode": "oauth",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Create Page",
+            "value": "create_page"
+          },
+          {
+            "label": "Read Page",
+            "value": "read_page"
+          },
+          {
+            "label": "List Sites",
+            "value": "list_sites"
+          },
+          {
+            "label": "Create List",
+            "value": "create_list"
+          },
+          {
+            "label": "Read List",
+            "value": "read_list"
+          },
+          {
+            "label": "Update List",
+            "value": "update_list"
+          },
+          {
+            "label": "Add List Items",
+            "value": "add_list_items"
+          },
+          {
+            "label": "Upload File",
+            "value": "upload_file"
+          }
+        ]
+      },
+      {
+        "id": "credential",
+        "type": "oauth-input",
+        "title": "Microsoft Account",
+        "placeholder": "Select Microsoft account"
+      },
+      {
+        "id": "siteSelector",
+        "type": "file-selector",
+        "title": "Select Site",
+        "placeholder": "Select a site",
+        "mode": "basic",
+        "canonicalParamId": "siteId"
+      },
+      {
+        "id": "pageName",
+        "type": "short-input",
+        "title": "Page Name",
+        "placeholder": "Name of the page"
+      },
+      {
+        "id": "pageId",
+        "type": "short-input",
+        "title": "Page ID",
+        "placeholder": "Page ID (alternative to page name)",
+        "mode": "advanced"
+      },
+      {
+        "id": "listId",
+        "type": "short-input",
+        "title": "List ID",
+        "placeholder": "Enter list ID (GUID). Required for Update; optional for Read.",
+        "canonicalParamId": "listId"
+      },
+      {
+        "id": "listItemId",
+        "type": "short-input",
+        "title": "Item ID",
+        "placeholder": "Enter item ID",
+        "canonicalParamId": "itemId"
+      },
+      {
+        "id": "listDisplayName",
+        "type": "short-input",
+        "title": "List Display Name",
+        "placeholder": "Name of the list"
+      },
+      {
+        "id": "listTemplate",
+        "type": "short-input",
+        "title": "List Template",
+        "placeholder": "Template (e.g., "
+      },
+      {
+        "id": "columnDefinitions",
+        "type": "long-input",
+        "title": "Column Definitions",
+        "placeholder": "Optional: Define custom columns as JSON array"
+      },
+      {
+        "id": "listDescription",
+        "type": "long-input",
+        "title": "List Description",
+        "placeholder": "Optional description"
+      },
+      {
+        "id": "manualSiteId",
+        "type": "short-input",
+        "title": "Site ID",
+        "placeholder": "Enter site ID (leave empty for root site)",
+        "mode": "advanced",
+        "canonicalParamId": "siteId"
+      },
+      {
+        "id": "listItemFields",
+        "type": "long-input",
+        "title": "List Item Fields",
+        "placeholder": "Enter list item fields as JSON (e.g., {",
+        "canonicalParamId": "listItemFields"
+      },
+      {
+        "id": "driveId",
+        "type": "short-input",
+        "title": "Document Library ID",
+        "placeholder": "Enter document library (drive) ID",
+        "mode": "advanced",
+        "canonicalParamId": "driveId"
+      },
+      {
+        "id": "folderPath",
+        "type": "short-input",
+        "title": "Folder Path",
+        "placeholder": "Optional folder path (e.g., /Documents/Subfolder)"
+      },
+      {
+        "id": "fileName",
+        "type": "short-input",
+        "title": "File Name",
+        "placeholder": "Optional: override uploaded file name",
+        "mode": "advanced"
+      },
+      {
+        "id": "uploadFiles",
+        "type": "file-upload",
+        "title": "Files",
+        "placeholder": "Upload files to SharePoint",
+        "mode": "basic",
+        "canonicalParamId": "files"
+      },
+      {
+        "id": "files",
+        "type": "short-input",
+        "title": "Files",
+        "placeholder": "Reference files from previous blocks",
+        "mode": "advanced",
+        "canonicalParamId": "files"
+      }
+    ],
+    "tools": {
+      "access": [
+        "sharepoint_create_page",
+        "sharepoint_read_page",
+        "sharepoint_list_sites",
+        "sharepoint_create_list",
+        "sharepoint_get_list",
+        "sharepoint_update_list",
+        "sharepoint_add_list_items",
+        "sharepoint_upload_file"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "sites": {
+        "type": "json"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "sharepoint_add_list_items",
+      "name": "Add SharePoint List Item",
+      "description": "Add a new item to a SharePoint list",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "sharepoint",
+        "operation": "sharepoint_add_list_items"
+      }
+    },
+    {
+      "id": "sharepoint_create_list",
+      "name": "Create SharePoint List",
+      "description": "Create a new list in a SharePoint site",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "sharepoint",
+        "operation": "sharepoint_create_list"
+      }
+    },
+    {
+      "id": "sharepoint_create_page",
+      "name": "Create SharePoint Page",
+      "description": "Create a new page in a SharePoint site",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "sharepoint",
+        "operation": "sharepoint_create_page"
+      }
+    },
+    {
+      "id": "sharepoint_get_list",
+      "name": "Get SharePoint List",
+      "description": "Get metadata (and optionally columns/items) for a SharePoint list",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "sharepoint",
+        "operation": "sharepoint_get_list"
+      }
+    },
+    {
+      "id": "sharepoint_list_sites",
+      "name": "List SharePoint Sites",
+      "description": "List details of all SharePoint sites",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "sharepoint",
+        "operation": "sharepoint_list_sites"
+      }
+    },
+    {
+      "id": "sharepoint_read_page",
+      "name": "Read SharePoint Page",
+      "description": "Read a specific page from a SharePoint site",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "sharepoint",
+        "operation": "sharepoint_read_page"
+      }
+    },
+    {
+      "id": "sharepoint_update_list",
+      "name": "Update SharePoint List Item",
+      "description": "Update the properties (fields) on a SharePoint list item",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "sharepoint",
+        "operation": "sharepoint_update_list"
+      }
+    },
+    {
+      "id": "sharepoint_upload_file",
+      "name": "Upload File to SharePoint",
+      "description": "Upload files to a SharePoint document library",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "sharepoint",
+        "operation": "sharepoint_upload_file"
+      }
+    }
+  ]
+}

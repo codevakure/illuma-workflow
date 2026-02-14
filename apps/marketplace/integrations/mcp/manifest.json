@@ -1,0 +1,91 @@
+{
+  "id": "mcp",
+  "name": "MCP Tool",
+  "version": "1.0.0",
+  "description": "Execute tools from Model Context Protocol (MCP) servers",
+  "icon": "McpIcon",
+  "block": {
+    "type": "mcp",
+    "name": "MCP Tool",
+    "description": "Execute tools from Model Context Protocol (MCP) servers",
+    "longDescription": "Integrate MCP into the workflow. Can execute tools from MCP servers. Requires MCP servers in workspace settings.",
+    "docsLink": "https://docs.sim.ai/mcp",
+    "category": "tools",
+    "bgColor": "#181C1E",
+    "icon": "McpIcon",
+    "subBlocks": [
+      {
+        "id": "server",
+        "title": "MCP Server",
+        "type": "mcp-server-selector",
+        "required": true,
+        "placeholder": "Select an MCP server"
+      },
+      {
+        "id": "tool",
+        "title": "Tool",
+        "type": "mcp-tool-selector",
+        "required": true,
+        "placeholder": "Select a tool",
+        "dependsOn": [
+          "server"
+        ],
+        "condition": {
+          "field": "server",
+          "value": "",
+          "not": true
+        }
+      },
+      {
+        "id": "arguments",
+        "title": "",
+        "type": "mcp-dynamic-args",
+        "condition": {
+          "field": "tool",
+          "value": "",
+          "not": true
+        }
+      }
+    ],
+    "tools": {
+      "access": [],
+      "config": {
+        "tool": "@@enhanced"
+      }
+    },
+    "inputs": {
+      "server": {
+        "type": "string",
+        "description": "MCP server ID to execute the tool on"
+      },
+      "tool": {
+        "type": "string",
+        "description": "Name of the tool to execute"
+      },
+      "arguments": {
+        "type": "json",
+        "description": "Arguments to pass to the tool"
+      }
+    },
+    "outputs": {
+      "content": {
+        "type": "array",
+        "description": "Content array from MCP tool response"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "mcp_execute",
+      "name": "mcp execute",
+      "description": "",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "mcp",
+        "operation": "execute"
+      }
+    }
+  ]
+}

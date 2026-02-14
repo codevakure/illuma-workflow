@@ -1,0 +1,1287 @@
+{
+  "id": "incidentio",
+  "name": "incidentio",
+  "version": "1.0.0",
+  "description": "Manage incidents with incident.io",
+  "icon": "IncidentioIcon",
+  "block": {
+    "type": "incidentio",
+    "name": "incidentio",
+    "description": "Manage incidents with incident.io",
+    "longDescription": "Integrate incident.io into the workflow. Manage incidents, actions, follow-ups, workflows, schedules, escalations, custom fields, and more.",
+    "docsLink": "https://docs.sim.ai/tools/incidentio",
+    "category": "tools",
+    "bgColor": "#E0E0E0",
+    "icon": "IncidentioIcon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "List Incidents",
+            "value": "incidentio_incidents_list"
+          },
+          {
+            "label": "Create Incident",
+            "value": "incidentio_incidents_create"
+          },
+          {
+            "label": "Show Incident",
+            "value": "incidentio_incidents_show"
+          },
+          {
+            "label": "Update Incident",
+            "value": "incidentio_incidents_update"
+          },
+          {
+            "label": "List Actions",
+            "value": "incidentio_actions_list"
+          },
+          {
+            "label": "Show Action",
+            "value": "incidentio_actions_show"
+          },
+          {
+            "label": "List Follow-ups",
+            "value": "incidentio_follow_ups_list"
+          },
+          {
+            "label": "Show Follow-up",
+            "value": "incidentio_follow_ups_show"
+          },
+          {
+            "label": "List Users",
+            "value": "incidentio_users_list"
+          },
+          {
+            "label": "Show User",
+            "value": "incidentio_users_show"
+          },
+          {
+            "label": "List Workflows",
+            "value": "incidentio_workflows_list"
+          },
+          {
+            "label": "Show Workflow",
+            "value": "incidentio_workflows_show"
+          },
+          {
+            "label": "Update Workflow",
+            "value": "incidentio_workflows_update"
+          },
+          {
+            "label": "Delete Workflow",
+            "value": "incidentio_workflows_delete"
+          },
+          {
+            "label": "List Schedules",
+            "value": "incidentio_schedules_list"
+          },
+          {
+            "label": "Create Schedule",
+            "value": "incidentio_schedules_create"
+          },
+          {
+            "label": "Show Schedule",
+            "value": "incidentio_schedules_show"
+          },
+          {
+            "label": "Update Schedule",
+            "value": "incidentio_schedules_update"
+          },
+          {
+            "label": "Delete Schedule",
+            "value": "incidentio_schedules_delete"
+          },
+          {
+            "label": "List Escalations",
+            "value": "incidentio_escalations_list"
+          },
+          {
+            "label": "Create Escalation",
+            "value": "incidentio_escalations_create"
+          },
+          {
+            "label": "Show Escalation",
+            "value": "incidentio_escalations_show"
+          },
+          {
+            "label": "List Custom Fields",
+            "value": "incidentio_custom_fields_list"
+          },
+          {
+            "label": "Create Custom Field",
+            "value": "incidentio_custom_fields_create"
+          },
+          {
+            "label": "Show Custom Field",
+            "value": "incidentio_custom_fields_show"
+          },
+          {
+            "label": "Update Custom Field",
+            "value": "incidentio_custom_fields_update"
+          },
+          {
+            "label": "Delete Custom Field",
+            "value": "incidentio_custom_fields_delete"
+          },
+          {
+            "label": "List Severities",
+            "value": "incidentio_severities_list"
+          },
+          {
+            "label": "List Incident Statuses",
+            "value": "incidentio_incident_statuses_list"
+          },
+          {
+            "label": "List Incident Types",
+            "value": "incidentio_incident_types_list"
+          },
+          {
+            "label": "List Incident Roles",
+            "value": "incidentio_incident_roles_list"
+          },
+          {
+            "label": "Create Incident Role",
+            "value": "incidentio_incident_roles_create"
+          },
+          {
+            "label": "Show Incident Role",
+            "value": "incidentio_incident_roles_show"
+          },
+          {
+            "label": "Update Incident Role",
+            "value": "incidentio_incident_roles_update"
+          },
+          {
+            "label": "Delete Incident Role",
+            "value": "incidentio_incident_roles_delete"
+          },
+          {
+            "label": "List Incident Timestamps",
+            "value": "incidentio_incident_timestamps_list"
+          },
+          {
+            "label": "Show Incident Timestamp",
+            "value": "incidentio_incident_timestamps_show"
+          },
+          {
+            "label": "List Incident Updates",
+            "value": "incidentio_incident_updates_list"
+          },
+          {
+            "label": "List Schedule Entries",
+            "value": "incidentio_schedule_entries_list"
+          },
+          {
+            "label": "Create Schedule Override",
+            "value": "incidentio_schedule_overrides_create"
+          },
+          {
+            "label": "Create Escalation Path",
+            "value": "incidentio_escalation_paths_create"
+          },
+          {
+            "label": "Show Escalation Path",
+            "value": "incidentio_escalation_paths_show"
+          },
+          {
+            "label": "Update Escalation Path",
+            "value": "incidentio_escalation_paths_update"
+          },
+          {
+            "label": "Delete Escalation Path",
+            "value": "incidentio_escalation_paths_delete"
+          }
+        ]
+      },
+      {
+        "id": "page_size",
+        "type": "short-input",
+        "title": "Page Size",
+        "placeholder": "25"
+      },
+      {
+        "id": "after",
+        "type": "short-input",
+        "title": "After (Pagination)",
+        "placeholder": "Cursor for pagination"
+      },
+      {
+        "id": "name",
+        "type": "short-input",
+        "title": "Incident Name",
+        "placeholder": "Enter incident name..."
+      },
+      {
+        "id": "summary",
+        "type": "long-input",
+        "title": "Summary",
+        "placeholder": "Enter incident summary..."
+      },
+      {
+        "id": "severity_id",
+        "type": "short-input",
+        "title": "Severity ID",
+        "placeholder": "Enter severity ID..."
+      },
+      {
+        "id": "severity_id",
+        "type": "short-input",
+        "title": "Severity ID",
+        "placeholder": "Enter severity ID..."
+      },
+      {
+        "id": "incident_type_id",
+        "type": "short-input",
+        "title": "Incident Type ID",
+        "placeholder": "Enter incident type ID..."
+      },
+      {
+        "id": "incident_status_id",
+        "type": "short-input",
+        "title": "Incident Status ID",
+        "placeholder": "Enter incident status ID..."
+      },
+      {
+        "id": "notify_incident_channel",
+        "type": "switch",
+        "title": "Notify Incident Channel"
+      },
+      {
+        "id": "visibility",
+        "type": "dropdown",
+        "title": "Visibility",
+        "options": [
+          {
+            "label": "Public",
+            "value": "public"
+          },
+          {
+            "label": "Private",
+            "value": "private"
+          }
+        ]
+      },
+      {
+        "id": "idempotency_key",
+        "type": "short-input",
+        "title": "Idempotency Key",
+        "placeholder": "Enter unique key (e.g., UUID)"
+      },
+      {
+        "id": "id",
+        "type": "short-input",
+        "title": "ID",
+        "placeholder": "Enter ID..."
+      },
+      {
+        "id": "name",
+        "type": "short-input",
+        "title": "Name",
+        "placeholder": "Enter name..."
+      },
+      {
+        "id": "name",
+        "type": "short-input",
+        "title": "Name",
+        "placeholder": "Enter name (optional for update)..."
+      },
+      {
+        "id": "idempotency_key",
+        "type": "short-input",
+        "title": "Idempotency Key",
+        "placeholder": "Enter unique key (e.g., UUID)..."
+      },
+      {
+        "id": "title",
+        "type": "short-input",
+        "title": "Title",
+        "placeholder": "Enter escalation title..."
+      },
+      {
+        "id": "escalation_path_id",
+        "type": "short-input",
+        "title": "Escalation Path ID",
+        "placeholder": "Enter escalation path ID (required if no user IDs)..."
+      },
+      {
+        "id": "user_ids",
+        "type": "short-input",
+        "title": "User IDs",
+        "placeholder": "Enter user IDs, comma-separated (required if no path ID)..."
+      },
+      {
+        "id": "name",
+        "type": "short-input",
+        "title": "Name",
+        "placeholder": "Enter name..."
+      },
+      {
+        "id": "incident_id",
+        "type": "short-input",
+        "title": "Incident ID",
+        "placeholder": "Filter by incident ID..."
+      },
+      {
+        "id": "folder",
+        "type": "short-input",
+        "title": "Folder",
+        "placeholder": "Enter folder name..."
+      },
+      {
+        "id": "state",
+        "type": "dropdown",
+        "title": "State",
+        "options": [
+          {
+            "label": "Active",
+            "value": "active"
+          },
+          {
+            "label": "Draft",
+            "value": "draft"
+          },
+          {
+            "label": "Disabled",
+            "value": "disabled"
+          }
+        ]
+      },
+      {
+        "id": "timezone",
+        "type": "dropdown",
+        "title": "Timezone",
+        "options": [
+          {
+            "label": "America/New_York (Eastern)",
+            "value": "America/New_York"
+          },
+          {
+            "label": "America/Chicago (Central)",
+            "value": "America/Chicago"
+          },
+          {
+            "label": "America/Denver (Mountain)",
+            "value": "America/Denver"
+          },
+          {
+            "label": "America/Los_Angeles (Pacific)",
+            "value": "America/Los_Angeles"
+          },
+          {
+            "label": "America/Phoenix (Arizona)",
+            "value": "America/Phoenix"
+          },
+          {
+            "label": "America/Anchorage (Alaska)",
+            "value": "America/Anchorage"
+          },
+          {
+            "label": "Pacific/Honolulu (Hawaii)",
+            "value": "Pacific/Honolulu"
+          },
+          {
+            "label": "Europe/London (UK)",
+            "value": "Europe/London"
+          },
+          {
+            "label": "Europe/Paris (Central Europe)",
+            "value": "Europe/Paris"
+          },
+          {
+            "label": "Europe/Berlin (Germany)",
+            "value": "Europe/Berlin"
+          },
+          {
+            "label": "Europe/Dublin (Ireland)",
+            "value": "Europe/Dublin"
+          },
+          {
+            "label": "Europe/Amsterdam (Netherlands)",
+            "value": "Europe/Amsterdam"
+          },
+          {
+            "label": "Asia/Tokyo (Japan)",
+            "value": "Asia/Tokyo"
+          },
+          {
+            "label": "Asia/Singapore",
+            "value": "Asia/Singapore"
+          },
+          {
+            "label": "Asia/Hong_Kong",
+            "value": "Asia/Hong_Kong"
+          },
+          {
+            "label": "Asia/Shanghai (China)",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "label": "Asia/Seoul (South Korea)",
+            "value": "Asia/Seoul"
+          },
+          {
+            "label": "Asia/Dubai (UAE)",
+            "value": "Asia/Dubai"
+          },
+          {
+            "label": "Asia/Kolkata (India)",
+            "value": "Asia/Kolkata"
+          },
+          {
+            "label": "Australia/Sydney",
+            "value": "Australia/Sydney"
+          },
+          {
+            "label": "Australia/Melbourne",
+            "value": "Australia/Melbourne"
+          },
+          {
+            "label": "Pacific/Auckland (New Zealand)",
+            "value": "Pacific/Auckland"
+          },
+          {
+            "label": "UTC",
+            "value": "UTC"
+          }
+        ]
+      },
+      {
+        "id": "config",
+        "type": "long-input",
+        "title": "Schedule Configuration",
+        "placeholder": "JSON configuration with rotations. Example: {"
+      },
+      {
+        "id": "timezone",
+        "type": "dropdown",
+        "title": "Timezone",
+        "options": [
+          {
+            "label": "America/New_York (Eastern)",
+            "value": "America/New_York"
+          },
+          {
+            "label": "America/Chicago (Central)",
+            "value": "America/Chicago"
+          },
+          {
+            "label": "America/Denver (Mountain)",
+            "value": "America/Denver"
+          },
+          {
+            "label": "America/Los_Angeles (Pacific)",
+            "value": "America/Los_Angeles"
+          },
+          {
+            "label": "America/Phoenix (Arizona)",
+            "value": "America/Phoenix"
+          },
+          {
+            "label": "America/Anchorage (Alaska)",
+            "value": "America/Anchorage"
+          },
+          {
+            "label": "Pacific/Honolulu (Hawaii)",
+            "value": "Pacific/Honolulu"
+          },
+          {
+            "label": "Europe/London (UK)",
+            "value": "Europe/London"
+          },
+          {
+            "label": "Europe/Paris (Central Europe)",
+            "value": "Europe/Paris"
+          },
+          {
+            "label": "Europe/Berlin (Germany)",
+            "value": "Europe/Berlin"
+          },
+          {
+            "label": "Europe/Dublin (Ireland)",
+            "value": "Europe/Dublin"
+          },
+          {
+            "label": "Europe/Amsterdam (Netherlands)",
+            "value": "Europe/Amsterdam"
+          },
+          {
+            "label": "Asia/Tokyo (Japan)",
+            "value": "Asia/Tokyo"
+          },
+          {
+            "label": "Asia/Singapore",
+            "value": "Asia/Singapore"
+          },
+          {
+            "label": "Asia/Hong_Kong",
+            "value": "Asia/Hong_Kong"
+          },
+          {
+            "label": "Asia/Shanghai (China)",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "label": "Asia/Seoul (South Korea)",
+            "value": "Asia/Seoul"
+          },
+          {
+            "label": "Asia/Dubai (UAE)",
+            "value": "Asia/Dubai"
+          },
+          {
+            "label": "Asia/Kolkata (India)",
+            "value": "Asia/Kolkata"
+          },
+          {
+            "label": "Australia/Sydney",
+            "value": "Australia/Sydney"
+          },
+          {
+            "label": "Australia/Melbourne",
+            "value": "Australia/Melbourne"
+          },
+          {
+            "label": "Pacific/Auckland (New Zealand)",
+            "value": "Pacific/Auckland"
+          },
+          {
+            "label": "UTC",
+            "value": "UTC"
+          }
+        ]
+      },
+      {
+        "id": "description",
+        "type": "long-input",
+        "title": "Description",
+        "placeholder": "Enter description..."
+      },
+      {
+        "id": "field_type",
+        "type": "dropdown",
+        "title": "Field Type",
+        "options": [
+          {
+            "label": "Text",
+            "value": "text"
+          },
+          {
+            "label": "Single Select",
+            "value": "single_select"
+          },
+          {
+            "label": "Multi Select",
+            "value": "multi_select"
+          },
+          {
+            "label": "Numeric",
+            "value": "numeric"
+          },
+          {
+            "label": "Link",
+            "value": "link"
+          }
+        ]
+      },
+      {
+        "id": "description",
+        "type": "long-input",
+        "title": "Description",
+        "placeholder": "Enter description..."
+      },
+      {
+        "id": "instructions",
+        "type": "long-input",
+        "title": "Instructions",
+        "placeholder": "Enter instructions for the role..."
+      },
+      {
+        "id": "shortform",
+        "type": "short-input",
+        "title": "Shortform",
+        "placeholder": "Enter short form abbreviation (e.g., INC, LEAD)..."
+      },
+      {
+        "id": "incident_id",
+        "type": "short-input",
+        "title": "Incident ID",
+        "placeholder": "Enter incident ID (optional - leave blank for all incidents)..."
+      },
+      {
+        "id": "schedule_id",
+        "type": "short-input",
+        "title": "Schedule ID",
+        "placeholder": "Enter schedule ID..."
+      },
+      {
+        "id": "entry_window_start",
+        "type": "short-input",
+        "title": "Entry Window Start (Date/Time)",
+        "placeholder": "ISO 8601 format (e.g., 2024-01-01T00:00:00Z)..."
+      },
+      {
+        "id": "entry_window_end",
+        "type": "short-input",
+        "title": "Entry Window End (Date/Time)",
+        "placeholder": "ISO 8601 format (e.g., 2024-12-31T23:59:59Z)..."
+      },
+      {
+        "id": "rotation_id",
+        "type": "short-input",
+        "title": "Rotation ID",
+        "placeholder": "Enter rotation ID..."
+      },
+      {
+        "id": "user_id",
+        "type": "short-input",
+        "title": "User ID",
+        "placeholder": "Enter user ID (provide one of: user_id, user_email, or user_slack_id)..."
+      },
+      {
+        "id": "user_email",
+        "type": "short-input",
+        "title": "User Email",
+        "placeholder": "Enter user email (provide one of: user_id, user_email, or user_slack_id)..."
+      },
+      {
+        "id": "user_slack_id",
+        "type": "short-input",
+        "title": "User Slack ID",
+        "placeholder": "Enter user Slack ID (provide one of: user_id, user_email, or user_slack_id)..."
+      },
+      {
+        "id": "start_at",
+        "type": "short-input",
+        "title": "Start At",
+        "placeholder": "ISO 8601 format (e.g., 2024-01-01T00:00:00Z)..."
+      },
+      {
+        "id": "end_at",
+        "type": "short-input",
+        "title": "End At",
+        "placeholder": "ISO 8601 format (e.g., 2024-12-31T23:59:59Z)..."
+      },
+      {
+        "id": "path",
+        "type": "long-input",
+        "title": "Path Configuration",
+        "placeholder": "JSON array of escalation levels: [{"
+      },
+      {
+        "id": "path",
+        "type": "long-input",
+        "title": "Path Configuration",
+        "placeholder": "JSON array of escalation levels (optional for update): [{"
+      },
+      {
+        "id": "working_hours",
+        "type": "long-input",
+        "title": "Working Hours",
+        "placeholder": "Optional JSON array: [{"
+      },
+      {
+        "id": "apiKey",
+        "type": "short-input",
+        "title": "API Key",
+        "placeholder": "Enter your incident.io API key",
+        "password": true
+      }
+    ],
+    "tools": {
+      "access": [
+        "incidentio_incidents_list",
+        "incidentio_incidents_create",
+        "incidentio_incidents_show",
+        "incidentio_incidents_update",
+        "incidentio_actions_list",
+        "incidentio_actions_show",
+        "incidentio_follow_ups_list",
+        "incidentio_follow_ups_show",
+        "incidentio_users_list",
+        "incidentio_users_show",
+        "incidentio_workflows_list",
+        "incidentio_workflows_show",
+        "incidentio_workflows_update",
+        "incidentio_workflows_delete",
+        "incidentio_schedules_list",
+        "incidentio_schedules_create",
+        "incidentio_schedules_show",
+        "incidentio_schedules_update",
+        "incidentio_schedules_delete",
+        "incidentio_escalations_list",
+        "incidentio_escalations_create",
+        "incidentio_escalations_show",
+        "incidentio_custom_fields_list",
+        "incidentio_custom_fields_create",
+        "incidentio_custom_fields_show",
+        "incidentio_custom_fields_update",
+        "incidentio_custom_fields_delete",
+        "incidentio_severities_list",
+        "incidentio_incident_statuses_list",
+        "incidentio_incident_types_list",
+        "incidentio_incident_roles_list",
+        "incidentio_incident_roles_create",
+        "incidentio_incident_roles_show",
+        "incidentio_incident_roles_update",
+        "incidentio_incident_roles_delete",
+        "incidentio_incident_timestamps_list",
+        "incidentio_incident_timestamps_show",
+        "incidentio_incident_updates_list",
+        "incidentio_schedule_entries_list",
+        "incidentio_schedule_overrides_create",
+        "incidentio_escalation_paths_create",
+        "incidentio_escalation_paths_show",
+        "incidentio_escalation_paths_update",
+        "incidentio_escalation_paths_delete"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "incidents": {
+        "type": "json"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "incidentio_actions_list",
+      "name": "incident.io Actions List",
+      "description": "List actions from incident.io. Optionally filter by incident ID.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "incidentio",
+        "operation": "incidentio_actions_list"
+      }
+    },
+    {
+      "id": "incidentio_actions_show",
+      "name": "incident.io Actions Show",
+      "description": "Get detailed information about a specific action from incident.io.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "incidentio",
+        "operation": "incidentio_actions_show"
+      }
+    },
+    {
+      "id": "incidentio_custom_fields_create",
+      "name": "incident.io Custom Fields Create",
+      "description": "Create a new custom field in incident.io.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "incidentio",
+        "operation": "incidentio_custom_fields_create"
+      }
+    },
+    {
+      "id": "incidentio_custom_fields_delete",
+      "name": "incident.io Custom Fields Delete",
+      "description": "Delete a custom field from incident.io.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "incidentio",
+        "operation": "incidentio_custom_fields_delete"
+      }
+    },
+    {
+      "id": "incidentio_custom_fields_list",
+      "name": "incident.io Custom Fields List",
+      "description": "List all custom fields from incident.io.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "incidentio",
+        "operation": "incidentio_custom_fields_list"
+      }
+    },
+    {
+      "id": "incidentio_custom_fields_show",
+      "name": "incident.io Custom Fields Show",
+      "description": "Get detailed information about a specific custom field from incident.io.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "incidentio",
+        "operation": "incidentio_custom_fields_show"
+      }
+    },
+    {
+      "id": "incidentio_custom_fields_update",
+      "name": "incident.io Custom Fields Update",
+      "description": "Update an existing custom field in incident.io.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "incidentio",
+        "operation": "incidentio_custom_fields_update"
+      }
+    },
+    {
+      "id": "incidentio_escalations_create",
+      "name": "Create Escalation",
+      "description": "Create a new escalation policy in incident.io",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "incidentio",
+        "operation": "incidentio_escalations_create"
+      }
+    },
+    {
+      "id": "incidentio_escalations_list",
+      "name": "List Escalations",
+      "description": "List all escalation policies in incident.io",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "incidentio",
+        "operation": "incidentio_escalations_list"
+      }
+    },
+    {
+      "id": "incidentio_escalations_show",
+      "name": "Show Escalation",
+      "description": "Get details of a specific escalation policy in incident.io",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "incidentio",
+        "operation": "incidentio_escalations_show"
+      }
+    },
+    {
+      "id": "incidentio_escalation_paths_create",
+      "name": "Create Escalation Path",
+      "description": "Create a new escalation path in incident.io",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "incidentio",
+        "operation": "incidentio_escalation_paths_create"
+      }
+    },
+    {
+      "id": "incidentio_escalation_paths_delete",
+      "name": "Delete Escalation Path",
+      "description": "Delete an escalation path in incident.io",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "incidentio",
+        "operation": "incidentio_escalation_paths_delete"
+      }
+    },
+    {
+      "id": "incidentio_escalation_paths_show",
+      "name": "Show Escalation Path",
+      "description": "Get details of a specific escalation path in incident.io",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "incidentio",
+        "operation": "incidentio_escalation_paths_show"
+      }
+    },
+    {
+      "id": "incidentio_escalation_paths_update",
+      "name": "Update Escalation Path",
+      "description": "Update an existing escalation path in incident.io",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "incidentio",
+        "operation": "incidentio_escalation_paths_update"
+      }
+    },
+    {
+      "id": "incidentio_follow_ups_list",
+      "name": "incident.io Follow-ups List",
+      "description": "List follow-ups from incident.io. Optionally filter by incident ID.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "incidentio",
+        "operation": "incidentio_follow_ups_list"
+      }
+    },
+    {
+      "id": "incidentio_follow_ups_show",
+      "name": "incident.io Follow-ups Show",
+      "description": "Get detailed information about a specific follow-up from incident.io.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "incidentio",
+        "operation": "incidentio_follow_ups_show"
+      }
+    },
+    {
+      "id": "incidentio_incidents_create",
+      "name": "incident.io Incidents Create",
+      "description": "Create a new incident in incident.io. Requires idempotency_key, severity_id, and visibility. Optionally accepts name, summary, type, and status.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "incidentio",
+        "operation": "incidentio_incidents_create"
+      }
+    },
+    {
+      "id": "incidentio_incidents_list",
+      "name": "incident.io Incidents List",
+      "description": "List incidents from incident.io. Returns a list of incidents with their details including severity, status, and timestamps.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "incidentio",
+        "operation": "incidentio_incidents_list"
+      }
+    },
+    {
+      "id": "incidentio_incidents_show",
+      "name": "incident.io Incidents Show",
+      "description": "Retrieve detailed information about a specific incident from incident.io by its ID. Returns full incident details including custom fields and role assignments.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "incidentio",
+        "operation": "incidentio_incidents_show"
+      }
+    },
+    {
+      "id": "incidentio_incidents_update",
+      "name": "incident.io Incidents Update",
+      "description": "Update an existing incident in incident.io. Can update name, summary, severity, status, or type.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "incidentio",
+        "operation": "incidentio_incidents_update"
+      }
+    },
+    {
+      "id": "incidentio_incident_roles_create",
+      "name": "Create Incident Role",
+      "description": "Create a new incident role in incident.io",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "incidentio",
+        "operation": "incidentio_incident_roles_create"
+      }
+    },
+    {
+      "id": "incidentio_incident_roles_delete",
+      "name": "Delete Incident Role",
+      "description": "Delete an incident role in incident.io",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "incidentio",
+        "operation": "incidentio_incident_roles_delete"
+      }
+    },
+    {
+      "id": "incidentio_incident_roles_list",
+      "name": "List Incident Roles",
+      "description": "List all incident roles in incident.io",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "incidentio",
+        "operation": "incidentio_incident_roles_list"
+      }
+    },
+    {
+      "id": "incidentio_incident_roles_show",
+      "name": "Show Incident Role",
+      "description": "Get details of a specific incident role in incident.io",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "incidentio",
+        "operation": "incidentio_incident_roles_show"
+      }
+    },
+    {
+      "id": "incidentio_incident_roles_update",
+      "name": "Update Incident Role",
+      "description": "Update an existing incident role in incident.io",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "incidentio",
+        "operation": "incidentio_incident_roles_update"
+      }
+    },
+    {
+      "id": "incidentio_incident_statuses_list",
+      "name": "Incident.io Incident Statuses List",
+      "description": "List all incident statuses configured in your Incident.io workspace. Returns status details including id, name, description, and category.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "incidentio",
+        "operation": "incidentio_incident_statuses_list"
+      }
+    },
+    {
+      "id": "incidentio_incident_timestamps_list",
+      "name": "List Incident Timestamps",
+      "description": "List all incident timestamp definitions in incident.io",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "incidentio",
+        "operation": "incidentio_incident_timestamps_list"
+      }
+    },
+    {
+      "id": "incidentio_incident_timestamps_show",
+      "name": "Show Incident Timestamp",
+      "description": "Get details of a specific incident timestamp definition in incident.io",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "incidentio",
+        "operation": "incidentio_incident_timestamps_show"
+      }
+    },
+    {
+      "id": "incidentio_incident_types_list",
+      "name": "Incident.io Incident Types List",
+      "description": "List all incident types configured in your Incident.io workspace. Returns type details including id, name, description, and default flag.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "incidentio",
+        "operation": "incidentio_incident_types_list"
+      }
+    },
+    {
+      "id": "incidentio_incident_updates_list",
+      "name": "List Incident Updates",
+      "description": "List all updates for a specific incident in incident.io",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "incidentio",
+        "operation": "incidentio_incident_updates_list"
+      }
+    },
+    {
+      "id": "incidentio_schedules_create",
+      "name": "Create Schedule",
+      "description": "Create a new schedule in incident.io",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "incidentio",
+        "operation": "incidentio_schedules_create"
+      }
+    },
+    {
+      "id": "incidentio_schedules_delete",
+      "name": "Delete Schedule",
+      "description": "Delete a schedule in incident.io",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "incidentio",
+        "operation": "incidentio_schedules_delete"
+      }
+    },
+    {
+      "id": "incidentio_schedules_list",
+      "name": "List Schedules",
+      "description": "List all schedules in incident.io",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "incidentio",
+        "operation": "incidentio_schedules_list"
+      }
+    },
+    {
+      "id": "incidentio_schedules_show",
+      "name": "Show Schedule",
+      "description": "Get details of a specific schedule in incident.io",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "incidentio",
+        "operation": "incidentio_schedules_show"
+      }
+    },
+    {
+      "id": "incidentio_schedules_update",
+      "name": "Update Schedule",
+      "description": "Update an existing schedule in incident.io",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "incidentio",
+        "operation": "incidentio_schedules_update"
+      }
+    },
+    {
+      "id": "incidentio_schedule_entries_list",
+      "name": "List Schedule Entries",
+      "description": "List all entries for a specific schedule in incident.io",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "incidentio",
+        "operation": "incidentio_schedule_entries_list"
+      }
+    },
+    {
+      "id": "incidentio_schedule_overrides_create",
+      "name": "Create Schedule Override",
+      "description": "Create a new schedule override in incident.io",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "incidentio",
+        "operation": "incidentio_schedule_overrides_create"
+      }
+    },
+    {
+      "id": "incidentio_severities_list",
+      "name": "Incident.io Severities List",
+      "description": "List all severity levels configured in your Incident.io workspace. Returns severity details including id, name, description, and rank.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "incidentio",
+        "operation": "incidentio_severities_list"
+      }
+    },
+    {
+      "id": "incidentio_users_list",
+      "name": "Incident.io Users List",
+      "description": "List all users in your Incident.io workspace. Returns user details including id, name, email, and role.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "incidentio",
+        "operation": "incidentio_users_list"
+      }
+    },
+    {
+      "id": "incidentio_users_show",
+      "name": "Incident.io Users Show",
+      "description": "Get detailed information about a specific user in your Incident.io workspace by their ID.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "incidentio",
+        "operation": "incidentio_users_show"
+      }
+    },
+    {
+      "id": "incidentio_workflows_delete",
+      "name": "incident.io Workflows Delete",
+      "description": "Delete a workflow in incident.io.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "incidentio",
+        "operation": "incidentio_workflows_delete"
+      }
+    },
+    {
+      "id": "incidentio_workflows_list",
+      "name": "incident.io Workflows List",
+      "description": "List all workflows in your incident.io workspace.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "incidentio",
+        "operation": "incidentio_workflows_list"
+      }
+    },
+    {
+      "id": "incidentio_workflows_show",
+      "name": "incident.io Workflows Show",
+      "description": "Get details of a specific workflow in incident.io.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "incidentio",
+        "operation": "incidentio_workflows_show"
+      }
+    },
+    {
+      "id": "incidentio_workflows_update",
+      "name": "incident.io Workflows Update",
+      "description": "Update an existing workflow in incident.io.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "incidentio",
+        "operation": "incidentio_workflows_update"
+      }
+    }
+  ]
+}

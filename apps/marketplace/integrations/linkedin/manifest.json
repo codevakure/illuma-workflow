@@ -1,0 +1,107 @@
+{
+  "id": "linkedin",
+  "name": "LinkedIn",
+  "version": "1.0.0",
+  "description": "Share posts and manage your LinkedIn presence",
+  "icon": "LinkedInIcon",
+  "block": {
+    "type": "linkedin",
+    "name": "LinkedIn",
+    "description": "Share posts and manage your LinkedIn presence",
+    "longDescription": "Integrate LinkedIn into workflows. Share posts to your personal feed and access your LinkedIn profile information.",
+    "docsLink": "https://docs.sim.ai/tools/linkedin",
+    "category": "tools",
+    "bgColor": "#0072B1",
+    "icon": "LinkedInIcon",
+    "authMode": "oauth",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Share Post",
+            "value": "share_post"
+          },
+          {
+            "label": "Get Profile",
+            "value": "get_profile"
+          }
+        ]
+      },
+      {
+        "id": "credential",
+        "type": "oauth-input",
+        "title": "LinkedIn Account",
+        "placeholder": "Select LinkedIn account"
+      },
+      {
+        "id": "text",
+        "type": "long-input",
+        "title": "Post Text",
+        "placeholder": "What do you want to share on LinkedIn?"
+      },
+      {
+        "id": "visibility",
+        "type": "dropdown",
+        "title": "Visibility",
+        "options": [
+          {
+            "label": "Public",
+            "value": "PUBLIC"
+          },
+          {
+            "label": "Connections Only",
+            "value": "CONNECTIONS"
+          }
+        ]
+      }
+    ],
+    "tools": {
+      "access": [
+        "linkedin_share_post",
+        "linkedin_get_profile"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "boolean"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "linkedin_get_profile",
+      "name": "Get LinkedIn Profile",
+      "description": "Retrieve your LinkedIn profile information",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linkedin",
+        "operation": "linkedin_get_profile"
+      }
+    },
+    {
+      "id": "linkedin_share_post",
+      "name": "Share Post on LinkedIn",
+      "description": "Share a post to your personal LinkedIn feed",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linkedin",
+        "operation": "linkedin_share_post"
+      }
+    }
+  ]
+}

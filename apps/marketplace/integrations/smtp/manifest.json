@@ -1,0 +1,179 @@
+{
+  "id": "smtp",
+  "name": "SMTP",
+  "version": "1.0.0",
+  "description": "Send emails via any SMTP mail server",
+  "icon": "SmtpIcon",
+  "block": {
+    "type": "smtp",
+    "name": "SMTP",
+    "description": "Send emails via any SMTP mail server",
+    "longDescription": "Send emails using any SMTP server (Gmail, Outlook, custom servers, etc.). Configure SMTP connection settings and send emails with full control over content, recipients, and attachments.",
+    "docsLink": "https://docs.sim.ai/tools/smtp",
+    "category": "tools",
+    "bgColor": "#2D3748",
+    "icon": "SmtpIcon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "smtpHost",
+        "type": "short-input",
+        "title": "SMTP Host",
+        "placeholder": "smtp.gmail.com, smtp.example.com"
+      },
+      {
+        "id": "smtpPort",
+        "type": "short-input",
+        "title": "SMTP Port",
+        "placeholder": "587"
+      },
+      {
+        "id": "smtpUsername",
+        "type": "short-input",
+        "title": "SMTP Username",
+        "placeholder": "your-email@example.com"
+      },
+      {
+        "id": "smtpPassword",
+        "type": "short-input",
+        "title": "SMTP Password",
+        "placeholder": "Your SMTP password",
+        "password": true
+      },
+      {
+        "id": "smtpSecure",
+        "type": "dropdown",
+        "title": "Security Mode",
+        "options": [
+          {
+            "label": "TLS (Port 587)",
+            "value": "TLS"
+          },
+          {
+            "label": "SSL (Port 465)",
+            "value": "SSL"
+          },
+          {
+            "label": "None (Port 25)",
+            "value": "None"
+          }
+        ]
+      },
+      {
+        "id": "from",
+        "type": "short-input",
+        "title": "From",
+        "placeholder": "sender@example.com"
+      },
+      {
+        "id": "to",
+        "type": "short-input",
+        "title": "To",
+        "placeholder": "recipient@example.com"
+      },
+      {
+        "id": "subject",
+        "type": "short-input",
+        "title": "Subject",
+        "placeholder": "Email subject"
+      },
+      {
+        "id": "body",
+        "type": "long-input",
+        "title": "Body",
+        "placeholder": "Email content"
+      },
+      {
+        "id": "contentType",
+        "type": "dropdown",
+        "title": "Content Type",
+        "options": [
+          {
+            "label": "Plain Text",
+            "value": "text"
+          },
+          {
+            "label": "HTML",
+            "value": "html"
+          }
+        ]
+      },
+      {
+        "id": "attachmentFiles",
+        "type": "file-upload",
+        "title": "Attachments",
+        "placeholder": "Upload files to attach",
+        "mode": "basic",
+        "canonicalParamId": "attachments"
+      },
+      {
+        "id": "attachments",
+        "type": "short-input",
+        "title": "Attachments",
+        "placeholder": "Reference files from previous blocks",
+        "mode": "advanced",
+        "canonicalParamId": "attachments"
+      },
+      {
+        "id": "fromName",
+        "type": "short-input",
+        "title": "From Name",
+        "placeholder": "Display name for sender",
+        "mode": "advanced"
+      },
+      {
+        "id": "cc",
+        "type": "short-input",
+        "title": "CC",
+        "placeholder": "cc1@example.com, cc2@example.com",
+        "mode": "advanced"
+      },
+      {
+        "id": "bcc",
+        "type": "short-input",
+        "title": "BCC",
+        "placeholder": "bcc1@example.com, bcc2@example.com",
+        "mode": "advanced"
+      },
+      {
+        "id": "replyTo",
+        "type": "short-input",
+        "title": "Reply To",
+        "placeholder": "reply@example.com",
+        "mode": "advanced"
+      }
+    ],
+    "tools": {
+      "access": [
+        "smtp_send_mail"
+      ],
+      "config": {
+        "tool": "smtp_send_mail"
+      }
+    },
+    "inputs": {
+      "smtpHost": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "boolean"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "smtp_send_mail",
+      "name": "SMTP Send Mail",
+      "description": "Send emails via SMTP server",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "smtp",
+        "operation": "smtp_send_mail"
+      }
+    }
+  ]
+}

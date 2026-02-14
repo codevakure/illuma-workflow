@@ -1,0 +1,97 @@
+{
+  "id": "resend",
+  "name": "Resend",
+  "version": "1.0.0",
+  "description": "Send emails with Resend.",
+  "icon": "ResendIcon",
+  "block": {
+    "type": "resend",
+    "name": "Resend",
+    "description": "Send emails with Resend.",
+    "longDescription": "Integrate Resend into the workflow. Can send emails. Requires API Key.",
+    "docsLink": "https://docs.sim.ai/tools/resend",
+    "category": "tools",
+    "bgColor": "#181C1E",
+    "icon": "ResendIcon",
+    "subBlocks": [
+      {
+        "id": "fromAddress",
+        "type": "short-input",
+        "title": "From Address",
+        "placeholder": "sender@yourdomain.com"
+      },
+      {
+        "id": "to",
+        "type": "short-input",
+        "title": "To",
+        "placeholder": "recipient@example.com"
+      },
+      {
+        "id": "subject",
+        "type": "short-input",
+        "title": "Subject",
+        "placeholder": "Email subject"
+      },
+      {
+        "id": "body",
+        "type": "long-input",
+        "title": "Body",
+        "placeholder": "Email body content"
+      },
+      {
+        "id": "contentType",
+        "type": "dropdown",
+        "title": "Content Type",
+        "options": [
+          {
+            "label": "Plain Text",
+            "value": "text"
+          },
+          {
+            "label": "HTML",
+            "value": "html"
+          }
+        ]
+      },
+      {
+        "id": "resendApiKey",
+        "type": "short-input",
+        "title": "Resend API Key",
+        "placeholder": "Your Resend API key",
+        "password": true
+      }
+    ],
+    "tools": {
+      "access": [
+        "resend_send"
+      ],
+      "config": {
+        "tool": "resend_send"
+      }
+    },
+    "inputs": {
+      "fromAddress": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "boolean"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "resend_send",
+      "name": "Send Email",
+      "description": "Send an email using your own Resend API key and from address",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "resend",
+        "operation": "resend_send"
+      }
+    }
+  ]
+}

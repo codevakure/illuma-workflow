@@ -1,0 +1,93 @@
+{
+  "id": "vision",
+  "name": "Vision (Legacy)",
+  "version": "1.0.0",
+  "description": "Analyze images with vision models",
+  "icon": "EyeIcon",
+  "block": {
+    "type": "vision",
+    "name": "Vision (Legacy)",
+    "description": "Analyze images with vision models",
+    "longDescription": "Integrate Vision into the workflow. Can analyze images with vision models.",
+    "docsLink": "https://docs.sim.ai/tools/vision",
+    "category": "tools",
+    "bgColor": "#4D5FFF",
+    "icon": "EyeIcon",
+    "authMode": "api_key",
+    "hideFromToolbar": true,
+    "subBlocks": [
+      {
+        "id": "imageFile",
+        "type": "file-upload",
+        "title": "Image File",
+        "placeholder": "Upload an image file",
+        "mode": "basic",
+        "canonicalParamId": "imageFile"
+      },
+      {
+        "id": "imageFileReference",
+        "type": "short-input",
+        "title": "Image File Reference",
+        "placeholder": "Reference an image from previous blocks",
+        "mode": "advanced",
+        "canonicalParamId": "imageFile"
+      },
+      {
+        "id": "imageUrl",
+        "type": "short-input",
+        "title": "Image URL (alternative)",
+        "placeholder": "Or enter publicly accessible image URL"
+      },
+      {
+        "id": "model",
+        "type": "dropdown",
+        "title": "Vision Model"
+      },
+      {
+        "id": "prompt",
+        "type": "long-input",
+        "title": "Prompt",
+        "placeholder": "Enter prompt for image analysis"
+      },
+      {
+        "id": "apiKey",
+        "type": "short-input",
+        "title": "API Key",
+        "placeholder": "Enter your API key",
+        "password": true
+      }
+    ],
+    "tools": {
+      "access": [
+        "vision_tool"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "apiKey": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "content": {
+        "type": "string"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "vision_tool",
+      "name": "Vision Tool",
+      "description": "Process and analyze images using advanced vision models. Capable of understanding image content, extracting text, identifying objects, and providing detailed visual descriptions.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "vision",
+        "operation": "vision_tool"
+      }
+    }
+  ]
+}

@@ -1,0 +1,204 @@
+{
+  "id": "arxiv",
+  "name": "ArXiv",
+  "version": "1.0.0",
+  "description": "Search and retrieve academic papers from ArXiv",
+  "icon": "ArxivIcon",
+
+  "block": {
+    "type": "arxiv",
+    "name": "ArXiv",
+    "description": "Search ArXiv Papers",
+    "longDescription": "Search for academic papers, retrieve paper details, and find papers by author using the ArXiv API. No authentication required.",
+    "docsLink": "https://docs.sim.ai/tools/arxiv",
+    "category": "tools",
+    "bgColor": "#B31B1B",
+    "icon": "ArxivIcon",
+    "operations": [
+      { "value": "search", "label": "Search Papers", "toolId": "arxiv_search" },
+      { "value": "get_paper", "label": "Get Paper Details", "toolId": "arxiv_get_paper" },
+      { "value": "get_author_papers", "label": "Get Author Papers", "toolId": "arxiv_get_author_papers" }
+    ],
+    "subBlocks": [
+      {
+        "id": "operation",
+        "title": "Operation",
+        "type": "dropdown",
+        "options": [
+          { "value": "search", "label": "Search Papers" },
+          { "value": "get_paper", "label": "Get Paper Details" },
+          { "value": "get_author_papers", "label": "Get Author Papers" }
+        ],
+        "default": "search"
+      },
+      {
+        "id": "query",
+        "title": "Search Query",
+        "type": "long-input",
+        "placeholder": "Enter your search query...",
+        "required": true,
+        "condition": { "field": "operation", "value": "search" }
+      },
+      {
+        "id": "paperId",
+        "title": "Paper ID",
+        "type": "short-input",
+        "placeholder": "e.g. 1706.03762",
+        "required": true,
+        "condition": { "field": "operation", "value": "get_paper" }
+      },
+      {
+        "id": "authorName",
+        "title": "Author Name",
+        "type": "short-input",
+        "placeholder": "e.g. John Smith",
+        "required": true,
+        "condition": { "field": "operation", "value": "get_author_papers" }
+      },
+      {
+        "id": "searchField",
+        "title": "Search Field",
+        "type": "dropdown",
+        "options": [
+          { "value": "all", "label": "All Fields" },
+          { "value": "ti", "label": "Title" },
+          { "value": "au", "label": "Author" },
+          { "value": "abs", "label": "Abstract" },
+          { "value": "cat", "label": "Category" }
+        ],
+        "default": "all",
+        "condition": { "field": "operation", "value": "search" }
+      },
+      {
+        "id": "maxResults",
+        "title": "Max Results",
+        "type": "short-input",
+        "placeholder": "10",
+        "condition": { "field": "operation", "value": ["search", "get_author_papers"] }
+      },
+      {
+        "id": "sortBy",
+        "title": "Sort By",
+        "type": "dropdown",
+        "options": [
+          { "value": "relevance", "label": "Relevance" },
+          { "value": "lastUpdatedDate", "label": "Last Updated" },
+          { "value": "submittedDate", "label": "Submission Date" }
+        ],
+        "condition": { "field": "operation", "value": "search" }
+      }
+    ],
+    "tools": {
+      "access": ["arxiv_search", "arxiv_get_paper", "arxiv_get_author_papers"],
+      "config": {
+        "tool": "arxiv_{{operation}}"
+      }
+    },
+    "inputs": {
+      "query": { "type": "string", "description": "Search query for papers" },
+      "paperId": { "type": "string", "description": "ArXiv paper ID" },
+      "authorName": { "type": "string", "description": "Author name to search for" }
+    },
+    "outputs": {
+      "papers": { "type": "json", "description": "Array of paper results" },
+      "paper": { "type": "json", "description": "Single paper details" },
+      "totalResults": { "type": "number", "description": "Total number of matching results" }
+    }
+  },
+
+  "tools": [
+    {
+      "id": "arxiv_search",
+      "name": "ArXiv Search",
+      "description": "Search for academic papers on ArXiv.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "proxy": {
+        "handler": "arxiv",
+        "operation": "search"
+      },
+      "params": {
+        "query": {
+          "type": "string",
+          "required": true,
+          "visibility": "user-or-llm",
+          "description": "The search query"
+        },
+        "searchField": {
+          "type": "string",
+          "required": false,
+          "visibility": "user-only",
+          "description": "Field to search: all, ti, au, abs, cat",
+          "enum": ["all", "ti", "au", "abs", "cat"]
+        },
+        "maxResults": {
+          "type": "number",
+          "required": false,
+          "visibility": "user-only",
+          "description": "Maximum results to return"
+        },
+        "sortBy": {
+          "type": "string",
+          "required": false,
+          "visibility": "user-only",
+          "description": "Sort order: relevance, lastUpdatedDate, submittedDate"
+        }
+      },
+      "outputs": {
+        "papers": { "type": "array", "description": "Array of paper objects" },
+        "totalResults": { "type": "number", "description": "Total matching results" }
+      }
+    },
+    {
+      "id": "arxiv_get_paper",
+      "name": "ArXiv Get Paper",
+      "description": "Get details for a specific ArXiv paper by ID.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "proxy": {
+        "handler": "arxiv",
+        "operation": "get-paper"
+      },
+      "params": {
+        "paperId": {
+          "type": "string",
+          "required": true,
+          "visibility": "user-or-llm",
+          "description": "The ArXiv paper ID (e.g. 1706.03762)"
+        }
+      },
+      "outputs": {
+        "paper": { "type": "object", "description": "Paper details with title, authors, abstract, etc." }
+      }
+    },
+    {
+      "id": "arxiv_get_author_papers",
+      "name": "ArXiv Get Author Papers",
+      "description": "Find papers by a specific author on ArXiv.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "proxy": {
+        "handler": "arxiv",
+        "operation": "get-author-papers"
+      },
+      "params": {
+        "authorName": {
+          "type": "string",
+          "required": true,
+          "visibility": "user-or-llm",
+          "description": "The author name to search for"
+        },
+        "maxResults": {
+          "type": "number",
+          "required": false,
+          "visibility": "user-only",
+          "description": "Maximum results to return"
+        }
+      },
+      "outputs": {
+        "papers": { "type": "array", "description": "Author's papers" },
+        "totalResults": { "type": "number", "description": "Total matching results" }
+      }
+    }
+  ]
+}

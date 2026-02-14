@@ -1,0 +1,554 @@
+{
+  "id": "youtube",
+  "name": "YouTube",
+  "version": "1.0.0",
+  "description": "Interact with YouTube videos, channels, and playlists",
+  "icon": "YouTubeIcon",
+  "block": {
+    "type": "youtube",
+    "name": "YouTube",
+    "description": "Interact with YouTube videos, channels, and playlists",
+    "longDescription": "Integrate YouTube into the workflow. Can search for videos, get trending videos, get video details, get video categories, get channel information, get all videos from a channel, get channel playlists, get playlist items, and get video comments.",
+    "docsLink": "https://docs.sim.ai/tools/youtube",
+    "category": "tools",
+    "bgColor": "#FF0000",
+    "icon": "YouTubeIcon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Search Videos",
+            "value": "youtube_search"
+          },
+          {
+            "label": "Get Trending Videos",
+            "value": "youtube_trending"
+          },
+          {
+            "label": "Get Video Details",
+            "value": "youtube_video_details"
+          },
+          {
+            "label": "Get Video Categories",
+            "value": "youtube_video_categories"
+          },
+          {
+            "label": "Get Channel Info",
+            "value": "youtube_channel_info"
+          },
+          {
+            "label": "Get Channel Videos",
+            "value": "youtube_channel_videos"
+          },
+          {
+            "label": "Get Channel Playlists",
+            "value": "youtube_channel_playlists"
+          },
+          {
+            "label": "Get Playlist Items",
+            "value": "youtube_playlist_items"
+          },
+          {
+            "label": "Get Video Comments",
+            "value": "youtube_comments"
+          }
+        ]
+      },
+      {
+        "id": "query",
+        "type": "short-input",
+        "title": "Search Query",
+        "placeholder": "Enter search query"
+      },
+      {
+        "id": "maxResults",
+        "type": "slider",
+        "title": "Max Results",
+        "min": 1,
+        "max": 50,
+        "step": 1
+      },
+      {
+        "id": "pageToken",
+        "type": "short-input",
+        "title": "Page Token",
+        "placeholder": "Token for pagination (from nextPageToken)"
+      },
+      {
+        "id": "channelId",
+        "type": "short-input",
+        "title": "Filter by Channel ID",
+        "placeholder": "Filter results to a specific channel"
+      },
+      {
+        "id": "eventType",
+        "type": "dropdown",
+        "title": "Live Stream Filter",
+        "options": [
+          {
+            "label": "Currently Live",
+            "value": "live"
+          },
+          {
+            "label": "Upcoming Streams",
+            "value": "upcoming"
+          },
+          {
+            "label": "Past Streams",
+            "value": "completed"
+          }
+        ]
+      },
+      {
+        "id": "publishedAfter",
+        "type": "short-input",
+        "title": "Published After",
+        "placeholder": "2024-01-01T00:00:00Z"
+      },
+      {
+        "id": "publishedBefore",
+        "type": "short-input",
+        "title": "Published Before",
+        "placeholder": "2024-12-31T23:59:59Z"
+      },
+      {
+        "id": "videoDuration",
+        "type": "dropdown",
+        "title": "Video Duration",
+        "options": [
+          {
+            "label": "Any",
+            "value": "any"
+          },
+          {
+            "label": "Short (<4 min)",
+            "value": "short"
+          },
+          {
+            "label": "Medium (4-20 min)",
+            "value": "medium"
+          },
+          {
+            "label": "Long (>20 min)",
+            "value": "long"
+          }
+        ]
+      },
+      {
+        "id": "order",
+        "type": "dropdown",
+        "title": "Sort Order",
+        "options": [
+          {
+            "label": "Relevance",
+            "value": "relevance"
+          },
+          {
+            "label": "Date (Newest First)",
+            "value": "date"
+          },
+          {
+            "label": "View Count",
+            "value": "viewCount"
+          },
+          {
+            "label": "Rating",
+            "value": "rating"
+          },
+          {
+            "label": "Title",
+            "value": "title"
+          }
+        ]
+      },
+      {
+        "id": "videoCategoryId",
+        "type": "short-input",
+        "title": "Category ID",
+        "placeholder": "Use Get Video Categories to find IDs"
+      },
+      {
+        "id": "videoDefinition",
+        "type": "dropdown",
+        "title": "Video Quality",
+        "options": [
+          {
+            "label": "Any",
+            "value": "any"
+          },
+          {
+            "label": "HD",
+            "value": "high"
+          },
+          {
+            "label": "Standard",
+            "value": "standard"
+          }
+        ]
+      },
+      {
+        "id": "videoCaption",
+        "type": "dropdown",
+        "title": "Captions",
+        "options": [
+          {
+            "label": "Any",
+            "value": "any"
+          },
+          {
+            "label": "Has Captions",
+            "value": "closedCaption"
+          },
+          {
+            "label": "No Captions",
+            "value": "none"
+          }
+        ]
+      },
+      {
+        "id": "regionCode",
+        "type": "short-input",
+        "title": "Region Code",
+        "placeholder": "US, GB, JP"
+      },
+      {
+        "id": "relevanceLanguage",
+        "type": "short-input",
+        "title": "Language Code",
+        "placeholder": "en, es, fr"
+      },
+      {
+        "id": "safeSearch",
+        "type": "dropdown",
+        "title": "Safe Search",
+        "options": [
+          {
+            "label": "Moderate",
+            "value": "moderate"
+          },
+          {
+            "label": "None",
+            "value": "none"
+          },
+          {
+            "label": "Strict",
+            "value": "strict"
+          }
+        ]
+      },
+      {
+        "id": "maxResults",
+        "type": "slider",
+        "title": "Max Results",
+        "min": 1,
+        "max": 50,
+        "step": 1
+      },
+      {
+        "id": "videoCategoryId",
+        "type": "short-input",
+        "title": "Category ID",
+        "placeholder": "Use Get Video Categories to find IDs"
+      },
+      {
+        "id": "pageToken",
+        "type": "short-input",
+        "title": "Page Token",
+        "placeholder": "Token for pagination (from nextPageToken)"
+      },
+      {
+        "id": "videoId",
+        "type": "short-input",
+        "title": "Video ID",
+        "placeholder": "Enter YouTube video ID"
+      },
+      {
+        "id": "hl",
+        "type": "short-input",
+        "title": "Language",
+        "placeholder": "en, es, fr (for category names)"
+      },
+      {
+        "id": "channelId",
+        "type": "short-input",
+        "title": "Channel ID",
+        "placeholder": "Enter channel ID (or leave blank to use username)"
+      },
+      {
+        "id": "username",
+        "type": "short-input",
+        "title": "Channel Username",
+        "placeholder": "Enter channel username (if not using channel ID)"
+      },
+      {
+        "id": "channelId",
+        "type": "short-input",
+        "title": "Channel ID",
+        "placeholder": "Enter YouTube channel ID"
+      },
+      {
+        "id": "maxResults",
+        "type": "slider",
+        "title": "Max Results",
+        "min": 1,
+        "max": 50,
+        "step": 1
+      },
+      {
+        "id": "order",
+        "type": "dropdown",
+        "title": "Sort Order",
+        "options": [
+          {
+            "label": "Date (Newest First)",
+            "value": "date"
+          },
+          {
+            "label": "Relevance",
+            "value": "relevance"
+          },
+          {
+            "label": "View Count",
+            "value": "viewCount"
+          },
+          {
+            "label": "Rating",
+            "value": "rating"
+          },
+          {
+            "label": "Title",
+            "value": "title"
+          }
+        ]
+      },
+      {
+        "id": "pageToken",
+        "type": "short-input",
+        "title": "Page Token",
+        "placeholder": "Token for pagination (from nextPageToken)"
+      },
+      {
+        "id": "channelId",
+        "type": "short-input",
+        "title": "Channel ID",
+        "placeholder": "Enter YouTube channel ID"
+      },
+      {
+        "id": "maxResults",
+        "type": "slider",
+        "title": "Max Results",
+        "min": 1,
+        "max": 50,
+        "step": 1
+      },
+      {
+        "id": "pageToken",
+        "type": "short-input",
+        "title": "Page Token",
+        "placeholder": "Token for pagination (from nextPageToken)"
+      },
+      {
+        "id": "playlistId",
+        "type": "short-input",
+        "title": "Playlist ID",
+        "placeholder": "Enter YouTube playlist ID"
+      },
+      {
+        "id": "maxResults",
+        "type": "slider",
+        "title": "Max Results",
+        "min": 1,
+        "max": 50,
+        "step": 1
+      },
+      {
+        "id": "pageToken",
+        "type": "short-input",
+        "title": "Page Token",
+        "placeholder": "Token for pagination (from nextPageToken)"
+      },
+      {
+        "id": "videoId",
+        "type": "short-input",
+        "title": "Video ID",
+        "placeholder": "Enter YouTube video ID"
+      },
+      {
+        "id": "maxResults",
+        "type": "slider",
+        "title": "Max Results",
+        "min": 1,
+        "max": 100,
+        "step": 1
+      },
+      {
+        "id": "order",
+        "type": "dropdown",
+        "title": "Sort Order",
+        "options": [
+          {
+            "label": "Most Relevant",
+            "value": "relevance"
+          },
+          {
+            "label": "Most Recent",
+            "value": "time"
+          }
+        ]
+      },
+      {
+        "id": "pageToken",
+        "type": "short-input",
+        "title": "Page Token",
+        "placeholder": "Token for pagination (from nextPageToken)"
+      },
+      {
+        "id": "apiKey",
+        "type": "short-input",
+        "title": "YouTube API Key",
+        "placeholder": "Enter YouTube API Key",
+        "password": true
+      }
+    ],
+    "tools": {
+      "access": [
+        "youtube_channel_info",
+        "youtube_channel_playlists",
+        "youtube_channel_videos",
+        "youtube_comments",
+        "youtube_playlist_items",
+        "youtube_search",
+        "youtube_trending",
+        "youtube_video_categories",
+        "youtube_video_details"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "items": {
+        "type": "json"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "youtube_channel_info",
+      "name": "YouTube Channel Info",
+      "description": "Get detailed information about a YouTube channel including statistics, branding, and content details.",
+      "version": "1.1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "youtube",
+        "operation": "youtube_channel_info"
+      }
+    },
+    {
+      "id": "youtube_channel_playlists",
+      "name": "YouTube Channel Playlists",
+      "description": "Get all public playlists from a specific YouTube channel.",
+      "version": "1.1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "youtube",
+        "operation": "youtube_channel_playlists"
+      }
+    },
+    {
+      "id": "youtube_channel_videos",
+      "name": "YouTube Channel Videos",
+      "description": "Search for videos from a specific YouTube channel with sorting options. For complete channel video list, use channel_info to get uploadsPlaylistId, then use playlist_items.",
+      "version": "1.1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "youtube",
+        "operation": "youtube_channel_videos"
+      }
+    },
+    {
+      "id": "youtube_comments",
+      "name": "YouTube Video Comments",
+      "description": "Get top-level comments from a YouTube video with author details and engagement.",
+      "version": "1.1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "youtube",
+        "operation": "youtube_comments"
+      }
+    },
+    {
+      "id": "youtube_playlist_items",
+      "name": "YouTube Playlist Items",
+      "description": "Get videos from a YouTube playlist. Can be used with a channel uploads playlist to get all channel videos.",
+      "version": "1.1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "youtube",
+        "operation": "youtube_playlist_items"
+      }
+    },
+    {
+      "id": "youtube_search",
+      "name": "YouTube Search",
+      "description": "Search for videos on YouTube using the YouTube Data API. Supports advanced filtering by channel, date range, duration, category, quality, captions, live streams, and more.",
+      "version": "1.2.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "youtube",
+        "operation": "youtube_search"
+      }
+    },
+    {
+      "id": "youtube_trending",
+      "name": "YouTube Trending Videos",
+      "description": "Get the most popular/trending videos on YouTube. Can filter by region and video category.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "youtube",
+        "operation": "youtube_trending"
+      }
+    },
+    {
+      "id": "youtube_video_categories",
+      "name": "YouTube Video Categories",
+      "description": "Get a list of video categories available on YouTube. Use this to discover valid category IDs for filtering search and trending results.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "youtube",
+        "operation": "youtube_video_categories"
+      }
+    },
+    {
+      "id": "youtube_video_details",
+      "name": "YouTube Video Details",
+      "description": "Get detailed information about a specific YouTube video including statistics, content details, live streaming info, and metadata.",
+      "version": "1.2.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "youtube",
+        "operation": "youtube_video_details"
+      }
+    }
+  ]
+}

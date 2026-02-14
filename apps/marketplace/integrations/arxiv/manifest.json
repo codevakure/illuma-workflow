@@ -1,0 +1,199 @@
+{
+  "id": "arxiv",
+  "name": "ArXiv",
+  "version": "1.0.0",
+  "description": "Search and retrieve academic papers from ArXiv",
+  "icon": "ArxivIcon",
+  "block": {
+    "type": "arxiv",
+    "name": "ArXiv",
+    "description": "Search and retrieve academic papers from ArXiv",
+    "longDescription": "Integrates ArXiv into the workflow. Can search for papers, get paper details, and get author papers. Does not require OAuth or an API key.",
+    "docsLink": "https://docs.sim.ai/tools/arxiv",
+    "category": "tools",
+    "bgColor": "#E0E0E0",
+    "icon": "ArxivIcon",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Search Papers",
+            "value": "arxiv_search"
+          },
+          {
+            "label": "Get Paper Details",
+            "value": "arxiv_get_paper"
+          },
+          {
+            "label": "Get Author Papers",
+            "value": "arxiv_get_author_papers"
+          }
+        ]
+      },
+      {
+        "id": "searchQuery",
+        "type": "long-input",
+        "title": "Search Query",
+        "placeholder": "Enter search terms (e.g., "
+      },
+      {
+        "id": "searchField",
+        "type": "dropdown",
+        "title": "Search Field",
+        "options": [
+          {
+            "label": "All Fields",
+            "value": "all"
+          },
+          {
+            "label": "Title",
+            "value": "ti"
+          },
+          {
+            "label": "Author",
+            "value": "au"
+          },
+          {
+            "label": "Abstract",
+            "value": "abs"
+          },
+          {
+            "label": "Comment",
+            "value": "co"
+          },
+          {
+            "label": "Journal Reference",
+            "value": "jr"
+          },
+          {
+            "label": "Category",
+            "value": "cat"
+          },
+          {
+            "label": "Report Number",
+            "value": "rn"
+          }
+        ]
+      },
+      {
+        "id": "maxResults",
+        "type": "short-input",
+        "title": "Max Results",
+        "placeholder": "10"
+      },
+      {
+        "id": "sortBy",
+        "type": "dropdown",
+        "title": "Sort By",
+        "options": [
+          {
+            "label": "Relevance",
+            "value": "relevance"
+          },
+          {
+            "label": "Last Updated Date",
+            "value": "lastUpdatedDate"
+          },
+          {
+            "label": "Submitted Date",
+            "value": "submittedDate"
+          }
+        ]
+      },
+      {
+        "id": "sortOrder",
+        "type": "dropdown",
+        "title": "Sort Order",
+        "options": [
+          {
+            "label": "Descending",
+            "value": "descending"
+          },
+          {
+            "label": "Ascending",
+            "value": "ascending"
+          }
+        ]
+      },
+      {
+        "id": "paperId",
+        "type": "short-input",
+        "title": "Paper ID",
+        "placeholder": "Enter ArXiv paper ID (e.g., 1706.03762, cs.AI/0001001)"
+      },
+      {
+        "id": "authorName",
+        "type": "short-input",
+        "title": "Author Name",
+        "placeholder": "Enter author name (e.g., "
+      },
+      {
+        "id": "maxResults",
+        "type": "short-input",
+        "title": "Max Results",
+        "placeholder": "10"
+      }
+    ],
+    "tools": {
+      "access": [
+        "arxiv_search",
+        "arxiv_get_paper",
+        "arxiv_get_author_papers"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "papers": {
+        "type": "json"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "arxiv_get_author_papers",
+      "name": "ArXiv Get Author Papers",
+      "description": "Search for papers by a specific author on ArXiv.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "arxiv",
+        "operation": "arxiv_get_author_papers"
+      }
+    },
+    {
+      "id": "arxiv_get_paper",
+      "name": "ArXiv Get Paper",
+      "description": "Get detailed information about a specific ArXiv paper by its ID.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "arxiv",
+        "operation": "arxiv_get_paper"
+      }
+    },
+    {
+      "id": "arxiv_search",
+      "name": "ArXiv Search",
+      "description": "Search for academic papers on ArXiv by keywords, authors, titles, or other fields.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "arxiv",
+        "operation": "arxiv_search"
+      }
+    }
+  ]
+}

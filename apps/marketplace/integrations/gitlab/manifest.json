@@ -1,0 +1,572 @@
+{
+  "id": "gitlab",
+  "name": "GitLab",
+  "version": "1.0.0",
+  "description": "Interact with GitLab projects, issues, merge requests, and pipelines",
+  "icon": "GitLabIcon",
+  "block": {
+    "type": "gitlab",
+    "name": "GitLab",
+    "description": "Interact with GitLab projects, issues, merge requests, and pipelines",
+    "longDescription": "Integrate GitLab into the workflow. Can manage projects, issues, merge requests, pipelines, and add comments. Supports all core GitLab DevOps operations.",
+    "docsLink": "https://docs.sim.ai/tools/gitlab",
+    "category": "tools",
+    "bgColor": "#E0E0E0",
+    "icon": "GitLabIcon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "List Projects",
+            "value": "gitlab_list_projects"
+          },
+          {
+            "label": "Get Project",
+            "value": "gitlab_get_project"
+          },
+          {
+            "label": "List Issues",
+            "value": "gitlab_list_issues"
+          },
+          {
+            "label": "Get Issue",
+            "value": "gitlab_get_issue"
+          },
+          {
+            "label": "Create Issue",
+            "value": "gitlab_create_issue"
+          },
+          {
+            "label": "Update Issue",
+            "value": "gitlab_update_issue"
+          },
+          {
+            "label": "Delete Issue",
+            "value": "gitlab_delete_issue"
+          },
+          {
+            "label": "Add Issue Comment",
+            "value": "gitlab_create_issue_note"
+          },
+          {
+            "label": "List Merge Requests",
+            "value": "gitlab_list_merge_requests"
+          },
+          {
+            "label": "Get Merge Request",
+            "value": "gitlab_get_merge_request"
+          },
+          {
+            "label": "Create Merge Request",
+            "value": "gitlab_create_merge_request"
+          },
+          {
+            "label": "Update Merge Request",
+            "value": "gitlab_update_merge_request"
+          },
+          {
+            "label": "Merge Merge Request",
+            "value": "gitlab_merge_merge_request"
+          },
+          {
+            "label": "Add MR Comment",
+            "value": "gitlab_create_merge_request_note"
+          },
+          {
+            "label": "List Pipelines",
+            "value": "gitlab_list_pipelines"
+          },
+          {
+            "label": "Get Pipeline",
+            "value": "gitlab_get_pipeline"
+          },
+          {
+            "label": "Create Pipeline",
+            "value": "gitlab_create_pipeline"
+          },
+          {
+            "label": "Retry Pipeline",
+            "value": "gitlab_retry_pipeline"
+          },
+          {
+            "label": "Cancel Pipeline",
+            "value": "gitlab_cancel_pipeline"
+          }
+        ]
+      },
+      {
+        "id": "accessToken",
+        "type": "short-input",
+        "title": "Personal Access Token",
+        "placeholder": "Enter your GitLab Personal Access Token",
+        "password": true
+      },
+      {
+        "id": "projectId",
+        "type": "short-input",
+        "title": "Project ID",
+        "placeholder": "Enter project ID or path (e.g., username/project)"
+      },
+      {
+        "id": "issueIid",
+        "type": "short-input",
+        "title": "Issue Number",
+        "placeholder": "Enter issue number (e.g., 1 for issue #1)"
+      },
+      {
+        "id": "mergeRequestIid",
+        "type": "short-input",
+        "title": "MR Number",
+        "placeholder": "Enter MR number (e.g., 1 for !1)"
+      },
+      {
+        "id": "pipelineId",
+        "type": "short-input",
+        "title": "Pipeline ID",
+        "placeholder": "Enter pipeline ID"
+      },
+      {
+        "id": "title",
+        "type": "short-input",
+        "title": "Title",
+        "placeholder": "Enter title"
+      },
+      {
+        "id": "description",
+        "type": "long-input",
+        "title": "Description",
+        "placeholder": "Enter description (Markdown supported)"
+      },
+      {
+        "id": "body",
+        "type": "long-input",
+        "title": "Comment",
+        "placeholder": "Enter comment text (Markdown supported)"
+      },
+      {
+        "id": "sourceBranch",
+        "type": "short-input",
+        "title": "Source Branch",
+        "placeholder": "Enter source branch name"
+      },
+      {
+        "id": "targetBranch",
+        "type": "short-input",
+        "title": "Target Branch",
+        "placeholder": "Enter target branch name (e.g., main)"
+      },
+      {
+        "id": "ref",
+        "type": "short-input",
+        "title": "Branch/Tag",
+        "placeholder": "Enter branch or tag name"
+      },
+      {
+        "id": "labels",
+        "type": "short-input",
+        "title": "Labels",
+        "placeholder": "Enter labels (comma-separated)"
+      },
+      {
+        "id": "assigneeIds",
+        "type": "short-input",
+        "title": "Assignee IDs",
+        "placeholder": "Enter assignee user IDs (comma-separated)"
+      },
+      {
+        "id": "milestoneId",
+        "type": "short-input",
+        "title": "Milestone ID",
+        "placeholder": "Enter milestone ID"
+      },
+      {
+        "id": "issueState",
+        "type": "dropdown",
+        "title": "State",
+        "options": [
+          {
+            "label": "All",
+            "value": "all"
+          },
+          {
+            "label": "Open",
+            "value": "opened"
+          },
+          {
+            "label": "Closed",
+            "value": "closed"
+          }
+        ]
+      },
+      {
+        "id": "mrState",
+        "type": "dropdown",
+        "title": "State",
+        "options": [
+          {
+            "label": "All",
+            "value": "all"
+          },
+          {
+            "label": "Open",
+            "value": "opened"
+          },
+          {
+            "label": "Closed",
+            "value": "closed"
+          },
+          {
+            "label": "Merged",
+            "value": "merged"
+          }
+        ]
+      },
+      {
+        "id": "stateEvent",
+        "type": "dropdown",
+        "title": "State Event",
+        "options": [
+          {
+            "label": "Close",
+            "value": "close"
+          },
+          {
+            "label": "Reopen",
+            "value": "reopen"
+          }
+        ]
+      },
+      {
+        "id": "pipelineStatus",
+        "type": "dropdown",
+        "title": "Pipeline Status",
+        "options": [
+          {
+            "label": "Running",
+            "value": "running"
+          },
+          {
+            "label": "Pending",
+            "value": "pending"
+          },
+          {
+            "label": "Success",
+            "value": "success"
+          },
+          {
+            "label": "Failed",
+            "value": "failed"
+          },
+          {
+            "label": "Canceled",
+            "value": "canceled"
+          },
+          {
+            "label": "Skipped",
+            "value": "skipped"
+          }
+        ]
+      },
+      {
+        "id": "removeSourceBranch",
+        "type": "switch",
+        "title": "Remove Source Branch"
+      },
+      {
+        "id": "squash",
+        "type": "switch",
+        "title": "Squash Commits"
+      },
+      {
+        "id": "mergeCommitMessage",
+        "type": "long-input",
+        "title": "Merge Commit Message",
+        "placeholder": "Enter custom merge commit message (optional)"
+      },
+      {
+        "id": "perPage",
+        "type": "short-input",
+        "title": "Results Per Page",
+        "placeholder": "Number of results per page (default: 20, max: 100)",
+        "max": 100
+      },
+      {
+        "id": "page",
+        "type": "short-input",
+        "title": "Page Number",
+        "placeholder": "Page number (default: 1)"
+      }
+    ],
+    "tools": {
+      "access": [
+        "gitlab_list_projects",
+        "gitlab_get_project",
+        "gitlab_list_issues",
+        "gitlab_get_issue",
+        "gitlab_create_issue",
+        "gitlab_update_issue",
+        "gitlab_delete_issue",
+        "gitlab_create_issue_note",
+        "gitlab_list_merge_requests",
+        "gitlab_get_merge_request",
+        "gitlab_create_merge_request",
+        "gitlab_update_merge_request",
+        "gitlab_merge_merge_request",
+        "gitlab_create_merge_request_note",
+        "gitlab_list_pipelines",
+        "gitlab_get_pipeline",
+        "gitlab_create_pipeline",
+        "gitlab_retry_pipeline",
+        "gitlab_cancel_pipeline"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "projects": {
+        "type": "json"
+      }
+    },
+    "triggerAllowed": false
+  },
+  "tools": [
+    {
+      "id": "gitlab_cancel_pipeline",
+      "name": "GitLab Cancel Pipeline",
+      "description": "Cancel a running GitLab pipeline",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "gitlab",
+        "operation": "gitlab_cancel_pipeline"
+      }
+    },
+    {
+      "id": "gitlab_create_issue",
+      "name": "GitLab Create Issue",
+      "description": "Create a new issue in a GitLab project",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "gitlab",
+        "operation": "gitlab_create_issue"
+      }
+    },
+    {
+      "id": "gitlab_create_issue_note",
+      "name": "GitLab Create Issue Comment",
+      "description": "Add a comment to a GitLab issue",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "gitlab",
+        "operation": "gitlab_create_issue_note"
+      }
+    },
+    {
+      "id": "gitlab_create_merge_request",
+      "name": "GitLab Create Merge Request",
+      "description": "Create a new merge request in a GitLab project",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "gitlab",
+        "operation": "gitlab_create_merge_request"
+      }
+    },
+    {
+      "id": "gitlab_create_merge_request_note",
+      "name": "GitLab Create Merge Request Comment",
+      "description": "Add a comment to a GitLab merge request",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "gitlab",
+        "operation": "gitlab_create_merge_request_note"
+      }
+    },
+    {
+      "id": "gitlab_create_pipeline",
+      "name": "GitLab Create Pipeline",
+      "description": "Trigger a new pipeline in a GitLab project",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "gitlab",
+        "operation": "gitlab_create_pipeline"
+      }
+    },
+    {
+      "id": "gitlab_delete_issue",
+      "name": "GitLab Delete Issue",
+      "description": "Delete an issue from a GitLab project",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "gitlab",
+        "operation": "gitlab_delete_issue"
+      }
+    },
+    {
+      "id": "gitlab_get_issue",
+      "name": "GitLab Get Issue",
+      "description": "Get details of a specific GitLab issue",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "gitlab",
+        "operation": "gitlab_get_issue"
+      }
+    },
+    {
+      "id": "gitlab_get_merge_request",
+      "name": "GitLab Get Merge Request",
+      "description": "Get details of a specific GitLab merge request",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "gitlab",
+        "operation": "gitlab_get_merge_request"
+      }
+    },
+    {
+      "id": "gitlab_get_pipeline",
+      "name": "GitLab Get Pipeline",
+      "description": "Get details of a specific GitLab pipeline",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "gitlab",
+        "operation": "gitlab_get_pipeline"
+      }
+    },
+    {
+      "id": "gitlab_get_project",
+      "name": "GitLab Get Project",
+      "description": "Get details of a specific GitLab project",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "gitlab",
+        "operation": "gitlab_get_project"
+      }
+    },
+    {
+      "id": "gitlab_list_issues",
+      "name": "GitLab List Issues",
+      "description": "List issues in a GitLab project",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "gitlab",
+        "operation": "gitlab_list_issues"
+      }
+    },
+    {
+      "id": "gitlab_list_merge_requests",
+      "name": "GitLab List Merge Requests",
+      "description": "List merge requests in a GitLab project",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "gitlab",
+        "operation": "gitlab_list_merge_requests"
+      }
+    },
+    {
+      "id": "gitlab_list_pipelines",
+      "name": "GitLab List Pipelines",
+      "description": "List pipelines in a GitLab project",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "gitlab",
+        "operation": "gitlab_list_pipelines"
+      }
+    },
+    {
+      "id": "gitlab_list_projects",
+      "name": "GitLab List Projects",
+      "description": "List GitLab projects accessible to the authenticated user",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "gitlab",
+        "operation": "gitlab_list_projects"
+      }
+    },
+    {
+      "id": "gitlab_merge_merge_request",
+      "name": "GitLab Merge Merge Request",
+      "description": "Merge a merge request in a GitLab project",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "gitlab",
+        "operation": "gitlab_merge_merge_request"
+      }
+    },
+    {
+      "id": "gitlab_retry_pipeline",
+      "name": "GitLab Retry Pipeline",
+      "description": "Retry a failed GitLab pipeline",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "gitlab",
+        "operation": "gitlab_retry_pipeline"
+      }
+    },
+    {
+      "id": "gitlab_update_issue",
+      "name": "GitLab Update Issue",
+      "description": "Update an existing issue in a GitLab project",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "gitlab",
+        "operation": "gitlab_update_issue"
+      }
+    },
+    {
+      "id": "gitlab_update_merge_request",
+      "name": "GitLab Update Merge Request",
+      "description": "Update an existing merge request in a GitLab project",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "gitlab",
+        "operation": "gitlab_update_merge_request"
+      }
+    }
+  ]
+}

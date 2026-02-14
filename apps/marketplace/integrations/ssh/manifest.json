@@ -1,0 +1,521 @@
+{
+  "id": "ssh",
+  "name": "SSH",
+  "version": "1.0.0",
+  "description": "Connect to remote servers via SSH",
+  "icon": "SshIcon",
+  "block": {
+    "type": "ssh",
+    "name": "SSH",
+    "description": "Connect to remote servers via SSH",
+    "longDescription": "Execute commands, transfer files, and manage remote servers via SSH. Supports password and private key authentication for secure server access.",
+    "docsLink": "https://docs.sim.ai/tools/ssh",
+    "category": "tools",
+    "bgColor": "#000000",
+    "icon": "SshIcon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Execute Command",
+            "value": "ssh_execute_command"
+          },
+          {
+            "label": "Execute Script",
+            "value": "ssh_execute_script"
+          },
+          {
+            "label": "Check Command Exists",
+            "value": "ssh_check_command_exists"
+          },
+          {
+            "label": "Upload File",
+            "value": "ssh_upload_file"
+          },
+          {
+            "label": "Download File",
+            "value": "ssh_download_file"
+          },
+          {
+            "label": "List Directory",
+            "value": "ssh_list_directory"
+          },
+          {
+            "label": "Check File/Directory Exists",
+            "value": "ssh_check_file_exists"
+          },
+          {
+            "label": "Create Directory",
+            "value": "ssh_create_directory"
+          },
+          {
+            "label": "Delete File/Directory",
+            "value": "ssh_delete_file"
+          },
+          {
+            "label": "Move/Rename",
+            "value": "ssh_move_rename"
+          },
+          {
+            "label": "Get System Info",
+            "value": "ssh_get_system_info"
+          },
+          {
+            "label": "Read File Content",
+            "value": "ssh_read_file_content"
+          },
+          {
+            "label": "Write File Content",
+            "value": "ssh_write_file_content"
+          }
+        ]
+      },
+      {
+        "id": "host",
+        "type": "short-input",
+        "title": "Host",
+        "placeholder": "example.com or 192.168.1.100"
+      },
+      {
+        "id": "port",
+        "type": "short-input",
+        "title": "Port",
+        "placeholder": "22"
+      },
+      {
+        "id": "username",
+        "type": "short-input",
+        "title": "Username",
+        "placeholder": "ubuntu, root, or deploy"
+      },
+      {
+        "id": "authMethod",
+        "type": "dropdown",
+        "title": "Authentication Method",
+        "options": [
+          {
+            "label": "Password",
+            "value": "password"
+          },
+          {
+            "label": "Private Key",
+            "value": "privateKey"
+          }
+        ]
+      },
+      {
+        "id": "password",
+        "type": "short-input",
+        "title": "Password",
+        "placeholder": "Your SSH password",
+        "password": true
+      },
+      {
+        "id": "privateKey",
+        "type": "code",
+        "title": "Private Key",
+        "placeholder": "-----BEGIN OPENSSH PRIVATE KEY-----\\n..."
+      },
+      {
+        "id": "passphrase",
+        "type": "short-input",
+        "title": "Passphrase",
+        "placeholder": "Passphrase for encrypted key (optional)",
+        "password": true
+      },
+      {
+        "id": "command",
+        "type": "code",
+        "title": "Command",
+        "placeholder": "ls -la /var/www"
+      },
+      {
+        "id": "workingDirectory",
+        "type": "short-input",
+        "title": "Working Directory",
+        "placeholder": "/var/www/html (optional)"
+      },
+      {
+        "id": "script",
+        "type": "code",
+        "title": "Script Content",
+        "placeholder": "#!/bin/bash\\necho "
+      },
+      {
+        "id": "interpreter",
+        "type": "short-input",
+        "title": "Interpreter",
+        "placeholder": "/bin/bash"
+      },
+      {
+        "id": "scriptWorkingDirectory",
+        "type": "short-input",
+        "title": "Working Directory",
+        "placeholder": "/var/www/html (optional)"
+      },
+      {
+        "id": "commandName",
+        "type": "short-input",
+        "title": "Command Name",
+        "placeholder": "docker, git, python3"
+      },
+      {
+        "id": "fileContent",
+        "type": "code",
+        "title": "File Content",
+        "placeholder": "Content to upload..."
+      },
+      {
+        "id": "fileName",
+        "type": "short-input",
+        "title": "File Name",
+        "placeholder": "config.json"
+      },
+      {
+        "id": "remotePath",
+        "type": "short-input",
+        "title": "Remote Path",
+        "placeholder": "/var/www/html/config.json"
+      },
+      {
+        "id": "permissions",
+        "type": "short-input",
+        "title": "Permissions",
+        "placeholder": "0644"
+      },
+      {
+        "id": "downloadRemotePath",
+        "type": "short-input",
+        "title": "Remote File Path",
+        "placeholder": "/var/log/app.log"
+      },
+      {
+        "id": "listPath",
+        "type": "short-input",
+        "title": "Directory Path",
+        "placeholder": "/var/www"
+      },
+      {
+        "id": "detailed",
+        "type": "switch",
+        "title": "Show Details"
+      },
+      {
+        "id": "checkPath",
+        "type": "short-input",
+        "title": "Path to Check",
+        "placeholder": "/etc/nginx/nginx.conf"
+      },
+      {
+        "id": "checkType",
+        "type": "dropdown",
+        "title": "Expected Type",
+        "options": [
+          {
+            "label": "Any",
+            "value": "any"
+          },
+          {
+            "label": "File",
+            "value": "file"
+          },
+          {
+            "label": "Directory",
+            "value": "directory"
+          }
+        ]
+      },
+      {
+        "id": "createPath",
+        "type": "short-input",
+        "title": "Directory Path",
+        "placeholder": "/var/www/new-site"
+      },
+      {
+        "id": "recursive",
+        "type": "switch",
+        "title": "Create Parent Directories"
+      },
+      {
+        "id": "deletePath",
+        "type": "short-input",
+        "title": "Path to Delete",
+        "placeholder": "/tmp/old-file.txt"
+      },
+      {
+        "id": "deleteRecursive",
+        "type": "switch",
+        "title": "Recursive Delete"
+      },
+      {
+        "id": "force",
+        "type": "switch",
+        "title": "Force Delete"
+      },
+      {
+        "id": "sourcePath",
+        "type": "short-input",
+        "title": "Source Path",
+        "placeholder": "/var/www/old-name"
+      },
+      {
+        "id": "destinationPath",
+        "type": "short-input",
+        "title": "Destination Path",
+        "placeholder": "/var/www/new-name"
+      },
+      {
+        "id": "overwrite",
+        "type": "switch",
+        "title": "Overwrite if Exists"
+      },
+      {
+        "id": "readPath",
+        "type": "short-input",
+        "title": "File Path",
+        "placeholder": "/var/log/app.log"
+      },
+      {
+        "id": "encoding",
+        "type": "short-input",
+        "title": "Encoding",
+        "placeholder": "utf-8"
+      },
+      {
+        "id": "maxSize",
+        "type": "short-input",
+        "title": "Max Size (MB)",
+        "placeholder": "10"
+      },
+      {
+        "id": "writePath",
+        "type": "short-input",
+        "title": "File Path",
+        "placeholder": "/etc/config.json"
+      },
+      {
+        "id": "content",
+        "type": "code",
+        "title": "File Content",
+        "placeholder": "Content to write..."
+      },
+      {
+        "id": "writeMode",
+        "type": "dropdown",
+        "title": "Write Mode",
+        "options": [
+          {
+            "label": "Overwrite",
+            "value": "overwrite"
+          },
+          {
+            "label": "Append",
+            "value": "append"
+          },
+          {
+            "label": "Create (fail if exists)",
+            "value": "create"
+          }
+        ]
+      },
+      {
+        "id": "writePermissions",
+        "type": "short-input",
+        "title": "Permissions",
+        "placeholder": "0644"
+      }
+    ],
+    "tools": {
+      "access": [
+        "ssh_execute_command",
+        "ssh_execute_script",
+        "ssh_check_command_exists",
+        "ssh_upload_file",
+        "ssh_download_file",
+        "ssh_list_directory",
+        "ssh_check_file_exists",
+        "ssh_create_directory",
+        "ssh_delete_file",
+        "ssh_move_rename",
+        "ssh_get_system_info",
+        "ssh_read_file_content",
+        "ssh_write_file_content"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "stdout": {
+        "type": "string"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "ssh_check_command_exists",
+      "name": "SSH Check Command Exists",
+      "description": "Check if a command/program exists on the remote SSH server",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "ssh",
+        "operation": "ssh_check_command_exists"
+      }
+    },
+    {
+      "id": "ssh_check_file_exists",
+      "name": "SSH Check File Exists",
+      "description": "Check if a file or directory exists on the remote SSH server",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "ssh",
+        "operation": "ssh_check_file_exists"
+      }
+    },
+    {
+      "id": "ssh_create_directory",
+      "name": "SSH Create Directory",
+      "description": "Create a directory on the remote SSH server",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "ssh",
+        "operation": "ssh_create_directory"
+      }
+    },
+    {
+      "id": "ssh_delete_file",
+      "name": "SSH Delete File",
+      "description": "Delete a file or directory from the remote SSH server",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "ssh",
+        "operation": "ssh_delete_file"
+      }
+    },
+    {
+      "id": "ssh_download_file",
+      "name": "SSH Download File",
+      "description": "Download a file from a remote SSH server",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "ssh",
+        "operation": "ssh_download_file"
+      }
+    },
+    {
+      "id": "ssh_execute_command",
+      "name": "SSH Execute Command",
+      "description": "Execute a shell command on a remote SSH server",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "ssh",
+        "operation": "ssh_execute_command"
+      }
+    },
+    {
+      "id": "ssh_execute_script",
+      "name": "SSH Execute Script",
+      "description": "Upload and execute a multi-line script on a remote SSH server",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "ssh",
+        "operation": "ssh_execute_script"
+      }
+    },
+    {
+      "id": "ssh_get_system_info",
+      "name": "SSH Get System Info",
+      "description": "Retrieve system information from the remote SSH server",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "ssh",
+        "operation": "ssh_get_system_info"
+      }
+    },
+    {
+      "id": "ssh_list_directory",
+      "name": "SSH List Directory",
+      "description": "List files and directories in a remote directory",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "ssh",
+        "operation": "ssh_list_directory"
+      }
+    },
+    {
+      "id": "ssh_move_rename",
+      "name": "SSH Move/Rename",
+      "description": "Move or rename a file or directory on the remote SSH server",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "ssh",
+        "operation": "ssh_move_rename"
+      }
+    },
+    {
+      "id": "ssh_read_file_content",
+      "name": "SSH Read File Content",
+      "description": "Read the contents of a remote file",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "ssh",
+        "operation": "ssh_read_file_content"
+      }
+    },
+    {
+      "id": "ssh_upload_file",
+      "name": "SSH Upload File",
+      "description": "Upload a file to a remote SSH server",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "ssh",
+        "operation": "ssh_upload_file"
+      }
+    },
+    {
+      "id": "ssh_write_file_content",
+      "name": "SSH Write File Content",
+      "description": "Write or append content to a remote file",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "ssh",
+        "operation": "ssh_write_file_content"
+      }
+    }
+  ]
+}

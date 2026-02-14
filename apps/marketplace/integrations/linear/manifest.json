@@ -1,0 +1,2009 @@
+{
+  "id": "linear",
+  "name": "Linear",
+  "version": "1.0.0",
+  "description": "Interact with Linear issues, projects, and more",
+  "icon": "LinearIcon",
+  "block": {
+    "type": "linear",
+    "name": "Linear",
+    "description": "Interact with Linear issues, projects, and more",
+    "longDescription": "Integrate Linear into the workflow. Can manage issues, comments, projects, labels, workflow states, cycles, attachments, and more. Can also trigger workflows based on Linear webhook events.",
+    "docsLink": "https://docs.sim.ai/tools/linear",
+    "category": "tools",
+    "bgColor": "#5E6AD2",
+    "icon": "LinearIcon",
+    "authMode": "oauth",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Read Issues",
+            "value": "linear_read_issues"
+          },
+          {
+            "label": "Get Issue",
+            "value": "linear_get_issue"
+          },
+          {
+            "label": "Create Issue",
+            "value": "linear_create_issue"
+          },
+          {
+            "label": "Update Issue",
+            "value": "linear_update_issue"
+          },
+          {
+            "label": "Archive Issue",
+            "value": "linear_archive_issue"
+          },
+          {
+            "label": "Unarchive Issue",
+            "value": "linear_unarchive_issue"
+          },
+          {
+            "label": "Delete Issue",
+            "value": "linear_delete_issue"
+          },
+          {
+            "label": "Search Issues",
+            "value": "linear_search_issues"
+          },
+          {
+            "label": "Add Label to Issue",
+            "value": "linear_add_label_to_issue"
+          },
+          {
+            "label": "Remove Label from Issue",
+            "value": "linear_remove_label_from_issue"
+          },
+          {
+            "label": "Create Comment",
+            "value": "linear_create_comment"
+          },
+          {
+            "label": "Update Comment",
+            "value": "linear_update_comment"
+          },
+          {
+            "label": "Delete Comment",
+            "value": "linear_delete_comment"
+          },
+          {
+            "label": "List Comments",
+            "value": "linear_list_comments"
+          },
+          {
+            "label": "List Projects",
+            "value": "linear_list_projects"
+          },
+          {
+            "label": "Get Project",
+            "value": "linear_get_project"
+          },
+          {
+            "label": "Create Project",
+            "value": "linear_create_project"
+          },
+          {
+            "label": "Update Project",
+            "value": "linear_update_project"
+          },
+          {
+            "label": "Archive Project",
+            "value": "linear_archive_project"
+          },
+          {
+            "label": "List Users",
+            "value": "linear_list_users"
+          },
+          {
+            "label": "List Teams",
+            "value": "linear_list_teams"
+          },
+          {
+            "label": "Get Viewer",
+            "value": "linear_get_viewer"
+          },
+          {
+            "label": "List Labels",
+            "value": "linear_list_labels"
+          },
+          {
+            "label": "Create Label",
+            "value": "linear_create_label"
+          },
+          {
+            "label": "Update Label",
+            "value": "linear_update_label"
+          },
+          {
+            "label": "Archive Label",
+            "value": "linear_archive_label"
+          },
+          {
+            "label": "List Workflow States",
+            "value": "linear_list_workflow_states"
+          },
+          {
+            "label": "Create Workflow State",
+            "value": "linear_create_workflow_state"
+          },
+          {
+            "label": "Update Workflow State",
+            "value": "linear_update_workflow_state"
+          },
+          {
+            "label": "List Cycles",
+            "value": "linear_list_cycles"
+          },
+          {
+            "label": "Get Cycle",
+            "value": "linear_get_cycle"
+          },
+          {
+            "label": "Create Cycle",
+            "value": "linear_create_cycle"
+          },
+          {
+            "label": "Get Active Cycle",
+            "value": "linear_get_active_cycle"
+          },
+          {
+            "label": "Create Attachment",
+            "value": "linear_create_attachment"
+          },
+          {
+            "label": "List Attachments",
+            "value": "linear_list_attachments"
+          },
+          {
+            "label": "Update Attachment",
+            "value": "linear_update_attachment"
+          },
+          {
+            "label": "Delete Attachment",
+            "value": "linear_delete_attachment"
+          },
+          {
+            "label": "Create Issue Relation",
+            "value": "linear_create_issue_relation"
+          },
+          {
+            "label": "List Issue Relations",
+            "value": "linear_list_issue_relations"
+          },
+          {
+            "label": "Delete Issue Relation",
+            "value": "linear_delete_issue_relation"
+          },
+          {
+            "label": "Create Favorite",
+            "value": "linear_create_favorite"
+          },
+          {
+            "label": "List Favorites",
+            "value": "linear_list_favorites"
+          },
+          {
+            "label": "Create Project Update",
+            "value": "linear_create_project_update"
+          },
+          {
+            "label": "List Project Updates",
+            "value": "linear_list_project_updates"
+          },
+          {
+            "label": "List Notifications",
+            "value": "linear_list_notifications"
+          },
+          {
+            "label": "Update Notification",
+            "value": "linear_update_notification"
+          },
+          {
+            "label": "Create Customer",
+            "value": "linear_create_customer"
+          },
+          {
+            "label": "List Customers",
+            "value": "linear_list_customers"
+          },
+          {
+            "label": "Create Customer Request",
+            "value": "linear_create_customer_request"
+          },
+          {
+            "label": "Update Customer Request",
+            "value": "linear_update_customer_request"
+          },
+          {
+            "label": "List Customer Requests",
+            "value": "linear_list_customer_requests"
+          },
+          {
+            "label": "Get Customer",
+            "value": "linear_get_customer"
+          },
+          {
+            "label": "Update Customer",
+            "value": "linear_update_customer"
+          },
+          {
+            "label": "Delete Customer",
+            "value": "linear_delete_customer"
+          },
+          {
+            "label": "Merge Customers",
+            "value": "linear_merge_customers"
+          },
+          {
+            "label": "Create Customer Status",
+            "value": "linear_create_customer_status"
+          },
+          {
+            "label": "Update Customer Status",
+            "value": "linear_update_customer_status"
+          },
+          {
+            "label": "Delete Customer Status",
+            "value": "linear_delete_customer_status"
+          },
+          {
+            "label": "List Customer Statuses",
+            "value": "linear_list_customer_statuses"
+          },
+          {
+            "label": "Create Customer Tier",
+            "value": "linear_create_customer_tier"
+          },
+          {
+            "label": "Update Customer Tier",
+            "value": "linear_update_customer_tier"
+          },
+          {
+            "label": "Delete Customer Tier",
+            "value": "linear_delete_customer_tier"
+          },
+          {
+            "label": "List Customer Tiers",
+            "value": "linear_list_customer_tiers"
+          },
+          {
+            "label": "Delete Project",
+            "value": "linear_delete_project"
+          },
+          {
+            "label": "Create Project Label",
+            "value": "linear_create_project_label"
+          },
+          {
+            "label": "Update Project Label",
+            "value": "linear_update_project_label"
+          },
+          {
+            "label": "Delete Project Label",
+            "value": "linear_delete_project_label"
+          },
+          {
+            "label": "List Project Labels",
+            "value": "linear_list_project_labels"
+          },
+          {
+            "label": "Add Label to Project",
+            "value": "linear_add_label_to_project"
+          },
+          {
+            "label": "Remove Label from Project",
+            "value": "linear_remove_label_from_project"
+          },
+          {
+            "label": "Create Project Milestone",
+            "value": "linear_create_project_milestone"
+          },
+          {
+            "label": "Update Project Milestone",
+            "value": "linear_update_project_milestone"
+          },
+          {
+            "label": "Delete Project Milestone",
+            "value": "linear_delete_project_milestone"
+          },
+          {
+            "label": "List Project Milestones",
+            "value": "linear_list_project_milestones"
+          },
+          {
+            "label": "Create Project Status",
+            "value": "linear_create_project_status"
+          },
+          {
+            "label": "Update Project Status",
+            "value": "linear_update_project_status"
+          },
+          {
+            "label": "Delete Project Status",
+            "value": "linear_delete_project_status"
+          },
+          {
+            "label": "List Project Statuses",
+            "value": "linear_list_project_statuses"
+          }
+        ]
+      },
+      {
+        "id": "credential",
+        "type": "oauth-input",
+        "title": "Linear Account",
+        "placeholder": "Select Linear account"
+      },
+      {
+        "id": "teamId",
+        "type": "project-selector",
+        "title": "Team",
+        "placeholder": "Select a team",
+        "mode": "basic",
+        "canonicalParamId": "teamId"
+      },
+      {
+        "id": "manualTeamId",
+        "type": "short-input",
+        "title": "Team ID",
+        "placeholder": "Enter Linear team ID",
+        "mode": "advanced",
+        "canonicalParamId": "teamId"
+      },
+      {
+        "id": "projectId",
+        "type": "project-selector",
+        "title": "Project",
+        "placeholder": "Select a project",
+        "mode": "basic",
+        "canonicalParamId": "projectId"
+      },
+      {
+        "id": "manualProjectId",
+        "type": "short-input",
+        "title": "Project ID",
+        "placeholder": "Enter Linear project ID",
+        "mode": "advanced",
+        "canonicalParamId": "projectId"
+      },
+      {
+        "id": "issueId",
+        "type": "short-input",
+        "title": "Issue ID",
+        "placeholder": "Enter Linear issue ID"
+      },
+      {
+        "id": "title",
+        "type": "short-input",
+        "title": "Title",
+        "placeholder": "Enter issue title"
+      },
+      {
+        "id": "description",
+        "type": "long-input",
+        "title": "Description",
+        "placeholder": "Enter description"
+      },
+      {
+        "id": "body",
+        "type": "long-input",
+        "title": "Comment",
+        "placeholder": "Enter comment text"
+      },
+      {
+        "id": "commentId",
+        "type": "short-input",
+        "title": "Comment ID",
+        "placeholder": "Enter comment ID"
+      },
+      {
+        "id": "labelId",
+        "type": "short-input",
+        "title": "Label ID",
+        "placeholder": "Enter label ID"
+      },
+      {
+        "id": "name",
+        "type": "short-input",
+        "title": "Name",
+        "placeholder": "Enter name"
+      },
+      {
+        "id": "color",
+        "type": "short-input",
+        "title": "Color (hex)",
+        "placeholder": "#5E6AD2"
+      },
+      {
+        "id": "stateId",
+        "type": "short-input",
+        "title": "State ID",
+        "placeholder": "Enter workflow state ID"
+      },
+      {
+        "id": "assigneeId",
+        "type": "short-input",
+        "title": "Assignee ID",
+        "placeholder": "Enter user ID to assign"
+      },
+      {
+        "id": "priority",
+        "type": "dropdown",
+        "title": "Priority",
+        "options": [
+          {
+            "label": "No Priority",
+            "value": "0"
+          },
+          {
+            "label": "Urgent",
+            "value": "1"
+          },
+          {
+            "label": "High",
+            "value": "2"
+          },
+          {
+            "label": "Normal",
+            "value": "3"
+          },
+          {
+            "label": "Low",
+            "value": "4"
+          }
+        ]
+      },
+      {
+        "id": "estimate",
+        "type": "short-input",
+        "title": "Estimate",
+        "placeholder": "Enter estimate points"
+      },
+      {
+        "id": "query",
+        "type": "long-input",
+        "title": "Search Query",
+        "placeholder": "Enter search query"
+      },
+      {
+        "id": "includeArchived",
+        "type": "switch",
+        "title": "Include Archived"
+      },
+      {
+        "id": "labelIds",
+        "type": "short-input",
+        "title": "Label IDs",
+        "placeholder": "Array of label IDs to filter by",
+        "mode": "advanced"
+      },
+      {
+        "id": "createdAfter",
+        "type": "short-input",
+        "title": "Created After",
+        "placeholder": "Filter issues created after this date (ISO 8601 format)",
+        "mode": "advanced"
+      },
+      {
+        "id": "updatedAfter",
+        "type": "short-input",
+        "title": "Updated After",
+        "placeholder": "Filter issues updated after this date (ISO 8601 format)",
+        "mode": "advanced"
+      },
+      {
+        "id": "orderBy",
+        "type": "short-input",
+        "title": "Order By",
+        "placeholder": "Sort order: ",
+        "mode": "advanced"
+      },
+      {
+        "id": "cycleId",
+        "type": "short-input",
+        "title": "Cycle ID",
+        "placeholder": "Enter cycle ID"
+      },
+      {
+        "id": "startDate",
+        "type": "short-input",
+        "title": "Start Date",
+        "placeholder": "YYYY-MM-DD"
+      },
+      {
+        "id": "endDate",
+        "type": "short-input",
+        "title": "End Date",
+        "placeholder": "YYYY-MM-DD"
+      },
+      {
+        "id": "targetDate",
+        "type": "short-input",
+        "title": "Target Date",
+        "placeholder": "YYYY-MM-DD"
+      },
+      {
+        "id": "attachmentFileUpload",
+        "type": "file-upload",
+        "title": "Attachment",
+        "placeholder": "Upload attachment",
+        "mode": "basic",
+        "canonicalParamId": "file"
+      },
+      {
+        "id": "file",
+        "type": "short-input",
+        "title": "File Reference",
+        "placeholder": "File reference from previous block",
+        "mode": "advanced",
+        "canonicalParamId": "file"
+      },
+      {
+        "id": "url",
+        "type": "short-input",
+        "title": "URL",
+        "placeholder": "Enter URL",
+        "mode": "advanced"
+      },
+      {
+        "id": "attachmentTitle",
+        "type": "short-input",
+        "title": "Title",
+        "placeholder": "Enter attachment title"
+      },
+      {
+        "id": "attachmentId",
+        "type": "short-input",
+        "title": "Attachment ID",
+        "placeholder": "Enter attachment ID"
+      },
+      {
+        "id": "relationType",
+        "type": "dropdown",
+        "title": "Relation Type",
+        "options": [
+          {
+            "label": "Blocks",
+            "value": "blocks"
+          },
+          {
+            "label": "Blocked by",
+            "value": "blocked"
+          },
+          {
+            "label": "Duplicate",
+            "value": "duplicate"
+          },
+          {
+            "label": "Related",
+            "value": "related"
+          }
+        ]
+      },
+      {
+        "id": "relatedIssueId",
+        "type": "short-input",
+        "title": "Related Issue ID",
+        "placeholder": "Enter related issue ID"
+      },
+      {
+        "id": "relationId",
+        "type": "short-input",
+        "title": "Relation ID",
+        "placeholder": "Enter relation ID"
+      },
+      {
+        "id": "favoriteType",
+        "type": "dropdown",
+        "title": "Favorite Type",
+        "options": [
+          {
+            "label": "Issue",
+            "value": "issue"
+          },
+          {
+            "label": "Project",
+            "value": "project"
+          },
+          {
+            "label": "Cycle",
+            "value": "cycle"
+          },
+          {
+            "label": "Label",
+            "value": "label"
+          }
+        ]
+      },
+      {
+        "id": "favoriteTargetId",
+        "type": "short-input",
+        "title": "Target ID",
+        "placeholder": "Enter ID to favorite"
+      },
+      {
+        "id": "first",
+        "type": "short-input",
+        "title": "Limit",
+        "placeholder": "Number of items to return (default: 50)"
+      },
+      {
+        "id": "after",
+        "type": "short-input",
+        "title": "After Cursor",
+        "placeholder": "Cursor for pagination"
+      },
+      {
+        "id": "health",
+        "type": "dropdown",
+        "title": "Project Health",
+        "options": [
+          {
+            "label": "On Track",
+            "value": "onTrack"
+          },
+          {
+            "label": "At Risk",
+            "value": "atRisk"
+          },
+          {
+            "label": "Off Track",
+            "value": "offTrack"
+          }
+        ]
+      },
+      {
+        "id": "notificationId",
+        "type": "short-input",
+        "title": "Notification ID",
+        "placeholder": "Enter notification ID"
+      },
+      {
+        "id": "markAsRead",
+        "type": "switch",
+        "title": "Mark as Read"
+      },
+      {
+        "id": "workflowType",
+        "type": "dropdown",
+        "title": "Workflow Type",
+        "options": [
+          {
+            "label": "Backlog",
+            "value": "backlog"
+          },
+          {
+            "label": "Unstarted",
+            "value": "unstarted"
+          },
+          {
+            "label": "Started",
+            "value": "started"
+          },
+          {
+            "label": "Completed",
+            "value": "completed"
+          },
+          {
+            "label": "Canceled",
+            "value": "canceled"
+          }
+        ]
+      },
+      {
+        "id": "leadId",
+        "type": "short-input",
+        "title": "Lead ID",
+        "placeholder": "Enter user ID for project lead"
+      },
+      {
+        "id": "projectState",
+        "type": "short-input",
+        "title": "Project State",
+        "placeholder": "Enter project state"
+      },
+      {
+        "id": "customerName",
+        "type": "short-input",
+        "title": "Customer Name",
+        "placeholder": "Enter customer name"
+      },
+      {
+        "id": "customerDomains",
+        "type": "long-input",
+        "title": "Domains",
+        "placeholder": "Enter domains (comma-separated)"
+      },
+      {
+        "id": "customerExternalIds",
+        "type": "long-input",
+        "title": "External IDs",
+        "placeholder": "Enter external IDs (comma-separated)"
+      },
+      {
+        "id": "customerLogoUrl",
+        "type": "short-input",
+        "title": "Logo URL",
+        "placeholder": "Enter logo URL"
+      },
+      {
+        "id": "customerOwnerId",
+        "type": "short-input",
+        "title": "Owner User ID",
+        "placeholder": "Enter owner user ID"
+      },
+      {
+        "id": "customerRevenue",
+        "type": "short-input",
+        "title": "Annual Revenue",
+        "placeholder": "Enter annual revenue (number)"
+      },
+      {
+        "id": "customerSize",
+        "type": "short-input",
+        "title": "Organization Size",
+        "placeholder": "Enter organization size (number)"
+      },
+      {
+        "id": "customerId",
+        "type": "short-input",
+        "title": "Customer ID",
+        "placeholder": "Enter customer ID"
+      },
+      {
+        "id": "customerNeedId",
+        "type": "short-input",
+        "title": "Customer Request ID",
+        "placeholder": "Enter customer request ID"
+      },
+      {
+        "id": "requestBody",
+        "type": "long-input",
+        "title": "Request Description",
+        "placeholder": "Enter customer request description"
+      },
+      {
+        "id": "priority",
+        "type": "dropdown",
+        "title": "Urgency",
+        "options": [
+          {
+            "label": "Not Important (0)",
+            "value": "0"
+          },
+          {
+            "label": "Important (1)",
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "id": "linkedIssueId",
+        "type": "short-input",
+        "title": "Link to Issue",
+        "placeholder": "Enter issue ID to link"
+      },
+      {
+        "id": "customerIdTarget",
+        "type": "short-input",
+        "title": "Customer ID",
+        "placeholder": "Enter customer ID"
+      },
+      {
+        "id": "sourceCustomerId",
+        "type": "short-input",
+        "title": "Source Customer ID (to merge from)",
+        "placeholder": "Customer ID to merge and delete"
+      },
+      {
+        "id": "targetCustomerId",
+        "type": "short-input",
+        "title": "Target Customer ID (to merge into)",
+        "placeholder": "Customer ID to keep"
+      },
+      {
+        "id": "statusName",
+        "type": "short-input",
+        "title": "Status Name",
+        "placeholder": "Enter status name"
+      },
+      {
+        "id": "statusColor",
+        "type": "short-input",
+        "title": "Status Color",
+        "placeholder": "Enter hex color (e.g., #FF0000)"
+      },
+      {
+        "id": "statusId",
+        "type": "short-input",
+        "title": "Status ID",
+        "placeholder": "Enter status ID"
+      },
+      {
+        "id": "tierName",
+        "type": "short-input",
+        "title": "Tier Name",
+        "placeholder": "Enter tier name (e.g., Enterprise, Pro)"
+      },
+      {
+        "id": "tierId",
+        "type": "short-input",
+        "title": "Tier ID",
+        "placeholder": "Enter tier ID"
+      },
+      {
+        "id": "projectLabelName",
+        "type": "short-input",
+        "title": "Label Name",
+        "placeholder": "Enter project label name"
+      },
+      {
+        "id": "projectLabelDescription",
+        "type": "long-input",
+        "title": "Label Description",
+        "placeholder": "Enter project label description"
+      },
+      {
+        "id": "projectLabelIsGroup",
+        "type": "dropdown",
+        "title": "Is Label Group",
+        "options": [
+          {
+            "label": "No",
+            "value": "false"
+          },
+          {
+            "label": "Yes",
+            "value": "true"
+          }
+        ]
+      },
+      {
+        "id": "projectLabelParentId",
+        "type": "short-input",
+        "title": "Parent Label ID",
+        "placeholder": "Enter parent label ID (for nested labels)"
+      },
+      {
+        "id": "projectLabelId",
+        "type": "short-input",
+        "title": "Label ID",
+        "placeholder": "Enter project label ID"
+      },
+      {
+        "id": "milestoneName",
+        "type": "short-input",
+        "title": "Milestone Name",
+        "placeholder": "Enter milestone name"
+      },
+      {
+        "id": "milestoneDescription",
+        "type": "long-input",
+        "title": "Milestone Description",
+        "placeholder": "Enter milestone description"
+      },
+      {
+        "id": "milestoneId",
+        "type": "short-input",
+        "title": "Milestone ID",
+        "placeholder": "Enter milestone ID"
+      },
+      {
+        "id": "milestoneTargetDate",
+        "type": "short-input",
+        "title": "Target Date",
+        "placeholder": "YYYY-MM-DD"
+      },
+      {
+        "id": "projectStatusName",
+        "type": "short-input",
+        "title": "Status Name",
+        "placeholder": "Enter project status name"
+      },
+      {
+        "id": "projectStatusType",
+        "type": "dropdown",
+        "title": "Status Type",
+        "options": [
+          {
+            "label": "Backlog",
+            "value": "backlog"
+          },
+          {
+            "label": "Planned",
+            "value": "planned"
+          },
+          {
+            "label": "Started",
+            "value": "started"
+          },
+          {
+            "label": "Paused",
+            "value": "paused"
+          },
+          {
+            "label": "Completed",
+            "value": "completed"
+          },
+          {
+            "label": "Canceled",
+            "value": "canceled"
+          }
+        ]
+      },
+      {
+        "id": "projectStatusPosition",
+        "type": "short-input",
+        "title": "Position",
+        "placeholder": "Enter position (e.g. 0, 1, 2...)"
+      },
+      {
+        "id": "projectStatusId",
+        "type": "short-input",
+        "title": "Status ID",
+        "placeholder": "Enter project status ID"
+      },
+      {
+        "id": "projectStatusIndefinite",
+        "type": "dropdown",
+        "title": "Can Stay Indefinitely",
+        "options": [
+          {
+            "label": "No",
+            "value": "false"
+          },
+          {
+            "label": "Yes",
+            "value": "true"
+          }
+        ]
+      },
+      {
+        "id": "projectIdForMilestone",
+        "type": "short-input",
+        "title": "Project ID",
+        "placeholder": "Enter project ID"
+      }
+    ],
+    "tools": {
+      "access": [
+        "linear_read_issues",
+        "linear_get_issue",
+        "linear_create_issue",
+        "linear_update_issue",
+        "linear_archive_issue",
+        "linear_unarchive_issue",
+        "linear_delete_issue",
+        "linear_search_issues",
+        "linear_add_label_to_issue",
+        "linear_remove_label_from_issue",
+        "linear_create_comment",
+        "linear_update_comment",
+        "linear_delete_comment",
+        "linear_list_comments",
+        "linear_list_projects",
+        "linear_get_project",
+        "linear_create_project",
+        "linear_update_project",
+        "linear_archive_project",
+        "linear_list_users",
+        "linear_list_teams",
+        "linear_get_viewer",
+        "linear_list_labels",
+        "linear_create_label",
+        "linear_update_label",
+        "linear_archive_label",
+        "linear_list_workflow_states",
+        "linear_create_workflow_state",
+        "linear_update_workflow_state",
+        "linear_list_cycles",
+        "linear_get_cycle",
+        "linear_create_cycle",
+        "linear_get_active_cycle",
+        "linear_create_attachment",
+        "linear_list_attachments",
+        "linear_update_attachment",
+        "linear_delete_attachment",
+        "linear_create_issue_relation",
+        "linear_list_issue_relations",
+        "linear_delete_issue_relation",
+        "linear_create_favorite",
+        "linear_list_favorites",
+        "linear_create_project_update",
+        "linear_list_project_updates",
+        "linear_list_notifications",
+        "linear_update_notification",
+        "linear_create_customer",
+        "linear_list_customers",
+        "linear_create_customer_request",
+        "linear_update_customer_request",
+        "linear_list_customer_requests",
+        "linear_get_customer",
+        "linear_update_customer",
+        "linear_delete_customer",
+        "linear_merge_customers",
+        "linear_create_customer_status",
+        "linear_update_customer_status",
+        "linear_delete_customer_status",
+        "linear_list_customer_statuses",
+        "linear_create_customer_tier",
+        "linear_update_customer_tier",
+        "linear_delete_customer_tier",
+        "linear_list_customer_tiers",
+        "linear_delete_project",
+        "linear_create_project_label",
+        "linear_update_project_label",
+        "linear_delete_project_label",
+        "linear_list_project_labels",
+        "linear_add_label_to_project",
+        "linear_remove_label_from_project",
+        "linear_create_project_milestone",
+        "linear_update_project_milestone",
+        "linear_delete_project_milestone",
+        "linear_list_project_milestones",
+        "linear_create_project_status",
+        "linear_update_project_status",
+        "linear_delete_project_status",
+        "linear_list_project_statuses"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "issues": {
+        "type": "json"
+      }
+    },
+    "triggerAllowed": true
+  },
+  "tools": [
+    {
+      "id": "linear_add_label_to_issue",
+      "name": "Linear Add Label to Issue",
+      "description": "Add a label to an issue in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_add_label_to_issue"
+      }
+    },
+    {
+      "id": "linear_add_label_to_project",
+      "name": "Linear Add Label to Project",
+      "description": "Add a label to a project in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_add_label_to_project"
+      }
+    },
+    {
+      "id": "linear_archive_issue",
+      "name": "Linear Archive Issue",
+      "description": "Archive an issue in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_archive_issue"
+      }
+    },
+    {
+      "id": "linear_archive_label",
+      "name": "Linear Archive Label",
+      "description": "Archive a label in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_archive_label"
+      }
+    },
+    {
+      "id": "linear_archive_project",
+      "name": "Linear Archive Project",
+      "description": "Archive a project in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_archive_project"
+      }
+    },
+    {
+      "id": "linear_create_attachment",
+      "name": "Linear Create Attachment",
+      "description": "Add an attachment to an issue in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_create_attachment"
+      }
+    },
+    {
+      "id": "linear_create_comment",
+      "name": "Linear Create Comment",
+      "description": "Add a comment to an issue in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_create_comment"
+      }
+    },
+    {
+      "id": "linear_create_customer",
+      "name": "Linear Create Customer",
+      "description": "Create a new customer in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_create_customer"
+      }
+    },
+    {
+      "id": "linear_create_customer_request",
+      "name": "Linear Create Customer Request",
+      "description": "Create a customer request (need) in Linear. Assign to customer, set urgency (priority: 0 = Not important, 1 = Important), and optionally link to an issue.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_create_customer_request"
+      }
+    },
+    {
+      "id": "linear_create_customer_status",
+      "name": "Linear Create Customer Status",
+      "description": "Create a new customer status in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_create_customer_status"
+      }
+    },
+    {
+      "id": "linear_create_customer_tier",
+      "name": "Linear Create Customer Tier",
+      "description": "Create a new customer tier in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_create_customer_tier"
+      }
+    },
+    {
+      "id": "linear_create_cycle",
+      "name": "Linear Create Cycle",
+      "description": "Create a new cycle (sprint/iteration) in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_create_cycle"
+      }
+    },
+    {
+      "id": "linear_create_favorite",
+      "name": "Linear Create Favorite",
+      "description": "Bookmark an issue, project, cycle, or label in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_create_favorite"
+      }
+    },
+    {
+      "id": "linear_create_issue",
+      "name": "Linear Issue Writer",
+      "description": "Create a new issue in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_create_issue"
+      }
+    },
+    {
+      "id": "linear_create_issue_relation",
+      "name": "Linear Create Issue Relation",
+      "description": "Link two issues together in Linear (blocks, relates to, duplicates)",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_create_issue_relation"
+      }
+    },
+    {
+      "id": "linear_create_label",
+      "name": "Linear Create Label",
+      "description": "Create a new label in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_create_label"
+      }
+    },
+    {
+      "id": "linear_create_project",
+      "name": "Linear Create Project",
+      "description": "Create a new project in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_create_project"
+      }
+    },
+    {
+      "id": "linear_create_project_label",
+      "name": "Linear Create Project Label",
+      "description": "Create a new project label in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_create_project_label"
+      }
+    },
+    {
+      "id": "linear_create_project_milestone",
+      "name": "Linear Create Project Milestone",
+      "description": "Create a new project milestone in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_create_project_milestone"
+      }
+    },
+    {
+      "id": "linear_create_project_status",
+      "name": "Linear Create Project Status",
+      "description": "Create a new project status in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_create_project_status"
+      }
+    },
+    {
+      "id": "linear_create_project_update",
+      "name": "Linear Create Project Update",
+      "description": "Post a status update for a project in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_create_project_update"
+      }
+    },
+    {
+      "id": "linear_create_workflow_state",
+      "name": "Linear Create Workflow State",
+      "description": "Create a new workflow state (status) in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_create_workflow_state"
+      }
+    },
+    {
+      "id": "linear_delete_attachment",
+      "name": "Linear Delete Attachment",
+      "description": "Delete an attachment from Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_delete_attachment"
+      }
+    },
+    {
+      "id": "linear_delete_comment",
+      "name": "Linear Delete Comment",
+      "description": "Delete a comment from Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_delete_comment"
+      }
+    },
+    {
+      "id": "linear_delete_customer",
+      "name": "Linear Delete Customer",
+      "description": "Delete a customer in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_delete_customer"
+      }
+    },
+    {
+      "id": "linear_delete_customer_status",
+      "name": "Linear Delete Customer Status",
+      "description": "Delete a customer status in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_delete_customer_status"
+      }
+    },
+    {
+      "id": "linear_delete_customer_tier",
+      "name": "Linear Delete Customer Tier",
+      "description": "Delete a customer tier in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_delete_customer_tier"
+      }
+    },
+    {
+      "id": "linear_delete_issue",
+      "name": "Linear Delete Issue",
+      "description": "Delete (trash) an issue in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_delete_issue"
+      }
+    },
+    {
+      "id": "linear_delete_issue_relation",
+      "name": "Linear Delete Issue Relation",
+      "description": "Remove a relation between two issues in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_delete_issue_relation"
+      }
+    },
+    {
+      "id": "linear_delete_project",
+      "name": "Linear Delete Project",
+      "description": "Delete a project in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_delete_project"
+      }
+    },
+    {
+      "id": "linear_delete_project_label",
+      "name": "Linear Delete Project Label",
+      "description": "Delete a project label in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_delete_project_label"
+      }
+    },
+    {
+      "id": "linear_delete_project_milestone",
+      "name": "Linear Delete Project Milestone",
+      "description": "Delete a project milestone in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_delete_project_milestone"
+      }
+    },
+    {
+      "id": "linear_delete_project_status",
+      "name": "Linear Delete Project Status",
+      "description": "Delete a project status in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_delete_project_status"
+      }
+    },
+    {
+      "id": "linear_get_active_cycle",
+      "name": "Linear Get Active Cycle",
+      "description": "Get the currently active cycle for a team",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_get_active_cycle"
+      }
+    },
+    {
+      "id": "linear_get_customer",
+      "name": "Linear Get Customer",
+      "description": "Get a single customer by ID in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_get_customer"
+      }
+    },
+    {
+      "id": "linear_get_cycle",
+      "name": "Linear Get Cycle",
+      "description": "Get a single cycle by ID from Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_get_cycle"
+      }
+    },
+    {
+      "id": "linear_get_issue",
+      "name": "Linear Get Issue",
+      "description": "Get a single issue by ID from Linear with full details",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_get_issue"
+      }
+    },
+    {
+      "id": "linear_get_project",
+      "name": "Linear Get Project",
+      "description": "Get a single project by ID from Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_get_project"
+      }
+    },
+    {
+      "id": "linear_get_viewer",
+      "name": "Linear Get Current User",
+      "description": "Get the currently authenticated user (viewer) information",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_get_viewer"
+      }
+    },
+    {
+      "id": "linear_list_attachments",
+      "name": "Linear List Attachments",
+      "description": "List all attachments on an issue in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_list_attachments"
+      }
+    },
+    {
+      "id": "linear_list_comments",
+      "name": "Linear List Comments",
+      "description": "List all comments on an issue in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_list_comments"
+      }
+    },
+    {
+      "id": "linear_list_customers",
+      "name": "Linear List Customers",
+      "description": "List all customers in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_list_customers"
+      }
+    },
+    {
+      "id": "linear_list_customer_requests",
+      "name": "Linear List Customer Requests",
+      "description": "List all customer requests (needs) in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_list_customer_requests"
+      }
+    },
+    {
+      "id": "linear_list_customer_statuses",
+      "name": "Linear List Customer Statuses",
+      "description": "List all customer statuses in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_list_customer_statuses"
+      }
+    },
+    {
+      "id": "linear_list_customer_tiers",
+      "name": "Linear List Customer Tiers",
+      "description": "List all customer tiers in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_list_customer_tiers"
+      }
+    },
+    {
+      "id": "linear_list_cycles",
+      "name": "Linear List Cycles",
+      "description": "List cycles (sprints/iterations) in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_list_cycles"
+      }
+    },
+    {
+      "id": "linear_list_favorites",
+      "name": "Linear List Favorites",
+      "description": "List all bookmarked items for the current user in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_list_favorites"
+      }
+    },
+    {
+      "id": "linear_list_issue_relations",
+      "name": "Linear List Issue Relations",
+      "description": "List all relations (dependencies) for an issue in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_list_issue_relations"
+      }
+    },
+    {
+      "id": "linear_list_labels",
+      "name": "Linear List Labels",
+      "description": "List all labels in Linear workspace or team",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_list_labels"
+      }
+    },
+    {
+      "id": "linear_list_notifications",
+      "name": "Linear List Notifications",
+      "description": "List notifications for the current user in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_list_notifications"
+      }
+    },
+    {
+      "id": "linear_list_projects",
+      "name": "Linear List Projects",
+      "description": "List projects in Linear with optional filtering",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_list_projects"
+      }
+    },
+    {
+      "id": "linear_list_project_labels",
+      "name": "Linear List Project Labels",
+      "description": "List all project labels in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_list_project_labels"
+      }
+    },
+    {
+      "id": "linear_list_project_milestones",
+      "name": "Linear List Project Milestones",
+      "description": "List all milestones for a project in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_list_project_milestones"
+      }
+    },
+    {
+      "id": "linear_list_project_statuses",
+      "name": "Linear List Project Statuses",
+      "description": "List all project statuses in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_list_project_statuses"
+      }
+    },
+    {
+      "id": "linear_list_project_updates",
+      "name": "Linear List Project Updates",
+      "description": "List all status updates for a project in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_list_project_updates"
+      }
+    },
+    {
+      "id": "linear_list_teams",
+      "name": "Linear List Teams",
+      "description": "List all teams in the Linear workspace",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_list_teams"
+      }
+    },
+    {
+      "id": "linear_list_users",
+      "name": "Linear List Users",
+      "description": "List all users in the Linear workspace",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_list_users"
+      }
+    },
+    {
+      "id": "linear_list_workflow_states",
+      "name": "Linear List Workflow States",
+      "description": "List all workflow states (statuses) in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_list_workflow_states"
+      }
+    },
+    {
+      "id": "linear_merge_customers",
+      "name": "Linear Merge Customers",
+      "description": "Merge two customers in Linear by moving all data from source to target",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_merge_customers"
+      }
+    },
+    {
+      "id": "linear_read_issues",
+      "name": "Linear Issue Reader",
+      "description": "Fetch and filter issues from Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_read_issues"
+      }
+    },
+    {
+      "id": "linear_remove_label_from_issue",
+      "name": "Linear Remove Label from Issue",
+      "description": "Remove a label from an issue in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_remove_label_from_issue"
+      }
+    },
+    {
+      "id": "linear_remove_label_from_project",
+      "name": "Linear Remove Label from Project",
+      "description": "Remove a label from a project in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_remove_label_from_project"
+      }
+    },
+    {
+      "id": "linear_search_issues",
+      "name": "Linear Search Issues",
+      "description": "Search for issues in Linear using full-text search",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_search_issues"
+      }
+    },
+    {
+      "id": "linear_unarchive_issue",
+      "name": "Linear Unarchive Issue",
+      "description": "Unarchive (restore) an archived issue in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_unarchive_issue"
+      }
+    },
+    {
+      "id": "linear_update_attachment",
+      "name": "Linear Update Attachment",
+      "description": "Update an attachment metadata in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_update_attachment"
+      }
+    },
+    {
+      "id": "linear_update_comment",
+      "name": "Linear Update Comment",
+      "description": "Edit a comment in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_update_comment"
+      }
+    },
+    {
+      "id": "linear_update_customer",
+      "name": "Linear Update Customer",
+      "description": "Update a customer in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_update_customer"
+      }
+    },
+    {
+      "id": "linear_update_customer_request",
+      "name": "Linear Update Customer Request",
+      "description": "Update a customer request (need) in Linear. Can change urgency, description, customer assignment, and linked issue.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_update_customer_request"
+      }
+    },
+    {
+      "id": "linear_update_customer_status",
+      "name": "Linear Update Customer Status",
+      "description": "Update a customer status in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_update_customer_status"
+      }
+    },
+    {
+      "id": "linear_update_customer_tier",
+      "name": "Linear Update Customer Tier",
+      "description": "Update a customer tier in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_update_customer_tier"
+      }
+    },
+    {
+      "id": "linear_update_issue",
+      "name": "Linear Update Issue",
+      "description": "Update an existing issue in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_update_issue"
+      }
+    },
+    {
+      "id": "linear_update_label",
+      "name": "Linear Update Label",
+      "description": "Update an existing label in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_update_label"
+      }
+    },
+    {
+      "id": "linear_update_notification",
+      "name": "Linear Update Notification",
+      "description": "Mark a notification as read or unread in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_update_notification"
+      }
+    },
+    {
+      "id": "linear_update_project",
+      "name": "Linear Update Project",
+      "description": "Update an existing project in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_update_project"
+      }
+    },
+    {
+      "id": "linear_update_project_label",
+      "name": "Linear Update Project Label",
+      "description": "Update a project label in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_update_project_label"
+      }
+    },
+    {
+      "id": "linear_update_project_milestone",
+      "name": "Linear Update Project Milestone",
+      "description": "Update a project milestone in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_update_project_milestone"
+      }
+    },
+    {
+      "id": "linear_update_project_status",
+      "name": "Linear Update Project Status",
+      "description": "Update a project status in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_update_project_status"
+      }
+    },
+    {
+      "id": "linear_update_workflow_state",
+      "name": "Linear Update Workflow State",
+      "description": "Update an existing workflow state in Linear",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linear",
+        "operation": "linear_update_workflow_state"
+      }
+    }
+  ]
+}

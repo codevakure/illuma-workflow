@@ -1,0 +1,255 @@
+{
+  "id": "google_books",
+  "name": "Google Books",
+  "version": "1.0.0",
+  "description": "Search and retrieve book information",
+  "icon": "GoogleBooksIcon",
+  "block": {
+    "type": "google_books",
+    "name": "Google Books",
+    "description": "Search and retrieve book information",
+    "longDescription": "Search for books using the Google Books API. Find volumes by title, author, ISBN, or keywords, and retrieve detailed information about specific books including descriptions, ratings, and publication details.",
+    "docsLink": "https://docs.sim.ai/tools/google_books",
+    "category": "tools",
+    "bgColor": "#E0E0E0",
+    "icon": "GoogleBooksIcon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "title": "Operation",
+        "type": "dropdown",
+        "default": "volume_search",
+        "options": [
+          { "label": "Search Volumes", "value": "volume_search" },
+          { "label": "Get Volume Details", "value": "volume_details" }
+        ]
+      },
+      {
+        "id": "apiKey",
+        "title": "API Key",
+        "type": "short-input",
+        "password": true,
+        "placeholder": "Enter your Google Books API key",
+        "required": true
+      },
+      {
+        "id": "query",
+        "title": "Search Query",
+        "type": "short-input",
+        "placeholder": "e.g., intitle:harry potter inauthor:rowling",
+        "condition": { "field": "operation", "value": "volume_search" },
+        "required": { "field": "operation", "value": "volume_search" }
+      },
+      {
+        "id": "filter",
+        "title": "Filter",
+        "type": "dropdown",
+        "options": [
+          { "label": "None", "value": "" },
+          { "label": "Partial Preview", "value": "partial" },
+          { "label": "Full Preview", "value": "full" },
+          { "label": "Free eBooks", "value": "free-ebooks" },
+          { "label": "Paid eBooks", "value": "paid-ebooks" },
+          { "label": "All eBooks", "value": "ebooks" }
+        ],
+        "condition": { "field": "operation", "value": "volume_search" },
+        "layout": "advanced"
+      },
+      {
+        "id": "printType",
+        "title": "Print Type",
+        "type": "dropdown",
+        "default": "all",
+        "options": [
+          { "label": "All", "value": "all" },
+          { "label": "Books", "value": "books" },
+          { "label": "Magazines", "value": "magazines" }
+        ],
+        "condition": { "field": "operation", "value": "volume_search" },
+        "layout": "advanced"
+      },
+      {
+        "id": "orderBy",
+        "title": "Order By",
+        "type": "dropdown",
+        "default": "relevance",
+        "options": [
+          { "label": "Relevance", "value": "relevance" },
+          { "label": "Newest", "value": "newest" }
+        ],
+        "condition": { "field": "operation", "value": "volume_search" },
+        "layout": "advanced"
+      },
+      {
+        "id": "maxResults",
+        "title": "Max Results",
+        "type": "short-input",
+        "placeholder": "Number of results (1-40)",
+        "condition": { "field": "operation", "value": "volume_search" },
+        "layout": "advanced"
+      },
+      {
+        "id": "startIndex",
+        "title": "Start Index",
+        "type": "short-input",
+        "placeholder": "Starting index for pagination",
+        "condition": { "field": "operation", "value": "volume_search" },
+        "layout": "advanced"
+      },
+      {
+        "id": "langRestrict",
+        "title": "Language",
+        "type": "short-input",
+        "placeholder": "ISO 639-1 code (e.g., en, es, fr)",
+        "condition": { "field": "operation", "value": "volume_search" },
+        "layout": "advanced"
+      },
+      {
+        "id": "volumeId",
+        "title": "Volume ID",
+        "type": "short-input",
+        "placeholder": "Google Books volume ID",
+        "condition": { "field": "operation", "value": "volume_details" },
+        "required": { "field": "operation", "value": "volume_details" }
+      },
+      {
+        "id": "projection",
+        "title": "Projection",
+        "type": "dropdown",
+        "default": "full",
+        "options": [
+          { "label": "Full", "value": "full" },
+          { "label": "Lite", "value": "lite" }
+        ],
+        "condition": { "field": "operation", "value": "volume_details" },
+        "layout": "advanced"
+      }
+    ],
+    "tools": {
+      "access": ["google_books_volume_search", "google_books_volume_details"],
+      "config": {
+        "tool": "google_books_{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": { "type": "string", "description": "Operation to perform" },
+      "apiKey": { "type": "string", "description": "Google Books API key" },
+      "query": { "type": "string", "description": "Search query" },
+      "filter": { "type": "string", "description": "Filter by availability" },
+      "printType": { "type": "string", "description": "Print type filter" },
+      "orderBy": { "type": "string", "description": "Sort order" },
+      "maxResults": { "type": "string", "description": "Maximum number of results" },
+      "startIndex": { "type": "string", "description": "Starting index for pagination" },
+      "langRestrict": { "type": "string", "description": "Language restriction" },
+      "volumeId": { "type": "string", "description": "Volume ID for details" },
+      "projection": { "type": "string", "description": "Projection level" }
+    },
+    "outputs": {
+      "totalItems": { "type": "number", "description": "Total number of matching results" },
+      "volumes": { "type": "json", "description": "List of matching volumes" },
+      "id": { "type": "string", "description": "Volume ID" },
+      "title": { "type": "string", "description": "Book title" },
+      "subtitle": { "type": "string", "description": "Book subtitle" },
+      "authors": { "type": "json", "description": "List of authors" },
+      "publisher": { "type": "string", "description": "Publisher name" },
+      "publishedDate": { "type": "string", "description": "Publication date" },
+      "description": { "type": "string", "description": "Book description" },
+      "pageCount": { "type": "number", "description": "Number of pages" },
+      "categories": { "type": "json", "description": "Book categories" },
+      "averageRating": { "type": "number", "description": "Average rating (1-5)" },
+      "ratingsCount": { "type": "number", "description": "Number of ratings" },
+      "language": { "type": "string", "description": "Language code" },
+      "previewLink": { "type": "string", "description": "Link to preview on Google Books" },
+      "infoLink": { "type": "string", "description": "Link to info page" },
+      "thumbnailUrl": { "type": "string", "description": "Book cover thumbnail URL" },
+      "isbn10": { "type": "string", "description": "ISBN-10 identifier" },
+      "isbn13": { "type": "string", "description": "ISBN-13 identifier" }
+    }
+  },
+  "tools": [
+    {
+      "id": "google_books_volume_search",
+      "name": "Google Books Volume Search",
+      "description": "Search for books using the Google Books API",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {
+        "apiKey": {
+          "type": "string",
+          "required": true,
+          "visibility": "user-only",
+          "description": "Google Books API key"
+        },
+        "query": {
+          "type": "string",
+          "required": true,
+          "description": "Search query. Supports special keywords: intitle:, inauthor:, inpublisher:, subject:, isbn:"
+        },
+        "filter": {
+          "type": "string",
+          "required": false,
+          "description": "Filter results by availability (partial, full, free-ebooks, paid-ebooks, ebooks)"
+        },
+        "printType": {
+          "type": "string",
+          "required": false,
+          "description": "Restrict to print type (all, books, magazines)"
+        },
+        "orderBy": {
+          "type": "string",
+          "required": false,
+          "description": "Sort order (relevance, newest)"
+        },
+        "startIndex": {
+          "type": "number",
+          "required": false,
+          "description": "Index of the first result to return (for pagination)"
+        },
+        "maxResults": {
+          "type": "number",
+          "required": false,
+          "description": "Maximum number of results to return (1-40)"
+        },
+        "langRestrict": {
+          "type": "string",
+          "required": false,
+          "description": "Restrict results to a specific language (ISO 639-1 code)"
+        }
+      },
+      "proxy": {
+        "handler": "google_books",
+        "operation": "volume_search"
+      }
+    },
+    {
+      "id": "google_books_volume_details",
+      "name": "Google Books Volume Details",
+      "description": "Get detailed information about a specific book volume",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {
+        "apiKey": {
+          "type": "string",
+          "required": true,
+          "visibility": "user-only",
+          "description": "Google Books API key"
+        },
+        "volumeId": {
+          "type": "string",
+          "required": true,
+          "description": "The ID of the volume to retrieve"
+        },
+        "projection": {
+          "type": "string",
+          "required": false,
+          "description": "Projection level (full, lite)"
+        }
+      },
+      "proxy": {
+        "handler": "google_books",
+        "operation": "volume_details"
+      }
+    }
+  ]
+}

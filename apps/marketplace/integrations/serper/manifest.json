@@ -1,0 +1,177 @@
+{
+  "id": "serper",
+  "name": "Serper",
+  "version": "1.0.0",
+  "description": "Search the web using Serper",
+  "icon": "SerperIcon",
+  "block": {
+    "type": "serper",
+    "name": "Serper",
+    "description": "Search the web using Serper",
+    "longDescription": "Integrate Serper into the workflow. Can search the web.",
+    "docsLink": "https://docs.sim.ai/tools/serper",
+    "category": "tools",
+    "bgColor": "#2B3543",
+    "icon": "SerperIcon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "query",
+        "type": "short-input",
+        "title": "Search Query",
+        "placeholder": "Enter your search query..."
+      },
+      {
+        "id": "type",
+        "type": "dropdown",
+        "title": "Search Type",
+        "options": [
+          {
+            "label": "search",
+            "value": "search"
+          },
+          {
+            "label": "news",
+            "value": "news"
+          },
+          {
+            "label": "places",
+            "value": "places"
+          },
+          {
+            "label": "images",
+            "value": "images"
+          }
+        ]
+      },
+      {
+        "id": "num",
+        "type": "dropdown",
+        "title": "Number of Results",
+        "options": [
+          {
+            "label": "10",
+            "value": "10"
+          },
+          {
+            "label": "20",
+            "value": "20"
+          },
+          {
+            "label": "30",
+            "value": "30"
+          },
+          {
+            "label": "40",
+            "value": "40"
+          },
+          {
+            "label": "50",
+            "value": "50"
+          },
+          {
+            "label": "100",
+            "value": "100"
+          }
+        ]
+      },
+      {
+        "id": "gl",
+        "type": "dropdown",
+        "title": "Country",
+        "options": [
+          {
+            "label": "US",
+            "value": "US"
+          },
+          {
+            "label": "GB",
+            "value": "GB"
+          },
+          {
+            "label": "CA",
+            "value": "CA"
+          },
+          {
+            "label": "AU",
+            "value": "AU"
+          },
+          {
+            "label": "DE",
+            "value": "DE"
+          },
+          {
+            "label": "FR",
+            "value": "FR"
+          }
+        ]
+      },
+      {
+        "id": "hl",
+        "type": "dropdown",
+        "title": "Language",
+        "options": [
+          {
+            "label": "en",
+            "value": "en"
+          },
+          {
+            "label": "es",
+            "value": "es"
+          },
+          {
+            "label": "fr",
+            "value": "fr"
+          },
+          {
+            "label": "de",
+            "value": "de"
+          },
+          {
+            "label": "it",
+            "value": "it"
+          }
+        ]
+      },
+      {
+        "id": "apiKey",
+        "type": "short-input",
+        "title": "API Key",
+        "placeholder": "Enter your Serper API key",
+        "password": true
+      }
+    ],
+    "tools": {
+      "access": [
+        "serper_search"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "query": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "searchResults": {
+        "type": "json"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "serper_search",
+      "name": "Web Search",
+      "description": "A powerful web search tool that provides access to Google search results through Serper.dev API. Supports different types of searches including regular web search, news, places, images, videos, and shopping. Returns comprehensive results including organic results, knowledge graph, answer box, people also ask, related searches, and top stories.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "serper",
+        "operation": "serper_search"
+      }
+    }
+  ]
+}

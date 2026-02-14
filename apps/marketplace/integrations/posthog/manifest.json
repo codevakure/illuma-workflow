@@ -1,0 +1,1204 @@
+{
+  "id": "posthog",
+  "name": "PostHog",
+  "version": "1.0.0",
+  "description": "Product analytics and feature management",
+  "icon": "PosthogIcon",
+  "block": {
+    "type": "posthog",
+    "name": "PostHog",
+    "description": "Product analytics and feature management",
+    "longDescription": "Integrate PostHog into your workflow. Track events, manage feature flags, analyze user behavior, run experiments, create surveys, and access session recordings.",
+    "docsLink": "https://docs.sim.ai/tools/posthog",
+    "category": "tools",
+    "bgColor": "#E0E0E0",
+    "icon": "PosthogIcon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Capture Event",
+            "value": "posthog_capture_event"
+          },
+          {
+            "label": "Batch Events",
+            "value": "posthog_batch_events"
+          },
+          {
+            "label": "List Persons",
+            "value": "posthog_list_persons"
+          },
+          {
+            "label": "Get Person",
+            "value": "posthog_get_person"
+          },
+          {
+            "label": "Delete Person",
+            "value": "posthog_delete_person"
+          },
+          {
+            "label": "Run Query (HogQL)",
+            "value": "posthog_query"
+          },
+          {
+            "label": "List Insights",
+            "value": "posthog_list_insights"
+          },
+          {
+            "label": "Get Insight",
+            "value": "posthog_get_insight"
+          },
+          {
+            "label": "Create Insight",
+            "value": "posthog_create_insight"
+          },
+          {
+            "label": "List Dashboards",
+            "value": "posthog_list_dashboards"
+          },
+          {
+            "label": "Get Dashboard",
+            "value": "posthog_get_dashboard"
+          },
+          {
+            "label": "List Actions",
+            "value": "posthog_list_actions"
+          },
+          {
+            "label": "List Cohorts",
+            "value": "posthog_list_cohorts"
+          },
+          {
+            "label": "Get Cohort",
+            "value": "posthog_get_cohort"
+          },
+          {
+            "label": "Create Cohort",
+            "value": "posthog_create_cohort"
+          },
+          {
+            "label": "List Annotations",
+            "value": "posthog_list_annotations"
+          },
+          {
+            "label": "Create Annotation",
+            "value": "posthog_create_annotation"
+          },
+          {
+            "label": "List Feature Flags",
+            "value": "posthog_list_feature_flags"
+          },
+          {
+            "label": "Get Feature Flag",
+            "value": "posthog_get_feature_flag"
+          },
+          {
+            "label": "Create Feature Flag",
+            "value": "posthog_create_feature_flag"
+          },
+          {
+            "label": "Update Feature Flag",
+            "value": "posthog_update_feature_flag"
+          },
+          {
+            "label": "Delete Feature Flag",
+            "value": "posthog_delete_feature_flag"
+          },
+          {
+            "label": "Evaluate Flags",
+            "value": "posthog_evaluate_flags"
+          },
+          {
+            "label": "List Experiments",
+            "value": "posthog_list_experiments"
+          },
+          {
+            "label": "Get Experiment",
+            "value": "posthog_get_experiment"
+          },
+          {
+            "label": "Create Experiment",
+            "value": "posthog_create_experiment"
+          },
+          {
+            "label": "List Surveys",
+            "value": "posthog_list_surveys"
+          },
+          {
+            "label": "Get Survey",
+            "value": "posthog_get_survey"
+          },
+          {
+            "label": "Create Survey",
+            "value": "posthog_create_survey"
+          },
+          {
+            "label": "Update Survey",
+            "value": "posthog_update_survey"
+          },
+          {
+            "label": "List Session Recordings",
+            "value": "posthog_list_session_recordings"
+          },
+          {
+            "label": "Get Session Recording",
+            "value": "posthog_get_session_recording"
+          },
+          {
+            "label": "List Recording Playlists",
+            "value": "posthog_list_recording_playlists"
+          },
+          {
+            "label": "List Event Definitions",
+            "value": "posthog_list_event_definitions"
+          },
+          {
+            "label": "Get Event Definition",
+            "value": "posthog_get_event_definition"
+          },
+          {
+            "label": "Update Event Definition",
+            "value": "posthog_update_event_definition"
+          },
+          {
+            "label": "List Property Definitions",
+            "value": "posthog_list_property_definitions"
+          },
+          {
+            "label": "Get Property Definition",
+            "value": "posthog_get_property_definition"
+          },
+          {
+            "label": "Update Property Definition",
+            "value": "posthog_update_property_definition"
+          },
+          {
+            "label": "List Projects",
+            "value": "posthog_list_projects"
+          },
+          {
+            "label": "Get Project",
+            "value": "posthog_get_project"
+          },
+          {
+            "label": "List Organizations",
+            "value": "posthog_list_organizations"
+          },
+          {
+            "label": "Get Organization",
+            "value": "posthog_get_organization"
+          }
+        ]
+      },
+      {
+        "id": "region",
+        "type": "dropdown",
+        "title": "Region",
+        "options": [
+          {
+            "label": "US Cloud",
+            "value": "us"
+          },
+          {
+            "label": "EU Cloud",
+            "value": "eu"
+          }
+        ]
+      },
+      {
+        "id": "projectApiKey",
+        "type": "short-input",
+        "title": "Project API Key",
+        "placeholder": "Enter your PostHog project API key",
+        "password": true
+      },
+      {
+        "id": "personalApiKey",
+        "type": "short-input",
+        "title": "Personal API Key",
+        "placeholder": "Enter your PostHog personal API key",
+        "password": true
+      },
+      {
+        "id": "projectId",
+        "type": "short-input",
+        "title": "Project ID",
+        "placeholder": "Enter your PostHog project ID"
+      },
+      {
+        "id": "event",
+        "type": "short-input",
+        "title": "Event Name",
+        "placeholder": "e.g., page_view, button_clicked"
+      },
+      {
+        "id": "distinctId",
+        "type": "short-input",
+        "title": "Distinct ID",
+        "placeholder": "Unique identifier for the user"
+      },
+      {
+        "id": "properties",
+        "type": "long-input",
+        "title": "Properties (JSON)",
+        "placeholder": "{"
+      },
+      {
+        "id": "timestamp",
+        "type": "short-input",
+        "title": "Timestamp (ISO 8601)",
+        "placeholder": "2024-01-01T12:00:00Z"
+      },
+      {
+        "id": "groups",
+        "type": "long-input",
+        "title": "Groups (JSON)",
+        "placeholder": "{"
+      },
+      {
+        "id": "personProperties",
+        "type": "long-input",
+        "title": "Person Properties (JSON)",
+        "placeholder": "{"
+      },
+      {
+        "id": "groupProperties",
+        "type": "long-input",
+        "title": "Group Properties (JSON)",
+        "placeholder": "{"
+      },
+      {
+        "id": "batch",
+        "type": "long-input",
+        "title": "Batch Events (JSON Array)",
+        "placeholder": "[{"
+      },
+      {
+        "id": "query",
+        "type": "long-input",
+        "title": "Query",
+        "placeholder": "HogQL query or JSON object"
+      },
+      {
+        "id": "query",
+        "type": "long-input",
+        "title": "Query",
+        "placeholder": "HogQL query or JSON object"
+      },
+      {
+        "id": "values",
+        "type": "long-input",
+        "title": "Query Values (JSON)",
+        "placeholder": "{"
+      },
+      {
+        "id": "distinctIdFilter",
+        "type": "short-input",
+        "title": "Distinct ID Filter",
+        "placeholder": "user123"
+      },
+      {
+        "id": "personId",
+        "type": "short-input",
+        "title": "Person ID",
+        "placeholder": "Person ID or UUID"
+      },
+      {
+        "id": "insightId",
+        "type": "short-input",
+        "title": "Insight ID",
+        "placeholder": "Insight ID"
+      },
+      {
+        "id": "dashboardId",
+        "type": "short-input",
+        "title": "Dashboard ID",
+        "placeholder": "Dashboard ID"
+      },
+      {
+        "id": "cohortId",
+        "type": "short-input",
+        "title": "Cohort ID",
+        "placeholder": "Cohort ID"
+      },
+      {
+        "id": "featureFlagId",
+        "type": "short-input",
+        "title": "Feature Flag ID",
+        "placeholder": "Feature Flag ID"
+      },
+      {
+        "id": "experimentId",
+        "type": "short-input",
+        "title": "Experiment ID",
+        "placeholder": "Experiment ID"
+      },
+      {
+        "id": "surveyId",
+        "type": "short-input",
+        "title": "Survey ID",
+        "placeholder": "Survey ID"
+      },
+      {
+        "id": "recordingId",
+        "type": "short-input",
+        "title": "Recording ID",
+        "placeholder": "Session Recording ID"
+      },
+      {
+        "id": "eventDefinitionId",
+        "type": "short-input",
+        "title": "Event Definition ID",
+        "placeholder": "Event Definition ID"
+      },
+      {
+        "id": "propertyDefinitionId",
+        "type": "short-input",
+        "title": "Property Definition ID",
+        "placeholder": "Property Definition ID"
+      },
+      {
+        "id": "name",
+        "type": "short-input",
+        "title": "Name",
+        "placeholder": "Enter name"
+      },
+      {
+        "id": "description",
+        "type": "long-input",
+        "title": "Description",
+        "placeholder": "Enter description"
+      },
+      {
+        "id": "key",
+        "type": "short-input",
+        "title": "Flag Key",
+        "placeholder": "feature_flag_key"
+      },
+      {
+        "id": "key",
+        "type": "short-input",
+        "title": "Flag Key",
+        "placeholder": "feature_flag_key"
+      },
+      {
+        "id": "filters",
+        "type": "long-input",
+        "title": "Filters (JSON)",
+        "placeholder": "{"
+      },
+      {
+        "id": "insightQuery",
+        "type": "long-input",
+        "title": "Query (JSON)",
+        "placeholder": "{"
+      },
+      {
+        "id": "dashboards",
+        "type": "short-input",
+        "title": "Dashboard IDs (comma-separated)",
+        "placeholder": "123, 456, 789"
+      },
+      {
+        "id": "insightTags",
+        "type": "short-input",
+        "title": "Tags (comma-separated)",
+        "placeholder": "analytics, revenue, important"
+      },
+      {
+        "id": "active",
+        "type": "switch",
+        "title": "Active"
+      },
+      {
+        "id": "rolloutPercentage",
+        "type": "short-input",
+        "title": "Rollout Percentage",
+        "placeholder": "100"
+      },
+      {
+        "id": "ensureExperienceContinuity",
+        "type": "switch",
+        "title": "Ensure Experience Continuity"
+      },
+      {
+        "id": "groups",
+        "type": "long-input",
+        "title": "Groups (JSON Array)",
+        "placeholder": "[{"
+      },
+      {
+        "id": "isStatic",
+        "type": "switch",
+        "title": "Static Cohort"
+      },
+      {
+        "id": "content",
+        "type": "long-input",
+        "title": "Content",
+        "placeholder": "Annotation content"
+      },
+      {
+        "id": "dateMarker",
+        "type": "short-input",
+        "title": "Date Marker (ISO 8601)",
+        "placeholder": "2024-01-01T12:00:00Z"
+      },
+      {
+        "id": "scope",
+        "type": "dropdown",
+        "title": "Scope",
+        "options": [
+          {
+            "label": "Project",
+            "value": "project"
+          },
+          {
+            "label": "Dashboard Item",
+            "value": "dashboard_item"
+          }
+        ]
+      },
+      {
+        "id": "featureFlagKey",
+        "type": "short-input",
+        "title": "Feature Flag Key",
+        "placeholder": "experiment_flag_key"
+      },
+      {
+        "id": "parameters",
+        "type": "long-input",
+        "title": "Parameters (JSON)",
+        "placeholder": "{"
+      },
+      {
+        "id": "variants",
+        "type": "long-input",
+        "title": "Variants (JSON)",
+        "placeholder": "{"
+      },
+      {
+        "id": "experimentStartDate",
+        "type": "short-input",
+        "title": "Start Date (ISO 8601)",
+        "placeholder": "2024-01-01T00:00:00Z"
+      },
+      {
+        "id": "experimentEndDate",
+        "type": "short-input",
+        "title": "End Date (ISO 8601)",
+        "placeholder": "2024-12-31T23:59:59Z"
+      },
+      {
+        "id": "questions",
+        "type": "long-input",
+        "title": "Questions (JSON Array)",
+        "placeholder": "[{"
+      },
+      {
+        "id": "questions",
+        "type": "long-input",
+        "title": "Questions (JSON Array)",
+        "placeholder": "[{"
+      },
+      {
+        "id": "surveyType",
+        "type": "dropdown",
+        "title": "Survey Type",
+        "options": [
+          {
+            "label": "Popover",
+            "value": "popover"
+          },
+          {
+            "label": "API",
+            "value": "api"
+          }
+        ]
+      },
+      {
+        "id": "surveyStartDate",
+        "type": "short-input",
+        "title": "Start Date (ISO 8601)",
+        "placeholder": "2024-01-01T00:00:00Z"
+      },
+      {
+        "id": "surveyEndDate",
+        "type": "short-input",
+        "title": "End Date (ISO 8601)",
+        "placeholder": "2024-12-31T23:59:59Z"
+      },
+      {
+        "id": "appearance",
+        "type": "long-input",
+        "title": "Appearance (JSON)",
+        "placeholder": "{"
+      },
+      {
+        "id": "conditions",
+        "type": "long-input",
+        "title": "Conditions (JSON)",
+        "placeholder": "{"
+      },
+      {
+        "id": "targetingFlagFilters",
+        "type": "long-input",
+        "title": "Targeting Flag Filters (JSON)",
+        "placeholder": "{"
+      },
+      {
+        "id": "linkedFlagId",
+        "type": "short-input",
+        "title": "Linked Feature Flag ID",
+        "placeholder": "Feature flag ID"
+      },
+      {
+        "id": "responsesLimit",
+        "type": "short-input",
+        "title": "Responses Limit",
+        "placeholder": "1000"
+      },
+      {
+        "id": "limit",
+        "type": "short-input",
+        "title": "Limit",
+        "placeholder": "100"
+      },
+      {
+        "id": "offset",
+        "type": "short-input",
+        "title": "Offset",
+        "placeholder": "0"
+      },
+      {
+        "id": "search",
+        "type": "short-input",
+        "title": "Search",
+        "placeholder": "Search query"
+      },
+      {
+        "id": "tags",
+        "type": "short-input",
+        "title": "Tags (comma-separated)",
+        "placeholder": "tag1, tag2, tag3"
+      },
+      {
+        "id": "propertyType",
+        "type": "dropdown",
+        "title": "Property Type",
+        "options": [
+          {
+            "label": "DateTime",
+            "value": "DateTime"
+          },
+          {
+            "label": "String",
+            "value": "String"
+          },
+          {
+            "label": "Numeric",
+            "value": "Numeric"
+          },
+          {
+            "label": "Boolean",
+            "value": "Boolean"
+          }
+        ]
+      },
+      {
+        "id": "organizationId",
+        "type": "short-input",
+        "title": "Organization ID",
+        "placeholder": "Organization ID"
+      },
+      {
+        "id": "projectIdParam",
+        "type": "short-input",
+        "title": "Project ID",
+        "placeholder": "Project ID"
+      }
+    ],
+    "tools": {
+      "access": [
+        "posthog_capture_event",
+        "posthog_batch_events",
+        "posthog_list_persons",
+        "posthog_get_person",
+        "posthog_delete_person",
+        "posthog_query",
+        "posthog_list_insights",
+        "posthog_get_insight",
+        "posthog_create_insight",
+        "posthog_list_dashboards",
+        "posthog_get_dashboard",
+        "posthog_list_actions",
+        "posthog_list_cohorts",
+        "posthog_get_cohort",
+        "posthog_create_cohort",
+        "posthog_list_annotations",
+        "posthog_create_annotation",
+        "posthog_list_feature_flags",
+        "posthog_get_feature_flag",
+        "posthog_create_feature_flag",
+        "posthog_update_feature_flag",
+        "posthog_delete_feature_flag",
+        "posthog_evaluate_flags",
+        "posthog_list_experiments",
+        "posthog_get_experiment",
+        "posthog_create_experiment",
+        "posthog_list_surveys",
+        "posthog_get_survey",
+        "posthog_create_survey",
+        "posthog_update_survey",
+        "posthog_list_session_recordings",
+        "posthog_get_session_recording",
+        "posthog_list_recording_playlists",
+        "posthog_list_event_definitions",
+        "posthog_get_event_definition",
+        "posthog_update_event_definition",
+        "posthog_list_property_definitions",
+        "posthog_get_property_definition",
+        "posthog_update_property_definition",
+        "posthog_list_projects",
+        "posthog_get_project",
+        "posthog_list_organizations",
+        "posthog_get_organization"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "boolean"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "posthog_batch_events",
+      "name": "PostHog Batch Events",
+      "description": "Capture multiple events at once in PostHog. Use this for bulk event ingestion to improve performance.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "posthog",
+        "operation": "posthog_batch_events"
+      }
+    },
+    {
+      "id": "posthog_capture_event",
+      "name": "PostHog Capture Event",
+      "description": "Capture a single event in PostHog. Use this to track user actions, page views, or custom events.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "posthog",
+        "operation": "posthog_capture_event"
+      }
+    },
+    {
+      "id": "posthog_create_annotation",
+      "name": "PostHog Create Annotation",
+      "description": "Create a new annotation in PostHog. Mark important events on your graphs with date and description.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "posthog",
+        "operation": "posthog_create_annotation"
+      }
+    },
+    {
+      "id": "posthog_create_cohort",
+      "name": "PostHog Create Cohort",
+      "description": "Create a new cohort in PostHog. Requires cohort name and filter or query configuration.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "posthog",
+        "operation": "posthog_create_cohort"
+      }
+    },
+    {
+      "id": "posthog_create_experiment",
+      "name": "PostHog Create Experiment",
+      "description": "Create a new experiment in PostHog",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "posthog",
+        "operation": "posthog_create_experiment"
+      }
+    },
+    {
+      "id": "posthog_create_feature_flag",
+      "name": "PostHog Create Feature Flag",
+      "description": "Create a new feature flag in PostHog",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "posthog",
+        "operation": "posthog_create_feature_flag"
+      }
+    },
+    {
+      "id": "posthog_create_insight",
+      "name": "PostHog Create Insight",
+      "description": "Create a new insight in PostHog. Requires insight name and configuration filters or query.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "posthog",
+        "operation": "posthog_create_insight"
+      }
+    },
+    {
+      "id": "posthog_create_survey",
+      "name": "PostHog Create Survey",
+      "description": "Create a new survey in PostHog. Supports question types: Basic (open), Link, Rating, and Multiple Choice.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "posthog",
+        "operation": "posthog_create_survey"
+      }
+    },
+    {
+      "id": "posthog_delete_feature_flag",
+      "name": "PostHog Delete Feature Flag",
+      "description": "Delete a feature flag from PostHog",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "posthog",
+        "operation": "posthog_delete_feature_flag"
+      }
+    },
+    {
+      "id": "posthog_delete_person",
+      "name": "PostHog Delete Person",
+      "description": "Delete a person from PostHog. This will remove all associated events and data. Use with caution.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "posthog",
+        "operation": "posthog_delete_person"
+      }
+    },
+    {
+      "id": "posthog_evaluate_flags",
+      "name": "PostHog Evaluate Feature Flags",
+      "description": "Evaluate feature flags for a specific user or group. This is a public endpoint that uses the project API key.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "posthog",
+        "operation": "posthog_evaluate_flags"
+      }
+    },
+    {
+      "id": "posthog_get_cohort",
+      "name": "PostHog Get Cohort",
+      "description": "Get a specific cohort by ID from PostHog. Returns detailed cohort definition, filters, and user count.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "posthog",
+        "operation": "posthog_get_cohort"
+      }
+    },
+    {
+      "id": "posthog_get_dashboard",
+      "name": "PostHog Get Dashboard",
+      "description": "Get a specific dashboard by ID from PostHog. Returns detailed dashboard configuration, tiles, and metadata.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "posthog",
+        "operation": "posthog_get_dashboard"
+      }
+    },
+    {
+      "id": "posthog_get_event_definition",
+      "name": "PostHog Get Event Definition",
+      "description": "Get details of a specific event definition in PostHog. Returns comprehensive information about the event including metadata, usage statistics, and verification status.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "posthog",
+        "operation": "posthog_get_event_definition"
+      }
+    },
+    {
+      "id": "posthog_get_experiment",
+      "name": "PostHog Get Experiment",
+      "description": "Get details of a specific experiment",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "posthog",
+        "operation": "posthog_get_experiment"
+      }
+    },
+    {
+      "id": "posthog_get_feature_flag",
+      "name": "PostHog Get Feature Flag",
+      "description": "Get details of a specific feature flag",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "posthog",
+        "operation": "posthog_get_feature_flag"
+      }
+    },
+    {
+      "id": "posthog_get_insight",
+      "name": "PostHog Get Insight",
+      "description": "Get a specific insight by ID from PostHog. Returns detailed insight configuration, filters, and metadata.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "posthog",
+        "operation": "posthog_get_insight"
+      }
+    },
+    {
+      "id": "posthog_get_organization",
+      "name": "PostHog Get Organization",
+      "description": "Get detailed information about a specific organization by ID. Returns comprehensive organization settings, features, usage, and team information.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "posthog",
+        "operation": "posthog_get_organization"
+      }
+    },
+    {
+      "id": "posthog_get_person",
+      "name": "PostHog Get Person",
+      "description": "Get detailed information about a specific person in PostHog by their ID or UUID.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "posthog",
+        "operation": "posthog_get_person"
+      }
+    },
+    {
+      "id": "posthog_get_project",
+      "name": "PostHog Get Project",
+      "description": "Get detailed information about a specific project by ID. Returns comprehensive project configuration, settings, and feature flags.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "posthog",
+        "operation": "posthog_get_project"
+      }
+    },
+    {
+      "id": "posthog_get_property_definition",
+      "name": "PostHog Get Property Definition",
+      "description": "Get details of a specific property definition in PostHog. Returns comprehensive information about the property including metadata, type, usage statistics, and verification status.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "posthog",
+        "operation": "posthog_get_property_definition"
+      }
+    },
+    {
+      "id": "posthog_get_session_recording",
+      "name": "PostHog Get Session Recording",
+      "description": "Get details of a specific session recording in PostHog by ID.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "posthog",
+        "operation": "posthog_get_session_recording"
+      }
+    },
+    {
+      "id": "posthog_get_survey",
+      "name": "PostHog Get Survey",
+      "description": "Get details of a specific survey in PostHog by ID.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "posthog",
+        "operation": "posthog_get_survey"
+      }
+    },
+    {
+      "id": "posthog_list_actions",
+      "name": "PostHog List Actions",
+      "description": "List all actions in a PostHog project. Returns action definitions, steps, and metadata.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "posthog",
+        "operation": "posthog_list_actions"
+      }
+    },
+    {
+      "id": "posthog_list_annotations",
+      "name": "PostHog List Annotations",
+      "description": "List all annotations in a PostHog project. Returns annotation content, timestamps, and associated insights.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "posthog",
+        "operation": "posthog_list_annotations"
+      }
+    },
+    {
+      "id": "posthog_list_cohorts",
+      "name": "PostHog List Cohorts",
+      "description": "List all cohorts in a PostHog project. Returns cohort definitions, filters, and user counts.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "posthog",
+        "operation": "posthog_list_cohorts"
+      }
+    },
+    {
+      "id": "posthog_list_dashboards",
+      "name": "PostHog List Dashboards",
+      "description": "List all dashboards in a PostHog project. Returns dashboard configurations, tiles, and metadata.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "posthog",
+        "operation": "posthog_list_dashboards"
+      }
+    },
+    {
+      "id": "posthog_list_event_definitions",
+      "name": "PostHog List Event Definitions",
+      "description": "List all event definitions in a PostHog project. Event definitions represent tracked events with metadata like descriptions, tags, and usage statistics.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "posthog",
+        "operation": "posthog_list_event_definitions"
+      }
+    },
+    {
+      "id": "posthog_list_experiments",
+      "name": "PostHog List Experiments",
+      "description": "List all experiments in a PostHog project",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "posthog",
+        "operation": "posthog_list_experiments"
+      }
+    },
+    {
+      "id": "posthog_list_feature_flags",
+      "name": "PostHog List Feature Flags",
+      "description": "List all feature flags in a PostHog project",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "posthog",
+        "operation": "posthog_list_feature_flags"
+      }
+    },
+    {
+      "id": "posthog_list_insights",
+      "name": "PostHog List Insights",
+      "description": "List all insights in a PostHog project. Returns insight configurations, filters, and metadata.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "posthog",
+        "operation": "posthog_list_insights"
+      }
+    },
+    {
+      "id": "posthog_list_organizations",
+      "name": "PostHog List Organizations",
+      "description": "List all organizations the user has access to. Returns organization details including name, slug, membership level, and available product features.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "posthog",
+        "operation": "posthog_list_organizations"
+      }
+    },
+    {
+      "id": "posthog_list_persons",
+      "name": "PostHog List Persons",
+      "description": "List persons (users) in PostHog. Returns user profiles with their properties and distinct IDs.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "posthog",
+        "operation": "posthog_list_persons"
+      }
+    },
+    {
+      "id": "posthog_list_projects",
+      "name": "PostHog List Projects",
+      "description": "List all projects in the organization. Returns project details including IDs, names, API tokens, and settings. Useful for getting project IDs needed by other endpoints.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "posthog",
+        "operation": "posthog_list_projects"
+      }
+    },
+    {
+      "id": "posthog_list_property_definitions",
+      "name": "PostHog List Property Definitions",
+      "description": "List all property definitions in a PostHog project. Property definitions represent tracked properties with metadata like descriptions, tags, types, and usage statistics.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "posthog",
+        "operation": "posthog_list_property_definitions"
+      }
+    },
+    {
+      "id": "posthog_list_recording_playlists",
+      "name": "PostHog List Recording Playlists",
+      "description": "List session recording playlists in a PostHog project. Playlists allow you to organize and curate session recordings.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "posthog",
+        "operation": "posthog_list_recording_playlists"
+      }
+    },
+    {
+      "id": "posthog_list_session_recordings",
+      "name": "PostHog List Session Recordings",
+      "description": "List session recordings in a PostHog project. Session recordings capture user interactions with your application.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "posthog",
+        "operation": "posthog_list_session_recordings"
+      }
+    },
+    {
+      "id": "posthog_list_surveys",
+      "name": "PostHog List Surveys",
+      "description": "List all surveys in a PostHog project. Surveys allow you to collect feedback from users.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "posthog",
+        "operation": "posthog_list_surveys"
+      }
+    },
+    {
+      "id": "posthog_query",
+      "name": "PostHog Query",
+      "description": "Execute a HogQL query in PostHog. HogQL is PostHog",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "posthog",
+        "operation": "posthog_query"
+      }
+    },
+    {
+      "id": "posthog_update_event_definition",
+      "name": "PostHog Update Event Definition",
+      "description": "Update an event definition in PostHog. Can modify description, tags, and verification status to maintain clean event schemas.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "posthog",
+        "operation": "posthog_update_event_definition"
+      }
+    },
+    {
+      "id": "posthog_update_feature_flag",
+      "name": "PostHog Update Feature Flag",
+      "description": "Update an existing feature flag in PostHog",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "posthog",
+        "operation": "posthog_update_feature_flag"
+      }
+    },
+    {
+      "id": "posthog_update_property_definition",
+      "name": "PostHog Update Property Definition",
+      "description": "Update a property definition in PostHog. Can modify description, tags, property type, and verification status to maintain clean property schemas.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "posthog",
+        "operation": "posthog_update_property_definition"
+      }
+    },
+    {
+      "id": "posthog_update_survey",
+      "name": "PostHog Update Survey",
+      "description": "Update an existing survey in PostHog. Can modify questions, appearance, conditions, and other settings.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "posthog",
+        "operation": "posthog_update_survey"
+      }
+    }
+  ]
+}

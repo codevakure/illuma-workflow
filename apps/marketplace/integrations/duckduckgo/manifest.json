@@ -1,0 +1,67 @@
+{
+  "id": "duckduckgo",
+  "name": "DuckDuckGo",
+  "version": "1.0.0",
+  "description": "Search with DuckDuckGo",
+  "icon": "DuckDuckGoIcon",
+  "block": {
+    "type": "duckduckgo",
+    "name": "DuckDuckGo",
+    "description": "Search with DuckDuckGo",
+    "longDescription": "Search the web using DuckDuckGo Instant Answers API. Returns instant answers, abstracts, related topics, and more. Free to use without an API key.",
+    "docsLink": "https://docs.sim.ai/tools/duckduckgo",
+    "category": "tools",
+    "bgColor": "#FFFFFF",
+    "icon": "DuckDuckGoIcon",
+    "subBlocks": [
+      {
+        "id": "query",
+        "type": "long-input",
+        "title": "Search Query",
+        "placeholder": "Enter your search query..."
+      },
+      {
+        "id": "noHtml",
+        "type": "switch",
+        "title": "Remove HTML"
+      },
+      {
+        "id": "skipDisambig",
+        "type": "switch",
+        "title": "Skip Disambiguation"
+      }
+    ],
+    "tools": {
+      "access": [
+        "duckduckgo_search"
+      ],
+      "config": {
+        "tool": "duckduckgo_search"
+      }
+    },
+    "inputs": {
+      "query": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "heading": {
+        "type": "string"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "duckduckgo_search",
+      "name": "DuckDuckGo Search",
+      "description": "Search the web using DuckDuckGo Instant Answers API. Returns instant answers, abstracts, and related topics for your query. Free to use without an API key.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "duckduckgo",
+        "operation": "duckduckgo_search"
+      }
+    }
+  ]
+}

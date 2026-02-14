@@ -1,0 +1,192 @@
+{
+  "id": "perplexity",
+  "name": "Perplexity",
+  "version": "1.0.0",
+  "description": "AI-powered search and chat via Perplexity API",
+  "icon": "PerplexityIcon",
+
+  "block": {
+    "type": "perplexity",
+    "name": "Perplexity",
+    "description": "Search & Chat with Perplexity",
+    "longDescription": "Use Perplexity AI for intelligent web search with citations or conversational AI. Supports multiple Sonar models with varying capabilities.",
+    "docsLink": "https://docs.sim.ai/tools/perplexity",
+    "category": "tools",
+    "bgColor": "#1A1A2E",
+    "icon": "PerplexityIcon",
+    "authMode": "api_key",
+    "operations": [
+      { "value": "chat", "label": "Chat", "toolId": "perplexity_chat" },
+      { "value": "search", "label": "Search", "toolId": "perplexity_search" }
+    ],
+    "subBlocks": [
+      {
+        "id": "operation",
+        "title": "Operation",
+        "type": "dropdown",
+        "options": [
+          { "value": "chat", "label": "Chat" },
+          { "value": "search", "label": "Search" }
+        ],
+        "default": "chat"
+      },
+      {
+        "id": "systemPrompt",
+        "title": "System Prompt",
+        "type": "long-input",
+        "placeholder": "You are a helpful assistant...",
+        "condition": { "field": "operation", "value": "chat" }
+      },
+      {
+        "id": "content",
+        "title": "Message",
+        "type": "long-input",
+        "placeholder": "Enter your message...",
+        "required": true,
+        "condition": { "field": "operation", "value": "chat" }
+      },
+      {
+        "id": "query",
+        "title": "Search Query",
+        "type": "long-input",
+        "placeholder": "Enter your search query...",
+        "required": true,
+        "condition": { "field": "operation", "value": "search" }
+      },
+      {
+        "id": "model",
+        "title": "Model",
+        "type": "dropdown",
+        "options": [
+          { "value": "sonar", "label": "Sonar" },
+          { "value": "sonar-pro", "label": "Sonar Pro" },
+          { "value": "sonar-deep-research", "label": "Sonar Deep Research" },
+          { "value": "sonar-reasoning-pro", "label": "Sonar Reasoning Pro" }
+        ],
+        "default": "sonar"
+      },
+      {
+        "id": "temperature",
+        "title": "Temperature",
+        "type": "slider",
+        "min": 0,
+        "max": 2,
+        "step": 0.1,
+        "default": 0.7,
+        "condition": { "field": "operation", "value": "chat" }
+      },
+      {
+        "id": "apiKey",
+        "title": "API Key",
+        "type": "short-input",
+        "placeholder": "Enter your Perplexity API key...",
+        "required": true,
+        "password": true
+      }
+    ],
+    "tools": {
+      "access": ["perplexity_chat", "perplexity_search"],
+      "config": {
+        "tool": "perplexity_{{operation}}"
+      }
+    },
+    "inputs": {
+      "content": { "type": "string", "description": "Chat message content" },
+      "query": { "type": "string", "description": "Search query" },
+      "systemPrompt": { "type": "string", "description": "System prompt for chat" }
+    },
+    "outputs": {
+      "content": { "type": "string", "description": "Generated response content" },
+      "model": { "type": "string", "description": "Model used" },
+      "results": { "type": "json", "description": "Search results" },
+      "citations": { "type": "json", "description": "Source citations" }
+    }
+  },
+
+  "tools": [
+    {
+      "id": "perplexity_chat",
+      "name": "Perplexity Chat",
+      "description": "Chat with Perplexity AI using Sonar models.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "proxy": {
+        "handler": "perplexity",
+        "operation": "chat"
+      },
+      "params": {
+        "content": {
+          "type": "string",
+          "required": true,
+          "visibility": "user-or-llm",
+          "description": "The message to send"
+        },
+        "systemPrompt": {
+          "type": "string",
+          "required": false,
+          "visibility": "user-only",
+          "description": "System prompt for context"
+        },
+        "model": {
+          "type": "string",
+          "required": false,
+          "visibility": "user-only",
+          "description": "Model to use",
+          "enum": ["sonar", "sonar-pro", "sonar-deep-research", "sonar-reasoning-pro"]
+        },
+        "temperature": {
+          "type": "number",
+          "required": false,
+          "visibility": "user-only",
+          "description": "Sampling temperature (0-2)"
+        },
+        "apiKey": {
+          "type": "string",
+          "required": true,
+          "visibility": "user-only",
+          "description": "Perplexity API Key"
+        }
+      },
+      "outputs": {
+        "content": { "type": "string", "description": "Generated response" },
+        "model": { "type": "string", "description": "Model used" },
+        "usage": { "type": "object", "description": "Token usage" }
+      }
+    },
+    {
+      "id": "perplexity_search",
+      "name": "Perplexity Search",
+      "description": "Search the web using Perplexity AI with citations.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "proxy": {
+        "handler": "perplexity",
+        "operation": "search"
+      },
+      "params": {
+        "query": {
+          "type": "string",
+          "required": true,
+          "visibility": "user-or-llm",
+          "description": "The search query"
+        },
+        "max_results": {
+          "type": "number",
+          "required": false,
+          "visibility": "user-only",
+          "description": "Maximum number of results"
+        },
+        "apiKey": {
+          "type": "string",
+          "required": true,
+          "visibility": "user-only",
+          "description": "Perplexity API Key"
+        }
+      },
+      "outputs": {
+        "results": { "type": "array", "description": "Search results" },
+        "query": { "type": "string", "description": "The executed query" }
+      }
+    }
+  ]
+}

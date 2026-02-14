@@ -1,0 +1,411 @@
+{
+  "id": "dropbox",
+  "name": "Dropbox",
+  "version": "1.0.0",
+  "description": "Upload, download, share, and manage files in Dropbox",
+  "icon": "DropboxIcon",
+  "block": {
+    "type": "dropbox",
+    "name": "Dropbox",
+    "description": "Upload, download, share, and manage files in Dropbox",
+    "longDescription": "Integrate Dropbox into your workflow for file management, sharing, and collaboration. Upload files, download content, create folders, manage shared links, and more.",
+    "docsLink": "https://docs.sim.ai/tools/dropbox",
+    "category": "tools",
+    "bgColor": "#0061FF",
+    "icon": "DropboxIcon",
+    "authMode": "oauth",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Upload File",
+            "value": "dropbox_upload"
+          },
+          {
+            "label": "Download File",
+            "value": "dropbox_download"
+          },
+          {
+            "label": "List Folder",
+            "value": "dropbox_list_folder"
+          },
+          {
+            "label": "Create Folder",
+            "value": "dropbox_create_folder"
+          },
+          {
+            "label": "Delete File/Folder",
+            "value": "dropbox_delete"
+          },
+          {
+            "label": "Copy File/Folder",
+            "value": "dropbox_copy"
+          },
+          {
+            "label": "Move File/Folder",
+            "value": "dropbox_move"
+          },
+          {
+            "label": "Get Metadata",
+            "value": "dropbox_get_metadata"
+          },
+          {
+            "label": "Create Shared Link",
+            "value": "dropbox_create_shared_link"
+          },
+          {
+            "label": "Search Files",
+            "value": "dropbox_search"
+          }
+        ]
+      },
+      {
+        "id": "credential",
+        "type": "oauth-input",
+        "title": "Dropbox Account",
+        "placeholder": "Select Dropbox account"
+      },
+      {
+        "id": "path",
+        "type": "short-input",
+        "title": "Destination Path",
+        "placeholder": "/folder/document.pdf"
+      },
+      {
+        "id": "uploadFile",
+        "type": "file-upload",
+        "title": "File",
+        "placeholder": "Upload file to send to Dropbox",
+        "mode": "basic",
+        "canonicalParamId": "file"
+      },
+      {
+        "id": "fileRef",
+        "type": "short-input",
+        "title": "File",
+        "placeholder": "Reference file from previous blocks",
+        "mode": "advanced",
+        "canonicalParamId": "file"
+      },
+      {
+        "id": "mode",
+        "type": "dropdown",
+        "title": "Write Mode",
+        "options": [
+          {
+            "label": "Add (create new)",
+            "value": "add"
+          },
+          {
+            "label": "Overwrite (replace existing)",
+            "value": "overwrite"
+          }
+        ]
+      },
+      {
+        "id": "autorename",
+        "type": "switch",
+        "title": "Auto-rename on Conflict"
+      },
+      {
+        "id": "path",
+        "type": "short-input",
+        "title": "File Path",
+        "placeholder": "/folder/document.pdf"
+      },
+      {
+        "id": "path",
+        "type": "short-input",
+        "title": "Folder Path",
+        "placeholder": "/ (root) or /folder"
+      },
+      {
+        "id": "recursive",
+        "type": "switch",
+        "title": "List Recursively"
+      },
+      {
+        "id": "limit",
+        "type": "short-input",
+        "title": "Maximum Results",
+        "placeholder": "500"
+      },
+      {
+        "id": "path",
+        "type": "short-input",
+        "title": "Folder Path",
+        "placeholder": "/new-folder"
+      },
+      {
+        "id": "autorename",
+        "type": "switch",
+        "title": "Auto-rename on Conflict"
+      },
+      {
+        "id": "path",
+        "type": "short-input",
+        "title": "Path to Delete",
+        "placeholder": "/folder/file.txt"
+      },
+      {
+        "id": "fromPath",
+        "type": "short-input",
+        "title": "Source Path",
+        "placeholder": "/source/document.pdf"
+      },
+      {
+        "id": "toPath",
+        "type": "short-input",
+        "title": "Destination Path",
+        "placeholder": "/destination/document.pdf"
+      },
+      {
+        "id": "autorename",
+        "type": "switch",
+        "title": "Auto-rename on Conflict"
+      },
+      {
+        "id": "fromPath",
+        "type": "short-input",
+        "title": "Source Path",
+        "placeholder": "/old-location/document.pdf"
+      },
+      {
+        "id": "toPath",
+        "type": "short-input",
+        "title": "Destination Path",
+        "placeholder": "/new-location/document.pdf"
+      },
+      {
+        "id": "autorename",
+        "type": "switch",
+        "title": "Auto-rename on Conflict"
+      },
+      {
+        "id": "path",
+        "type": "short-input",
+        "title": "File/Folder Path",
+        "placeholder": "/folder/document.pdf"
+      },
+      {
+        "id": "includeMediaInfo",
+        "type": "switch",
+        "title": "Include Media Info"
+      },
+      {
+        "id": "path",
+        "type": "short-input",
+        "title": "File/Folder Path",
+        "placeholder": "/folder/document.pdf"
+      },
+      {
+        "id": "requestedVisibility",
+        "type": "dropdown",
+        "title": "Visibility",
+        "options": [
+          {
+            "label": "Public (anyone with link)",
+            "value": "public"
+          },
+          {
+            "label": "Team Only",
+            "value": "team_only"
+          },
+          {
+            "label": "Password Protected",
+            "value": "password"
+          }
+        ]
+      },
+      {
+        "id": "linkPassword",
+        "type": "short-input",
+        "title": "Link Password",
+        "placeholder": "Enter password for the link",
+        "password": true
+      },
+      {
+        "id": "expires",
+        "type": "short-input",
+        "title": "Expiration Date",
+        "placeholder": "2025-12-31T23:59:59Z"
+      },
+      {
+        "id": "query",
+        "type": "short-input",
+        "title": "Search Query",
+        "placeholder": "Enter search term..."
+      },
+      {
+        "id": "path",
+        "type": "short-input",
+        "title": "Search in Folder",
+        "placeholder": "/ (search all) or /folder"
+      },
+      {
+        "id": "fileExtensions",
+        "type": "short-input",
+        "title": "File Extensions",
+        "placeholder": "pdf,xlsx,docx (comma-separated)"
+      },
+      {
+        "id": "maxResults",
+        "type": "short-input",
+        "title": "Maximum Results",
+        "placeholder": "100"
+      }
+    ],
+    "tools": {
+      "access": [
+        "dropbox_upload",
+        "dropbox_download",
+        "dropbox_list_folder",
+        "dropbox_create_folder",
+        "dropbox_delete",
+        "dropbox_copy",
+        "dropbox_move",
+        "dropbox_get_metadata",
+        "dropbox_create_shared_link",
+        "dropbox_search"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "file": {
+        "type": "file"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "dropbox_copy",
+      "name": "Dropbox Copy",
+      "description": "Copy a file or folder in Dropbox",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "dropbox",
+        "operation": "dropbox_copy"
+      }
+    },
+    {
+      "id": "dropbox_create_folder",
+      "name": "Dropbox Create Folder",
+      "description": "Create a new folder in Dropbox",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "dropbox",
+        "operation": "dropbox_create_folder"
+      }
+    },
+    {
+      "id": "dropbox_create_shared_link",
+      "name": "Dropbox Create Shared Link",
+      "description": "Create a shareable link for a file or folder in Dropbox",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "dropbox",
+        "operation": "dropbox_create_shared_link"
+      }
+    },
+    {
+      "id": "dropbox_delete",
+      "name": "Dropbox Delete",
+      "description": "Delete a file or folder in Dropbox (moves to trash)",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "dropbox",
+        "operation": "dropbox_delete"
+      }
+    },
+    {
+      "id": "dropbox_download",
+      "name": "Dropbox Download File",
+      "description": "Download a file from Dropbox with metadata and content",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "dropbox",
+        "operation": "dropbox_download"
+      }
+    },
+    {
+      "id": "dropbox_get_metadata",
+      "name": "Dropbox Get Metadata",
+      "description": "Get metadata for a file or folder in Dropbox",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "dropbox",
+        "operation": "dropbox_get_metadata"
+      }
+    },
+    {
+      "id": "dropbox_list_folder",
+      "name": "Dropbox List Folder",
+      "description": "List the contents of a folder in Dropbox",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "dropbox",
+        "operation": "dropbox_list_folder"
+      }
+    },
+    {
+      "id": "dropbox_move",
+      "name": "Dropbox Move",
+      "description": "Move or rename a file or folder in Dropbox",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "dropbox",
+        "operation": "dropbox_move"
+      }
+    },
+    {
+      "id": "dropbox_search",
+      "name": "Dropbox Search",
+      "description": "Search for files and folders in Dropbox",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "dropbox",
+        "operation": "dropbox_search"
+      }
+    },
+    {
+      "id": "dropbox_upload",
+      "name": "Dropbox Upload File",
+      "description": "Upload a file to Dropbox",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "dropbox",
+        "operation": "dropbox_upload"
+      }
+    }
+  ]
+}

@@ -1,0 +1,253 @@
+{
+  "id": "neo4j",
+  "name": "Neo4j",
+  "version": "1.0.0",
+  "description": "Connect to Neo4j graph database",
+  "icon": "Neo4jIcon",
+  "block": {
+    "type": "neo4j",
+    "name": "Neo4j",
+    "description": "Connect to Neo4j graph database",
+    "longDescription": "Integrate Neo4j graph database into the workflow. Can query, create, merge, update, and delete nodes and relationships.",
+    "docsLink": "https://docs.sim.ai/tools/neo4j",
+    "category": "tools",
+    "bgColor": "#FFFFFF",
+    "icon": "Neo4jIcon",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Query (MATCH)",
+            "value": "query"
+          },
+          {
+            "label": "Create Nodes/Relationships",
+            "value": "create"
+          },
+          {
+            "label": "Merge (Find or Create)",
+            "value": "merge"
+          },
+          {
+            "label": "Update Properties (SET)",
+            "value": "update"
+          },
+          {
+            "label": "Delete Nodes/Relationships",
+            "value": "delete"
+          },
+          {
+            "label": "Execute Cypher",
+            "value": "execute"
+          },
+          {
+            "label": "Introspect Schema",
+            "value": "introspect"
+          }
+        ]
+      },
+      {
+        "id": "host",
+        "type": "short-input",
+        "title": "Host",
+        "placeholder": "localhost or your.neo4j.host",
+        "password": true
+      },
+      {
+        "id": "port",
+        "type": "short-input",
+        "title": "Port",
+        "placeholder": "7687"
+      },
+      {
+        "id": "database",
+        "type": "short-input",
+        "title": "Database Name",
+        "placeholder": "neo4j"
+      },
+      {
+        "id": "username",
+        "type": "short-input",
+        "title": "Username",
+        "placeholder": "neo4j"
+      },
+      {
+        "id": "password",
+        "type": "short-input",
+        "title": "Password",
+        "placeholder": "Your database password",
+        "password": true
+      },
+      {
+        "id": "encryption",
+        "type": "dropdown",
+        "title": "Encryption",
+        "options": [
+          {
+            "label": "Disabled",
+            "value": "disabled"
+          },
+          {
+            "label": "Enabled (TLS/SSL)",
+            "value": "enabled"
+          }
+        ]
+      },
+      {
+        "id": "cypherQuery",
+        "type": "code",
+        "title": "Cypher Query",
+        "placeholder": "MATCH (n:Person) WHERE n.age > 21 RETURN n LIMIT 10"
+      },
+      {
+        "id": "cypherQuery",
+        "type": "code",
+        "title": "Cypher CREATE Statement",
+        "placeholder": "CREATE (n:Person {name: "
+      },
+      {
+        "id": "cypherQuery",
+        "type": "code",
+        "title": "Cypher MERGE Statement",
+        "placeholder": "MERGE (n:Person {email: "
+      },
+      {
+        "id": "cypherQuery",
+        "type": "code",
+        "title": "Cypher UPDATE Statement",
+        "placeholder": "MATCH (n:Person {name: "
+      },
+      {
+        "id": "cypherQuery",
+        "type": "code",
+        "title": "Cypher DELETE Statement",
+        "placeholder": "MATCH (n:Person {name: "
+      },
+      {
+        "id": "cypherQuery",
+        "type": "code",
+        "title": "Cypher Query",
+        "placeholder": "MATCH (n:Person) RETURN n LIMIT 10"
+      },
+      {
+        "id": "parameters",
+        "type": "code",
+        "title": "Parameters",
+        "placeholder": "{"
+      }
+    ],
+    "tools": {
+      "access": [
+        "neo4j_query",
+        "neo4j_create",
+        "neo4j_merge",
+        "neo4j_update",
+        "neo4j_delete",
+        "neo4j_execute",
+        "neo4j_introspect"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "message": {
+        "type": "string"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "neo4j_create",
+      "name": "Neo4j Create",
+      "description": "Execute CREATE statements to add new nodes and relationships to Neo4j graph database",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "neo4j",
+        "operation": "neo4j_create"
+      }
+    },
+    {
+      "id": "neo4j_delete",
+      "name": "Neo4j Delete",
+      "description": "Execute DELETE or DETACH DELETE statements to remove nodes and relationships from Neo4j",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "neo4j",
+        "operation": "neo4j_delete"
+      }
+    },
+    {
+      "id": "neo4j_execute",
+      "name": "Neo4j Execute",
+      "description": "Execute arbitrary Cypher queries on Neo4j graph database for complex operations",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "neo4j",
+        "operation": "neo4j_execute"
+      }
+    },
+    {
+      "id": "neo4j_introspect",
+      "name": "Neo4j Introspect",
+      "description": "Introspect a Neo4j database to discover its schema including node labels, relationship types, properties, constraints, and indexes.",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "neo4j",
+        "operation": "neo4j_introspect"
+      }
+    },
+    {
+      "id": "neo4j_merge",
+      "name": "Neo4j Merge",
+      "description": "Execute MERGE statements to find or create nodes and relationships in Neo4j (upsert operation)",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "neo4j",
+        "operation": "neo4j_merge"
+      }
+    },
+    {
+      "id": "neo4j_query",
+      "name": "Neo4j Query",
+      "description": "Execute MATCH queries to read nodes and relationships from Neo4j graph database. For best performance and to prevent large result sets, include LIMIT in your query (e.g., ",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "neo4j",
+        "operation": "neo4j_query"
+      }
+    },
+    {
+      "id": "neo4j_update",
+      "name": "Neo4j Update",
+      "description": "Execute SET statements to update properties of existing nodes and relationships in Neo4j",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "neo4j",
+        "operation": "neo4j_update"
+      }
+    }
+  ]
+}

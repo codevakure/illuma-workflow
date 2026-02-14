@@ -1,0 +1,75 @@
+{
+  "id": "translate",
+  "name": "Translate",
+  "version": "1.0.0",
+  "description": "Translate text to any language",
+  "icon": "TranslateIcon",
+  "block": {
+    "type": "translate",
+    "name": "Translate",
+    "description": "Translate text to any language",
+    "longDescription": "Integrate Translate into the workflow. Can translate text to any language.",
+    "docsLink": "https://docs.sim.ai/tools/translate",
+    "category": "tools",
+    "bgColor": "#FF4B4B",
+    "icon": "TranslateIcon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "context",
+        "type": "long-input",
+        "title": "Text to Translate",
+        "placeholder": "Enter the text you want to translate"
+      },
+      {
+        "id": "targetLanguage",
+        "type": "short-input",
+        "title": "Translate To",
+        "placeholder": "Enter language (e.g. Spanish, French, etc.)"
+      },
+      {
+        "id": "model",
+        "type": "combobox",
+        "title": "Model",
+        "placeholder": "Type or select a model..."
+      },
+      {
+        "id": "systemPrompt",
+        "type": "code",
+        "title": "System Prompt"
+      }
+    ],
+    "tools": {
+      "access": [
+        "llm_chat"
+      ],
+      "config": {
+        "tool": "llm_chat"
+      }
+    },
+    "inputs": {
+      "context": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "content": {
+        "type": "string"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "llm_chat",
+      "name": "Llm Chat",
+      "description": "Translate chat operation",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "translate",
+        "operation": "llm_chat"
+      }
+    }
+  ]
+}

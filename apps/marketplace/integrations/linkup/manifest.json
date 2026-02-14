@@ -1,0 +1,134 @@
+{
+  "id": "linkup",
+  "name": "Linkup",
+  "version": "1.0.0",
+  "description": "Search the web with Linkup",
+  "icon": "LinkupIcon",
+  "block": {
+    "type": "linkup",
+    "name": "Linkup",
+    "description": "Search the web with Linkup",
+    "longDescription": "Integrate Linkup into the workflow. Can search the web.",
+    "docsLink": "https://docs.sim.ai/tools/linkup",
+    "category": "tools",
+    "bgColor": "#D6D3C7",
+    "icon": "LinkupIcon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "q",
+        "type": "long-input",
+        "title": "Search Query",
+        "placeholder": "Enter your search query"
+      },
+      {
+        "id": "outputType",
+        "type": "dropdown",
+        "title": "Output Type",
+        "options": [
+          {
+            "label": "Answer",
+            "value": "sourcedAnswer"
+          },
+          {
+            "label": "Search",
+            "value": "searchResults"
+          }
+        ]
+      },
+      {
+        "id": "depth",
+        "type": "dropdown",
+        "title": "Search Depth",
+        "options": [
+          {
+            "label": "Standard",
+            "value": "standard"
+          },
+          {
+            "label": "Deep",
+            "value": "deep"
+          }
+        ]
+      },
+      {
+        "id": "includeImages",
+        "type": "switch",
+        "title": "Include Images"
+      },
+      {
+        "id": "includeInlineCitations",
+        "type": "switch",
+        "title": "Include Inline Citations"
+      },
+      {
+        "id": "includeSources",
+        "type": "switch",
+        "title": "Include Sources"
+      },
+      {
+        "id": "fromDate",
+        "type": "short-input",
+        "title": "From Date",
+        "placeholder": "YYYY-MM-DD"
+      },
+      {
+        "id": "toDate",
+        "type": "short-input",
+        "title": "To Date",
+        "placeholder": "YYYY-MM-DD"
+      },
+      {
+        "id": "includeDomains",
+        "type": "long-input",
+        "title": "Include Domains",
+        "placeholder": "example.com, another.com (comma-separated)"
+      },
+      {
+        "id": "excludeDomains",
+        "type": "long-input",
+        "title": "Exclude Domains",
+        "placeholder": "example.com, another.com (comma-separated)"
+      },
+      {
+        "id": "apiKey",
+        "type": "short-input",
+        "title": "API Key",
+        "placeholder": "Enter your Linkup API key",
+        "password": true
+      }
+    ],
+    "tools": {
+      "access": [
+        "linkup_search"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "q": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "answer": {
+        "type": "string"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "linkup_search",
+      "name": "Linkup Search",
+      "description": "Search the web for information using Linkup",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "linkup",
+        "operation": "linkup_search"
+      }
+    }
+  ]
+}

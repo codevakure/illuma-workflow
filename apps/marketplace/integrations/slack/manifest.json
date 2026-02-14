@@ -1,0 +1,510 @@
+{
+  "id": "slack",
+  "name": "Slack",
+  "version": "1.0.0",
+  "description": "Send, update, delete messages, add reactions in Slack or trigger workflows from Slack events",
+  "icon": "SlackIcon",
+  "block": {
+    "type": "slack",
+    "name": "Slack",
+    "description": "Send, update, delete messages, add reactions in Slack or trigger workflows from Slack events",
+    "longDescription": "Integrate Slack into the workflow. Can send, update, and delete messages, create canvases, read messages, and add reactions. Requires Bot Token instead of OAuth in advanced mode. Can be used in trigger mode to trigger a workflow when a message is sent to a channel.",
+    "docsLink": "https://docs.sim.ai/tools/slack",
+    "category": "tools",
+    "bgColor": "#611f69",
+    "icon": "SlackIcon",
+    "authMode": "oauth",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Send Message",
+            "value": "send"
+          },
+          {
+            "label": "Create Canvas",
+            "value": "canvas"
+          },
+          {
+            "label": "Read Messages",
+            "value": "read"
+          },
+          {
+            "label": "Get Message",
+            "value": "get_message"
+          },
+          {
+            "label": "Get Thread",
+            "value": "get_thread"
+          },
+          {
+            "label": "List Channels",
+            "value": "list_channels"
+          },
+          {
+            "label": "List Channel Members",
+            "value": "list_members"
+          },
+          {
+            "label": "List Users",
+            "value": "list_users"
+          },
+          {
+            "label": "Get User Info",
+            "value": "get_user"
+          },
+          {
+            "label": "Download File",
+            "value": "download"
+          },
+          {
+            "label": "Update Message",
+            "value": "update"
+          },
+          {
+            "label": "Delete Message",
+            "value": "delete"
+          },
+          {
+            "label": "Add Reaction",
+            "value": "react"
+          }
+        ]
+      },
+      {
+        "id": "authMethod",
+        "type": "dropdown",
+        "title": "Authentication Method",
+        "options": [
+          {
+            "label": "Sim Bot",
+            "value": "oauth"
+          },
+          {
+            "label": "Custom Bot",
+            "value": "bot_token"
+          }
+        ]
+      },
+      {
+        "id": "destinationType",
+        "type": "dropdown",
+        "title": "Destination",
+        "options": [
+          {
+            "label": "Channel",
+            "value": "channel"
+          },
+          {
+            "label": "Direct Message",
+            "value": "dm"
+          }
+        ]
+      },
+      {
+        "id": "credential",
+        "type": "oauth-input",
+        "title": "Slack Account",
+        "placeholder": "Select Slack workspace"
+      },
+      {
+        "id": "botToken",
+        "type": "short-input",
+        "title": "Bot Token",
+        "placeholder": "Enter your Slack bot token (xoxb-...)",
+        "password": true
+      },
+      {
+        "id": "channel",
+        "type": "channel-selector",
+        "title": "Channel",
+        "placeholder": "Select Slack channel",
+        "mode": "basic",
+        "canonicalParamId": "channel"
+      },
+      {
+        "id": "manualChannel",
+        "type": "short-input",
+        "title": "Channel ID",
+        "placeholder": "Enter Slack channel ID (e.g., C1234567890)",
+        "mode": "advanced",
+        "canonicalParamId": "channel"
+      },
+      {
+        "id": "dmUserId",
+        "type": "user-selector",
+        "title": "User",
+        "placeholder": "Select Slack user",
+        "mode": "basic",
+        "canonicalParamId": "dmUserId"
+      },
+      {
+        "id": "manualDmUserId",
+        "type": "short-input",
+        "title": "User ID",
+        "placeholder": "Enter Slack user ID (e.g., U1234567890)",
+        "mode": "advanced",
+        "canonicalParamId": "dmUserId"
+      },
+      {
+        "id": "text",
+        "type": "long-input",
+        "title": "Message",
+        "placeholder": "Enter your message (supports Slack mrkdwn)"
+      },
+      {
+        "id": "threadTs",
+        "type": "short-input",
+        "title": "Thread Timestamp",
+        "placeholder": "Reply to thread (e.g., 1405894322.002768)"
+      },
+      {
+        "id": "attachmentFiles",
+        "type": "file-upload",
+        "title": "Attachments",
+        "placeholder": "Upload files to attach",
+        "mode": "basic",
+        "canonicalParamId": "files"
+      },
+      {
+        "id": "files",
+        "type": "short-input",
+        "title": "File Attachments",
+        "placeholder": "Reference files from previous blocks",
+        "mode": "advanced",
+        "canonicalParamId": "files"
+      },
+      {
+        "id": "title",
+        "type": "short-input",
+        "title": "Canvas Title",
+        "placeholder": "Enter canvas title"
+      },
+      {
+        "id": "content",
+        "type": "long-input",
+        "title": "Canvas Content",
+        "placeholder": "Enter canvas content (markdown supported)"
+      },
+      {
+        "id": "limit",
+        "type": "short-input",
+        "title": "Message Limit",
+        "placeholder": "15"
+      },
+      {
+        "id": "includePrivate",
+        "type": "dropdown",
+        "title": "Include Private Channels",
+        "options": [
+          {
+            "label": "Yes",
+            "value": "true"
+          },
+          {
+            "label": "No",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "id": "channelLimit",
+        "type": "short-input",
+        "title": "Channel Limit",
+        "placeholder": "100"
+      },
+      {
+        "id": "memberLimit",
+        "type": "short-input",
+        "title": "Member Limit",
+        "placeholder": "100"
+      },
+      {
+        "id": "includeDeleted",
+        "type": "dropdown",
+        "title": "Include Deactivated Users",
+        "options": [
+          {
+            "label": "No",
+            "value": "false"
+          },
+          {
+            "label": "Yes",
+            "value": "true"
+          }
+        ]
+      },
+      {
+        "id": "userLimit",
+        "type": "short-input",
+        "title": "User Limit",
+        "placeholder": "100"
+      },
+      {
+        "id": "userId",
+        "type": "short-input",
+        "title": "User ID",
+        "placeholder": "Enter Slack user ID (e.g., U1234567890)"
+      },
+      {
+        "id": "getMessageTimestamp",
+        "type": "short-input",
+        "title": "Message Timestamp",
+        "placeholder": "Message timestamp (e.g., 1405894322.002768)"
+      },
+      {
+        "id": "getThreadTimestamp",
+        "type": "short-input",
+        "title": "Thread Timestamp",
+        "placeholder": "Thread timestamp (thread_ts, e.g., 1405894322.002768)"
+      },
+      {
+        "id": "threadLimit",
+        "type": "short-input",
+        "title": "Message Limit",
+        "placeholder": "100"
+      },
+      {
+        "id": "oldest",
+        "type": "short-input",
+        "title": "Oldest Timestamp",
+        "placeholder": "ISO 8601 timestamp"
+      },
+      {
+        "id": "fileId",
+        "type": "short-input",
+        "title": "File ID",
+        "placeholder": "Enter Slack file ID (e.g., F1234567890)"
+      },
+      {
+        "id": "downloadFileName",
+        "type": "short-input",
+        "title": "File Name Override",
+        "placeholder": "Optional: Override the filename",
+        "canonicalParamId": "fileName"
+      },
+      {
+        "id": "updateTimestamp",
+        "type": "short-input",
+        "title": "Message Timestamp",
+        "placeholder": "Message timestamp (e.g., 1405894322.002768)"
+      },
+      {
+        "id": "updateText",
+        "type": "long-input",
+        "title": "New Message Text",
+        "placeholder": "Enter new message text (supports Slack mrkdwn)"
+      },
+      {
+        "id": "deleteTimestamp",
+        "type": "short-input",
+        "title": "Message Timestamp",
+        "placeholder": "Message timestamp (e.g., 1405894322.002768)"
+      },
+      {
+        "id": "reactionTimestamp",
+        "type": "short-input",
+        "title": "Message Timestamp",
+        "placeholder": "Message timestamp (e.g., 1405894322.002768)"
+      },
+      {
+        "id": "emojiName",
+        "type": "short-input",
+        "title": "Emoji Name",
+        "placeholder": "Emoji name without colons (e.g., thumbsup, heart, eyes)"
+      }
+    ],
+    "tools": {
+      "access": [
+        "slack_message",
+        "slack_canvas",
+        "slack_message_reader",
+        "slack_get_message",
+        "slack_get_thread",
+        "slack_list_channels",
+        "slack_list_members",
+        "slack_list_users",
+        "slack_get_user",
+        "slack_download",
+        "slack_update_message",
+        "slack_delete_message",
+        "slack_add_reaction"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "message": {
+        "type": "json"
+      }
+    },
+    "triggerAllowed": true
+  },
+  "tools": [
+    {
+      "id": "slack_add_reaction",
+      "name": "Slack Add Reaction",
+      "description": "Add an emoji reaction to a Slack message",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "slack",
+        "operation": "slack_add_reaction"
+      }
+    },
+    {
+      "id": "slack_canvas",
+      "name": "Slack Canvas Writer",
+      "description": "Create and share Slack canvases in channels. Canvases are collaborative documents within Slack.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "slack",
+        "operation": "slack_canvas"
+      }
+    },
+    {
+      "id": "slack_delete_message",
+      "name": "Slack Delete Message",
+      "description": "Delete a message previously sent by the bot in Slack",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "slack",
+        "operation": "slack_delete_message"
+      }
+    },
+    {
+      "id": "slack_download",
+      "name": "Download File from Slack",
+      "description": "Download a file from Slack",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "slack",
+        "operation": "slack_download"
+      }
+    },
+    {
+      "id": "slack_get_message",
+      "name": "Slack Get Message",
+      "description": "Retrieve a specific message by its timestamp. Useful for getting a thread parent message.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "slack",
+        "operation": "slack_get_message"
+      }
+    },
+    {
+      "id": "slack_get_thread",
+      "name": "Slack Get Thread",
+      "description": "Retrieve an entire thread including the parent message and all replies. Useful for getting full conversation context.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "slack",
+        "operation": "slack_get_thread"
+      }
+    },
+    {
+      "id": "slack_get_user",
+      "name": "Slack Get User Info",
+      "description": "Get detailed information about a specific Slack user by their user ID.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "slack",
+        "operation": "slack_get_user"
+      }
+    },
+    {
+      "id": "slack_list_channels",
+      "name": "Slack List Channels",
+      "description": "List all channels in a Slack workspace. Returns public and private channels the bot has access to.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "slack",
+        "operation": "slack_list_channels"
+      }
+    },
+    {
+      "id": "slack_list_members",
+      "name": "Slack List Channel Members",
+      "description": "List all members (user IDs) in a Slack channel. Use with Get User Info to resolve IDs to names.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "slack",
+        "operation": "slack_list_members"
+      }
+    },
+    {
+      "id": "slack_list_users",
+      "name": "Slack List Users",
+      "description": "List all users in a Slack workspace. Returns user profiles with names and avatars.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "slack",
+        "operation": "slack_list_users"
+      }
+    },
+    {
+      "id": "slack_message",
+      "name": "Slack Message",
+      "description": "Send messages to Slack channels or direct messages. Supports Slack mrkdwn formatting.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "slack",
+        "operation": "slack_message"
+      }
+    },
+    {
+      "id": "slack_message_reader",
+      "name": "Slack Message Reader",
+      "description": "Read the latest messages from Slack channels. Retrieve conversation history with filtering options.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "slack",
+        "operation": "slack_message_reader"
+      }
+    },
+    {
+      "id": "slack_update_message",
+      "name": "Slack Update Message",
+      "description": "Update a message previously sent by the bot in Slack",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "slack",
+        "operation": "slack_update_message"
+      }
+    }
+  ]
+}

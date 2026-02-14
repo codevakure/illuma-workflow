@@ -1,0 +1,299 @@
+{
+  "id": "trello",
+  "name": "Trello",
+  "version": "1.0.0",
+  "description": "Manage Trello boards and cards",
+  "icon": "TrelloIcon",
+  "block": {
+    "type": "trello",
+    "name": "Trello",
+    "description": "Manage Trello boards and cards",
+    "longDescription": "Integrate with Trello to manage boards and cards. List boards, list cards, create cards, update cards, get actions, and add comments.",
+    "docsLink": "https://docs.sim.ai/tools/trello",
+    "category": "tools",
+    "bgColor": "#0052CC",
+    "icon": "TrelloIcon",
+    "authMode": "oauth",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Get Lists",
+            "value": "trello_list_lists"
+          },
+          {
+            "label": "List Cards",
+            "value": "trello_list_cards"
+          },
+          {
+            "label": "Create Card",
+            "value": "trello_create_card"
+          },
+          {
+            "label": "Update Card",
+            "value": "trello_update_card"
+          },
+          {
+            "label": "Get Actions",
+            "value": "trello_get_actions"
+          },
+          {
+            "label": "Add Comment",
+            "value": "trello_add_comment"
+          }
+        ]
+      },
+      {
+        "id": "credential",
+        "type": "oauth-input",
+        "title": "Trello Account",
+        "placeholder": "Select Trello account"
+      },
+      {
+        "id": "boardId",
+        "type": "short-input",
+        "title": "Board",
+        "placeholder": "Enter board ID"
+      },
+      {
+        "id": "boardId",
+        "type": "short-input",
+        "title": "Board",
+        "placeholder": "Enter board ID or search for a board"
+      },
+      {
+        "id": "listId",
+        "type": "short-input",
+        "title": "List (Optional)",
+        "placeholder": "Enter list ID to filter cards by list"
+      },
+      {
+        "id": "boardId",
+        "type": "short-input",
+        "title": "Board",
+        "placeholder": "Enter board ID or search for a board"
+      },
+      {
+        "id": "listId",
+        "type": "short-input",
+        "title": "List",
+        "placeholder": "Enter list ID or search for a list"
+      },
+      {
+        "id": "name",
+        "type": "short-input",
+        "title": "Card Name",
+        "placeholder": "Enter card name/title"
+      },
+      {
+        "id": "desc",
+        "type": "long-input",
+        "title": "Description",
+        "placeholder": "Enter card description (optional)"
+      },
+      {
+        "id": "pos",
+        "type": "dropdown",
+        "title": "Position",
+        "options": [
+          {
+            "label": "Top",
+            "value": "top"
+          },
+          {
+            "label": "Bottom",
+            "value": "bottom"
+          }
+        ]
+      },
+      {
+        "id": "due",
+        "type": "short-input",
+        "title": "Due Date",
+        "placeholder": "YYYY-MM-DD or ISO 8601"
+      },
+      {
+        "id": "labels",
+        "type": "short-input",
+        "title": "Labels",
+        "placeholder": "Comma-separated label IDs (optional)"
+      },
+      {
+        "id": "cardId",
+        "type": "short-input",
+        "title": "Card",
+        "placeholder": "Enter card ID or search for a card"
+      },
+      {
+        "id": "name",
+        "type": "short-input",
+        "title": "New Card Name",
+        "placeholder": "Enter new card name (leave empty to keep current)"
+      },
+      {
+        "id": "desc",
+        "type": "long-input",
+        "title": "New Description",
+        "placeholder": "Enter new description (leave empty to keep current)"
+      },
+      {
+        "id": "closed",
+        "type": "switch",
+        "title": "Archive Card"
+      },
+      {
+        "id": "dueComplete",
+        "type": "switch",
+        "title": "Mark Due Date Complete"
+      },
+      {
+        "id": "idList",
+        "type": "short-input",
+        "title": "Move to List",
+        "placeholder": "Enter list ID to move card"
+      },
+      {
+        "id": "due",
+        "type": "short-input",
+        "title": "Due Date",
+        "placeholder": "YYYY-MM-DD or ISO 8601"
+      },
+      {
+        "id": "boardId",
+        "type": "short-input",
+        "title": "Board ID",
+        "placeholder": "Enter board ID to get board actions"
+      },
+      {
+        "id": "cardId",
+        "type": "short-input",
+        "title": "Card ID",
+        "placeholder": "Enter card ID to get card actions"
+      },
+      {
+        "id": "filter",
+        "type": "short-input",
+        "title": "Action Filter",
+        "placeholder": "e.g., commentCard,updateCard"
+      },
+      {
+        "id": "limit",
+        "type": "short-input",
+        "title": "Limit",
+        "placeholder": "50"
+      },
+      {
+        "id": "cardId",
+        "type": "short-input",
+        "title": "Card",
+        "placeholder": "Enter card ID or search for a card"
+      },
+      {
+        "id": "text",
+        "type": "long-input",
+        "title": "Comment",
+        "placeholder": "Enter your comment"
+      }
+    ],
+    "tools": {
+      "access": [
+        "trello_list_lists",
+        "trello_list_cards",
+        "trello_create_card",
+        "trello_update_card",
+        "trello_get_actions",
+        "trello_add_comment"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "lists": {
+        "type": "array"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "trello_add_comment",
+      "name": "Trello Add Comment",
+      "description": "Add a comment to a Trello card",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "trello",
+        "operation": "trello_add_comment"
+      }
+    },
+    {
+      "id": "trello_create_card",
+      "name": "Trello Create Card",
+      "description": "Create a new card on a Trello board",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "trello",
+        "operation": "trello_create_card"
+      }
+    },
+    {
+      "id": "trello_get_actions",
+      "name": "Trello Get Actions",
+      "description": "Get activity/actions from a board or card",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "trello",
+        "operation": "trello_get_actions"
+      }
+    },
+    {
+      "id": "trello_list_cards",
+      "name": "Trello List Cards",
+      "description": "List all cards on a Trello board",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "trello",
+        "operation": "trello_list_cards"
+      }
+    },
+    {
+      "id": "trello_list_lists",
+      "name": "Trello List Lists",
+      "description": "List all lists on a Trello board",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "trello",
+        "operation": "trello_list_lists"
+      }
+    },
+    {
+      "id": "trello_update_card",
+      "name": "Trello Update Card",
+      "description": "Update an existing card on Trello",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "trello",
+        "operation": "trello_update_card"
+      }
+    }
+  ]
+}

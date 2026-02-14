@@ -1,0 +1,205 @@
+{
+  "id": "perplexity",
+  "name": "Perplexity",
+  "version": "1.0.0",
+  "description": "Use Perplexity AI for chat and search",
+  "icon": "PerplexityIcon",
+  "block": {
+    "type": "perplexity",
+    "name": "Perplexity",
+    "description": "Use Perplexity AI for chat and search",
+    "longDescription": "Integrate Perplexity into the workflow. Can generate completions using Perplexity AI chat models or perform web searches with advanced filtering.",
+    "docsLink": "https://docs.sim.ai/tools/perplexity",
+    "category": "tools",
+    "bgColor": "#20808D",
+    "icon": "PerplexityIcon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Chat",
+            "value": "perplexity_chat"
+          },
+          {
+            "label": "Search",
+            "value": "perplexity_search"
+          }
+        ]
+      },
+      {
+        "id": "systemPrompt",
+        "type": "long-input",
+        "title": "System Prompt",
+        "placeholder": "System prompt to guide the model behavior..."
+      },
+      {
+        "id": "content",
+        "type": "long-input",
+        "title": "User Prompt",
+        "placeholder": "Enter your prompt here..."
+      },
+      {
+        "id": "model",
+        "type": "dropdown",
+        "title": "Model",
+        "options": [
+          {
+            "label": "Sonar",
+            "value": "sonar"
+          },
+          {
+            "label": "Sonar Pro",
+            "value": "sonar-pro"
+          },
+          {
+            "label": "Sonar Deep Research",
+            "value": "sonar-deep-research"
+          },
+          {
+            "label": "Sonar Reasoning Pro",
+            "value": "sonar-reasoning-pro"
+          }
+        ]
+      },
+      {
+        "id": "temperature",
+        "type": "slider",
+        "title": "Temperature",
+        "min": 0,
+        "max": 1
+      },
+      {
+        "id": "max_tokens",
+        "type": "short-input",
+        "title": "Max Tokens",
+        "placeholder": "Maximum number of tokens"
+      },
+      {
+        "id": "query",
+        "type": "long-input",
+        "title": "Search Query",
+        "placeholder": "Enter your search query..."
+      },
+      {
+        "id": "max_results",
+        "type": "short-input",
+        "title": "Max Results",
+        "placeholder": "10"
+      },
+      {
+        "id": "search_domain_filter",
+        "type": "long-input",
+        "title": "Domain Filter",
+        "placeholder": "science.org, pnas.org, cell.com (comma-separated, max 20)"
+      },
+      {
+        "id": "max_tokens_per_page",
+        "type": "short-input",
+        "title": "Max Page Tokens",
+        "placeholder": "1024"
+      },
+      {
+        "id": "country",
+        "type": "short-input",
+        "title": "Country",
+        "placeholder": "US, GB, DE, etc."
+      },
+      {
+        "id": "search_recency_filter",
+        "type": "dropdown",
+        "title": "Recency Filter",
+        "placeholder": "Select option...",
+        "options": [
+          {
+            "label": "Past Hour",
+            "value": "hour"
+          },
+          {
+            "label": "Past Day",
+            "value": "day"
+          },
+          {
+            "label": "Past Week",
+            "value": "week"
+          },
+          {
+            "label": "Past Month",
+            "value": "month"
+          },
+          {
+            "label": "Past Year",
+            "value": "year"
+          }
+        ]
+      },
+      {
+        "id": "search_after_date",
+        "type": "short-input",
+        "title": "After Date",
+        "placeholder": "MM/DD/YYYY"
+      },
+      {
+        "id": "search_before_date",
+        "type": "short-input",
+        "title": "Before Date",
+        "placeholder": "MM/DD/YYYY"
+      },
+      {
+        "id": "apiKey",
+        "type": "short-input",
+        "title": "API Key",
+        "placeholder": "Enter your Perplexity API key",
+        "password": true
+      }
+    ],
+    "tools": {
+      "access": [
+        "perplexity_chat",
+        "perplexity_search"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "content": {
+        "type": "string"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "perplexity_chat",
+      "name": "Perplexity Chat",
+      "description": "Generate completions using Perplexity AI chat models",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "perplexity",
+        "operation": "perplexity_chat"
+      }
+    },
+    {
+      "id": "perplexity_search",
+      "name": "Perplexity Search",
+      "description": "Get ranked search results from Perplexity",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "perplexity",
+        "operation": "perplexity_search"
+      }
+    }
+  ]
+}

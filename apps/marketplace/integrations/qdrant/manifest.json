@@ -1,0 +1,216 @@
+{
+  "id": "qdrant",
+  "name": "Qdrant",
+  "version": "1.0.0",
+  "description": "Use Qdrant vector database",
+  "icon": "QdrantIcon",
+  "block": {
+    "type": "qdrant",
+    "name": "Qdrant",
+    "description": "Use Qdrant vector database",
+    "longDescription": "Integrate Qdrant into the workflow. Can upsert, search, and fetch points.",
+    "docsLink": "https://qdrant.tech/documentation/",
+    "category": "tools",
+    "bgColor": "#1A223F",
+    "icon": "QdrantIcon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Upsert",
+            "value": "upsert"
+          },
+          {
+            "label": "Search",
+            "value": "search"
+          },
+          {
+            "label": "Fetch",
+            "value": "fetch"
+          }
+        ]
+      },
+      {
+        "id": "url",
+        "type": "short-input",
+        "title": "Qdrant URL",
+        "placeholder": "http://localhost:6333"
+      },
+      {
+        "id": "collection",
+        "type": "short-input",
+        "title": "Collection",
+        "placeholder": "my-collection"
+      },
+      {
+        "id": "points",
+        "type": "long-input",
+        "title": "Points",
+        "placeholder": "[{"
+      },
+      {
+        "id": "url",
+        "type": "short-input",
+        "title": "Qdrant URL",
+        "placeholder": "http://localhost:6333"
+      },
+      {
+        "id": "collection",
+        "type": "short-input",
+        "title": "Collection",
+        "placeholder": "my-collection"
+      },
+      {
+        "id": "vector",
+        "type": "long-input",
+        "title": "Query Vector",
+        "placeholder": "[0.1, 0.2]"
+      },
+      {
+        "id": "limit",
+        "type": "short-input",
+        "title": "Limit",
+        "placeholder": "10"
+      },
+      {
+        "id": "filter",
+        "type": "long-input",
+        "title": "Filter",
+        "placeholder": "{"
+      },
+      {
+        "id": "search_return_data",
+        "type": "dropdown",
+        "title": "Return Data",
+        "options": [
+          {
+            "label": "Payload Only",
+            "value": "payload_only"
+          },
+          {
+            "label": "Vector Only",
+            "value": "vector_only"
+          },
+          {
+            "label": "Both Payload and Vector",
+            "value": "both"
+          },
+          {
+            "label": "None (IDs and scores only)",
+            "value": "none"
+          }
+        ]
+      },
+      {
+        "id": "url",
+        "type": "short-input",
+        "title": "Qdrant URL",
+        "placeholder": "http://localhost:6333"
+      },
+      {
+        "id": "collection",
+        "type": "short-input",
+        "title": "Collection",
+        "placeholder": "my-collection"
+      },
+      {
+        "id": "ids",
+        "type": "long-input",
+        "title": "IDs",
+        "placeholder": "["
+      },
+      {
+        "id": "fetch_return_data",
+        "type": "dropdown",
+        "title": "Return Data",
+        "options": [
+          {
+            "label": "Payload Only",
+            "value": "payload_only"
+          },
+          {
+            "label": "Vector Only",
+            "value": "vector_only"
+          },
+          {
+            "label": "Both Payload and Vector",
+            "value": "both"
+          },
+          {
+            "label": "None (IDs only)",
+            "value": "none"
+          }
+        ]
+      },
+      {
+        "id": "apiKey",
+        "type": "short-input",
+        "title": "API Key",
+        "placeholder": "Your Qdrant API key (optional)",
+        "password": true
+      }
+    ],
+    "tools": {
+      "access": [
+        "qdrant_upsert_points",
+        "qdrant_search_vector",
+        "qdrant_fetch_points"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "matches": {
+        "type": "json"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "qdrant_fetch_points",
+      "name": "Qdrant Fetch Points",
+      "description": "Fetch points by ID from a Qdrant collection",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "qdrant",
+        "operation": "qdrant_fetch_points"
+      }
+    },
+    {
+      "id": "qdrant_search_vector",
+      "name": "Qdrant Search Vector",
+      "description": "Search for similar vectors in a Qdrant collection",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "qdrant",
+        "operation": "qdrant_search_vector"
+      }
+    },
+    {
+      "id": "qdrant_upsert_points",
+      "name": "Qdrant Upsert Points",
+      "description": "Insert or update points in a Qdrant collection",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "qdrant",
+        "operation": "qdrant_upsert_points"
+      }
+    }
+  ]
+}

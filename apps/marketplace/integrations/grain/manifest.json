@@ -1,0 +1,290 @@
+{
+  "id": "grain",
+  "name": "Grain",
+  "version": "1.0.0",
+  "description": "Access meeting recordings, transcripts, and AI summaries",
+  "icon": "GrainIcon",
+  "block": {
+    "type": "grain",
+    "name": "Grain",
+    "description": "Access meeting recordings, transcripts, and AI summaries",
+    "longDescription": "Integrate Grain into your workflow. Access meeting recordings, transcripts, highlights, and AI-generated summaries. Can also trigger workflows based on Grain webhook events.",
+    "docsLink": "https://docs.sim.ai/tools/grain",
+    "category": "tools",
+    "bgColor": "#F6FAF9",
+    "icon": "GrainIcon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "List Recordings",
+            "value": "grain_list_recordings"
+          },
+          {
+            "label": "Get Recording",
+            "value": "grain_get_recording"
+          },
+          {
+            "label": "Get Transcript",
+            "value": "grain_get_transcript"
+          },
+          {
+            "label": "List Teams",
+            "value": "grain_list_teams"
+          },
+          {
+            "label": "List Meeting Types",
+            "value": "grain_list_meeting_types"
+          },
+          {
+            "label": "Create Webhook",
+            "value": "grain_create_hook"
+          },
+          {
+            "label": "List Webhooks",
+            "value": "grain_list_hooks"
+          },
+          {
+            "label": "Delete Webhook",
+            "value": "grain_delete_hook"
+          }
+        ]
+      },
+      {
+        "id": "apiKey",
+        "type": "short-input",
+        "title": "API Key",
+        "placeholder": "Enter your Grain API key",
+        "password": true
+      },
+      {
+        "id": "recordingId",
+        "type": "short-input",
+        "title": "Recording ID",
+        "placeholder": "Enter recording UUID"
+      },
+      {
+        "id": "cursor",
+        "type": "short-input",
+        "title": "Pagination Cursor",
+        "placeholder": "Cursor for next page (optional)"
+      },
+      {
+        "id": "beforeDatetime",
+        "type": "short-input",
+        "title": "Before Date",
+        "placeholder": "ISO8601 timestamp (e.g., 2024-01-01T00:00:00Z)"
+      },
+      {
+        "id": "afterDatetime",
+        "type": "short-input",
+        "title": "After Date",
+        "placeholder": "ISO8601 timestamp (e.g., 2024-01-01T00:00:00Z)"
+      },
+      {
+        "id": "participantScope",
+        "type": "dropdown",
+        "title": "Participant Scope",
+        "options": [
+          {
+            "label": "Internal",
+            "value": "internal"
+          },
+          {
+            "label": "External",
+            "value": "external"
+          }
+        ]
+      },
+      {
+        "id": "titleSearch",
+        "type": "short-input",
+        "title": "Title Search",
+        "placeholder": "Search by recording title"
+      },
+      {
+        "id": "teamId",
+        "type": "short-input",
+        "title": "Team ID",
+        "placeholder": "Filter by team UUID (optional)"
+      },
+      {
+        "id": "meetingTypeId",
+        "type": "short-input",
+        "title": "Meeting Type ID",
+        "placeholder": "Filter by meeting type UUID (optional)"
+      },
+      {
+        "id": "includeHighlights",
+        "type": "switch",
+        "title": "Include Highlights"
+      },
+      {
+        "id": "includeParticipants",
+        "type": "switch",
+        "title": "Include Participants"
+      },
+      {
+        "id": "includeAiSummary",
+        "type": "switch",
+        "title": "Include AI Summary"
+      },
+      {
+        "id": "includeCalendarEvent",
+        "type": "switch",
+        "title": "Include Calendar Event"
+      },
+      {
+        "id": "includeHubspot",
+        "type": "switch",
+        "title": "Include HubSpot Data"
+      },
+      {
+        "id": "hookUrl",
+        "type": "short-input",
+        "title": "Webhook URL",
+        "placeholder": "Enter webhook endpoint URL"
+      },
+      {
+        "id": "hookId",
+        "type": "short-input",
+        "title": "Webhook ID",
+        "placeholder": "Enter webhook UUID to delete"
+      },
+      {
+        "id": "selectedTriggerId",
+        "type": "dropdown",
+        "title": "Trigger Type",
+        "mode": "trigger"
+      }
+    ],
+    "tools": {
+      "access": [
+        "grain_list_recordings",
+        "grain_get_recording",
+        "grain_get_transcript",
+        "grain_list_teams",
+        "grain_list_meeting_types",
+        "grain_create_hook",
+        "grain_list_hooks",
+        "grain_delete_hook"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "recordings": {
+        "type": "json"
+      }
+    },
+    "triggerAllowed": true
+  },
+  "tools": [
+    {
+      "id": "grain_create_hook",
+      "name": "Grain Create Webhook",
+      "description": "Create a webhook to receive recording events",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "grain",
+        "operation": "grain_create_hook"
+      }
+    },
+    {
+      "id": "grain_delete_hook",
+      "name": "Grain Delete Webhook",
+      "description": "Delete a webhook by ID",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "grain",
+        "operation": "grain_delete_hook"
+      }
+    },
+    {
+      "id": "grain_get_recording",
+      "name": "Grain Get Recording",
+      "description": "Get details of a single recording by ID",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "grain",
+        "operation": "grain_get_recording"
+      }
+    },
+    {
+      "id": "grain_get_transcript",
+      "name": "Grain Get Transcript",
+      "description": "Get the full transcript of a recording",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "grain",
+        "operation": "grain_get_transcript"
+      }
+    },
+    {
+      "id": "grain_list_hooks",
+      "name": "Grain List Webhooks",
+      "description": "List all webhooks for the account",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "grain",
+        "operation": "grain_list_hooks"
+      }
+    },
+    {
+      "id": "grain_list_meeting_types",
+      "name": "Grain List Meeting Types",
+      "description": "List all meeting types in the workspace",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "grain",
+        "operation": "grain_list_meeting_types"
+      }
+    },
+    {
+      "id": "grain_list_recordings",
+      "name": "Grain List Recordings",
+      "description": "List recordings from Grain with optional filters and pagination",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "grain",
+        "operation": "grain_list_recordings"
+      }
+    },
+    {
+      "id": "grain_list_teams",
+      "name": "Grain List Teams",
+      "description": "List all teams in the workspace",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "grain",
+        "operation": "grain_list_teams"
+      }
+    }
+  ]
+}

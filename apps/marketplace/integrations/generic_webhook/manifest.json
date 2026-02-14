@@ -1,0 +1,97 @@
+{
+  "id": "generic_webhook",
+  "name": "Webhook",
+  "version": "1.0.0",
+  "description": "Receive webhooks from any service by configuring a custom webhook.",
+  "icon": "WebhookIcon",
+  "block": {
+    "type": "generic_webhook",
+    "name": "Webhook",
+    "description": "Receive webhooks from any service by configuring a custom webhook.",
+    "docsLink": "https://docs.sim.ai/triggers/webhook",
+    "category": "triggers",
+    "bgColor": "#10B981",
+    "icon": "WebhookIcon",
+    "triggerAllowed": true,
+    "subBlocks": [
+      {
+        "id": "webhookUrlDisplay",
+        "title": "Webhook URL",
+        "type": "short-input",
+        "readOnly": true,
+        "placeholder": "Webhook URL will be generated",
+        "mode": "trigger"
+      },
+      {
+        "id": "requireAuth",
+        "title": "Require Authentication",
+        "type": "switch",
+        "mode": "trigger",
+        "default": false
+      },
+      {
+        "id": "token",
+        "title": "Authentication Token",
+        "type": "short-input",
+        "placeholder": "Enter an auth token",
+        "password": true,
+        "required": false,
+        "mode": "trigger"
+      },
+      {
+        "id": "secretHeaderName",
+        "title": "Secret Header Name (Optional)",
+        "type": "short-input",
+        "placeholder": "X-Secret-Key",
+        "required": false,
+        "mode": "trigger"
+      },
+      {
+        "id": "inputFormat",
+        "title": "Input Format",
+        "type": "input-format",
+        "mode": "trigger"
+      },
+      {
+        "id": "triggerSave",
+        "title": "",
+        "type": "trigger-save",
+        "mode": "trigger"
+      },
+      {
+        "id": "triggerInstructions",
+        "title": "Setup Instructions",
+        "type": "text",
+        "mode": "trigger"
+      }
+    ],
+    "tools": {
+      "access": [],
+      "config": {
+        "tool": ""
+      }
+    },
+    "inputs": {},
+    "outputs": {},
+    "triggers": {
+      "enabled": true,
+      "available": [
+        "generic_webhook"
+      ]
+    }
+  },
+  "tools": [
+    {
+      "id": "generic_webhook_execute",
+      "name": "generic_webhook execute",
+      "description": "",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "generic_webhook",
+        "operation": "execute"
+      }
+    }
+  ]
+}

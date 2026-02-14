@@ -1,0 +1,292 @@
+{
+  "id": "onedrive",
+  "name": "OneDrive",
+  "version": "1.0.0",
+  "description": "Create, upload, download, list, and delete files",
+  "icon": "MicrosoftOneDriveIcon",
+  "block": {
+    "type": "onedrive",
+    "name": "OneDrive",
+    "description": "Create, upload, download, list, and delete files",
+    "longDescription": "Integrate OneDrive into the workflow. Can create text and Excel files, upload files, download files, list files, and delete files or folders.",
+    "docsLink": "https://docs.sim.ai/tools/onedrive",
+    "category": "tools",
+    "bgColor": "#E0E0E0",
+    "icon": "MicrosoftOneDriveIcon",
+    "authMode": "oauth",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Create Folder",
+            "value": "create_folder"
+          },
+          {
+            "label": "Create File",
+            "value": "create_file"
+          },
+          {
+            "label": "Upload File",
+            "value": "upload"
+          },
+          {
+            "label": "Download File",
+            "value": "download"
+          },
+          {
+            "label": "List Files",
+            "value": "list"
+          },
+          {
+            "label": "Delete File",
+            "value": "delete"
+          }
+        ]
+      },
+      {
+        "id": "credential",
+        "type": "oauth-input",
+        "title": "Microsoft Account",
+        "placeholder": "Select Microsoft account"
+      },
+      {
+        "id": "fileName",
+        "type": "short-input",
+        "title": "File Name",
+        "placeholder": "Name of the file"
+      },
+      {
+        "id": "mimeType",
+        "type": "dropdown",
+        "title": "File Type",
+        "placeholder": "Select file type",
+        "options": [
+          {
+            "label": "Text File (.txt)",
+            "value": "text/plain"
+          }
+        ]
+      },
+      {
+        "id": "values",
+        "type": "code",
+        "title": "Values",
+        "placeholder": "Enter a JSON array of rows (e.g., [["
+      },
+      {
+        "id": "file",
+        "type": "file-upload",
+        "title": "File",
+        "placeholder": "Upload a file",
+        "mode": "basic",
+        "canonicalParamId": "file"
+      },
+      {
+        "id": "fileReference",
+        "type": "short-input",
+        "title": "File",
+        "placeholder": "Reference file from previous block (e.g., {{block_1.file}})",
+        "mode": "advanced",
+        "canonicalParamId": "file"
+      },
+      {
+        "id": "content",
+        "type": "long-input",
+        "title": "Text Content",
+        "placeholder": "Text content for the file"
+      },
+      {
+        "id": "uploadFolderSelector",
+        "type": "file-selector",
+        "title": "Select Parent Folder",
+        "placeholder": "Select a parent folder",
+        "mode": "basic",
+        "canonicalParamId": "uploadFolderId"
+      },
+      {
+        "id": "uploadManualFolderId",
+        "type": "short-input",
+        "title": "Parent Folder ID",
+        "placeholder": "Enter parent folder ID (leave empty for root folder)",
+        "mode": "advanced",
+        "canonicalParamId": "uploadFolderId"
+      },
+      {
+        "id": "folderName",
+        "type": "short-input",
+        "title": "Folder Name",
+        "placeholder": "Name for the new folder"
+      },
+      {
+        "id": "createFolderParentSelector",
+        "type": "file-selector",
+        "title": "Select Parent Folder",
+        "placeholder": "Select a parent folder",
+        "mode": "basic",
+        "canonicalParamId": "createFolderParentId"
+      },
+      {
+        "id": "createFolderManualParentId",
+        "type": "short-input",
+        "title": "Parent Folder ID",
+        "placeholder": "Enter parent folder ID (leave empty for root folder)",
+        "mode": "advanced",
+        "canonicalParamId": "createFolderParentId"
+      },
+      {
+        "id": "listFolderSelector",
+        "type": "file-selector",
+        "title": "Select Folder",
+        "placeholder": "Select a folder to list files from",
+        "mode": "basic",
+        "canonicalParamId": "listFolderId"
+      },
+      {
+        "id": "listManualFolderId",
+        "type": "short-input",
+        "title": "Folder ID",
+        "placeholder": "Enter folder ID (leave empty for root folder)",
+        "mode": "advanced",
+        "canonicalParamId": "listFolderId"
+      },
+      {
+        "id": "query",
+        "type": "short-input",
+        "title": "Search Query",
+        "placeholder": "Search for specific files (e.g., name contains "
+      },
+      {
+        "id": "pageSize",
+        "type": "short-input",
+        "title": "Results Per Page",
+        "placeholder": "Number of results (default: 100, max: 1000)",
+        "max": 1000
+      },
+      {
+        "id": "downloadFileSelector",
+        "type": "file-selector",
+        "title": "Select File",
+        "placeholder": "Select a file to download",
+        "mode": "basic",
+        "canonicalParamId": "downloadFileId"
+      },
+      {
+        "id": "downloadManualFileId",
+        "type": "short-input",
+        "title": "File ID",
+        "placeholder": "Enter file ID",
+        "mode": "advanced",
+        "canonicalParamId": "downloadFileId"
+      },
+      {
+        "id": "downloadFileName",
+        "type": "short-input",
+        "title": "File Name Override",
+        "placeholder": "Optional: Override the filename"
+      },
+      {
+        "id": "deleteFileSelector",
+        "type": "file-selector",
+        "title": "Select File to Delete",
+        "placeholder": "Select a file to delete",
+        "mode": "basic",
+        "canonicalParamId": "deleteFileId"
+      },
+      {
+        "id": "deleteManualFileId",
+        "type": "short-input",
+        "title": "File ID",
+        "placeholder": "Enter file or folder ID to delete",
+        "mode": "advanced",
+        "canonicalParamId": "deleteFileId"
+      }
+    ],
+    "tools": {
+      "access": [
+        "onedrive_upload",
+        "onedrive_create_folder",
+        "onedrive_download",
+        "onedrive_list",
+        "onedrive_delete"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "boolean"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "onedrive_create_folder",
+      "name": "Create Folder in OneDrive",
+      "description": "Create a new folder in OneDrive",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "onedrive",
+        "operation": "onedrive_create_folder"
+      }
+    },
+    {
+      "id": "onedrive_delete",
+      "name": "Delete File from OneDrive",
+      "description": "Delete a file or folder from OneDrive",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "onedrive",
+        "operation": "onedrive_delete"
+      }
+    },
+    {
+      "id": "onedrive_download",
+      "name": "Download File from OneDrive",
+      "description": "Download a file from OneDrive",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "onedrive",
+        "operation": "onedrive_download"
+      }
+    },
+    {
+      "id": "onedrive_list",
+      "name": "List OneDrive Files",
+      "description": "List files and folders in OneDrive",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "onedrive",
+        "operation": "onedrive_list"
+      }
+    },
+    {
+      "id": "onedrive_upload",
+      "name": "Upload to OneDrive",
+      "description": "Upload a file to OneDrive",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "onedrive",
+        "operation": "onedrive_upload"
+      }
+    }
+  ]
+}

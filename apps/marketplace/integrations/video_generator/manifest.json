@@ -1,0 +1,443 @@
+{
+  "id": "video_generator",
+  "name": "Video Generator (Legacy)",
+  "version": "1.0.0",
+  "description": "Generate videos from text using AI",
+  "icon": "VideoIcon",
+  "block": {
+    "type": "video_generator",
+    "name": "Video Generator (Legacy)",
+    "description": "Generate videos from text using AI",
+    "longDescription": "Generate high-quality videos from text prompts using leading AI providers. Supports multiple models, aspect ratios, resolutions, and provider-specific features like world consistency, camera controls, and audio generation.",
+    "docsLink": "https://docs.sim.ai/tools/video-generator",
+    "category": "tools",
+    "bgColor": "#181C1E",
+    "icon": "VideoIcon",
+    "authMode": "api_key",
+    "hideFromToolbar": true,
+    "subBlocks": [
+      {
+        "id": "provider",
+        "type": "dropdown",
+        "title": "Provider",
+        "options": [
+          {
+            "label": "Runway Gen-4",
+            "value": "runway"
+          },
+          {
+            "label": "Google Veo 3",
+            "value": "veo"
+          },
+          {
+            "label": "Luma Dream Machine",
+            "value": "luma"
+          },
+          {
+            "label": "MiniMax Hailuo",
+            "value": "minimax"
+          },
+          {
+            "label": "Fal.ai (Multi-Model)",
+            "value": "falai"
+          }
+        ]
+      },
+      {
+        "id": "model",
+        "type": "dropdown",
+        "title": "Model",
+        "options": [
+          {
+            "label": "Veo 3",
+            "value": "veo-3"
+          },
+          {
+            "label": "Veo 3 Fast",
+            "value": "veo-3-fast"
+          },
+          {
+            "label": "Veo 3.1",
+            "value": "veo-3.1"
+          }
+        ]
+      },
+      {
+        "id": "model",
+        "type": "dropdown",
+        "title": "Model",
+        "options": [
+          {
+            "label": "Ray 2",
+            "value": "ray-2"
+          }
+        ]
+      },
+      {
+        "id": "model",
+        "type": "dropdown",
+        "title": "Model",
+        "options": [
+          {
+            "label": "Hailuo 2.3",
+            "value": "hailuo-02"
+          }
+        ]
+      },
+      {
+        "id": "endpoint",
+        "type": "dropdown",
+        "title": "Quality Endpoint",
+        "options": [
+          {
+            "label": "Pro",
+            "value": "pro"
+          },
+          {
+            "label": "Standard",
+            "value": "standard"
+          }
+        ]
+      },
+      {
+        "id": "model",
+        "type": "dropdown",
+        "title": "Model",
+        "options": [
+          {
+            "label": "Google Veo 3.1",
+            "value": "veo-3.1"
+          },
+          {
+            "label": "OpenAI Sora 2",
+            "value": "sora-2"
+          },
+          {
+            "label": "Kling 2.5 Turbo Pro",
+            "value": "kling-2.5-turbo-pro"
+          },
+          {
+            "label": "Kling 2.1 Pro",
+            "value": "kling-2.1-pro"
+          },
+          {
+            "label": "MiniMax Hailuo 2.3 Pro",
+            "value": "minimax-hailuo-2.3-pro"
+          },
+          {
+            "label": "MiniMax Hailuo 2.3 Standard",
+            "value": "minimax-hailuo-2.3-standard"
+          },
+          {
+            "label": "WAN 2.1",
+            "value": "wan-2.1"
+          },
+          {
+            "label": "LTXV 0.9.8",
+            "value": "ltxv-0.9.8"
+          }
+        ]
+      },
+      {
+        "id": "prompt",
+        "type": "long-input",
+        "title": "Prompt",
+        "placeholder": "Describe the video you want to generate..."
+      },
+      {
+        "id": "duration",
+        "type": "dropdown",
+        "title": "Duration (seconds)",
+        "options": [
+          {
+            "label": "5",
+            "value": "5"
+          },
+          {
+            "label": "10",
+            "value": "10"
+          }
+        ]
+      },
+      {
+        "id": "duration",
+        "type": "dropdown",
+        "title": "Duration (seconds)",
+        "options": [
+          {
+            "label": "4",
+            "value": "4"
+          },
+          {
+            "label": "6",
+            "value": "6"
+          },
+          {
+            "label": "8",
+            "value": "8"
+          }
+        ]
+      },
+      {
+        "id": "duration",
+        "type": "dropdown",
+        "title": "Duration (seconds)",
+        "options": [
+          {
+            "label": "5",
+            "value": "5"
+          },
+          {
+            "label": "9",
+            "value": "9"
+          }
+        ]
+      },
+      {
+        "id": "duration",
+        "type": "dropdown",
+        "title": "Duration (seconds)",
+        "options": [
+          {
+            "label": "6",
+            "value": "6"
+          },
+          {
+            "label": "10",
+            "value": "10"
+          }
+        ]
+      },
+      {
+        "id": "duration",
+        "type": "dropdown",
+        "title": "Duration (seconds)",
+        "options": [
+          {
+            "label": "5",
+            "value": "5"
+          },
+          {
+            "label": "8",
+            "value": "8"
+          },
+          {
+            "label": "10",
+            "value": "10"
+          }
+        ]
+      },
+      {
+        "id": "aspectRatio",
+        "type": "dropdown",
+        "title": "Aspect Ratio",
+        "options": [
+          {
+            "label": "16:9",
+            "value": "16:9"
+          },
+          {
+            "label": "9:16",
+            "value": "9:16"
+          }
+        ]
+      },
+      {
+        "id": "aspectRatio",
+        "type": "dropdown",
+        "title": "Aspect Ratio",
+        "options": [
+          {
+            "label": "16:9",
+            "value": "16:9"
+          },
+          {
+            "label": "9:16",
+            "value": "9:16"
+          },
+          {
+            "label": "1:1",
+            "value": "1:1"
+          }
+        ]
+      },
+      {
+        "id": "aspectRatio",
+        "type": "dropdown",
+        "title": "Aspect Ratio",
+        "options": [
+          {
+            "label": "16:9",
+            "value": "16:9"
+          },
+          {
+            "label": "9:16",
+            "value": "9:16"
+          },
+          {
+            "label": "1:1",
+            "value": "1:1"
+          }
+        ]
+      },
+      {
+        "id": "aspectRatio",
+        "type": "dropdown",
+        "title": "Aspect Ratio",
+        "options": [
+          {
+            "label": "16:9",
+            "value": "16:9"
+          },
+          {
+            "label": "9:16",
+            "value": "9:16"
+          }
+        ]
+      },
+      {
+        "id": "resolution",
+        "type": "dropdown",
+        "title": "Resolution",
+        "options": [
+          {
+            "label": "720p",
+            "value": "720p"
+          },
+          {
+            "label": "1080p",
+            "value": "1080p"
+          }
+        ]
+      },
+      {
+        "id": "resolution",
+        "type": "dropdown",
+        "title": "Resolution",
+        "options": [
+          {
+            "label": "540p",
+            "value": "540p"
+          },
+          {
+            "label": "720p",
+            "value": "720p"
+          },
+          {
+            "label": "1080p",
+            "value": "1080p"
+          }
+        ]
+      },
+      {
+        "id": "visualReference",
+        "type": "file-upload",
+        "title": "Reference Image",
+        "placeholder": "Upload reference image",
+        "mode": "basic"
+      },
+      {
+        "id": "cameraControl",
+        "type": "long-input",
+        "title": "Camera Controls",
+        "placeholder": "JSON: [{ "
+      },
+      {
+        "id": "promptOptimizer",
+        "type": "switch",
+        "title": "Prompt Optimizer"
+      },
+      {
+        "id": "apiKey",
+        "type": "short-input",
+        "title": "API Key",
+        "placeholder": "Enter your provider API key",
+        "password": true
+      }
+    ],
+    "tools": {
+      "access": [
+        "video_runway",
+        "video_veo",
+        "video_luma",
+        "video_minimax",
+        "video_falai"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "provider": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "videoUrl": {
+        "type": "string"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "video_falai",
+      "name": "Fal.ai Video Generation",
+      "description": "Generate videos using Fal.ai platform with access to multiple models including Veo 3.1, Sora 2, Kling 2.5, MiniMax Hailuo, and more",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "video",
+        "operation": "video_falai"
+      }
+    },
+    {
+      "id": "video_luma",
+      "name": "Luma Dream Machine Video",
+      "description": "Generate videos using Luma Dream Machine with advanced camera controls",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "video",
+        "operation": "video_luma"
+      }
+    },
+    {
+      "id": "video_minimax",
+      "name": "MiniMax Hailuo Video",
+      "description": "Generate videos using MiniMax Hailuo through MiniMax Platform API with advanced realism and prompt optimization",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "video",
+        "operation": "video_minimax"
+      }
+    },
+    {
+      "id": "video_runway",
+      "name": "Runway Gen-4 Video",
+      "description": "Generate videos using Runway Gen-4 with world consistency and visual references",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "video",
+        "operation": "video_runway"
+      }
+    },
+    {
+      "id": "video_veo",
+      "name": "Google Veo 3 Video",
+      "description": "Generate videos using Google Veo 3/3.1 with native audio generation",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "video",
+        "operation": "video_veo"
+      }
+    }
+  ]
+}

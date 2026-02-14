@@ -1,0 +1,692 @@
+{
+  "id": "zendesk",
+  "name": "Zendesk",
+  "version": "1.0.0",
+  "description": "Manage support tickets, users, and organizations in Zendesk",
+  "icon": "ZendeskIcon",
+  "block": {
+    "type": "zendesk",
+    "name": "Zendesk",
+    "description": "Manage support tickets, users, and organizations in Zendesk",
+    "longDescription": "Integrate Zendesk into the workflow. Can get tickets, get ticket, create ticket, create tickets bulk, update ticket, update tickets bulk, delete ticket, merge tickets, get users, get user, get current user, search users, create user, create users bulk, update user, update users bulk, delete user, get organizations, get organization, autocomplete organizations, create organization, create organizations bulk, update organization, delete organization, search, search count.",
+    "docsLink": "https://docs.sim.ai/tools/zendesk",
+    "category": "tools",
+    "bgColor": "#E0E0E0",
+    "icon": "ZendeskIcon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Get Tickets",
+            "value": "get_tickets"
+          },
+          {
+            "label": "Get Ticket",
+            "value": "get_ticket"
+          },
+          {
+            "label": "Create Ticket",
+            "value": "create_ticket"
+          },
+          {
+            "label": "Create Tickets Bulk",
+            "value": "create_tickets_bulk"
+          },
+          {
+            "label": "Update Ticket",
+            "value": "update_ticket"
+          },
+          {
+            "label": "Update Tickets Bulk",
+            "value": "update_tickets_bulk"
+          },
+          {
+            "label": "Delete Ticket",
+            "value": "delete_ticket"
+          },
+          {
+            "label": "Merge Tickets",
+            "value": "merge_tickets"
+          },
+          {
+            "label": "Get Users",
+            "value": "get_users"
+          },
+          {
+            "label": "Get User",
+            "value": "get_user"
+          },
+          {
+            "label": "Get Current User",
+            "value": "get_current_user"
+          },
+          {
+            "label": "Search Users",
+            "value": "search_users"
+          },
+          {
+            "label": "Create User",
+            "value": "create_user"
+          },
+          {
+            "label": "Create Users Bulk",
+            "value": "create_users_bulk"
+          },
+          {
+            "label": "Update User",
+            "value": "update_user"
+          },
+          {
+            "label": "Update Users Bulk",
+            "value": "update_users_bulk"
+          },
+          {
+            "label": "Delete User",
+            "value": "delete_user"
+          },
+          {
+            "label": "Get Organizations",
+            "value": "get_organizations"
+          },
+          {
+            "label": "Get Organization",
+            "value": "get_organization"
+          },
+          {
+            "label": "Autocomplete Organizations",
+            "value": "autocomplete_organizations"
+          },
+          {
+            "label": "Create Organization",
+            "value": "create_organization"
+          },
+          {
+            "label": "Create Organizations Bulk",
+            "value": "create_organizations_bulk"
+          },
+          {
+            "label": "Update Organization",
+            "value": "update_organization"
+          },
+          {
+            "label": "Delete Organization",
+            "value": "delete_organization"
+          },
+          {
+            "label": "Search",
+            "value": "search"
+          },
+          {
+            "label": "Search Count",
+            "value": "search_count"
+          }
+        ]
+      },
+      {
+        "id": "email",
+        "type": "short-input",
+        "title": "Email",
+        "placeholder": "Your Zendesk email address"
+      },
+      {
+        "id": "apiToken",
+        "type": "short-input",
+        "title": "API Token",
+        "placeholder": "Enter your Zendesk API token",
+        "password": true
+      },
+      {
+        "id": "subdomain",
+        "type": "short-input",
+        "title": "Subdomain",
+        "placeholder": "Your Zendesk subdomain (e.g., "
+      },
+      {
+        "id": "ticketId",
+        "type": "short-input",
+        "title": "Ticket ID",
+        "placeholder": "Ticket ID"
+      },
+      {
+        "id": "subject",
+        "type": "short-input",
+        "title": "Subject",
+        "placeholder": "Ticket subject"
+      },
+      {
+        "id": "description",
+        "type": "long-input",
+        "title": "Description",
+        "placeholder": "Ticket description"
+      },
+      {
+        "id": "status",
+        "type": "short-input",
+        "title": "Status",
+        "placeholder": "Status (new, open, pending, hold, solved, closed)"
+      },
+      {
+        "id": "priority",
+        "type": "short-input",
+        "title": "Priority",
+        "placeholder": "Priority (low, normal, high, urgent)"
+      },
+      {
+        "id": "type",
+        "type": "short-input",
+        "title": "Type",
+        "placeholder": "Type (problem, incident, question, task)"
+      },
+      {
+        "id": "tags",
+        "type": "short-input",
+        "title": "Tags",
+        "placeholder": "Comma-separated tags"
+      },
+      {
+        "id": "assigneeId",
+        "type": "short-input",
+        "title": "Assignee ID",
+        "placeholder": "User ID to assign ticket to"
+      },
+      {
+        "id": "groupId",
+        "type": "short-input",
+        "title": "Group ID",
+        "placeholder": "Group ID"
+      },
+      {
+        "id": "customFields",
+        "type": "long-input",
+        "title": "Custom Fields",
+        "placeholder": "JSON object with custom fields"
+      },
+      {
+        "id": "tickets",
+        "type": "long-input",
+        "title": "Tickets",
+        "placeholder": "JSON array of ticket objects"
+      },
+      {
+        "id": "targetTicketId",
+        "type": "short-input",
+        "title": "Target Ticket ID",
+        "placeholder": "Ticket ID to merge into"
+      },
+      {
+        "id": "sourceTicketIds",
+        "type": "short-input",
+        "title": "Source Ticket IDs",
+        "placeholder": "Comma-separated ticket IDs to merge"
+      },
+      {
+        "id": "userId",
+        "type": "short-input",
+        "title": "User ID",
+        "placeholder": "User ID"
+      },
+      {
+        "id": "name",
+        "type": "short-input",
+        "title": "Name",
+        "placeholder": "User name"
+      },
+      {
+        "id": "userEmail",
+        "type": "short-input",
+        "title": "Email",
+        "placeholder": "User email"
+      },
+      {
+        "id": "users",
+        "type": "long-input",
+        "title": "Users",
+        "placeholder": "JSON array of user objects"
+      },
+      {
+        "id": "organizationId",
+        "type": "short-input",
+        "title": "Organization ID",
+        "placeholder": "Organization ID"
+      },
+      {
+        "id": "organizationName",
+        "type": "short-input",
+        "title": "Organization Name",
+        "placeholder": "Organization name"
+      },
+      {
+        "id": "organizations",
+        "type": "long-input",
+        "title": "Organizations",
+        "placeholder": "JSON array of organization objects"
+      },
+      {
+        "id": "query",
+        "type": "short-input",
+        "title": "Query",
+        "placeholder": "Search query"
+      },
+      {
+        "id": "sortBy",
+        "type": "dropdown",
+        "title": "Sort By",
+        "options": [
+          {
+            "label": "Relevance",
+            "value": "relevance"
+          },
+          {
+            "label": "Created At",
+            "value": "created_at"
+          },
+          {
+            "label": "Updated At",
+            "value": "updated_at"
+          },
+          {
+            "label": "Priority",
+            "value": "priority"
+          },
+          {
+            "label": "Status",
+            "value": "status"
+          },
+          {
+            "label": "Ticket Type",
+            "value": "ticket_type"
+          }
+        ]
+      },
+      {
+        "id": "sortOrder",
+        "type": "dropdown",
+        "title": "Sort Order",
+        "options": [
+          {
+            "label": "Ascending",
+            "value": "asc"
+          },
+          {
+            "label": "Descending",
+            "value": "desc"
+          }
+        ]
+      },
+      {
+        "id": "perPage",
+        "type": "short-input",
+        "title": "Per Page",
+        "placeholder": "Results per page (default: 100, max: 100)",
+        "max": 100
+      },
+      {
+        "id": "page",
+        "type": "short-input",
+        "title": "Page",
+        "placeholder": "Page number"
+      }
+    ],
+    "tools": {
+      "access": [
+        "zendesk_get_tickets",
+        "zendesk_get_ticket",
+        "zendesk_create_ticket",
+        "zendesk_create_tickets_bulk",
+        "zendesk_update_ticket",
+        "zendesk_update_tickets_bulk",
+        "zendesk_delete_ticket",
+        "zendesk_merge_tickets",
+        "zendesk_get_users",
+        "zendesk_get_user",
+        "zendesk_get_current_user",
+        "zendesk_search_users",
+        "zendesk_create_user",
+        "zendesk_create_users_bulk",
+        "zendesk_update_user",
+        "zendesk_update_users_bulk",
+        "zendesk_delete_user",
+        "zendesk_get_organizations",
+        "zendesk_get_organization",
+        "zendesk_autocomplete_organizations",
+        "zendesk_create_organization",
+        "zendesk_create_organizations_bulk",
+        "zendesk_update_organization",
+        "zendesk_delete_organization",
+        "zendesk_search",
+        "zendesk_search_count"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "tickets": {
+        "type": "json"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "zendesk_autocomplete_organizations",
+      "name": "Autocomplete Organizations in Zendesk",
+      "description": "Autocomplete organizations in Zendesk by name prefix (for name matching/autocomplete)",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "zendesk",
+        "operation": "zendesk_autocomplete_organizations"
+      }
+    },
+    {
+      "id": "zendesk_create_organization",
+      "name": "Create Organization in Zendesk",
+      "description": "Create a new organization in Zendesk",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "zendesk",
+        "operation": "zendesk_create_organization"
+      }
+    },
+    {
+      "id": "zendesk_create_organizations_bulk",
+      "name": "Bulk Create Organizations in Zendesk",
+      "description": "Create multiple organizations in Zendesk using bulk import",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "zendesk",
+        "operation": "zendesk_create_organizations_bulk"
+      }
+    },
+    {
+      "id": "zendesk_create_ticket",
+      "name": "Create Ticket in Zendesk",
+      "description": "Create a new ticket in Zendesk with support for custom fields",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "zendesk",
+        "operation": "zendesk_create_ticket"
+      }
+    },
+    {
+      "id": "zendesk_create_tickets_bulk",
+      "name": "Bulk Create Tickets in Zendesk",
+      "description": "Create multiple tickets in Zendesk at once (max 100)",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "zendesk",
+        "operation": "zendesk_create_tickets_bulk"
+      }
+    },
+    {
+      "id": "zendesk_create_user",
+      "name": "Create User in Zendesk",
+      "description": "Create a new user in Zendesk",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "zendesk",
+        "operation": "zendesk_create_user"
+      }
+    },
+    {
+      "id": "zendesk_create_users_bulk",
+      "name": "Bulk Create Users in Zendesk",
+      "description": "Create multiple users in Zendesk using bulk import",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "zendesk",
+        "operation": "zendesk_create_users_bulk"
+      }
+    },
+    {
+      "id": "zendesk_delete_organization",
+      "name": "Delete Organization from Zendesk",
+      "description": "Delete an organization from Zendesk",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "zendesk",
+        "operation": "zendesk_delete_organization"
+      }
+    },
+    {
+      "id": "zendesk_delete_ticket",
+      "name": "Delete Ticket from Zendesk",
+      "description": "Delete a ticket from Zendesk",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "zendesk",
+        "operation": "zendesk_delete_ticket"
+      }
+    },
+    {
+      "id": "zendesk_delete_user",
+      "name": "Delete User from Zendesk",
+      "description": "Delete a user from Zendesk",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "zendesk",
+        "operation": "zendesk_delete_user"
+      }
+    },
+    {
+      "id": "zendesk_get_current_user",
+      "name": "Get Current User from Zendesk",
+      "description": "Get the currently authenticated user from Zendesk",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "zendesk",
+        "operation": "zendesk_get_current_user"
+      }
+    },
+    {
+      "id": "zendesk_get_organization",
+      "name": "Get Single Organization from Zendesk",
+      "description": "Get a single organization by ID from Zendesk",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "zendesk",
+        "operation": "zendesk_get_organization"
+      }
+    },
+    {
+      "id": "zendesk_get_organizations",
+      "name": "Get Organizations from Zendesk",
+      "description": "Retrieve a list of organizations from Zendesk",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "zendesk",
+        "operation": "zendesk_get_organizations"
+      }
+    },
+    {
+      "id": "zendesk_get_ticket",
+      "name": "Get Single Ticket from Zendesk",
+      "description": "Get a single ticket by ID from Zendesk",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "zendesk",
+        "operation": "zendesk_get_ticket"
+      }
+    },
+    {
+      "id": "zendesk_get_tickets",
+      "name": "Get Tickets from Zendesk",
+      "description": "Retrieve a list of tickets from Zendesk with optional filtering",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "zendesk",
+        "operation": "zendesk_get_tickets"
+      }
+    },
+    {
+      "id": "zendesk_get_user",
+      "name": "Get Single User from Zendesk",
+      "description": "Get a single user by ID from Zendesk",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "zendesk",
+        "operation": "zendesk_get_user"
+      }
+    },
+    {
+      "id": "zendesk_get_users",
+      "name": "Get Users from Zendesk",
+      "description": "Retrieve a list of users from Zendesk with optional filtering",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "zendesk",
+        "operation": "zendesk_get_users"
+      }
+    },
+    {
+      "id": "zendesk_merge_tickets",
+      "name": "Merge Tickets in Zendesk",
+      "description": "Merge multiple tickets into a target ticket",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "zendesk",
+        "operation": "zendesk_merge_tickets"
+      }
+    },
+    {
+      "id": "zendesk_search",
+      "name": "Search Zendesk",
+      "description": "Unified search across tickets, users, and organizations in Zendesk",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "zendesk",
+        "operation": "zendesk_search"
+      }
+    },
+    {
+      "id": "zendesk_search_count",
+      "name": "Count Search Results in Zendesk",
+      "description": "Count the number of search results matching a query in Zendesk",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "zendesk",
+        "operation": "zendesk_search_count"
+      }
+    },
+    {
+      "id": "zendesk_search_users",
+      "name": "Search Users in Zendesk",
+      "description": "Search for users in Zendesk using a query string",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "zendesk",
+        "operation": "zendesk_search_users"
+      }
+    },
+    {
+      "id": "zendesk_update_organization",
+      "name": "Update Organization in Zendesk",
+      "description": "Update an existing organization in Zendesk",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "zendesk",
+        "operation": "zendesk_update_organization"
+      }
+    },
+    {
+      "id": "zendesk_update_ticket",
+      "name": "Update Ticket in Zendesk",
+      "description": "Update an existing ticket in Zendesk with support for custom fields",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "zendesk",
+        "operation": "zendesk_update_ticket"
+      }
+    },
+    {
+      "id": "zendesk_update_tickets_bulk",
+      "name": "Bulk Update Tickets in Zendesk",
+      "description": "Update multiple tickets in Zendesk at once (max 100)",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "zendesk",
+        "operation": "zendesk_update_tickets_bulk"
+      }
+    },
+    {
+      "id": "zendesk_update_user",
+      "name": "Update User in Zendesk",
+      "description": "Update an existing user in Zendesk",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "zendesk",
+        "operation": "zendesk_update_user"
+      }
+    },
+    {
+      "id": "zendesk_update_users_bulk",
+      "name": "Bulk Update Users in Zendesk",
+      "description": "Update multiple users in Zendesk using bulk update",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "zendesk",
+        "operation": "zendesk_update_users_bulk"
+      }
+    }
+  ]
+}

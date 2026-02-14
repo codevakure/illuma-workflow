@@ -1,0 +1,53 @@
+{
+  "id": "input_trigger",
+  "name": "Input Form (Legacy)",
+  "version": "1.0.0",
+  "description": "Legacy manual start block with structured input. Prefer Start block.",
+  "icon": "InputTriggerIcon",
+  "block": {
+    "type": "input_trigger",
+    "name": "Input Form (Legacy)",
+    "description": "Legacy manual start block with structured input. Prefer Start block.",
+    "longDescription": "Manually trigger the workflow from the editor with a structured input schema. This enables typed inputs for parent workflows to map into.",
+    "category": "triggers",
+    "bgColor": "#3B82F6",
+    "icon": "InputTriggerIcon",
+    "hideFromToolbar": true,
+    "triggerAllowed": true,
+    "subBlocks": [
+      {
+        "id": "inputFormat",
+        "title": "Input Format",
+        "type": "input-format"
+      }
+    ],
+    "tools": {
+      "access": [],
+      "config": {
+        "tool": ""
+      }
+    },
+    "inputs": {},
+    "outputs": {},
+    "triggers": {
+      "enabled": true,
+      "available": [
+        "manual"
+      ]
+    }
+  },
+  "tools": [
+    {
+      "id": "input_trigger_execute",
+      "name": "input_trigger execute",
+      "description": "",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "input_trigger",
+        "operation": "execute"
+      }
+    }
+  ]
+}

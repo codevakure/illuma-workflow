@@ -1,0 +1,587 @@
+{
+  "id": "jira_service_management",
+  "name": "Jira Service Management",
+  "version": "1.0.0",
+  "description": "Interact with Jira Service Management",
+  "icon": "JiraServiceManagementIcon",
+  "block": {
+    "type": "jira_service_management",
+    "name": "Jira Service Management",
+    "description": "Interact with Jira Service Management",
+    "longDescription": "Integrate with Jira Service Management for IT service management. Create and manage service requests, handle customers and organizations, track SLAs, and manage queues.",
+    "docsLink": "https://docs.sim.ai/tools/jira-service-management",
+    "category": "tools",
+    "bgColor": "#E0E0E0",
+    "icon": "JiraServiceManagementIcon",
+    "authMode": "oauth",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Get Service Desks",
+            "value": "get_service_desks"
+          },
+          {
+            "label": "Get Request Types",
+            "value": "get_request_types"
+          },
+          {
+            "label": "Create Request",
+            "value": "create_request"
+          },
+          {
+            "label": "Get Request",
+            "value": "get_request"
+          },
+          {
+            "label": "Get Requests",
+            "value": "get_requests"
+          },
+          {
+            "label": "Add Comment",
+            "value": "add_comment"
+          },
+          {
+            "label": "Get Comments",
+            "value": "get_comments"
+          },
+          {
+            "label": "Get Customers",
+            "value": "get_customers"
+          },
+          {
+            "label": "Add Customer",
+            "value": "add_customer"
+          },
+          {
+            "label": "Get Organizations",
+            "value": "get_organizations"
+          },
+          {
+            "label": "Create Organization",
+            "value": "create_organization"
+          },
+          {
+            "label": "Add Organization",
+            "value": "add_organization"
+          },
+          {
+            "label": "Get Queues",
+            "value": "get_queues"
+          },
+          {
+            "label": "Get SLA",
+            "value": "get_sla"
+          },
+          {
+            "label": "Get Transitions",
+            "value": "get_transitions"
+          },
+          {
+            "label": "Transition Request",
+            "value": "transition_request"
+          },
+          {
+            "label": "Get Participants",
+            "value": "get_participants"
+          },
+          {
+            "label": "Add Participants",
+            "value": "add_participants"
+          },
+          {
+            "label": "Get Approvals",
+            "value": "get_approvals"
+          },
+          {
+            "label": "Answer Approval",
+            "value": "answer_approval"
+          }
+        ]
+      },
+      {
+        "id": "domain",
+        "type": "short-input",
+        "title": "Domain",
+        "placeholder": "Enter Jira domain (e.g., simstudio.atlassian.net)"
+      },
+      {
+        "id": "credential",
+        "type": "oauth-input",
+        "title": "Jira Account",
+        "placeholder": "Select Jira account"
+      },
+      {
+        "id": "serviceDeskId",
+        "type": "short-input",
+        "title": "Service Desk ID",
+        "placeholder": "Enter service desk ID"
+      },
+      {
+        "id": "requestTypeId",
+        "type": "short-input",
+        "title": "Request Type ID",
+        "placeholder": "Enter request type ID"
+      },
+      {
+        "id": "issueIdOrKey",
+        "type": "short-input",
+        "title": "Issue ID or Key",
+        "placeholder": "Enter issue ID or key (e.g., SD-123)"
+      },
+      {
+        "id": "summary",
+        "type": "short-input",
+        "title": "Summary",
+        "placeholder": "Enter request summary"
+      },
+      {
+        "id": "description",
+        "type": "long-input",
+        "title": "Description",
+        "placeholder": "Enter request description"
+      },
+      {
+        "id": "raiseOnBehalfOf",
+        "type": "short-input",
+        "title": "Raise on Behalf Of",
+        "placeholder": "Account ID to raise request on behalf of"
+      },
+      {
+        "id": "commentBody",
+        "type": "long-input",
+        "title": "Comment",
+        "placeholder": "Enter comment text"
+      },
+      {
+        "id": "isPublic",
+        "type": "dropdown",
+        "title": "Comment Visibility",
+        "options": [
+          {
+            "label": "Public (visible to customer)",
+            "value": "true"
+          },
+          {
+            "label": "Internal (agents only)",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "id": "emails",
+        "type": "short-input",
+        "title": "Email Addresses",
+        "placeholder": "Comma-separated email addresses"
+      },
+      {
+        "id": "customerQuery",
+        "type": "short-input",
+        "title": "Search Query",
+        "placeholder": "Search customers by name or email"
+      },
+      {
+        "id": "transitionId",
+        "type": "short-input",
+        "title": "Transition ID",
+        "placeholder": "Enter transition ID"
+      },
+      {
+        "id": "transitionComment",
+        "type": "long-input",
+        "title": "Comment",
+        "placeholder": "Add optional comment during transition"
+      },
+      {
+        "id": "requestOwnership",
+        "type": "dropdown",
+        "title": "Request Ownership",
+        "options": [
+          {
+            "label": "All Requests",
+            "value": "ALL_REQUESTS"
+          },
+          {
+            "label": "My Requests",
+            "value": "OWNED_REQUESTS"
+          },
+          {
+            "label": "Participated",
+            "value": "PARTICIPATED_REQUESTS"
+          },
+          {
+            "label": "Organization",
+            "value": "ORGANIZATION"
+          }
+        ]
+      },
+      {
+        "id": "requestStatus",
+        "type": "dropdown",
+        "title": "Request Status",
+        "options": [
+          {
+            "label": "All",
+            "value": "ALL"
+          },
+          {
+            "label": "Open",
+            "value": "OPEN"
+          },
+          {
+            "label": "Closed",
+            "value": "CLOSED"
+          }
+        ]
+      },
+      {
+        "id": "searchTerm",
+        "type": "short-input",
+        "title": "Search Term",
+        "placeholder": "Search requests"
+      },
+      {
+        "id": "includeCount",
+        "type": "dropdown",
+        "title": "Include Issue Count",
+        "options": [
+          {
+            "label": "No",
+            "value": "false"
+          },
+          {
+            "label": "Yes",
+            "value": "true"
+          }
+        ]
+      },
+      {
+        "id": "organizationName",
+        "type": "short-input",
+        "title": "Organization Name",
+        "placeholder": "Enter organization name"
+      },
+      {
+        "id": "organizationId",
+        "type": "short-input",
+        "title": "Organization ID",
+        "placeholder": "Enter organization ID"
+      },
+      {
+        "id": "participantAccountIds",
+        "type": "short-input",
+        "title": "Account IDs",
+        "placeholder": "Comma-separated account IDs"
+      },
+      {
+        "id": "approvalId",
+        "type": "short-input",
+        "title": "Approval ID",
+        "placeholder": "Enter approval ID"
+      },
+      {
+        "id": "approvalDecision",
+        "type": "dropdown",
+        "title": "Decision",
+        "options": [
+          {
+            "label": "Approve",
+            "value": "approve"
+          },
+          {
+            "label": "Decline",
+            "value": "decline"
+          }
+        ]
+      },
+      {
+        "id": "maxResults",
+        "type": "short-input",
+        "title": "Max Results",
+        "placeholder": "Maximum results (default: 50)"
+      }
+    ],
+    "tools": {
+      "access": [
+        "jsm_get_service_desks",
+        "jsm_get_request_types",
+        "jsm_create_request",
+        "jsm_get_request",
+        "jsm_get_requests",
+        "jsm_add_comment",
+        "jsm_get_comments",
+        "jsm_get_customers",
+        "jsm_add_customer",
+        "jsm_get_organizations",
+        "jsm_create_organization",
+        "jsm_add_organization",
+        "jsm_get_queues",
+        "jsm_get_sla",
+        "jsm_get_transitions",
+        "jsm_transition_request",
+        "jsm_get_participants",
+        "jsm_add_participants",
+        "jsm_get_approvals",
+        "jsm_answer_approval"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "ts": {
+        "type": "string"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "jsm_add_comment",
+      "name": "JSM Add Comment",
+      "description": "Add a comment (public or internal) to a service request in Jira Service Management",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "jsm",
+        "operation": "jsm_add_comment"
+      }
+    },
+    {
+      "id": "jsm_add_customer",
+      "name": "JSM Add Customer",
+      "description": "Add customers to a service desk in Jira Service Management",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "jsm",
+        "operation": "jsm_add_customer"
+      }
+    },
+    {
+      "id": "jsm_add_organization",
+      "name": "JSM Add Organization",
+      "description": "Add an organization to a service desk in Jira Service Management",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "jsm",
+        "operation": "jsm_add_organization"
+      }
+    },
+    {
+      "id": "jsm_add_participants",
+      "name": "JSM Add Participants",
+      "description": "Add participants to a request in Jira Service Management",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "jsm",
+        "operation": "jsm_add_participants"
+      }
+    },
+    {
+      "id": "jsm_answer_approval",
+      "name": "JSM Answer Approval",
+      "description": "Approve or decline an approval request in Jira Service Management",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "jsm",
+        "operation": "jsm_answer_approval"
+      }
+    },
+    {
+      "id": "jsm_create_organization",
+      "name": "JSM Create Organization",
+      "description": "Create a new organization in Jira Service Management",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "jsm",
+        "operation": "jsm_create_organization"
+      }
+    },
+    {
+      "id": "jsm_create_request",
+      "name": "JSM Create Request",
+      "description": "Create a new service request in Jira Service Management",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "jsm",
+        "operation": "jsm_create_request"
+      }
+    },
+    {
+      "id": "jsm_get_approvals",
+      "name": "JSM Get Approvals",
+      "description": "Get approvals for a request in Jira Service Management",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "jsm",
+        "operation": "jsm_get_approvals"
+      }
+    },
+    {
+      "id": "jsm_get_comments",
+      "name": "JSM Get Comments",
+      "description": "Get comments for a service request in Jira Service Management",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "jsm",
+        "operation": "jsm_get_comments"
+      }
+    },
+    {
+      "id": "jsm_get_customers",
+      "name": "JSM Get Customers",
+      "description": "Get customers for a service desk in Jira Service Management",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "jsm",
+        "operation": "jsm_get_customers"
+      }
+    },
+    {
+      "id": "jsm_get_organizations",
+      "name": "JSM Get Organizations",
+      "description": "Get organizations for a service desk in Jira Service Management",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "jsm",
+        "operation": "jsm_get_organizations"
+      }
+    },
+    {
+      "id": "jsm_get_participants",
+      "name": "JSM Get Participants",
+      "description": "Get participants for a request in Jira Service Management",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "jsm",
+        "operation": "jsm_get_participants"
+      }
+    },
+    {
+      "id": "jsm_get_queues",
+      "name": "JSM Get Queues",
+      "description": "Get queues for a service desk in Jira Service Management",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "jsm",
+        "operation": "jsm_get_queues"
+      }
+    },
+    {
+      "id": "jsm_get_request",
+      "name": "JSM Get Request",
+      "description": "Get a single service request from Jira Service Management",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "jsm",
+        "operation": "jsm_get_request"
+      }
+    },
+    {
+      "id": "jsm_get_requests",
+      "name": "JSM Get Requests",
+      "description": "Get multiple service requests from Jira Service Management",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "jsm",
+        "operation": "jsm_get_requests"
+      }
+    },
+    {
+      "id": "jsm_get_request_types",
+      "name": "JSM Get Request Types",
+      "description": "Get request types for a service desk in Jira Service Management",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "jsm",
+        "operation": "jsm_get_request_types"
+      }
+    },
+    {
+      "id": "jsm_get_service_desks",
+      "name": "JSM Get Service Desks",
+      "description": "Get all service desks from Jira Service Management",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "jsm",
+        "operation": "jsm_get_service_desks"
+      }
+    },
+    {
+      "id": "jsm_get_sla",
+      "name": "JSM Get SLA",
+      "description": "Get SLA information for a service request in Jira Service Management",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "jsm",
+        "operation": "jsm_get_sla"
+      }
+    },
+    {
+      "id": "jsm_get_transitions",
+      "name": "JSM Get Transitions",
+      "description": "Get available transitions for a service request in Jira Service Management",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "jsm",
+        "operation": "jsm_get_transitions"
+      }
+    },
+    {
+      "id": "jsm_transition_request",
+      "name": "JSM Transition Request",
+      "description": "Transition a service request to a new status in Jira Service Management",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "jsm",
+        "operation": "jsm_transition_request"
+      }
+    }
+  ]
+}

@@ -1,0 +1,331 @@
+{
+  "id": "typeform",
+  "name": "Typeform",
+  "version": "1.0.0",
+  "description": "Interact with Typeform",
+  "icon": "TypeformIcon",
+  "block": {
+    "type": "typeform",
+    "name": "Typeform",
+    "description": "Interact with Typeform",
+    "longDescription": "Integrate Typeform into the workflow. Can retrieve responses, download files, and get form insights. Can be used in trigger mode to trigger a workflow when a form is submitted. Requires API Key.",
+    "docsLink": "https://docs.sim.ai/tools/typeform",
+    "category": "tools",
+    "bgColor": "#262627",
+    "icon": "TypeformIcon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Retrieve Responses",
+            "value": "typeform_responses"
+          },
+          {
+            "label": "Download File",
+            "value": "typeform_files"
+          },
+          {
+            "label": "Form Insights",
+            "value": "typeform_insights"
+          },
+          {
+            "label": "List Forms",
+            "value": "typeform_list_forms"
+          },
+          {
+            "label": "Get Form Details",
+            "value": "typeform_get_form"
+          },
+          {
+            "label": "Create Form",
+            "value": "typeform_create_form"
+          },
+          {
+            "label": "Update Form",
+            "value": "typeform_update_form"
+          },
+          {
+            "label": "Delete Form",
+            "value": "typeform_delete_form"
+          }
+        ]
+      },
+      {
+        "id": "formId",
+        "type": "short-input",
+        "title": "Form ID",
+        "placeholder": "Enter your Typeform form ID"
+      },
+      {
+        "id": "apiKey",
+        "type": "short-input",
+        "title": "Personal Access Token",
+        "placeholder": "Enter your Typeform personal access token",
+        "password": true
+      },
+      {
+        "id": "pageSize",
+        "type": "short-input",
+        "title": "Page Size",
+        "placeholder": "Number of responses per page (default: 25)"
+      },
+      {
+        "id": "since",
+        "type": "short-input",
+        "title": "Since",
+        "placeholder": "Retrieve responses after this date (ISO format)"
+      },
+      {
+        "id": "until",
+        "type": "short-input",
+        "title": "Until",
+        "placeholder": "Retrieve responses before this date (ISO format)"
+      },
+      {
+        "id": "completed",
+        "type": "dropdown",
+        "title": "Completed",
+        "options": [
+          {
+            "label": "All Responses",
+            "value": "all"
+          },
+          {
+            "label": "Only Completed",
+            "value": "true"
+          },
+          {
+            "label": "Only Incomplete",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "id": "responseId",
+        "type": "short-input",
+        "title": "Response ID",
+        "placeholder": "Enter response ID (token)"
+      },
+      {
+        "id": "fieldId",
+        "type": "short-input",
+        "title": "Field ID",
+        "placeholder": "Enter file upload field ID"
+      },
+      {
+        "id": "filename",
+        "type": "short-input",
+        "title": "Filename",
+        "placeholder": "Enter exact filename of the file"
+      },
+      {
+        "id": "inline",
+        "type": "switch",
+        "title": "Inline Display"
+      },
+      {
+        "id": "search",
+        "type": "short-input",
+        "title": "Search Query",
+        "placeholder": "Search forms by title"
+      },
+      {
+        "id": "workspaceId",
+        "type": "short-input",
+        "title": "Workspace ID",
+        "placeholder": "Filter by workspace ID"
+      },
+      {
+        "id": "page",
+        "type": "short-input",
+        "title": "Page Number",
+        "placeholder": "Page number (default: 1)"
+      },
+      {
+        "id": "listPageSize",
+        "type": "short-input",
+        "title": "Page Size",
+        "placeholder": "Forms per page (default: 10, max: 200)",
+        "max": 200
+      },
+      {
+        "id": "title",
+        "type": "short-input",
+        "title": "Form Title",
+        "placeholder": "Enter form title"
+      },
+      {
+        "id": "type",
+        "type": "dropdown",
+        "title": "Form Type",
+        "options": [
+          {
+            "label": "Form",
+            "value": "form"
+          },
+          {
+            "label": "Quiz",
+            "value": "quiz"
+          }
+        ]
+      },
+      {
+        "id": "workspaceIdCreate",
+        "type": "short-input",
+        "title": "Workspace ID",
+        "placeholder": "Workspace to create form in"
+      },
+      {
+        "id": "fields",
+        "type": "long-input",
+        "title": "Fields",
+        "placeholder": "JSON array of field objects"
+      },
+      {
+        "id": "settings",
+        "type": "long-input",
+        "title": "Settings",
+        "placeholder": "JSON object for form settings"
+      },
+      {
+        "id": "themeId",
+        "type": "short-input",
+        "title": "Theme ID",
+        "placeholder": "Theme ID to apply"
+      },
+      {
+        "id": "operations",
+        "type": "code",
+        "title": "JSON Patch Operations",
+        "placeholder": "[{"
+      }
+    ],
+    "tools": {
+      "access": [
+        "typeform_responses",
+        "typeform_files",
+        "typeform_insights",
+        "typeform_list_forms",
+        "typeform_get_form",
+        "typeform_create_form",
+        "typeform_update_form",
+        "typeform_delete_form"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "total_items": {
+        "type": "number"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "typeform_create_form",
+      "name": "Typeform Create Form",
+      "description": "Create a new form with fields and settings",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "typeform",
+        "operation": "typeform_create_form"
+      }
+    },
+    {
+      "id": "typeform_delete_form",
+      "name": "Typeform Delete Form",
+      "description": "Permanently delete a form and all its responses",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "typeform",
+        "operation": "typeform_delete_form"
+      }
+    },
+    {
+      "id": "typeform_files",
+      "name": "Typeform Files",
+      "description": "Download files uploaded in Typeform responses",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "typeform",
+        "operation": "typeform_files"
+      }
+    },
+    {
+      "id": "typeform_get_form",
+      "name": "Typeform Get Form",
+      "description": "Retrieve complete details and structure of a specific form",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "typeform",
+        "operation": "typeform_get_form"
+      }
+    },
+    {
+      "id": "typeform_insights",
+      "name": "Typeform Insights",
+      "description": "Retrieve insights and analytics for Typeform forms",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "typeform",
+        "operation": "typeform_insights"
+      }
+    },
+    {
+      "id": "typeform_list_forms",
+      "name": "Typeform List Forms",
+      "description": "Retrieve a list of all forms in your Typeform account",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "typeform",
+        "operation": "typeform_list_forms"
+      }
+    },
+    {
+      "id": "typeform_responses",
+      "name": "Typeform Responses",
+      "description": "Retrieve form responses from Typeform",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "typeform",
+        "operation": "typeform_responses"
+      }
+    },
+    {
+      "id": "typeform_update_form",
+      "name": "Typeform Update Form",
+      "description": "Update an existing form using JSON Patch operations",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "typeform",
+        "operation": "typeform_update_form"
+      }
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+
+# Cache
+.cache/
+*.tsbuildinfo
+.eslintcache
+
+# Windows reserved names
+nul
+NUL
+con
+CON
+prn
+PRN
+aux
+AUX
+
+# Debug
+.debug/
+
+# Testing
+coverage/
+.nyc_output/
+
+# Sentry
+.sentryclirc
+
+# Vercel
+.vercel

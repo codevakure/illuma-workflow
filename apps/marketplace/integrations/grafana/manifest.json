@@ -1,0 +1,584 @@
+{
+  "id": "grafana",
+  "name": "Grafana",
+  "version": "1.0.0",
+  "description": "Interact with Grafana dashboards, alerts, and annotations",
+  "icon": "GrafanaIcon",
+  "block": {
+    "type": "grafana",
+    "name": "Grafana",
+    "description": "Interact with Grafana dashboards, alerts, and annotations",
+    "longDescription": "Integrate Grafana into workflows. Manage dashboards, alerts, annotations, data sources, folders, and monitor health status.",
+    "docsLink": "https://docs.sim.ai/tools/grafana",
+    "category": "tools",
+    "bgColor": "#E0E0E0",
+    "icon": "GrafanaIcon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "List Dashboards",
+            "value": "grafana_list_dashboards"
+          },
+          {
+            "label": "Get Dashboard",
+            "value": "grafana_get_dashboard"
+          },
+          {
+            "label": "Create Dashboard",
+            "value": "grafana_create_dashboard"
+          },
+          {
+            "label": "Update Dashboard",
+            "value": "grafana_update_dashboard"
+          },
+          {
+            "label": "Delete Dashboard",
+            "value": "grafana_delete_dashboard"
+          },
+          {
+            "label": "List Alert Rules",
+            "value": "grafana_list_alert_rules"
+          },
+          {
+            "label": "Get Alert Rule",
+            "value": "grafana_get_alert_rule"
+          },
+          {
+            "label": "Create Alert Rule",
+            "value": "grafana_create_alert_rule"
+          },
+          {
+            "label": "Update Alert Rule",
+            "value": "grafana_update_alert_rule"
+          },
+          {
+            "label": "Delete Alert Rule",
+            "value": "grafana_delete_alert_rule"
+          },
+          {
+            "label": "List Contact Points",
+            "value": "grafana_list_contact_points"
+          },
+          {
+            "label": "Create Annotation",
+            "value": "grafana_create_annotation"
+          },
+          {
+            "label": "List Annotations",
+            "value": "grafana_list_annotations"
+          },
+          {
+            "label": "Update Annotation",
+            "value": "grafana_update_annotation"
+          },
+          {
+            "label": "Delete Annotation",
+            "value": "grafana_delete_annotation"
+          },
+          {
+            "label": "List Data Sources",
+            "value": "grafana_list_data_sources"
+          },
+          {
+            "label": "Get Data Source",
+            "value": "grafana_get_data_source"
+          },
+          {
+            "label": "List Folders",
+            "value": "grafana_list_folders"
+          },
+          {
+            "label": "Create Folder",
+            "value": "grafana_create_folder"
+          }
+        ]
+      },
+      {
+        "id": "baseUrl",
+        "type": "short-input",
+        "title": "Grafana URL",
+        "placeholder": "https://your-grafana.com"
+      },
+      {
+        "id": "apiKey",
+        "type": "short-input",
+        "title": "Service Account Token",
+        "placeholder": "glsa_...",
+        "password": true
+      },
+      {
+        "id": "organizationId",
+        "type": "short-input",
+        "title": "Organization ID",
+        "placeholder": "Optional - for multi-org instances"
+      },
+      {
+        "id": "dataSourceId",
+        "type": "short-input",
+        "title": "Data Source ID",
+        "placeholder": "Enter data source ID or UID"
+      },
+      {
+        "id": "dashboardUid",
+        "type": "short-input",
+        "title": "Dashboard UID",
+        "placeholder": "Enter dashboard UID"
+      },
+      {
+        "id": "query",
+        "type": "short-input",
+        "title": "Search Query",
+        "placeholder": "Filter dashboards by title"
+      },
+      {
+        "id": "tag",
+        "type": "short-input",
+        "title": "Filter by Tag",
+        "placeholder": "tag1, tag2 (comma-separated)"
+      },
+      {
+        "id": "title",
+        "type": "short-input",
+        "title": "Dashboard Title",
+        "placeholder": "Enter dashboard title"
+      },
+      {
+        "id": "folderUid",
+        "type": "short-input",
+        "title": "Folder UID",
+        "placeholder": "Optional - folder to create dashboard in"
+      },
+      {
+        "id": "tags",
+        "type": "short-input",
+        "title": "Tags",
+        "placeholder": "tag1, tag2 (comma-separated)"
+      },
+      {
+        "id": "panels",
+        "type": "long-input",
+        "title": "Panels (JSON)",
+        "placeholder": "JSON array of panel configurations"
+      },
+      {
+        "id": "message",
+        "type": "short-input",
+        "title": "Commit Message",
+        "placeholder": "Optional version message"
+      },
+      {
+        "id": "alertRuleUid",
+        "type": "short-input",
+        "title": "Alert Rule UID",
+        "placeholder": "Enter alert rule UID"
+      },
+      {
+        "id": "alertTitle",
+        "type": "short-input",
+        "title": "Alert Title",
+        "placeholder": "Enter alert rule name"
+      },
+      {
+        "id": "folderUid",
+        "type": "short-input",
+        "title": "Folder UID",
+        "placeholder": "Folder UID for the alert rule"
+      },
+      {
+        "id": "ruleGroup",
+        "type": "short-input",
+        "title": "Rule Group",
+        "placeholder": "Enter rule group name"
+      },
+      {
+        "id": "condition",
+        "type": "short-input",
+        "title": "Condition",
+        "placeholder": "Condition refId (e.g., A)"
+      },
+      {
+        "id": "data",
+        "type": "long-input",
+        "title": "Query Data (JSON)",
+        "placeholder": "JSON array of query/expression data objects"
+      },
+      {
+        "id": "forDuration",
+        "type": "short-input",
+        "title": "For Duration",
+        "placeholder": "5m (e.g., 5m, 1h)"
+      },
+      {
+        "id": "noDataState",
+        "type": "dropdown",
+        "title": "No Data State",
+        "options": [
+          {
+            "label": "No Data",
+            "value": "NoData"
+          },
+          {
+            "label": "Alerting",
+            "value": "Alerting"
+          },
+          {
+            "label": "OK",
+            "value": "OK"
+          }
+        ]
+      },
+      {
+        "id": "execErrState",
+        "type": "dropdown",
+        "title": "Error State",
+        "options": [
+          {
+            "label": "Alerting",
+            "value": "Alerting"
+          },
+          {
+            "label": "OK",
+            "value": "OK"
+          }
+        ]
+      },
+      {
+        "id": "text",
+        "type": "long-input",
+        "title": "Annotation Text",
+        "placeholder": "Enter annotation text..."
+      },
+      {
+        "id": "annotationTags",
+        "type": "short-input",
+        "title": "Tags",
+        "placeholder": "tag1, tag2 (comma-separated)"
+      },
+      {
+        "id": "annotationDashboardUid",
+        "type": "short-input",
+        "title": "Dashboard UID",
+        "placeholder": "Enter dashboard UID"
+      },
+      {
+        "id": "panelId",
+        "type": "short-input",
+        "title": "Panel ID",
+        "placeholder": "Optional - attach to specific panel"
+      },
+      {
+        "id": "time",
+        "type": "short-input",
+        "title": "Time (epoch ms)",
+        "placeholder": "Optional - defaults to now"
+      },
+      {
+        "id": "timeEnd",
+        "type": "short-input",
+        "title": "End Time (epoch ms)",
+        "placeholder": "Optional - for range annotations"
+      },
+      {
+        "id": "annotationId",
+        "type": "short-input",
+        "title": "Annotation ID",
+        "placeholder": "Enter annotation ID"
+      },
+      {
+        "id": "from",
+        "type": "short-input",
+        "title": "From Time (epoch ms)",
+        "placeholder": "Filter from time"
+      },
+      {
+        "id": "to",
+        "type": "short-input",
+        "title": "To Time (epoch ms)",
+        "placeholder": "Filter to time"
+      },
+      {
+        "id": "folderTitle",
+        "type": "short-input",
+        "title": "Folder Title",
+        "placeholder": "Enter folder title"
+      },
+      {
+        "id": "folderUidNew",
+        "type": "short-input",
+        "title": "Folder UID",
+        "placeholder": "Optional - auto-generated if not provided"
+      }
+    ],
+    "tools": {
+      "access": [
+        "grafana_get_dashboard",
+        "grafana_list_dashboards",
+        "grafana_create_dashboard",
+        "grafana_update_dashboard",
+        "grafana_delete_dashboard",
+        "grafana_list_alert_rules",
+        "grafana_get_alert_rule",
+        "grafana_create_alert_rule",
+        "grafana_update_alert_rule",
+        "grafana_delete_alert_rule",
+        "grafana_list_contact_points",
+        "grafana_create_annotation",
+        "grafana_list_annotations",
+        "grafana_update_annotation",
+        "grafana_delete_annotation",
+        "grafana_list_data_sources",
+        "grafana_get_data_source",
+        "grafana_list_folders",
+        "grafana_create_folder"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "version": {
+        "type": "string"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "grafana_create_alert_rule",
+      "name": "Grafana Create Alert Rule",
+      "description": "Create a new alert rule",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "grafana",
+        "operation": "grafana_create_alert_rule"
+      }
+    },
+    {
+      "id": "grafana_create_annotation",
+      "name": "Grafana Create Annotation",
+      "description": "Create an annotation on a dashboard or as a global annotation",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "grafana",
+        "operation": "grafana_create_annotation"
+      }
+    },
+    {
+      "id": "grafana_create_dashboard",
+      "name": "Grafana Create Dashboard",
+      "description": "Create a new dashboard",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "grafana",
+        "operation": "grafana_create_dashboard"
+      }
+    },
+    {
+      "id": "grafana_create_folder",
+      "name": "Grafana Create Folder",
+      "description": "Create a new folder in Grafana",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "grafana",
+        "operation": "grafana_create_folder"
+      }
+    },
+    {
+      "id": "grafana_delete_alert_rule",
+      "name": "Grafana Delete Alert Rule",
+      "description": "Delete an alert rule by its UID",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "grafana",
+        "operation": "grafana_delete_alert_rule"
+      }
+    },
+    {
+      "id": "grafana_delete_annotation",
+      "name": "Grafana Delete Annotation",
+      "description": "Delete an annotation by its ID",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "grafana",
+        "operation": "grafana_delete_annotation"
+      }
+    },
+    {
+      "id": "grafana_delete_dashboard",
+      "name": "Grafana Delete Dashboard",
+      "description": "Delete a dashboard by its UID",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "grafana",
+        "operation": "grafana_delete_dashboard"
+      }
+    },
+    {
+      "id": "grafana_get_alert_rule",
+      "name": "Grafana Get Alert Rule",
+      "description": "Get a specific alert rule by its UID",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "grafana",
+        "operation": "grafana_get_alert_rule"
+      }
+    },
+    {
+      "id": "grafana_get_dashboard",
+      "name": "Grafana Get Dashboard",
+      "description": "Get a dashboard by its UID",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "grafana",
+        "operation": "grafana_get_dashboard"
+      }
+    },
+    {
+      "id": "grafana_get_data_source",
+      "name": "Grafana Get Data Source",
+      "description": "Get a data source by its ID or UID",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "grafana",
+        "operation": "grafana_get_data_source"
+      }
+    },
+    {
+      "id": "grafana_list_alert_rules",
+      "name": "Grafana List Alert Rules",
+      "description": "List all alert rules in the Grafana instance",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "grafana",
+        "operation": "grafana_list_alert_rules"
+      }
+    },
+    {
+      "id": "grafana_list_annotations",
+      "name": "Grafana List Annotations",
+      "description": "Query annotations by time range, dashboard, or tags",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "grafana",
+        "operation": "grafana_list_annotations"
+      }
+    },
+    {
+      "id": "grafana_list_contact_points",
+      "name": "Grafana List Contact Points",
+      "description": "List all alert notification contact points",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "grafana",
+        "operation": "grafana_list_contact_points"
+      }
+    },
+    {
+      "id": "grafana_list_dashboards",
+      "name": "Grafana List Dashboards",
+      "description": "Search and list all dashboards",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "grafana",
+        "operation": "grafana_list_dashboards"
+      }
+    },
+    {
+      "id": "grafana_list_data_sources",
+      "name": "Grafana List Data Sources",
+      "description": "List all data sources configured in Grafana",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "grafana",
+        "operation": "grafana_list_data_sources"
+      }
+    },
+    {
+      "id": "grafana_list_folders",
+      "name": "Grafana List Folders",
+      "description": "List all folders in Grafana",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "grafana",
+        "operation": "grafana_list_folders"
+      }
+    },
+    {
+      "id": "grafana_update_alert_rule",
+      "name": "Grafana Update Alert Rule",
+      "description": "Update an existing alert rule. Fetches the current rule and merges your changes.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "grafana",
+        "operation": "grafana_update_alert_rule"
+      }
+    },
+    {
+      "id": "grafana_update_annotation",
+      "name": "Grafana Update Annotation",
+      "description": "Update an existing annotation",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "grafana",
+        "operation": "grafana_update_annotation"
+      }
+    },
+    {
+      "id": "grafana_update_dashboard",
+      "name": "Grafana Update Dashboard",
+      "description": "Update an existing dashboard. Fetches the current dashboard and merges your changes.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "grafana",
+        "operation": "grafana_update_dashboard"
+      }
+    }
+  ]
+}

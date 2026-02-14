@@ -1,0 +1,392 @@
+{
+  "id": "stt",
+  "name": "Speech-to-Text",
+  "version": "1.0.0",
+  "description": "Convert speech to text using AI",
+  "icon": "STTIcon",
+  "block": {
+    "type": "stt",
+    "name": "Speech-to-Text",
+    "description": "Convert speech to text using AI",
+    "longDescription": "Transcribe audio and video files to text using leading AI providers. Supports multiple languages, timestamps, and speaker diarization.",
+    "docsLink": "https://docs.sim.ai/tools/stt",
+    "category": "tools",
+    "bgColor": "#181C1E",
+    "icon": "STTIcon",
+    "authMode": "api_key",
+    "hideFromToolbar": true,
+    "subBlocks": [
+      {
+        "id": "provider",
+        "type": "dropdown",
+        "title": "Provider",
+        "options": [
+          {
+            "label": "OpenAI Whisper",
+            "value": "whisper"
+          },
+          {
+            "label": "Deepgram",
+            "value": "deepgram"
+          },
+          {
+            "label": "ElevenLabs",
+            "value": "elevenlabs"
+          },
+          {
+            "label": "AssemblyAI",
+            "value": "assemblyai"
+          },
+          {
+            "label": "Google Gemini",
+            "value": "gemini"
+          }
+        ]
+      },
+      {
+        "id": "model",
+        "type": "dropdown",
+        "title": "Model",
+        "options": [
+          {
+            "label": "Whisper-1",
+            "value": "whisper-1"
+          }
+        ]
+      },
+      {
+        "id": "model",
+        "type": "dropdown",
+        "title": "Model",
+        "options": [
+          {
+            "label": "Scribe v1",
+            "value": "scribe_v1"
+          },
+          {
+            "label": "Scribe v1 Experimental",
+            "value": "scribe_v1_experimental"
+          }
+        ]
+      },
+      {
+        "id": "model",
+        "type": "dropdown",
+        "title": "Model",
+        "options": [
+          {
+            "label": "Nova 3",
+            "value": "nova-3"
+          },
+          {
+            "label": "Nova 2",
+            "value": "nova-2"
+          },
+          {
+            "label": "Nova",
+            "value": "nova"
+          },
+          {
+            "label": "Whisper Large",
+            "value": "whisper-large"
+          },
+          {
+            "label": "Enhanced",
+            "value": "enhanced"
+          },
+          {
+            "label": "Base",
+            "value": "base"
+          }
+        ]
+      },
+      {
+        "id": "model",
+        "type": "dropdown",
+        "title": "Model",
+        "options": [
+          {
+            "label": "Best",
+            "value": "best"
+          }
+        ]
+      },
+      {
+        "id": "model",
+        "type": "dropdown",
+        "title": "Model",
+        "options": [
+          {
+            "label": "Gemini 3 Pro",
+            "value": "gemini-3-pro-preview"
+          },
+          {
+            "label": "Gemini 2.5 Pro",
+            "value": "gemini-2.5-pro"
+          },
+          {
+            "label": "Gemini 2.5 Flash",
+            "value": "gemini-2.5-flash"
+          },
+          {
+            "label": "Gemini 2.5 Flash Lite",
+            "value": "gemini-2.5-flash-lite"
+          },
+          {
+            "label": "Gemini 2.0 Flash",
+            "value": "gemini-2.0-flash-exp"
+          }
+        ]
+      },
+      {
+        "id": "audioFile",
+        "type": "file-upload",
+        "title": "Audio/Video File",
+        "placeholder": "Upload an audio or video file",
+        "mode": "basic",
+        "canonicalParamId": "audioFile"
+      },
+      {
+        "id": "audioFileReference",
+        "type": "short-input",
+        "title": "Audio/Video File Reference",
+        "placeholder": "Reference audio/video from previous blocks",
+        "mode": "advanced",
+        "canonicalParamId": "audioFile"
+      },
+      {
+        "id": "audioUrl",
+        "type": "short-input",
+        "title": "Audio/Video URL",
+        "placeholder": "Or enter publicly accessible audio/video URL"
+      },
+      {
+        "id": "language",
+        "type": "dropdown",
+        "title": "Language",
+        "options": [
+          {
+            "label": "Auto-detect",
+            "value": "auto"
+          },
+          {
+            "label": "English",
+            "value": "en"
+          },
+          {
+            "label": "Spanish",
+            "value": "es"
+          },
+          {
+            "label": "French",
+            "value": "fr"
+          },
+          {
+            "label": "German",
+            "value": "de"
+          },
+          {
+            "label": "Italian",
+            "value": "it"
+          },
+          {
+            "label": "Portuguese",
+            "value": "pt"
+          },
+          {
+            "label": "Dutch",
+            "value": "nl"
+          },
+          {
+            "label": "Russian",
+            "value": "ru"
+          },
+          {
+            "label": "Chinese",
+            "value": "zh"
+          },
+          {
+            "label": "Japanese",
+            "value": "ja"
+          },
+          {
+            "label": "Korean",
+            "value": "ko"
+          },
+          {
+            "label": "Arabic",
+            "value": "ar"
+          },
+          {
+            "label": "Hindi",
+            "value": "hi"
+          },
+          {
+            "label": "Polish",
+            "value": "pl"
+          },
+          {
+            "label": "Turkish",
+            "value": "tr"
+          },
+          {
+            "label": "Swedish",
+            "value": "sv"
+          },
+          {
+            "label": "Danish",
+            "value": "da"
+          },
+          {
+            "label": "Norwegian",
+            "value": "no"
+          },
+          {
+            "label": "Finnish",
+            "value": "fi"
+          }
+        ]
+      },
+      {
+        "id": "timestamps",
+        "type": "dropdown",
+        "title": "Timestamps",
+        "options": [
+          {
+            "label": "None",
+            "value": "none"
+          },
+          {
+            "label": "Sentence-level",
+            "value": "sentence"
+          },
+          {
+            "label": "Word-level",
+            "value": "word"
+          }
+        ]
+      },
+      {
+        "id": "diarization",
+        "type": "switch",
+        "title": "Speaker Diarization"
+      },
+      {
+        "id": "translateToEnglish",
+        "type": "switch",
+        "title": "Translate to English"
+      },
+      {
+        "id": "sentiment",
+        "type": "switch",
+        "title": "Sentiment Analysis"
+      },
+      {
+        "id": "entityDetection",
+        "type": "switch",
+        "title": "Entity Detection"
+      },
+      {
+        "id": "piiRedaction",
+        "type": "switch",
+        "title": "PII Redaction"
+      },
+      {
+        "id": "summarization",
+        "type": "switch",
+        "title": "Auto Summarization"
+      },
+      {
+        "id": "apiKey",
+        "type": "short-input",
+        "title": "API Key",
+        "placeholder": "Enter your API key",
+        "password": true
+      }
+    ],
+    "tools": {
+      "access": [
+        "stt_whisper",
+        "stt_deepgram",
+        "stt_elevenlabs",
+        "stt_assemblyai",
+        "stt_gemini"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "provider": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "transcript": {
+        "type": "string"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "stt_assemblyai",
+      "name": "AssemblyAI STT",
+      "description": "Transcribe audio to text using AssemblyAI with advanced NLP features",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stt",
+        "operation": "stt_assemblyai"
+      }
+    },
+    {
+      "id": "stt_deepgram",
+      "name": "Deepgram STT",
+      "description": "Transcribe audio to text using Deepgram",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stt",
+        "operation": "stt_deepgram"
+      }
+    },
+    {
+      "id": "stt_elevenlabs",
+      "name": "ElevenLabs STT",
+      "description": "Transcribe audio to text using ElevenLabs",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stt",
+        "operation": "stt_elevenlabs"
+      }
+    },
+    {
+      "id": "stt_gemini",
+      "name": "Google Gemini STT",
+      "description": "Transcribe audio to text using Google Gemini with multimodal capabilities",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stt",
+        "operation": "stt_gemini"
+      }
+    },
+    {
+      "id": "stt_whisper",
+      "name": "OpenAI Whisper STT",
+      "description": "Transcribe audio to text using OpenAI Whisper",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stt",
+        "operation": "stt_whisper"
+      }
+    }
+  ]
+}

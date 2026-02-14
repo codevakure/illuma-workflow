@@ -1,0 +1,215 @@
+{
+  "id": "similarweb",
+  "name": "Similarweb",
+  "version": "1.0.0",
+  "description": "Website analytics and traffic insights from Similarweb",
+  "icon": "SimilarwebIcon",
+
+  "block": {
+    "type": "similarweb",
+    "name": "Similarweb",
+    "description": "Website Analytics",
+    "longDescription": "Get website traffic data, engagement metrics, rankings, and visitor insights using the Similarweb Digital Data API.",
+    "docsLink": "https://docs.sim.ai/tools/similarweb",
+    "category": "tools",
+    "bgColor": "#1F3A5F",
+    "icon": "SimilarwebIcon",
+    "authMode": "api_key",
+    "operations": [
+      { "value": "overview", "label": "Website Overview", "toolId": "similarweb_website_overview" },
+      { "value": "visits", "label": "Traffic Visits", "toolId": "similarweb_traffic_visits" },
+      { "value": "bounce_rate", "label": "Bounce Rate", "toolId": "similarweb_bounce_rate" },
+      { "value": "pages_per_visit", "label": "Pages Per Visit", "toolId": "similarweb_pages_per_visit" },
+      { "value": "visit_duration", "label": "Visit Duration", "toolId": "similarweb_visit_duration" }
+    ],
+    "subBlocks": [
+      {
+        "id": "operation",
+        "title": "Operation",
+        "type": "dropdown",
+        "options": [
+          { "value": "overview", "label": "Website Overview" },
+          { "value": "visits", "label": "Traffic Visits" },
+          { "value": "bounce_rate", "label": "Bounce Rate" },
+          { "value": "pages_per_visit", "label": "Pages Per Visit" },
+          { "value": "visit_duration", "label": "Visit Duration" }
+        ],
+        "default": "overview"
+      },
+      {
+        "id": "domain",
+        "title": "Domain",
+        "type": "short-input",
+        "placeholder": "example.com",
+        "required": true
+      },
+      {
+        "id": "country",
+        "title": "Country",
+        "type": "dropdown",
+        "options": [
+          { "value": "world", "label": "Worldwide" },
+          { "value": "us", "label": "United States" },
+          { "value": "gb", "label": "United Kingdom" },
+          { "value": "de", "label": "Germany" },
+          { "value": "fr", "label": "France" },
+          { "value": "ca", "label": "Canada" },
+          { "value": "au", "label": "Australia" },
+          { "value": "in", "label": "India" },
+          { "value": "jp", "label": "Japan" },
+          { "value": "br", "label": "Brazil" }
+        ],
+        "default": "world",
+        "condition": { "field": "operation", "value": ["visits", "bounce_rate", "pages_per_visit", "visit_duration"] }
+      },
+      {
+        "id": "granularity",
+        "title": "Granularity",
+        "type": "dropdown",
+        "options": [
+          { "value": "monthly", "label": "Monthly" },
+          { "value": "weekly", "label": "Weekly" },
+          { "value": "daily", "label": "Daily" }
+        ],
+        "default": "monthly",
+        "condition": { "field": "operation", "value": ["visits", "bounce_rate", "pages_per_visit", "visit_duration"] }
+      },
+      {
+        "id": "startDate",
+        "title": "Start Date",
+        "type": "short-input",
+        "placeholder": "YYYY-MM",
+        "condition": { "field": "operation", "value": ["visits", "bounce_rate", "pages_per_visit", "visit_duration"] }
+      },
+      {
+        "id": "endDate",
+        "title": "End Date",
+        "type": "short-input",
+        "placeholder": "YYYY-MM",
+        "condition": { "field": "operation", "value": ["visits", "bounce_rate", "pages_per_visit", "visit_duration"] }
+      },
+      {
+        "id": "apiKey",
+        "title": "API Key",
+        "type": "short-input",
+        "placeholder": "Enter your Similarweb API key...",
+        "required": true,
+        "password": true
+      }
+    ],
+    "tools": {
+      "access": ["similarweb_website_overview", "similarweb_traffic_visits", "similarweb_bounce_rate", "similarweb_pages_per_visit", "similarweb_visit_duration"],
+      "config": {
+        "tool": "similarweb_{{operation}}"
+      }
+    },
+    "inputs": {
+      "domain": { "type": "string", "required": true, "description": "Website domain" }
+    },
+    "outputs": {
+      "overview": { "type": "json", "description": "Website overview data" },
+      "data": { "type": "json", "description": "Time-series analytics data" },
+      "siteName": { "type": "string", "description": "Website name" }
+    }
+  },
+
+  "tools": [
+    {
+      "id": "similarweb_website_overview",
+      "name": "Similarweb Website Overview",
+      "description": "Get comprehensive website analytics including rankings, traffic, and engagement.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "proxy": { "handler": "similarweb", "operation": "website-overview" },
+      "params": {
+        "domain": { "type": "string", "required": true, "visibility": "user-or-llm", "description": "Website domain" },
+        "apiKey": { "type": "string", "required": true, "visibility": "user-only", "description": "Similarweb API Key" }
+      },
+      "outputs": {
+        "siteName": { "type": "string" },
+        "globalRank": { "type": "number" },
+        "countryRank": { "type": "number" },
+        "categoryRank": { "type": "number" },
+        "engagements": { "type": "object" },
+        "topCountryShares": { "type": "array" },
+        "trafficSources": { "type": "object" }
+      }
+    },
+    {
+      "id": "similarweb_traffic_visits",
+      "name": "Similarweb Traffic Visits",
+      "description": "Get traffic visit data over time.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "proxy": { "handler": "similarweb", "operation": "traffic-visits" },
+      "params": {
+        "domain": { "type": "string", "required": true, "visibility": "user-or-llm", "description": "Website domain" },
+        "country": { "type": "string", "required": false, "visibility": "user-only", "description": "Country filter" },
+        "granularity": { "type": "string", "required": false, "visibility": "user-only", "description": "Data granularity" },
+        "startDate": { "type": "string", "required": false, "visibility": "user-only", "description": "Start date (YYYY-MM)" },
+        "endDate": { "type": "string", "required": false, "visibility": "user-only", "description": "End date (YYYY-MM)" },
+        "apiKey": { "type": "string", "required": true, "visibility": "user-only", "description": "Similarweb API Key" }
+      },
+      "outputs": {
+        "data": { "type": "array", "description": "Visit data points" }
+      }
+    },
+    {
+      "id": "similarweb_bounce_rate",
+      "name": "Similarweb Bounce Rate",
+      "description": "Get bounce rate data over time.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "proxy": { "handler": "similarweb", "operation": "bounce-rate" },
+      "params": {
+        "domain": { "type": "string", "required": true, "visibility": "user-or-llm", "description": "Website domain" },
+        "country": { "type": "string", "required": false, "visibility": "user-only" },
+        "granularity": { "type": "string", "required": false, "visibility": "user-only" },
+        "startDate": { "type": "string", "required": false, "visibility": "user-only" },
+        "endDate": { "type": "string", "required": false, "visibility": "user-only" },
+        "apiKey": { "type": "string", "required": true, "visibility": "user-only", "description": "Similarweb API Key" }
+      },
+      "outputs": {
+        "data": { "type": "array", "description": "Bounce rate data points" }
+      }
+    },
+    {
+      "id": "similarweb_pages_per_visit",
+      "name": "Similarweb Pages Per Visit",
+      "description": "Get pages per visit data over time.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "proxy": { "handler": "similarweb", "operation": "pages-per-visit" },
+      "params": {
+        "domain": { "type": "string", "required": true, "visibility": "user-or-llm", "description": "Website domain" },
+        "country": { "type": "string", "required": false, "visibility": "user-only" },
+        "granularity": { "type": "string", "required": false, "visibility": "user-only" },
+        "startDate": { "type": "string", "required": false, "visibility": "user-only" },
+        "endDate": { "type": "string", "required": false, "visibility": "user-only" },
+        "apiKey": { "type": "string", "required": true, "visibility": "user-only", "description": "Similarweb API Key" }
+      },
+      "outputs": {
+        "data": { "type": "array", "description": "Pages per visit data points" }
+      }
+    },
+    {
+      "id": "similarweb_visit_duration",
+      "name": "Similarweb Visit Duration",
+      "description": "Get average visit duration data over time.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "proxy": { "handler": "similarweb", "operation": "visit-duration" },
+      "params": {
+        "domain": { "type": "string", "required": true, "visibility": "user-or-llm", "description": "Website domain" },
+        "country": { "type": "string", "required": false, "visibility": "user-only" },
+        "granularity": { "type": "string", "required": false, "visibility": "user-only" },
+        "startDate": { "type": "string", "required": false, "visibility": "user-only" },
+        "endDate": { "type": "string", "required": false, "visibility": "user-only" },
+        "apiKey": { "type": "string", "required": true, "visibility": "user-only", "description": "Similarweb API Key" }
+      },
+      "outputs": {
+        "data": { "type": "array", "description": "Visit duration data points" }
+      }
+    }
+  ]
+}

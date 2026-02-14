@@ -1,0 +1,378 @@
+{
+  "id": "microsoft_teams",
+  "name": "Microsoft Teams",
+  "version": "1.0.0",
+  "description": "Manage messages, reactions, and members in Teams",
+  "icon": "MicrosoftTeamsIcon",
+  "block": {
+    "type": "microsoft_teams",
+    "name": "Microsoft Teams",
+    "description": "Manage messages, reactions, and members in Teams",
+    "longDescription": "Integrate Microsoft Teams into the workflow. Read, write, update, and delete chat and channel messages. Reply to messages, add reactions, and list team/channel members. Can be used in trigger mode to trigger a workflow when a message is sent to a chat or channel. To mention users in messages, wrap their name in ",
+    "docsLink": "https://docs.sim.ai/tools/microsoft_teams",
+    "category": "tools",
+    "bgColor": "#E0E0E0",
+    "icon": "MicrosoftTeamsIcon",
+    "authMode": "oauth",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Read Chat Messages",
+            "value": "read_chat"
+          },
+          {
+            "label": "Write Chat Message",
+            "value": "write_chat"
+          },
+          {
+            "label": "Update Chat Message",
+            "value": "update_chat_message"
+          },
+          {
+            "label": "Delete Chat Message",
+            "value": "delete_chat_message"
+          },
+          {
+            "label": "Read Channel Messages",
+            "value": "read_channel"
+          },
+          {
+            "label": "Write Channel Message",
+            "value": "write_channel"
+          },
+          {
+            "label": "Update Channel Message",
+            "value": "update_channel_message"
+          },
+          {
+            "label": "Delete Channel Message",
+            "value": "delete_channel_message"
+          },
+          {
+            "label": "Reply to Channel Message",
+            "value": "reply_to_message"
+          },
+          {
+            "label": "Get Message",
+            "value": "get_message"
+          },
+          {
+            "label": "Add Reaction",
+            "value": "set_reaction"
+          },
+          {
+            "label": "Remove Reaction",
+            "value": "unset_reaction"
+          },
+          {
+            "label": "List Team Members",
+            "value": "list_team_members"
+          },
+          {
+            "label": "List Channel Members",
+            "value": "list_channel_members"
+          }
+        ]
+      },
+      {
+        "id": "credential",
+        "type": "oauth-input",
+        "title": "Microsoft Account",
+        "placeholder": "Select Microsoft account"
+      },
+      {
+        "id": "teamSelector",
+        "type": "file-selector",
+        "title": "Select Team",
+        "placeholder": "Select a team",
+        "mode": "basic",
+        "canonicalParamId": "teamId"
+      },
+      {
+        "id": "manualTeamId",
+        "type": "short-input",
+        "title": "Team ID",
+        "placeholder": "Enter team ID",
+        "mode": "advanced",
+        "canonicalParamId": "teamId"
+      },
+      {
+        "id": "chatSelector",
+        "type": "file-selector",
+        "title": "Select Chat",
+        "placeholder": "Select a chat",
+        "mode": "basic",
+        "canonicalParamId": "chatId"
+      },
+      {
+        "id": "manualChatId",
+        "type": "short-input",
+        "title": "Chat ID",
+        "placeholder": "Enter chat ID",
+        "mode": "advanced",
+        "canonicalParamId": "chatId"
+      },
+      {
+        "id": "channelSelector",
+        "type": "file-selector",
+        "title": "Select Channel",
+        "placeholder": "Select a channel",
+        "mode": "basic",
+        "canonicalParamId": "channelId"
+      },
+      {
+        "id": "manualChannelId",
+        "type": "short-input",
+        "title": "Channel ID",
+        "placeholder": "Enter channel ID",
+        "mode": "advanced",
+        "canonicalParamId": "channelId"
+      },
+      {
+        "id": "messageId",
+        "type": "short-input",
+        "title": "Message ID",
+        "placeholder": "Enter message ID"
+      },
+      {
+        "id": "content",
+        "type": "long-input",
+        "title": "Message",
+        "placeholder": "Enter message content"
+      },
+      {
+        "id": "reactionType",
+        "type": "short-input",
+        "title": "Reaction",
+        "placeholder": "Enter emoji (e.g., ❤️, 👍, 😊)"
+      },
+      {
+        "id": "includeAttachments",
+        "type": "switch",
+        "title": "Include Attachments"
+      },
+      {
+        "id": "attachmentFiles",
+        "type": "file-upload",
+        "title": "Attachments",
+        "placeholder": "Upload files to attach",
+        "mode": "basic",
+        "canonicalParamId": "files"
+      },
+      {
+        "id": "fileReferences",
+        "type": "short-input",
+        "title": "File Attachments",
+        "placeholder": "Reference files from previous blocks",
+        "mode": "advanced",
+        "canonicalParamId": "files"
+      }
+    ],
+    "tools": {
+      "access": [
+        "microsoft_teams_read_chat",
+        "microsoft_teams_write_chat",
+        "microsoft_teams_read_channel",
+        "microsoft_teams_write_channel",
+        "microsoft_teams_update_chat_message",
+        "microsoft_teams_update_channel_message",
+        "microsoft_teams_delete_chat_message",
+        "microsoft_teams_delete_channel_message",
+        "microsoft_teams_reply_to_message",
+        "microsoft_teams_get_message",
+        "microsoft_teams_set_reaction",
+        "microsoft_teams_unset_reaction",
+        "microsoft_teams_list_team_members",
+        "microsoft_teams_list_channel_members"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "content": {
+        "type": "string"
+      }
+    },
+    "triggerAllowed": true
+  },
+  "tools": [
+    {
+      "id": "microsoft_teams_delete_channel_message",
+      "name": "Delete Microsoft Teams Channel Message",
+      "description": "Soft delete a message in a Microsoft Teams channel",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "microsoft_teams",
+        "operation": "microsoft_teams_delete_channel_message"
+      }
+    },
+    {
+      "id": "microsoft_teams_delete_chat_message",
+      "name": "Delete Microsoft Teams Chat Message",
+      "description": "Soft delete a message in a Microsoft Teams chat",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "microsoft_teams",
+        "operation": "microsoft_teams_delete_chat_message"
+      }
+    },
+    {
+      "id": "microsoft_teams_get_message",
+      "name": "Get Microsoft Teams Message",
+      "description": "Get a specific message from a Microsoft Teams chat or channel",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "microsoft_teams",
+        "operation": "microsoft_teams_get_message"
+      }
+    },
+    {
+      "id": "microsoft_teams_list_channel_members",
+      "name": "List Microsoft Teams Channel Members",
+      "description": "List all members of a Microsoft Teams channel",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "microsoft_teams",
+        "operation": "microsoft_teams_list_channel_members"
+      }
+    },
+    {
+      "id": "microsoft_teams_list_team_members",
+      "name": "List Microsoft Teams Team Members",
+      "description": "List all members of a Microsoft Teams team",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "microsoft_teams",
+        "operation": "microsoft_teams_list_team_members"
+      }
+    },
+    {
+      "id": "microsoft_teams_read_channel",
+      "name": "Read Microsoft Teams Channel",
+      "description": "Read content from a Microsoft Teams channel",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "microsoft_teams",
+        "operation": "microsoft_teams_read_channel"
+      }
+    },
+    {
+      "id": "microsoft_teams_read_chat",
+      "name": "Read Microsoft Teams Chat",
+      "description": "Read content from a Microsoft Teams chat",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "microsoft_teams",
+        "operation": "microsoft_teams_read_chat"
+      }
+    },
+    {
+      "id": "microsoft_teams_reply_to_message",
+      "name": "Reply to Microsoft Teams Channel Message",
+      "description": "Reply to an existing message in a Microsoft Teams channel",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "microsoft_teams",
+        "operation": "microsoft_teams_reply_to_message"
+      }
+    },
+    {
+      "id": "microsoft_teams_set_reaction",
+      "name": "Add Reaction to Microsoft Teams Message",
+      "description": "Add an emoji reaction to a message in Microsoft Teams",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "microsoft_teams",
+        "operation": "microsoft_teams_set_reaction"
+      }
+    },
+    {
+      "id": "microsoft_teams_unset_reaction",
+      "name": "Remove Reaction from Microsoft Teams Message",
+      "description": "Remove an emoji reaction from a message in Microsoft Teams",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "microsoft_teams",
+        "operation": "microsoft_teams_unset_reaction"
+      }
+    },
+    {
+      "id": "microsoft_teams_update_channel_message",
+      "name": "Update Microsoft Teams Channel Message",
+      "description": "Update an existing message in a Microsoft Teams channel",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "microsoft_teams",
+        "operation": "microsoft_teams_update_channel_message"
+      }
+    },
+    {
+      "id": "microsoft_teams_update_chat_message",
+      "name": "Update Microsoft Teams Chat Message",
+      "description": "Update an existing message in a Microsoft Teams chat",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "microsoft_teams",
+        "operation": "microsoft_teams_update_chat_message"
+      }
+    },
+    {
+      "id": "microsoft_teams_write_channel",
+      "name": "Write to Microsoft Teams Channel",
+      "description": "Write or send a message to a Microsoft Teams channel",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "microsoft_teams",
+        "operation": "microsoft_teams_write_channel"
+      }
+    },
+    {
+      "id": "microsoft_teams_write_chat",
+      "name": "Write to Microsoft Teams Chat",
+      "description": "Write or update content in a Microsoft Teams chat",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "microsoft_teams",
+        "operation": "microsoft_teams_write_chat"
+      }
+    }
+  ]
+}

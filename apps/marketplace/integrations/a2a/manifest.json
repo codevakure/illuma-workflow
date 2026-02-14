@@ -1,0 +1,253 @@
+{
+  "id": "a2a",
+  "name": "A2A",
+  "version": "1.0.0",
+  "description": "Interact with external A2A-compatible agents",
+  "icon": "A2AIcon",
+  "block": {
+    "type": "a2a",
+    "name": "A2A",
+    "description": "Interact with external A2A-compatible agents",
+    "longDescription": "Use the A2A (Agent-to-Agent) protocol to interact with external AI agents. ",
+    "docsLink": "https://docs.sim.ai/blocks/a2a",
+    "category": "tools",
+    "bgColor": "#4151B5",
+    "icon": "A2AIcon",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Send Message",
+            "value": "a2a_send_message"
+          },
+          {
+            "label": "Get Task",
+            "value": "a2a_get_task"
+          },
+          {
+            "label": "Cancel Task",
+            "value": "a2a_cancel_task"
+          },
+          {
+            "label": "Get Agent Card",
+            "value": "a2a_get_agent_card"
+          },
+          {
+            "label": "Resubscribe",
+            "value": "a2a_resubscribe"
+          },
+          {
+            "label": "Set Push Notification",
+            "value": "a2a_set_push_notification"
+          },
+          {
+            "label": "Get Push Notification",
+            "value": "a2a_get_push_notification"
+          },
+          {
+            "label": "Delete Push Notification",
+            "value": "a2a_delete_push_notification"
+          }
+        ]
+      },
+      {
+        "id": "agentUrl",
+        "type": "short-input",
+        "title": "Agent URL",
+        "placeholder": "https://api.example.com/a2a/serve/agent-id"
+      },
+      {
+        "id": "message",
+        "type": "long-input",
+        "title": "Message",
+        "placeholder": "Enter your message to the agent..."
+      },
+      {
+        "id": "data",
+        "type": "code",
+        "title": "Data (JSON)",
+        "placeholder": "{\\n  "
+      },
+      {
+        "id": "fileUpload",
+        "type": "file-upload",
+        "title": "Files",
+        "placeholder": "Upload files to send",
+        "mode": "basic",
+        "canonicalParamId": "files"
+      },
+      {
+        "id": "fileReference",
+        "type": "short-input",
+        "title": "Files",
+        "placeholder": "Reference files from previous blocks",
+        "mode": "advanced",
+        "canonicalParamId": "files"
+      },
+      {
+        "id": "taskId",
+        "type": "short-input",
+        "title": "Task ID",
+        "placeholder": "Task ID"
+      },
+      {
+        "id": "contextId",
+        "type": "short-input",
+        "title": "Context ID",
+        "placeholder": "Optional - for multi-turn conversations"
+      },
+      {
+        "id": "historyLength",
+        "type": "short-input",
+        "title": "History Length",
+        "placeholder": "Number of messages to include"
+      },
+      {
+        "id": "webhookUrl",
+        "type": "short-input",
+        "title": "Webhook URL",
+        "placeholder": "https://your-app.com/webhook"
+      },
+      {
+        "id": "token",
+        "type": "short-input",
+        "title": "Webhook Token",
+        "placeholder": "Optional token for webhook validation",
+        "password": true
+      },
+      {
+        "id": "apiKey",
+        "type": "short-input",
+        "title": "API Key",
+        "placeholder": "Optional API key for authenticated agents",
+        "password": true
+      }
+    ],
+    "tools": {
+      "access": [
+        "a2a_send_message",
+        "a2a_get_task",
+        "a2a_cancel_task",
+        "a2a_get_agent_card",
+        "a2a_resubscribe",
+        "a2a_set_push_notification",
+        "a2a_get_push_notification",
+        "a2a_delete_push_notification"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "content": {
+        "type": "string"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "a2a_cancel_task",
+      "name": "A2A Cancel Task",
+      "description": "Cancel a running A2A task.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "a2a",
+        "operation": "a2a_cancel_task"
+      }
+    },
+    {
+      "id": "a2a_delete_push_notification",
+      "name": "A2A Delete Push Notification",
+      "description": "Delete the push notification webhook configuration for a task.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "a2a",
+        "operation": "a2a_delete_push_notification"
+      }
+    },
+    {
+      "id": "a2a_get_agent_card",
+      "name": "A2A Get Agent Card",
+      "description": "Fetch the Agent Card (discovery document) for an A2A agent.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "a2a",
+        "operation": "a2a_get_agent_card"
+      }
+    },
+    {
+      "id": "a2a_get_push_notification",
+      "name": "A2A Get Push Notification",
+      "description": "Get the push notification webhook configuration for a task.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "a2a",
+        "operation": "a2a_get_push_notification"
+      }
+    },
+    {
+      "id": "a2a_get_task",
+      "name": "A2A Get Task",
+      "description": "Query the status of an existing A2A task.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "a2a",
+        "operation": "a2a_get_task"
+      }
+    },
+    {
+      "id": "a2a_resubscribe",
+      "name": "A2A Resubscribe",
+      "description": "Reconnect to an ongoing A2A task stream after connection interruption.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "a2a",
+        "operation": "a2a_resubscribe"
+      }
+    },
+    {
+      "id": "a2a_send_message",
+      "name": "A2A Send Message",
+      "description": "Send a message to an external A2A-compatible agent.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "a2a",
+        "operation": "a2a_send_message"
+      }
+    },
+    {
+      "id": "a2a_set_push_notification",
+      "name": "A2A Set Push Notification",
+      "description": "Configure a webhook to receive task update notifications.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "a2a",
+        "operation": "a2a_set_push_notification"
+      }
+    }
+  ]
+}

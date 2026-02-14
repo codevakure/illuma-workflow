@@ -1,0 +1,259 @@
+{
+  "id": "similarweb",
+  "name": "Similarweb",
+  "version": "1.0.0",
+  "description": "Website traffic and analytics data",
+  "icon": "SimilarwebIcon",
+  "block": {
+    "type": "similarweb",
+    "name": "Similarweb",
+    "description": "Website traffic and analytics data",
+    "longDescription": "Access comprehensive website analytics including traffic estimates, engagement metrics, rankings, and traffic sources using the Similarweb API.",
+    "docsLink": "https://developers.similarweb.com/docs/similarweb-web-traffic-api",
+    "category": "tools",
+    "bgColor": "#000922",
+    "icon": "SimilarwebIcon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Website Overview",
+            "value": "similarweb_website_overview"
+          },
+          {
+            "label": "Traffic Visits",
+            "value": "similarweb_traffic_visits"
+          },
+          {
+            "label": "Bounce Rate",
+            "value": "similarweb_bounce_rate"
+          },
+          {
+            "label": "Pages Per Visit",
+            "value": "similarweb_pages_per_visit"
+          },
+          {
+            "label": "Visit Duration (Desktop)",
+            "value": "similarweb_visit_duration"
+          }
+        ]
+      },
+      {
+        "id": "domain",
+        "type": "short-input",
+        "title": "Domain",
+        "placeholder": "example.com"
+      },
+      {
+        "id": "country",
+        "type": "dropdown",
+        "title": "Country",
+        "options": [
+          {
+            "label": "Worldwide",
+            "value": "world"
+          },
+          {
+            "label": "United States",
+            "value": "us"
+          },
+          {
+            "label": "United Kingdom",
+            "value": "gb"
+          },
+          {
+            "label": "Germany",
+            "value": "de"
+          },
+          {
+            "label": "France",
+            "value": "fr"
+          },
+          {
+            "label": "Spain",
+            "value": "es"
+          },
+          {
+            "label": "Italy",
+            "value": "it"
+          },
+          {
+            "label": "Canada",
+            "value": "ca"
+          },
+          {
+            "label": "Australia",
+            "value": "au"
+          },
+          {
+            "label": "Japan",
+            "value": "jp"
+          },
+          {
+            "label": "Brazil",
+            "value": "br"
+          },
+          {
+            "label": "India",
+            "value": "in"
+          },
+          {
+            "label": "Netherlands",
+            "value": "nl"
+          },
+          {
+            "label": "Poland",
+            "value": "pl"
+          },
+          {
+            "label": "Russia",
+            "value": "ru"
+          },
+          {
+            "label": "Mexico",
+            "value": "mx"
+          },
+          {
+            "label": "South Korea",
+            "value": "kr"
+          },
+          {
+            "label": "China",
+            "value": "cn"
+          }
+        ]
+      },
+      {
+        "id": "granularity",
+        "type": "dropdown",
+        "title": "Granularity",
+        "options": [
+          {
+            "label": "Monthly",
+            "value": "monthly"
+          },
+          {
+            "label": "Weekly",
+            "value": "weekly"
+          },
+          {
+            "label": "Daily",
+            "value": "daily"
+          }
+        ]
+      },
+      {
+        "id": "startDate",
+        "type": "short-input",
+        "title": "Start Date",
+        "placeholder": "YYYY-MM (e.g., 2024-01)"
+      },
+      {
+        "id": "endDate",
+        "type": "short-input",
+        "title": "End Date",
+        "placeholder": "YYYY-MM (e.g., 2024-12)"
+      },
+      {
+        "id": "mainDomainOnly",
+        "type": "switch",
+        "title": "Main Domain Only"
+      },
+      {
+        "id": "apiKey",
+        "type": "short-input",
+        "title": "API Key",
+        "placeholder": "Enter your Similarweb API key",
+        "password": true
+      }
+    ],
+    "tools": {
+      "access": [
+        "similarweb_website_overview",
+        "similarweb_traffic_visits",
+        "similarweb_bounce_rate",
+        "similarweb_pages_per_visit",
+        "similarweb_visit_duration"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "siteName": {
+        "type": "string"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "similarweb_bounce_rate",
+      "name": "SimilarWeb Bounce Rate",
+      "description": "Get website bounce rate over time (desktop and mobile combined)",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "similarweb",
+        "operation": "similarweb_bounce_rate"
+      }
+    },
+    {
+      "id": "similarweb_pages_per_visit",
+      "name": "SimilarWeb Pages Per Visit",
+      "description": "Get average pages per visit over time (desktop and mobile combined)",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "similarweb",
+        "operation": "similarweb_pages_per_visit"
+      }
+    },
+    {
+      "id": "similarweb_traffic_visits",
+      "name": "SimilarWeb Traffic Visits",
+      "description": "Get total website visits over time (desktop and mobile combined)",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "similarweb",
+        "operation": "similarweb_traffic_visits"
+      }
+    },
+    {
+      "id": "similarweb_visit_duration",
+      "name": "SimilarWeb Visit Duration",
+      "description": "Get average desktop visit duration over time (in seconds)",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "similarweb",
+        "operation": "similarweb_visit_duration"
+      }
+    },
+    {
+      "id": "similarweb_website_overview",
+      "name": "SimilarWeb Website Overview",
+      "description": "Get comprehensive website analytics including traffic, rankings, engagement, and traffic sources",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "similarweb",
+        "operation": "similarweb_website_overview"
+      }
+    }
+  ]
+}

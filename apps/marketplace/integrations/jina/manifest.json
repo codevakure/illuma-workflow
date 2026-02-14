@@ -1,0 +1,197 @@
+{
+  "id": "jina",
+  "name": "Jina",
+  "version": "1.0.0",
+  "description": "Search the web or extract content from URLs",
+  "icon": "JinaAIIcon",
+  "block": {
+    "type": "jina",
+    "name": "Jina",
+    "description": "Search the web or extract content from URLs",
+    "longDescription": "Integrate Jina AI into the workflow. Search the web and get LLM-friendly results, or extract clean content from specific URLs with advanced parsing options.",
+    "docsLink": "https://docs.sim.ai/tools/jina",
+    "category": "tools",
+    "bgColor": "#333333",
+    "icon": "JinaAIIcon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Read URL",
+            "value": "jina_read_url"
+          },
+          {
+            "label": "Search",
+            "value": "jina_search"
+          }
+        ]
+      },
+      {
+        "id": "url",
+        "type": "short-input",
+        "title": "URL",
+        "placeholder": "https://example.com"
+      },
+      {
+        "id": "returnFormat",
+        "type": "dropdown",
+        "title": "Return Format",
+        "options": [
+          {
+            "label": "Markdown",
+            "value": "markdown"
+          },
+          {
+            "label": "HTML",
+            "value": "html"
+          },
+          {
+            "label": "Text",
+            "value": "text"
+          },
+          {
+            "label": "Screenshot",
+            "value": "screenshot"
+          },
+          {
+            "label": "Pageshot",
+            "value": "pageshot"
+          }
+        ]
+      },
+      {
+        "id": "retainImages",
+        "type": "dropdown",
+        "title": "Retain Images",
+        "options": [
+          {
+            "label": "All",
+            "value": "all"
+          },
+          {
+            "label": "None",
+            "value": "none"
+          }
+        ]
+      },
+      {
+        "id": "readUrlOptions",
+        "type": "checkbox-list",
+        "title": "Options"
+      },
+      {
+        "id": "q",
+        "type": "long-input",
+        "title": "Search Query",
+        "placeholder": "Enter your search query..."
+      },
+      {
+        "id": "num",
+        "type": "short-input",
+        "title": "Number of Results",
+        "placeholder": "5"
+      },
+      {
+        "id": "site",
+        "type": "short-input",
+        "title": "Site Restriction",
+        "placeholder": "jina.ai,github.com (comma-separated)"
+      },
+      {
+        "id": "searchReturnFormat",
+        "type": "dropdown",
+        "title": "Return Format",
+        "options": [
+          {
+            "label": "Markdown",
+            "value": "markdown"
+          },
+          {
+            "label": "HTML",
+            "value": "html"
+          },
+          {
+            "label": "Text",
+            "value": "text"
+          }
+        ]
+      },
+      {
+        "id": "searchRetainImages",
+        "type": "dropdown",
+        "title": "Retain Images",
+        "options": [
+          {
+            "label": "All",
+            "value": "all"
+          },
+          {
+            "label": "None",
+            "value": "none"
+          }
+        ]
+      },
+      {
+        "id": "searchOptions",
+        "type": "checkbox-list",
+        "title": "Options"
+      },
+      {
+        "id": "apiKey",
+        "type": "short-input",
+        "title": "API Key",
+        "placeholder": "Enter your Jina API key",
+        "password": true
+      }
+    ],
+    "tools": {
+      "access": [
+        "jina_read_url",
+        "jina_search"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "content": {
+        "type": "string"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "jina_read_url",
+      "name": "Jina Reader",
+      "description": "Extract and process web content into clean, LLM-friendly text using Jina AI Reader. Supports advanced content parsing, link gathering, and multiple output formats with configurable processing options.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "jina",
+        "operation": "jina_read_url"
+      }
+    },
+    {
+      "id": "jina_search",
+      "name": "Jina Search",
+      "description": "Search the web and return top 5 results with LLM-friendly content. Each result is automatically processed through Jina Reader API. Supports geographic filtering, site restrictions, and pagination.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "jina",
+        "operation": "jina_search"
+      }
+    }
+  ]
+}

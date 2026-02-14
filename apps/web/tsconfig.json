@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "types": ["node"],
+    "paths": {
+      "@/*": ["./src/*"],
+      "@sim/logger": ["./src/lib/logger.ts"],
+      "@sim-v2/shared": ["./src/shared/index.ts"],
+      "@/app/workspace/[workspaceId]/w/[workflowId]/*": ["./src/app/workflow/*"],
+      "@/app/workspace/[workspaceId]/providers/*": ["./src/app/workspace/providers/*"],
+      "@/app/workspace/[workspaceId]/utils/*": ["./src/app/workspace/utils/*"],
+      "@/app/workspace/[workspaceId]/w/components/*": ["./src/app/workspace/w/components/*"],
+      "@/app/workspace/[workspaceId]/w/hooks": ["./src/app/workspace/w/hooks"],
+      "@/app/workspace/[workspaceId]/logs/*": ["./src/app/workspace/logs/*"],
+      "@/app/workspace/providers/*": ["./src/app/workspace/providers/*"],
+      "@/app/_styles/fonts/*": ["./src/styles/fonts/*"],
+      "next/navigation": ["./src/shims/next-navigation.ts"],
+      "next/image": ["./src/shims/next-image.tsx"],
+      "next/link": ["./src/shims/next-link.tsx"]
+    },
+    "baseUrl": "."
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}

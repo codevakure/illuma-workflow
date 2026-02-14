@@ -1,0 +1,297 @@
+{
+  "id": "google_forms",
+  "name": "Google Forms",
+  "version": "1.0.0",
+  "description": "Manage Google Forms and responses",
+  "icon": "GoogleFormsIcon",
+  "block": {
+    "type": "google_forms",
+    "name": "Google Forms",
+    "description": "Manage Google Forms and responses",
+    "longDescription": "Integrate Google Forms into your workflow. Read form structure, get responses, create forms, update content, and manage notification watches.",
+    "docsLink": "https://docs.sim.ai/tools/google_forms",
+    "category": "tools",
+    "bgColor": "#E0E0E0",
+    "icon": "GoogleFormsIcon",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Get Responses",
+            "value": "get_responses"
+          },
+          {
+            "label": "Get Form",
+            "value": "get_form"
+          },
+          {
+            "label": "Create Form",
+            "value": "create_form"
+          },
+          {
+            "label": "Batch Update",
+            "value": "batch_update"
+          },
+          {
+            "label": "Set Publish Settings",
+            "value": "set_publish_settings"
+          },
+          {
+            "label": "Create Watch",
+            "value": "create_watch"
+          },
+          {
+            "label": "List Watches",
+            "value": "list_watches"
+          },
+          {
+            "label": "Delete Watch",
+            "value": "delete_watch"
+          },
+          {
+            "label": "Renew Watch",
+            "value": "renew_watch"
+          }
+        ]
+      },
+      {
+        "id": "credential",
+        "type": "oauth-input",
+        "title": "Google Account",
+        "placeholder": "Select Google account"
+      },
+      {
+        "id": "formSelector",
+        "type": "file-selector",
+        "title": "Select Form",
+        "placeholder": "Select a form",
+        "mode": "basic",
+        "canonicalParamId": "formId"
+      },
+      {
+        "id": "manualFormId",
+        "type": "short-input",
+        "title": "Form ID",
+        "placeholder": "Enter the Google Form ID",
+        "mode": "advanced",
+        "canonicalParamId": "formId"
+      },
+      {
+        "id": "responseId",
+        "type": "short-input",
+        "title": "Response ID",
+        "placeholder": "Enter a specific response ID (optional)"
+      },
+      {
+        "id": "pageSize",
+        "type": "short-input",
+        "title": "Page Size",
+        "placeholder": "Max responses to retrieve (default 5000)"
+      },
+      {
+        "id": "title",
+        "type": "short-input",
+        "title": "Form Title",
+        "placeholder": "Enter the form title"
+      },
+      {
+        "id": "documentTitle",
+        "type": "short-input",
+        "title": "Document Title",
+        "placeholder": "Title visible in Drive (optional)"
+      },
+      {
+        "id": "unpublished",
+        "type": "switch",
+        "title": "Create Unpublished"
+      },
+      {
+        "id": "requests",
+        "type": "code",
+        "title": "Update Requests",
+        "placeholder": "JSON array of update requests"
+      },
+      {
+        "id": "includeFormInResponse",
+        "type": "switch",
+        "title": "Include Form in Response"
+      },
+      {
+        "id": "isPublished",
+        "type": "switch",
+        "title": "Published"
+      },
+      {
+        "id": "isAcceptingResponses",
+        "type": "switch",
+        "title": "Accepting Responses"
+      },
+      {
+        "id": "eventType",
+        "type": "dropdown",
+        "title": "Event Type",
+        "options": [
+          {
+            "label": "Form Responses",
+            "value": "RESPONSES"
+          },
+          {
+            "label": "Form Schema Changes",
+            "value": "SCHEMA"
+          }
+        ]
+      },
+      {
+        "id": "topicName",
+        "type": "short-input",
+        "title": "Pub/Sub Topic",
+        "placeholder": "projects/{project}/topics/{topic}"
+      },
+      {
+        "id": "watchId",
+        "type": "short-input",
+        "title": "Watch ID",
+        "placeholder": "Custom watch ID (optional)"
+      }
+    ],
+    "tools": {
+      "access": [
+        "google_forms_get_responses",
+        "google_forms_get_form",
+        "google_forms_create_form",
+        "google_forms_batch_update",
+        "google_forms_set_publish_settings",
+        "google_forms_create_watch",
+        "google_forms_list_watches",
+        "google_forms_delete_watch",
+        "google_forms_renew_watch"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "responses": {
+        "type": "json"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "google_forms_batch_update",
+      "name": "Google Forms: Batch Update",
+      "description": "Apply multiple updates to a form (add items, update info, change settings, etc.)",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_forms",
+        "operation": "google_forms_batch_update"
+      }
+    },
+    {
+      "id": "google_forms_create_form",
+      "name": "Google Forms: Create Form",
+      "description": "Create a new Google Form with a title",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_forms",
+        "operation": "google_forms_create_form"
+      }
+    },
+    {
+      "id": "google_forms_create_watch",
+      "name": "Google Forms: Create Watch",
+      "description": "Create a notification watch for form changes (schema changes or new responses)",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_forms",
+        "operation": "google_forms_create_watch"
+      }
+    },
+    {
+      "id": "google_forms_delete_watch",
+      "name": "Google Forms: Delete Watch",
+      "description": "Delete a notification watch from a form",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_forms",
+        "operation": "google_forms_delete_watch"
+      }
+    },
+    {
+      "id": "google_forms_get_form",
+      "name": "Google Forms: Get Form",
+      "description": "Retrieve a form structure including its items, settings, and metadata",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_forms",
+        "operation": "google_forms_get_form"
+      }
+    },
+    {
+      "id": "google_forms_get_responses",
+      "name": "Google Forms: Get Responses",
+      "description": "Retrieve a single response or list responses from a Google Form",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_forms",
+        "operation": "google_forms_get_responses"
+      }
+    },
+    {
+      "id": "google_forms_list_watches",
+      "name": "Google Forms: List Watches",
+      "description": "List all notification watches for a form",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_forms",
+        "operation": "google_forms_list_watches"
+      }
+    },
+    {
+      "id": "google_forms_renew_watch",
+      "name": "Google Forms: Renew Watch",
+      "description": "Renew a notification watch for another 7 days",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_forms",
+        "operation": "google_forms_renew_watch"
+      }
+    },
+    {
+      "id": "google_forms_set_publish_settings",
+      "name": "Google Forms: Set Publish Settings",
+      "description": "Update the publish settings of a form (publish/unpublish, accept responses)",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_forms",
+        "operation": "google_forms_set_publish_settings"
+      }
+    }
+  ]
+}

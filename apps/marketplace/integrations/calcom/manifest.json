@@ -1,0 +1,624 @@
+{
+  "id": "calcom",
+  "name": "Cal Com",
+  "version": "1.0.0",
+  "description": "Manage Cal.com bookings, event types, schedules, and availability",
+  "icon": "CalComIcon",
+  "block": {
+    "type": "calcom",
+    "name": "Cal Com",
+    "description": "Manage Cal.com bookings, event types, schedules, and availability",
+    "longDescription": "Integrate Cal.com into your workflow. Create and manage bookings, event types, schedules, and check availability slots. Supports creating, listing, rescheduling, and canceling bookings, as well as managing event types and schedules. Can also trigger workflows based on Cal.com webhook events (booking created, cancelled, rescheduled). Connect your Cal.com account via OAuth.",
+    "docsLink": "https://docs.sim.ai/tools/calcom",
+    "category": "tools",
+    "bgColor": "#FFFFFE",
+    "icon": "CalComIcon",
+    "authMode": "oauth",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "List Bookings",
+            "value": "calcom_list_bookings"
+          },
+          {
+            "label": "Create Booking",
+            "value": "calcom_create_booking"
+          },
+          {
+            "label": "Get Booking",
+            "value": "calcom_get_booking"
+          },
+          {
+            "label": "Cancel Booking",
+            "value": "calcom_cancel_booking"
+          },
+          {
+            "label": "Reschedule Booking",
+            "value": "calcom_reschedule_booking"
+          },
+          {
+            "label": "Confirm Booking",
+            "value": "calcom_confirm_booking"
+          },
+          {
+            "label": "Decline Booking",
+            "value": "calcom_decline_booking"
+          },
+          {
+            "label": "Create Event Type",
+            "value": "calcom_create_event_type"
+          },
+          {
+            "label": "Get Event Type",
+            "value": "calcom_get_event_type"
+          },
+          {
+            "label": "List Event Types",
+            "value": "calcom_list_event_types"
+          },
+          {
+            "label": "Update Event Type",
+            "value": "calcom_update_event_type"
+          },
+          {
+            "label": "Delete Event Type",
+            "value": "calcom_delete_event_type"
+          },
+          {
+            "label": "Create Schedule",
+            "value": "calcom_create_schedule"
+          },
+          {
+            "label": "Get Schedule",
+            "value": "calcom_get_schedule"
+          },
+          {
+            "label": "List Schedules",
+            "value": "calcom_list_schedules"
+          },
+          {
+            "label": "Update Schedule",
+            "value": "calcom_update_schedule"
+          },
+          {
+            "label": "Delete Schedule",
+            "value": "calcom_delete_schedule"
+          },
+          {
+            "label": "Get Default Schedule",
+            "value": "calcom_get_default_schedule"
+          },
+          {
+            "label": "Get Available Slots",
+            "value": "calcom_get_slots"
+          }
+        ]
+      },
+      {
+        "id": "credential",
+        "type": "oauth-input",
+        "title": "Cal.com Account",
+        "placeholder": "Select Cal.com account"
+      },
+      {
+        "id": "eventTypeId",
+        "type": "short-input",
+        "title": "Event Type ID",
+        "placeholder": "Enter event type ID (number)"
+      },
+      {
+        "id": "start",
+        "type": "short-input",
+        "title": "Start Time",
+        "placeholder": "ISO 8601 format (e.g., 2024-01-15T10:00:00Z)"
+      },
+      {
+        "id": "end",
+        "type": "short-input",
+        "title": "End Time",
+        "placeholder": "ISO 8601 format (e.g., 2024-01-15T11:00:00Z)"
+      },
+      {
+        "id": "attendeeName",
+        "type": "short-input",
+        "title": "Attendee Name",
+        "placeholder": "Enter attendee name"
+      },
+      {
+        "id": "attendeeEmail",
+        "type": "short-input",
+        "title": "Attendee Email",
+        "placeholder": "Enter attendee email"
+      },
+      {
+        "id": "attendeeTimeZone",
+        "type": "short-input",
+        "title": "Attendee Time Zone",
+        "placeholder": "e.g., America/New_York, Europe/London"
+      },
+      {
+        "id": "attendeePhone",
+        "type": "short-input",
+        "title": "Attendee Phone",
+        "placeholder": "International format (e.g., +1234567890)",
+        "mode": "advanced"
+      },
+      {
+        "id": "guests",
+        "type": "short-input",
+        "title": "Guests",
+        "placeholder": "Comma-separated email addresses",
+        "mode": "advanced"
+      },
+      {
+        "id": "lengthInMinutes",
+        "type": "short-input",
+        "title": "Duration (minutes)",
+        "placeholder": "Override default event duration",
+        "mode": "advanced"
+      },
+      {
+        "id": "metadata",
+        "type": "code",
+        "title": "Metadata",
+        "placeholder": "{",
+        "mode": "advanced"
+      },
+      {
+        "id": "bookingUid",
+        "type": "short-input",
+        "title": "Booking UID",
+        "placeholder": "Enter booking UID"
+      },
+      {
+        "id": "cancellationReason",
+        "type": "long-input",
+        "title": "Cancellation Reason",
+        "placeholder": "Reason for cancellation"
+      },
+      {
+        "id": "reschedulingReason",
+        "type": "long-input",
+        "title": "Rescheduling Reason",
+        "placeholder": "Reason for rescheduling",
+        "mode": "advanced"
+      },
+      {
+        "id": "bookingStatus",
+        "type": "dropdown",
+        "title": "Status",
+        "options": [
+          {
+            "label": "Upcoming",
+            "value": "upcoming"
+          },
+          {
+            "label": "Recurring",
+            "value": "recurring"
+          },
+          {
+            "label": "Past",
+            "value": "past"
+          },
+          {
+            "label": "Cancelled",
+            "value": "cancelled"
+          },
+          {
+            "label": "Unconfirmed",
+            "value": "unconfirmed"
+          }
+        ]
+      },
+      {
+        "id": "eventTypeIdParam",
+        "type": "short-input",
+        "title": "Event Type ID",
+        "placeholder": "Enter event type ID"
+      },
+      {
+        "id": "title",
+        "type": "short-input",
+        "title": "Title",
+        "placeholder": "Event type title"
+      },
+      {
+        "id": "slug",
+        "type": "short-input",
+        "title": "Slug",
+        "placeholder": "URL-friendly identifier (e.g., 30-min-meeting)"
+      },
+      {
+        "id": "eventLength",
+        "type": "short-input",
+        "title": "Duration (minutes)",
+        "placeholder": "Event duration in minutes (e.g., 30)"
+      },
+      {
+        "id": "description",
+        "type": "long-input",
+        "title": "Description",
+        "placeholder": "Event type description",
+        "mode": "advanced"
+      },
+      {
+        "id": "slotInterval",
+        "type": "short-input",
+        "title": "Slot Interval (minutes)",
+        "placeholder": "Minutes between available slots",
+        "mode": "advanced"
+      },
+      {
+        "id": "minimumBookingNotice",
+        "type": "short-input",
+        "title": "Minimum Notice (minutes)",
+        "placeholder": "Minimum advance notice required",
+        "mode": "advanced"
+      },
+      {
+        "id": "beforeEventBuffer",
+        "type": "short-input",
+        "title": "Buffer Before (minutes)",
+        "placeholder": "Buffer time before event",
+        "mode": "advanced"
+      },
+      {
+        "id": "afterEventBuffer",
+        "type": "short-input",
+        "title": "Buffer After (minutes)",
+        "placeholder": "Buffer time after event",
+        "mode": "advanced"
+      },
+      {
+        "id": "eventTypeScheduleId",
+        "type": "short-input",
+        "title": "Schedule ID",
+        "placeholder": "Assign to a specific schedule",
+        "mode": "advanced"
+      },
+      {
+        "id": "disableGuests",
+        "type": "switch",
+        "title": "Disable Guests",
+        "mode": "advanced"
+      },
+      {
+        "id": "scheduleId",
+        "type": "short-input",
+        "title": "Schedule ID",
+        "placeholder": "Enter schedule ID"
+      },
+      {
+        "id": "name",
+        "type": "short-input",
+        "title": "Name",
+        "placeholder": "Schedule name (e.g., Working Hours)"
+      },
+      {
+        "id": "timeZone",
+        "type": "short-input",
+        "title": "Time Zone",
+        "placeholder": "e.g., America/New_York"
+      },
+      {
+        "id": "isDefault",
+        "type": "switch",
+        "title": "Default Schedule"
+      },
+      {
+        "id": "availability",
+        "type": "code",
+        "title": "Availability",
+        "placeholder": "[\n  {\n    "
+      },
+      {
+        "id": "eventTypeSlug",
+        "type": "short-input",
+        "title": "Event Type Slug",
+        "placeholder": "Event type slug (alternative to ID)",
+        "mode": "advanced"
+      },
+      {
+        "id": "username",
+        "type": "short-input",
+        "title": "Username",
+        "placeholder": "Cal.com username (required with slug)",
+        "mode": "advanced"
+      },
+      {
+        "id": "duration",
+        "type": "short-input",
+        "title": "Duration (minutes)",
+        "placeholder": "Slot duration in minutes",
+        "mode": "advanced"
+      },
+      {
+        "id": "sortCreatedAt",
+        "type": "dropdown",
+        "title": "Sort by Created",
+        "mode": "advanced",
+        "options": [
+          {
+            "label": "Ascending",
+            "value": "asc"
+          },
+          {
+            "label": "Descending",
+            "value": "desc"
+          }
+        ]
+      }
+    ],
+    "tools": {
+      "access": [
+        "calcom_create_booking",
+        "calcom_get_booking",
+        "calcom_list_bookings",
+        "calcom_cancel_booking",
+        "calcom_reschedule_booking",
+        "calcom_confirm_booking",
+        "calcom_decline_booking",
+        "calcom_create_event_type",
+        "calcom_get_event_type",
+        "calcom_list_event_types",
+        "calcom_update_event_type",
+        "calcom_delete_event_type",
+        "calcom_create_schedule",
+        "calcom_get_schedule",
+        "calcom_list_schedules",
+        "calcom_update_schedule",
+        "calcom_delete_schedule",
+        "calcom_get_default_schedule",
+        "calcom_get_slots"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "boolean"
+      }
+    },
+    "triggerAllowed": true
+  },
+  "tools": [
+    {
+      "id": "calcom_cancel_booking",
+      "name": "Cal.com Cancel Booking",
+      "description": "Cancel an existing booking",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "calcom",
+        "operation": "calcom_cancel_booking"
+      }
+    },
+    {
+      "id": "calcom_confirm_booking",
+      "name": "Cal.com Confirm Booking",
+      "description": "Confirm a pending booking that requires confirmation",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "calcom",
+        "operation": "calcom_confirm_booking"
+      }
+    },
+    {
+      "id": "calcom_create_booking",
+      "name": "Cal.com Create Booking",
+      "description": "Create a new booking on Cal.com",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "calcom",
+        "operation": "calcom_create_booking"
+      }
+    },
+    {
+      "id": "calcom_create_event_type",
+      "name": "Cal.com Create Event Type",
+      "description": "Create a new event type in Cal.com",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "calcom",
+        "operation": "calcom_create_event_type"
+      }
+    },
+    {
+      "id": "calcom_create_schedule",
+      "name": "Cal.com Create Schedule",
+      "description": "Create a new availability schedule in Cal.com",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "calcom",
+        "operation": "calcom_create_schedule"
+      }
+    },
+    {
+      "id": "calcom_decline_booking",
+      "name": "Cal.com Decline Booking",
+      "description": "Decline a pending booking request",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "calcom",
+        "operation": "calcom_decline_booking"
+      }
+    },
+    {
+      "id": "calcom_delete_event_type",
+      "name": "Cal.com Delete Event Type",
+      "description": "Delete an event type from Cal.com",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "calcom",
+        "operation": "calcom_delete_event_type"
+      }
+    },
+    {
+      "id": "calcom_delete_schedule",
+      "name": "Cal.com Delete Schedule",
+      "description": "Delete a schedule from Cal.com",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "calcom",
+        "operation": "calcom_delete_schedule"
+      }
+    },
+    {
+      "id": "calcom_get_booking",
+      "name": "Cal.com Get Booking",
+      "description": "Get details of a specific booking by its UID",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "calcom",
+        "operation": "calcom_get_booking"
+      }
+    },
+    {
+      "id": "calcom_get_default_schedule",
+      "name": "Cal.com Get Default Schedule",
+      "description": "Get the default availability schedule from Cal.com",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "calcom",
+        "operation": "calcom_get_default_schedule"
+      }
+    },
+    {
+      "id": "calcom_get_event_type",
+      "name": "Cal.com Get Event Type",
+      "description": "Get detailed information about a specific event type",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "calcom",
+        "operation": "calcom_get_event_type"
+      }
+    },
+    {
+      "id": "calcom_get_schedule",
+      "name": "Cal.com Get Schedule",
+      "description": "Get a specific schedule by ID from Cal.com",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "calcom",
+        "operation": "calcom_get_schedule"
+      }
+    },
+    {
+      "id": "calcom_get_slots",
+      "name": "Cal.com Get Slots",
+      "description": "Get available booking slots for a Cal.com event type within a time range",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "calcom",
+        "operation": "calcom_get_slots"
+      }
+    },
+    {
+      "id": "calcom_list_bookings",
+      "name": "Cal.com List Bookings",
+      "description": "List all bookings with optional status filter",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "calcom",
+        "operation": "calcom_list_bookings"
+      }
+    },
+    {
+      "id": "calcom_list_event_types",
+      "name": "Cal.com List Event Types",
+      "description": "Retrieve a list of all event types",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "calcom",
+        "operation": "calcom_list_event_types"
+      }
+    },
+    {
+      "id": "calcom_list_schedules",
+      "name": "Cal.com List Schedules",
+      "description": "List all availability schedules from Cal.com",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "calcom",
+        "operation": "calcom_list_schedules"
+      }
+    },
+    {
+      "id": "calcom_reschedule_booking",
+      "name": "Cal.com Reschedule Booking",
+      "description": "Reschedule an existing booking to a new time",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "calcom",
+        "operation": "calcom_reschedule_booking"
+      }
+    },
+    {
+      "id": "calcom_update_event_type",
+      "name": "Cal.com Update Event Type",
+      "description": "Update an existing event type in Cal.com",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "calcom",
+        "operation": "calcom_update_event_type"
+      }
+    },
+    {
+      "id": "calcom_update_schedule",
+      "name": "Cal.com Update Schedule",
+      "description": "Update an existing schedule in Cal.com",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "calcom",
+        "operation": "calcom_update_schedule"
+      }
+    }
+  ]
+}

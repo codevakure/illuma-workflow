@@ -1,0 +1,195 @@
+{
+  "id": "microsoft_excel",
+  "name": "Microsoft Excel (Legacy)",
+  "version": "1.0.0",
+  "description": "Read, write, and update data",
+  "icon": "MicrosoftExcelIcon",
+  "block": {
+    "type": "microsoft_excel",
+    "name": "Microsoft Excel (Legacy)",
+    "description": "Read, write, and update data",
+    "longDescription": "Integrate Microsoft Excel into the workflow. Can read, write, update, add to table, and create new worksheets.",
+    "docsLink": "https://docs.sim.ai/tools/microsoft_excel",
+    "category": "tools",
+    "bgColor": "#E0E0E0",
+    "icon": "MicrosoftExcelIcon",
+    "authMode": "oauth",
+    "hideFromToolbar": true,
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Read Data",
+            "value": "read"
+          },
+          {
+            "label": "Write/Update Data",
+            "value": "write"
+          },
+          {
+            "label": "Add to Table",
+            "value": "table_add"
+          },
+          {
+            "label": "Add Worksheet",
+            "value": "worksheet_add"
+          }
+        ]
+      },
+      {
+        "id": "credential",
+        "type": "oauth-input",
+        "title": "Microsoft Account",
+        "placeholder": "Select Microsoft account"
+      },
+      {
+        "id": "spreadsheetId",
+        "type": "file-selector",
+        "title": "Select Sheet",
+        "placeholder": "Select a spreadsheet",
+        "mode": "basic",
+        "canonicalParamId": "spreadsheetId"
+      },
+      {
+        "id": "manualSpreadsheetId",
+        "type": "short-input",
+        "title": "Spreadsheet ID",
+        "placeholder": "Enter spreadsheet ID",
+        "mode": "advanced",
+        "canonicalParamId": "spreadsheetId"
+      },
+      {
+        "id": "range",
+        "type": "short-input",
+        "title": "Range",
+        "placeholder": "Sheet name and cell range (e.g., Sheet1!A1:D10)"
+      },
+      {
+        "id": "tableName",
+        "type": "short-input",
+        "title": "Table Name",
+        "placeholder": "Name of the Excel table"
+      },
+      {
+        "id": "worksheetName",
+        "type": "short-input",
+        "title": "Worksheet Name",
+        "placeholder": "Name of the new worksheet (max 31 characters)"
+      },
+      {
+        "id": "values",
+        "type": "long-input",
+        "title": "Values",
+        "placeholder": "Enter values as JSON array of arrays (e.g., [["
+      },
+      {
+        "id": "valueInputOption",
+        "type": "dropdown",
+        "title": "Value Input Option",
+        "options": [
+          {
+            "label": "User Entered (Parse formulas)",
+            "value": "USER_ENTERED"
+          }
+        ]
+      },
+      {
+        "id": "values",
+        "type": "long-input",
+        "title": "Values",
+        "placeholder": "Enter values as JSON array of arrays (e.g., [["
+      },
+      {
+        "id": "valueInputOption",
+        "type": "dropdown",
+        "title": "Value Input Option",
+        "options": [
+          {
+            "label": "User Entered (Parse formulas)",
+            "value": "USER_ENTERED"
+          }
+        ]
+      },
+      {
+        "id": "values",
+        "type": "long-input",
+        "title": "Values",
+        "placeholder": "Enter values as JSON array of arrays (e.g., [["
+      }
+    ],
+    "tools": {
+      "access": [
+        "microsoft_excel_read",
+        "microsoft_excel_write",
+        "microsoft_excel_table_add",
+        "microsoft_excel_worksheet_add"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "data": {
+        "type": "json"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "microsoft_excel_read",
+      "name": "Read from Microsoft Excel",
+      "description": "Read data from a Microsoft Excel spreadsheet",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "microsoft_excel",
+        "operation": "microsoft_excel_read"
+      }
+    },
+    {
+      "id": "microsoft_excel_table_add",
+      "name": "Add to Microsoft Excel Table",
+      "description": "Add new rows to a Microsoft Excel table",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "microsoft_excel",
+        "operation": "microsoft_excel_table_add"
+      }
+    },
+    {
+      "id": "microsoft_excel_worksheet_add",
+      "name": "Add Worksheet to Microsoft Excel",
+      "description": "Create a new worksheet (sheet) in a Microsoft Excel workbook",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "microsoft_excel",
+        "operation": "microsoft_excel_worksheet_add"
+      }
+    },
+    {
+      "id": "microsoft_excel_write",
+      "name": "Write to Microsoft Excel",
+      "description": "Write data to a Microsoft Excel spreadsheet",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "microsoft_excel",
+        "operation": "microsoft_excel_write"
+      }
+    }
+  ]
+}

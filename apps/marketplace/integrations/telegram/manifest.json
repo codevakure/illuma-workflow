@@ -1,0 +1,277 @@
+{
+  "id": "telegram",
+  "name": "Telegram",
+  "version": "1.0.0",
+  "description": "Interact with Telegram",
+  "icon": "TelegramIcon",
+  "block": {
+    "type": "telegram",
+    "name": "Telegram",
+    "description": "Interact with Telegram",
+    "longDescription": "Integrate Telegram into the workflow. Can send and delete messages. Can be used in trigger mode to trigger a workflow when a message is sent to a chat.",
+    "docsLink": "https://docs.sim.ai/tools/telegram",
+    "category": "tools",
+    "bgColor": "#E0E0E0",
+    "icon": "TelegramIcon",
+    "authMode": "bot_token",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Send Message",
+            "value": "telegram_message"
+          },
+          {
+            "label": "Send Photo",
+            "value": "telegram_send_photo"
+          },
+          {
+            "label": "Send Video",
+            "value": "telegram_send_video"
+          },
+          {
+            "label": "Send Audio",
+            "value": "telegram_send_audio"
+          },
+          {
+            "label": "Send Animation",
+            "value": "telegram_send_animation"
+          },
+          {
+            "label": "Send Document",
+            "value": "telegram_send_document"
+          },
+          {
+            "label": "Delete Message",
+            "value": "telegram_delete_message"
+          }
+        ]
+      },
+      {
+        "id": "botToken",
+        "type": "short-input",
+        "title": "Bot Token",
+        "placeholder": "Enter your Telegram Bot Token",
+        "password": true
+      },
+      {
+        "id": "chatId",
+        "type": "short-input",
+        "title": "Chat ID",
+        "placeholder": "Enter Telegram Chat ID"
+      },
+      {
+        "id": "text",
+        "type": "long-input",
+        "title": "Message",
+        "placeholder": "Enter the message to send"
+      },
+      {
+        "id": "photoFile",
+        "type": "file-upload",
+        "title": "Photo",
+        "placeholder": "Upload photo",
+        "mode": "basic",
+        "canonicalParamId": "photo"
+      },
+      {
+        "id": "photo",
+        "type": "short-input",
+        "title": "Photo",
+        "placeholder": "Reference photo from previous blocks or enter URL/file_id",
+        "mode": "advanced",
+        "canonicalParamId": "photo"
+      },
+      {
+        "id": "videoFile",
+        "type": "file-upload",
+        "title": "Video",
+        "placeholder": "Upload video",
+        "mode": "basic",
+        "canonicalParamId": "video"
+      },
+      {
+        "id": "video",
+        "type": "short-input",
+        "title": "Video",
+        "placeholder": "Reference video from previous blocks or enter URL/file_id",
+        "mode": "advanced",
+        "canonicalParamId": "video"
+      },
+      {
+        "id": "audioFile",
+        "type": "file-upload",
+        "title": "Audio",
+        "placeholder": "Upload audio",
+        "mode": "basic",
+        "canonicalParamId": "audio"
+      },
+      {
+        "id": "audio",
+        "type": "short-input",
+        "title": "Audio",
+        "placeholder": "Reference audio from previous blocks or enter URL/file_id",
+        "mode": "advanced",
+        "canonicalParamId": "audio"
+      },
+      {
+        "id": "animationFile",
+        "type": "file-upload",
+        "title": "Animation",
+        "placeholder": "Upload animation (GIF)",
+        "mode": "basic",
+        "canonicalParamId": "animation"
+      },
+      {
+        "id": "animation",
+        "type": "short-input",
+        "title": "Animation",
+        "placeholder": "Reference animation from previous blocks or enter URL/file_id",
+        "mode": "advanced",
+        "canonicalParamId": "animation"
+      },
+      {
+        "id": "attachmentFiles",
+        "type": "file-upload",
+        "title": "Document",
+        "placeholder": "Upload document file",
+        "mode": "basic",
+        "canonicalParamId": "files"
+      },
+      {
+        "id": "files",
+        "type": "short-input",
+        "title": "Document",
+        "placeholder": "Reference document from previous blocks",
+        "mode": "advanced",
+        "canonicalParamId": "files"
+      },
+      {
+        "id": "caption",
+        "type": "long-input",
+        "title": "Caption",
+        "placeholder": "Enter optional caption"
+      },
+      {
+        "id": "messageId",
+        "type": "short-input",
+        "title": "Message ID",
+        "placeholder": "Enter the message ID to delete"
+      }
+    ],
+    "tools": {
+      "access": [
+        "telegram_message",
+        "telegram_delete_message",
+        "telegram_send_photo",
+        "telegram_send_video",
+        "telegram_send_audio",
+        "telegram_send_animation",
+        "telegram_send_document"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "ok": {
+        "type": "boolean"
+      }
+    },
+    "triggerAllowed": true
+  },
+  "tools": [
+    {
+      "id": "telegram_delete_message",
+      "name": "Telegram Delete Message",
+      "description": "Delete messages in Telegram channels or chats through the Telegram Bot API. Requires the message ID of the message to delete.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "telegram",
+        "operation": "telegram_delete_message"
+      }
+    },
+    {
+      "id": "telegram_message",
+      "name": "Telegram Send Message",
+      "description": "Send messages to Telegram channels or users through the Telegram Bot API. Enables direct communication and notifications with message tracking and chat confirmation.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "telegram",
+        "operation": "telegram_message"
+      }
+    },
+    {
+      "id": "telegram_send_animation",
+      "name": "Telegram Send Animation",
+      "description": "Send animations (GIFs) to Telegram channels or users through the Telegram Bot API.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "telegram",
+        "operation": "telegram_send_animation"
+      }
+    },
+    {
+      "id": "telegram_send_audio",
+      "name": "Telegram Send Audio",
+      "description": "Send audio files to Telegram channels or users through the Telegram Bot API.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "telegram",
+        "operation": "telegram_send_audio"
+      }
+    },
+    {
+      "id": "telegram_send_document",
+      "name": "Telegram Send Document",
+      "description": "Send documents (PDF, ZIP, DOC, etc.) to Telegram channels or users through the Telegram Bot API.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "telegram",
+        "operation": "telegram_send_document"
+      }
+    },
+    {
+      "id": "telegram_send_photo",
+      "name": "Telegram Send Photo",
+      "description": "Send photos to Telegram channels or users through the Telegram Bot API.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "telegram",
+        "operation": "telegram_send_photo"
+      }
+    },
+    {
+      "id": "telegram_send_video",
+      "name": "Telegram Send Video",
+      "description": "Send videos to Telegram channels or users through the Telegram Bot API.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "telegram",
+        "operation": "telegram_send_video"
+      }
+    }
+  ]
+}

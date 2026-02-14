@@ -1,0 +1,106 @@
+{
+  "id": "sqs",
+  "name": "Amazon SQS",
+  "version": "1.0.0",
+  "description": "Connect to Amazon SQS",
+  "icon": "SQSIcon",
+  "block": {
+    "type": "sqs",
+    "name": "Amazon SQS",
+    "description": "Connect to Amazon SQS",
+    "longDescription": "Integrate Amazon SQS into the workflow. Can send messages to SQS queues.",
+    "docsLink": "https://docs.sim.ai/tools/sqs",
+    "category": "tools",
+    "bgColor": "linear-gradient(45deg, #2E27AD 0%, #527FFF 100%)",
+    "icon": "SQSIcon",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Send Message",
+            "value": "send"
+          }
+        ]
+      },
+      {
+        "id": "region",
+        "type": "short-input",
+        "title": "AWS Region",
+        "placeholder": "us-east-1"
+      },
+      {
+        "id": "accessKeyId",
+        "type": "short-input",
+        "title": "AWS Access Key ID",
+        "placeholder": "AKIA...",
+        "password": true
+      },
+      {
+        "id": "secretAccessKey",
+        "type": "short-input",
+        "title": "AWS Secret Access Key",
+        "placeholder": "Your secret access key",
+        "password": true
+      },
+      {
+        "id": "queueUrl",
+        "type": "short-input",
+        "title": "Queue URL",
+        "placeholder": "https://sqs.us-east-1.amazonaws.com/123456789012/my-queue"
+      },
+      {
+        "id": "messageGroupId",
+        "type": "short-input",
+        "title": "Message Group ID (optional)",
+        "placeholder": "5FAB0F0B-30C6-4427-9407-5634F4A3984A"
+      },
+      {
+        "id": "messageDeduplicationId",
+        "type": "short-input",
+        "title": "Message Deduplication ID (optional)",
+        "placeholder": "5FAB0F0B-30C6-4427-9407-5634F4A3984A"
+      },
+      {
+        "id": "data",
+        "type": "code",
+        "title": "Data (JSON)",
+        "placeholder": "{\\n  "
+      }
+    ],
+    "tools": {
+      "access": [
+        "sqs_send"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "message": {
+        "type": "string"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "sqs_send",
+      "name": "SQS Send Message",
+      "description": "Send a message to an Amazon SQS queue",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "sqs",
+        "operation": "sqs_send"
+      }
+    }
+  ]
+}

@@ -1,0 +1,302 @@
+{
+  "id": "mongodb",
+  "name": "MongoDB",
+  "version": "1.0.0",
+  "description": "Connect to MongoDB database",
+  "icon": "MongoDBIcon",
+  "block": {
+    "type": "mongodb",
+    "name": "MongoDB",
+    "description": "Connect to MongoDB database",
+    "longDescription": "Integrate MongoDB into the workflow. Can find, insert, update, delete, and aggregate data.",
+    "docsLink": "https://docs.sim.ai/tools/mongodb",
+    "category": "tools",
+    "bgColor": "#E0E0E0",
+    "icon": "MongoDBIcon",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Find Documents",
+            "value": "query"
+          },
+          {
+            "label": "Insert Documents",
+            "value": "insert"
+          },
+          {
+            "label": "Update Documents",
+            "value": "update"
+          },
+          {
+            "label": "Delete Documents",
+            "value": "delete"
+          },
+          {
+            "label": "Aggregate Pipeline",
+            "value": "execute"
+          },
+          {
+            "label": "Introspect Database",
+            "value": "introspect"
+          }
+        ]
+      },
+      {
+        "id": "host",
+        "type": "short-input",
+        "title": "Host",
+        "placeholder": "localhost or your.mongodb.host"
+      },
+      {
+        "id": "port",
+        "type": "short-input",
+        "title": "Port",
+        "placeholder": "27017"
+      },
+      {
+        "id": "database",
+        "type": "short-input",
+        "title": "Database Name",
+        "placeholder": "your_database"
+      },
+      {
+        "id": "username",
+        "type": "short-input",
+        "title": "Username",
+        "placeholder": "mongodb_user"
+      },
+      {
+        "id": "password",
+        "type": "short-input",
+        "title": "Password",
+        "placeholder": "Your database password",
+        "password": true
+      },
+      {
+        "id": "authSource",
+        "type": "short-input",
+        "title": "Auth Source",
+        "placeholder": "admin"
+      },
+      {
+        "id": "ssl",
+        "type": "dropdown",
+        "title": "SSL Mode",
+        "options": [
+          {
+            "label": "Disabled",
+            "value": "disabled"
+          },
+          {
+            "label": "Required",
+            "value": "required"
+          },
+          {
+            "label": "Preferred",
+            "value": "preferred"
+          }
+        ]
+      },
+      {
+        "id": "collection",
+        "type": "short-input",
+        "title": "Collection Name",
+        "placeholder": "users"
+      },
+      {
+        "id": "query",
+        "type": "code",
+        "title": "Query Filter (JSON)",
+        "placeholder": "{"
+      },
+      {
+        "id": "pipeline",
+        "type": "code",
+        "title": "Aggregation Pipeline (JSON Array)",
+        "placeholder": "[{"
+      },
+      {
+        "id": "limit",
+        "type": "short-input",
+        "title": "Limit",
+        "placeholder": "100"
+      },
+      {
+        "id": "sort",
+        "type": "code",
+        "title": "Sort (JSON)",
+        "placeholder": "{"
+      },
+      {
+        "id": "documents",
+        "type": "code",
+        "title": "Documents (JSON Array)",
+        "placeholder": "[{"
+      },
+      {
+        "id": "filter",
+        "type": "code",
+        "title": "Filter (JSON)",
+        "placeholder": "{"
+      },
+      {
+        "id": "update",
+        "type": "code",
+        "title": "Update (JSON)",
+        "placeholder": "{"
+      },
+      {
+        "id": "upsert",
+        "type": "dropdown",
+        "title": "Upsert",
+        "options": [
+          {
+            "label": "False",
+            "value": "false"
+          },
+          {
+            "label": "True",
+            "value": "true"
+          }
+        ]
+      },
+      {
+        "id": "multi",
+        "type": "dropdown",
+        "title": "Update Multiple",
+        "options": [
+          {
+            "label": "False",
+            "value": "false"
+          },
+          {
+            "label": "True",
+            "value": "true"
+          }
+        ]
+      },
+      {
+        "id": "filter",
+        "type": "code",
+        "title": "Filter (JSON)",
+        "placeholder": "{"
+      },
+      {
+        "id": "multi",
+        "type": "dropdown",
+        "title": "Delete Multiple",
+        "options": [
+          {
+            "label": "False",
+            "value": "false"
+          },
+          {
+            "label": "True",
+            "value": "true"
+          }
+        ]
+      }
+    ],
+    "tools": {
+      "access": [
+        "mongodb_query",
+        "mongodb_insert",
+        "mongodb_update",
+        "mongodb_delete",
+        "mongodb_execute",
+        "mongodb_introspect"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "message": {
+        "type": "string"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "mongodb_delete",
+      "name": "MongoDB Delete",
+      "description": "Delete documents from MongoDB collection",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "mongodb",
+        "operation": "mongodb_delete"
+      }
+    },
+    {
+      "id": "mongodb_execute",
+      "name": "MongoDB Execute",
+      "description": "Execute MongoDB aggregation pipeline",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "mongodb",
+        "operation": "mongodb_execute"
+      }
+    },
+    {
+      "id": "mongodb_insert",
+      "name": "MongoDB Insert",
+      "description": "Insert documents into MongoDB collection",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "mongodb",
+        "operation": "mongodb_insert"
+      }
+    },
+    {
+      "id": "mongodb_introspect",
+      "name": "MongoDB Introspect",
+      "description": "Introspect MongoDB database to list databases, collections, and indexes",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "mongodb",
+        "operation": "mongodb_introspect"
+      }
+    },
+    {
+      "id": "mongodb_query",
+      "name": "MongoDB Query",
+      "description": "Execute find operation on MongoDB collection",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "mongodb",
+        "operation": "mongodb_query"
+      }
+    },
+    {
+      "id": "mongodb_update",
+      "name": "MongoDB Update",
+      "description": "Update documents in MongoDB collection",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "mongodb",
+        "operation": "mongodb_update"
+      }
+    }
+  ]
+}

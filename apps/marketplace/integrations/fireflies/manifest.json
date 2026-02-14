@@ -1,0 +1,362 @@
+{
+  "id": "fireflies",
+  "name": "Fireflies (Legacy)",
+  "version": "1.0.0",
+  "description": "Interact with Fireflies.ai meeting transcripts and recordings",
+  "icon": "FirefliesIcon",
+  "block": {
+    "type": "fireflies",
+    "name": "Fireflies (Legacy)",
+    "description": "Interact with Fireflies.ai meeting transcripts and recordings",
+    "longDescription": "Integrate Fireflies.ai into the workflow. Manage meeting transcripts, add bot to live meetings, create soundbites, and more. Can also trigger workflows when transcriptions complete.",
+    "docsLink": "https://docs.sim.ai/tools/fireflies",
+    "category": "tools",
+    "bgColor": "#100730",
+    "icon": "FirefliesIcon",
+    "authMode": "api_key",
+    "hideFromToolbar": true,
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "List Transcripts",
+            "value": "fireflies_list_transcripts"
+          },
+          {
+            "label": "Get Transcript",
+            "value": "fireflies_get_transcript"
+          },
+          {
+            "label": "Get User",
+            "value": "fireflies_get_user"
+          },
+          {
+            "label": "List Users",
+            "value": "fireflies_list_users"
+          },
+          {
+            "label": "Upload Audio",
+            "value": "fireflies_upload_audio"
+          },
+          {
+            "label": "Delete Transcript",
+            "value": "fireflies_delete_transcript"
+          },
+          {
+            "label": "Add Bot to Live Meeting",
+            "value": "fireflies_add_to_live_meeting"
+          },
+          {
+            "label": "Create Bite",
+            "value": "fireflies_create_bite"
+          },
+          {
+            "label": "List Bites",
+            "value": "fireflies_list_bites"
+          },
+          {
+            "label": "List Contacts",
+            "value": "fireflies_list_contacts"
+          }
+        ]
+      },
+      {
+        "id": "apiKey",
+        "type": "short-input",
+        "title": "API Key",
+        "placeholder": "Enter your Fireflies API key",
+        "password": true
+      },
+      {
+        "id": "transcriptId",
+        "type": "short-input",
+        "title": "Transcript ID",
+        "placeholder": "Enter transcript ID"
+      },
+      {
+        "id": "userId",
+        "type": "short-input",
+        "title": "User ID",
+        "placeholder": "Leave empty for current user"
+      },
+      {
+        "id": "keyword",
+        "type": "short-input",
+        "title": "Keyword",
+        "placeholder": "Search in title or transcript"
+      },
+      {
+        "id": "fromDate",
+        "type": "short-input",
+        "title": "From Date",
+        "placeholder": "e.g., 2024-01-01T00:00:00Z"
+      },
+      {
+        "id": "toDate",
+        "type": "short-input",
+        "title": "To Date",
+        "placeholder": "e.g., 2024-12-31T23:59:59Z"
+      },
+      {
+        "id": "hostEmail",
+        "type": "short-input",
+        "title": "Host Email",
+        "placeholder": "Filter by host email"
+      },
+      {
+        "id": "participants",
+        "type": "short-input",
+        "title": "Participants",
+        "placeholder": "Comma-separated participant emails"
+      },
+      {
+        "id": "limit",
+        "type": "short-input",
+        "title": "Limit",
+        "placeholder": "Max 50 (default: 50)"
+      },
+      {
+        "id": "audioFile",
+        "type": "file-upload",
+        "title": "Audio/Video File",
+        "placeholder": "Upload an audio or video file",
+        "mode": "basic",
+        "canonicalParamId": "audioFile"
+      },
+      {
+        "id": "audioFileReference",
+        "type": "short-input",
+        "title": "Audio/Video File Reference",
+        "placeholder": "Reference audio/video from previous blocks",
+        "mode": "advanced",
+        "canonicalParamId": "audioFile"
+      },
+      {
+        "id": "audioUrl",
+        "type": "short-input",
+        "title": "Audio/Video URL",
+        "placeholder": "Or enter publicly accessible audio/video URL"
+      },
+      {
+        "id": "title",
+        "type": "short-input",
+        "title": "Title",
+        "placeholder": "Meeting title"
+      },
+      {
+        "id": "language",
+        "type": "short-input",
+        "title": "Language",
+        "placeholder": "e.g., es, de, fr (default: English)"
+      },
+      {
+        "id": "attendees",
+        "type": "long-input",
+        "title": "Attendees",
+        "placeholder": "[{"
+      },
+      {
+        "id": "clientReferenceId",
+        "type": "short-input",
+        "title": "Reference ID",
+        "placeholder": "Custom tracking ID"
+      },
+      {
+        "id": "meetingLink",
+        "type": "short-input",
+        "title": "Meeting Link",
+        "placeholder": "https://zoom.us/j/... or https://meet.google.com/..."
+      },
+      {
+        "id": "meetingPassword",
+        "type": "short-input",
+        "title": "Meeting Password",
+        "placeholder": "Optional meeting password",
+        "password": true
+      },
+      {
+        "id": "duration",
+        "type": "short-input",
+        "title": "Duration (minutes)",
+        "placeholder": "60 (15-120 minutes)"
+      },
+      {
+        "id": "startTime",
+        "type": "short-input",
+        "title": "Start Time (seconds)",
+        "placeholder": "e.g., 30"
+      },
+      {
+        "id": "endTime",
+        "type": "short-input",
+        "title": "End Time (seconds)",
+        "placeholder": "e.g., 90"
+      },
+      {
+        "id": "biteName",
+        "type": "short-input",
+        "title": "Bite Name",
+        "placeholder": "Name for this highlight"
+      },
+      {
+        "id": "biteSummary",
+        "type": "long-input",
+        "title": "Summary",
+        "placeholder": "Brief description of the highlight"
+      }
+    ],
+    "tools": {
+      "access": [
+        "fireflies_list_transcripts",
+        "fireflies_get_transcript",
+        "fireflies_get_user",
+        "fireflies_list_users",
+        "fireflies_upload_audio",
+        "fireflies_delete_transcript",
+        "fireflies_add_to_live_meeting",
+        "fireflies_create_bite",
+        "fireflies_list_bites",
+        "fireflies_list_contacts"
+      ],
+      "config": {
+        "tool": "{{tools}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "transcripts": {
+        "type": "json"
+      }
+    },
+    "triggerAllowed": true
+  },
+  "tools": [
+    {
+      "id": "fireflies_add_to_live_meeting",
+      "name": "Fireflies Add to Live Meeting",
+      "description": "Add the Fireflies.ai bot to an ongoing meeting to record and transcribe",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "fireflies",
+        "operation": "fireflies_add_to_live_meeting"
+      }
+    },
+    {
+      "id": "fireflies_create_bite",
+      "name": "Fireflies Create Bite",
+      "description": "Create a soundbite/highlight from a specific time range in a transcript",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "fireflies",
+        "operation": "fireflies_create_bite"
+      }
+    },
+    {
+      "id": "fireflies_delete_transcript",
+      "name": "Fireflies Delete Transcript",
+      "description": "Delete a transcript from Fireflies.ai",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "fireflies",
+        "operation": "fireflies_delete_transcript"
+      }
+    },
+    {
+      "id": "fireflies_get_transcript",
+      "name": "Fireflies Get Transcript",
+      "description": "Get a single transcript with full details including summary, action items, and analytics",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "fireflies",
+        "operation": "fireflies_get_transcript"
+      }
+    },
+    {
+      "id": "fireflies_get_user",
+      "name": "Fireflies Get User",
+      "description": "Get user information from Fireflies.ai. Returns current user if no ID specified.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "fireflies",
+        "operation": "fireflies_get_user"
+      }
+    },
+    {
+      "id": "fireflies_list_bites",
+      "name": "Fireflies List Bites",
+      "description": "List soundbites/highlights from Fireflies.ai",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "fireflies",
+        "operation": "fireflies_list_bites"
+      }
+    },
+    {
+      "id": "fireflies_list_contacts",
+      "name": "Fireflies List Contacts",
+      "description": "List all contacts from your Fireflies.ai meetings",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "fireflies",
+        "operation": "fireflies_list_contacts"
+      }
+    },
+    {
+      "id": "fireflies_list_transcripts",
+      "name": "Fireflies List Transcripts",
+      "description": "List meeting transcripts from Fireflies.ai with optional filtering",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "fireflies",
+        "operation": "fireflies_list_transcripts"
+      }
+    },
+    {
+      "id": "fireflies_list_users",
+      "name": "Fireflies List Users",
+      "description": "List all users within your Fireflies.ai team",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "fireflies",
+        "operation": "fireflies_list_users"
+      }
+    },
+    {
+      "id": "fireflies_upload_audio",
+      "name": "Fireflies Upload Audio",
+      "description": "Upload an audio file URL to Fireflies.ai for transcription",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "fireflies",
+        "operation": "fireflies_upload_audio"
+      }
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "id": "workflow_input",
+  "name": "Workflow",
+  "version": "1.0.0",
+  "description": "Execute another workflow and map variables to its Start trigger schema.",
+  "icon": "WorkflowIcon",
+  "block": {
+    "type": "workflow_input",
+    "name": "Workflow",
+    "description": "Execute another workflow and map variables to its Start trigger schema.",
+    "longDescription": "Execute another child workflow and map variables to its Start trigger schema. Helps with modularizing workflows.",
+    "docsLink": "https://docs.sim.ai/blocks/workflow",
+    "category": "blocks",
+    "bgColor": "#6366F1",
+    "icon": "WorkflowIcon",
+    "subBlocks": [
+      {
+        "id": "workflowId",
+        "type": "workflow-selector",
+        "title": "Select Workflow",
+        "placeholder": "Search workflows..."
+      },
+      {
+        "id": "inputMapping",
+        "type": "input-mapping",
+        "title": "Inputs"
+      }
+    ],
+    "tools": {
+      "access": [
+        "workflow_executor"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "workflowId": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "boolean"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "workflow_executor",
+      "name": "Workflow Executor",
+      "description": "Workflow executor operation",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "workflow_input",
+        "operation": "workflow_executor"
+      }
+    }
+  ]
+}

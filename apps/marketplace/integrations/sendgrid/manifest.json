@@ -1,0 +1,577 @@
+{
+  "id": "sendgrid",
+  "name": "SendGrid",
+  "version": "1.0.0",
+  "description": "Send emails and manage contacts, lists, and templates with SendGrid",
+  "icon": "SendgridIcon",
+  "block": {
+    "type": "sendgrid",
+    "name": "SendGrid",
+    "description": "Send emails and manage contacts, lists, and templates with SendGrid",
+    "longDescription": "Integrate SendGrid into your workflow. Send transactional emails, manage marketing contacts and lists, and work with email templates. Supports dynamic templates, attachments, and comprehensive contact management.",
+    "docsLink": "https://docs.sim.ai/tools/sendgrid",
+    "category": "tools",
+    "bgColor": "#1A82E2",
+    "icon": "SendgridIcon",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Send Mail",
+            "value": "send_mail"
+          },
+          {
+            "label": "Add Contact",
+            "value": "add_contact"
+          },
+          {
+            "label": "Get Contact",
+            "value": "get_contact"
+          },
+          {
+            "label": "Search Contacts",
+            "value": "search_contacts"
+          },
+          {
+            "label": "Delete Contacts",
+            "value": "delete_contacts"
+          },
+          {
+            "label": "Create List",
+            "value": "create_list"
+          },
+          {
+            "label": "Get List",
+            "value": "get_list"
+          },
+          {
+            "label": "List All Lists",
+            "value": "list_all_lists"
+          },
+          {
+            "label": "Delete List",
+            "value": "delete_list"
+          },
+          {
+            "label": "Add Contacts to List",
+            "value": "add_contacts_to_list"
+          },
+          {
+            "label": "Remove Contacts from List",
+            "value": "remove_contacts_from_list"
+          },
+          {
+            "label": "Create Template",
+            "value": "create_template"
+          },
+          {
+            "label": "Get Template",
+            "value": "get_template"
+          },
+          {
+            "label": "List Templates",
+            "value": "list_templates"
+          },
+          {
+            "label": "Delete Template",
+            "value": "delete_template"
+          },
+          {
+            "label": "Create Template Version",
+            "value": "create_template_version"
+          }
+        ]
+      },
+      {
+        "id": "apiKey",
+        "type": "short-input",
+        "title": "SendGrid API Key",
+        "placeholder": "Enter your SendGrid API key",
+        "password": true
+      },
+      {
+        "id": "from",
+        "type": "short-input",
+        "title": "From Email",
+        "placeholder": "sender@yourdomain.com"
+      },
+      {
+        "id": "fromName",
+        "type": "short-input",
+        "title": "From Name",
+        "placeholder": "Sender Name"
+      },
+      {
+        "id": "to",
+        "type": "short-input",
+        "title": "To Email",
+        "placeholder": "recipient@example.com"
+      },
+      {
+        "id": "toName",
+        "type": "short-input",
+        "title": "To Name",
+        "placeholder": "Recipient Name"
+      },
+      {
+        "id": "mailSubject",
+        "type": "short-input",
+        "title": "Subject",
+        "placeholder": "Email subject (required unless using template)"
+      },
+      {
+        "id": "content",
+        "type": "long-input",
+        "title": "Content",
+        "placeholder": "Email body content (required unless using template)"
+      },
+      {
+        "id": "contentType",
+        "type": "dropdown",
+        "title": "Content Type",
+        "options": [
+          {
+            "label": "Plain Text",
+            "value": "text/plain"
+          },
+          {
+            "label": "HTML",
+            "value": "text/html"
+          }
+        ]
+      },
+      {
+        "id": "cc",
+        "type": "short-input",
+        "title": "CC",
+        "placeholder": "cc@example.com"
+      },
+      {
+        "id": "bcc",
+        "type": "short-input",
+        "title": "BCC",
+        "placeholder": "bcc@example.com"
+      },
+      {
+        "id": "replyTo",
+        "type": "short-input",
+        "title": "Reply To",
+        "placeholder": "replyto@example.com"
+      },
+      {
+        "id": "replyToName",
+        "type": "short-input",
+        "title": "Reply To Name",
+        "placeholder": "Reply To Name"
+      },
+      {
+        "id": "mailTemplateId",
+        "type": "short-input",
+        "title": "Template ID",
+        "placeholder": "SendGrid template ID"
+      },
+      {
+        "id": "dynamicTemplateData",
+        "type": "code",
+        "title": "Dynamic Template Data",
+        "placeholder": "{"
+      },
+      {
+        "id": "attachmentFiles",
+        "type": "file-upload",
+        "title": "Attachments",
+        "placeholder": "Upload files to attach",
+        "mode": "basic",
+        "canonicalParamId": "attachments"
+      },
+      {
+        "id": "attachments",
+        "type": "short-input",
+        "title": "Attachments",
+        "placeholder": "Reference files from previous blocks",
+        "mode": "advanced",
+        "canonicalParamId": "attachments"
+      },
+      {
+        "id": "email",
+        "type": "short-input",
+        "title": "Email",
+        "placeholder": "contact@example.com"
+      },
+      {
+        "id": "firstName",
+        "type": "short-input",
+        "title": "First Name",
+        "placeholder": "John"
+      },
+      {
+        "id": "lastName",
+        "type": "short-input",
+        "title": "Last Name",
+        "placeholder": "Doe"
+      },
+      {
+        "id": "customFields",
+        "type": "code",
+        "title": "Custom Fields",
+        "placeholder": "{"
+      },
+      {
+        "id": "contactListIds",
+        "type": "short-input",
+        "title": "List IDs",
+        "placeholder": "Comma-separated list IDs"
+      },
+      {
+        "id": "contactId",
+        "type": "short-input",
+        "title": "Contact ID",
+        "placeholder": "Contact ID"
+      },
+      {
+        "id": "query",
+        "type": "long-input",
+        "title": "Search Query",
+        "placeholder": "email LIKE "
+      },
+      {
+        "id": "contactIds",
+        "type": "short-input",
+        "title": "Contact IDs",
+        "placeholder": "Comma-separated contact IDs"
+      },
+      {
+        "id": "contacts",
+        "type": "code",
+        "title": "Contacts (JSON Array)",
+        "placeholder": "[{"
+      },
+      {
+        "id": "listName",
+        "type": "short-input",
+        "title": "List Name",
+        "placeholder": "List name"
+      },
+      {
+        "id": "listId",
+        "type": "short-input",
+        "title": "List ID",
+        "placeholder": "List ID"
+      },
+      {
+        "id": "listPageSize",
+        "type": "short-input",
+        "title": "Page Size",
+        "placeholder": "100"
+      },
+      {
+        "id": "templateName",
+        "type": "short-input",
+        "title": "Template Name",
+        "placeholder": "Template name"
+      },
+      {
+        "id": "templateId",
+        "type": "short-input",
+        "title": "Template ID",
+        "placeholder": "Template ID"
+      },
+      {
+        "id": "generation",
+        "type": "dropdown",
+        "title": "Template Generation",
+        "options": [
+          {
+            "label": "Dynamic",
+            "value": "dynamic"
+          },
+          {
+            "label": "Legacy",
+            "value": "legacy"
+          }
+        ]
+      },
+      {
+        "id": "templateGenerations",
+        "type": "short-input",
+        "title": "Filter by Generation",
+        "placeholder": "legacy, dynamic, or both"
+      },
+      {
+        "id": "templatePageSize",
+        "type": "short-input",
+        "title": "Page Size",
+        "placeholder": "20"
+      },
+      {
+        "id": "versionName",
+        "type": "short-input",
+        "title": "Version Name",
+        "placeholder": "Version name"
+      },
+      {
+        "id": "templateSubject",
+        "type": "short-input",
+        "title": "Template Subject",
+        "placeholder": "Email subject"
+      },
+      {
+        "id": "htmlContent",
+        "type": "code",
+        "title": "HTML Content",
+        "placeholder": "<html><body>{{name}}</body></html>"
+      },
+      {
+        "id": "plainContent",
+        "type": "long-input",
+        "title": "Plain Text Content",
+        "placeholder": "Plain text content"
+      },
+      {
+        "id": "active",
+        "type": "dropdown",
+        "title": "Active",
+        "options": [
+          {
+            "label": "Yes",
+            "value": "true"
+          },
+          {
+            "label": "No",
+            "value": "false"
+          }
+        ]
+      }
+    ],
+    "tools": {
+      "access": [
+        "sendgrid_send_mail",
+        "sendgrid_add_contact",
+        "sendgrid_get_contact",
+        "sendgrid_search_contacts",
+        "sendgrid_delete_contacts",
+        "sendgrid_create_list",
+        "sendgrid_get_list",
+        "sendgrid_list_all_lists",
+        "sendgrid_delete_list",
+        "sendgrid_add_contacts_to_list",
+        "sendgrid_remove_contacts_from_list",
+        "sendgrid_create_template",
+        "sendgrid_get_template",
+        "sendgrid_list_templates",
+        "sendgrid_delete_template",
+        "sendgrid_create_template_version"
+      ],
+      "config": {
+        "tool": "sendgrid__{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "boolean"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "sendgrid_add_contact",
+      "name": "SendGrid Add Contact",
+      "description": "Add a new contact to SendGrid",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "sendgrid",
+        "operation": "sendgrid_add_contact"
+      }
+    },
+    {
+      "id": "sendgrid_add_contacts_to_list",
+      "name": "SendGrid Add Contacts to List",
+      "description": "Add or update contacts and assign them to a list in SendGrid (uses PUT /v3/marketing/contacts)",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "sendgrid",
+        "operation": "sendgrid_add_contacts_to_list"
+      }
+    },
+    {
+      "id": "sendgrid_create_list",
+      "name": "SendGrid Create List",
+      "description": "Create a new contact list in SendGrid",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "sendgrid",
+        "operation": "sendgrid_create_list"
+      }
+    },
+    {
+      "id": "sendgrid_create_template",
+      "name": "SendGrid Create Template",
+      "description": "Create a new email template in SendGrid",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "sendgrid",
+        "operation": "sendgrid_create_template"
+      }
+    },
+    {
+      "id": "sendgrid_create_template_version",
+      "name": "SendGrid Create Template Version",
+      "description": "Create a new version of an email template in SendGrid",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "sendgrid",
+        "operation": "sendgrid_create_template_version"
+      }
+    },
+    {
+      "id": "sendgrid_delete_contacts",
+      "name": "SendGrid Delete Contacts",
+      "description": "Delete one or more contacts from SendGrid",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "sendgrid",
+        "operation": "sendgrid_delete_contacts"
+      }
+    },
+    {
+      "id": "sendgrid_delete_list",
+      "name": "SendGrid Delete List",
+      "description": "Delete a contact list from SendGrid",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "sendgrid",
+        "operation": "sendgrid_delete_list"
+      }
+    },
+    {
+      "id": "sendgrid_delete_template",
+      "name": "SendGrid Delete Template",
+      "description": "Delete an email template from SendGrid",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "sendgrid",
+        "operation": "sendgrid_delete_template"
+      }
+    },
+    {
+      "id": "sendgrid_get_contact",
+      "name": "SendGrid Get Contact",
+      "description": "Get a specific contact by ID from SendGrid",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "sendgrid",
+        "operation": "sendgrid_get_contact"
+      }
+    },
+    {
+      "id": "sendgrid_get_list",
+      "name": "SendGrid Get List",
+      "description": "Get a specific list by ID from SendGrid",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "sendgrid",
+        "operation": "sendgrid_get_list"
+      }
+    },
+    {
+      "id": "sendgrid_get_template",
+      "name": "SendGrid Get Template",
+      "description": "Get a specific template by ID from SendGrid",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "sendgrid",
+        "operation": "sendgrid_get_template"
+      }
+    },
+    {
+      "id": "sendgrid_list_all_lists",
+      "name": "SendGrid List All Lists",
+      "description": "Get all contact lists from SendGrid",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "sendgrid",
+        "operation": "sendgrid_list_all_lists"
+      }
+    },
+    {
+      "id": "sendgrid_list_templates",
+      "name": "SendGrid List Templates",
+      "description": "Get all email templates from SendGrid",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "sendgrid",
+        "operation": "sendgrid_list_templates"
+      }
+    },
+    {
+      "id": "sendgrid_remove_contacts_from_list",
+      "name": "SendGrid Remove Contacts from List",
+      "description": "Remove contacts from a specific list in SendGrid",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "sendgrid",
+        "operation": "sendgrid_remove_contacts_from_list"
+      }
+    },
+    {
+      "id": "sendgrid_search_contacts",
+      "name": "SendGrid Search Contacts",
+      "description": "Search for contacts in SendGrid using a query",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "sendgrid",
+        "operation": "sendgrid_search_contacts"
+      }
+    },
+    {
+      "id": "sendgrid_send_mail",
+      "name": "SendGrid Send Mail",
+      "description": "Send an email using SendGrid API",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "sendgrid",
+        "operation": "sendgrid_send_mail"
+      }
+    }
+  ]
+}

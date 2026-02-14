@@ -1,0 +1,294 @@
+{
+  "id": "hunter",
+  "name": "Hunter io",
+  "version": "1.0.0",
+  "description": "Find and verify professional email addresses",
+  "icon": "HunterIOIcon",
+  "block": {
+    "type": "hunter",
+    "name": "Hunter io",
+    "description": "Find and verify professional email addresses",
+    "longDescription": "Integrate Hunter into the workflow. Can search domains, find email addresses, verify email addresses, discover companies, find companies, and count email addresses.",
+    "docsLink": "https://docs.sim.ai/tools/hunter",
+    "category": "tools",
+    "bgColor": "#E0E0E0",
+    "icon": "HunterIOIcon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Domain Search",
+            "value": "hunter_domain_search"
+          },
+          {
+            "label": "Email Finder",
+            "value": "hunter_email_finder"
+          },
+          {
+            "label": "Email Verifier",
+            "value": "hunter_email_verifier"
+          },
+          {
+            "label": "Discover Companies",
+            "value": "hunter_discover"
+          },
+          {
+            "label": "Find Company",
+            "value": "hunter_companies_find"
+          },
+          {
+            "label": "Email Count",
+            "value": "hunter_email_count"
+          }
+        ]
+      },
+      {
+        "id": "domain",
+        "type": "short-input",
+        "title": "Domain",
+        "placeholder": "Enter domain name (e.g., stripe.com)"
+      },
+      {
+        "id": "limit",
+        "type": "short-input",
+        "title": "Number of Results",
+        "placeholder": "10"
+      },
+      {
+        "id": "type",
+        "type": "dropdown",
+        "title": "Email Type",
+        "options": [
+          {
+            "label": "All",
+            "value": "all"
+          },
+          {
+            "label": "Personal",
+            "value": "personal"
+          },
+          {
+            "label": "Generic",
+            "value": "generic"
+          }
+        ]
+      },
+      {
+        "id": "seniority",
+        "type": "dropdown",
+        "title": "Seniority Level",
+        "options": [
+          {
+            "label": "All",
+            "value": "all"
+          },
+          {
+            "label": "Junior",
+            "value": "junior"
+          },
+          {
+            "label": "Senior",
+            "value": "senior"
+          },
+          {
+            "label": "Executive",
+            "value": "executive"
+          }
+        ]
+      },
+      {
+        "id": "department",
+        "type": "short-input",
+        "title": "Department",
+        "placeholder": "e.g., sales, marketing, engineering"
+      },
+      {
+        "id": "domain",
+        "type": "short-input",
+        "title": "Domain",
+        "placeholder": "Enter domain name (e.g., stripe.com)"
+      },
+      {
+        "id": "first_name",
+        "type": "short-input",
+        "title": "First Name",
+        "placeholder": "Enter first name"
+      },
+      {
+        "id": "last_name",
+        "type": "short-input",
+        "title": "Last Name",
+        "placeholder": "Enter last name"
+      },
+      {
+        "id": "company",
+        "type": "short-input",
+        "title": "Company Name",
+        "placeholder": "Enter company name"
+      },
+      {
+        "id": "email",
+        "type": "short-input",
+        "title": "Email Address",
+        "placeholder": "Enter email address to verify"
+      },
+      {
+        "id": "query",
+        "type": "long-input",
+        "title": "Search Query",
+        "placeholder": "Enter search query (e.g., "
+      },
+      {
+        "id": "domain",
+        "type": "short-input",
+        "title": "Domain Filter",
+        "placeholder": "Filter by domain"
+      },
+      {
+        "id": "domain",
+        "type": "short-input",
+        "title": "Domain",
+        "placeholder": "Enter company domain"
+      },
+      {
+        "id": "domain",
+        "type": "short-input",
+        "title": "Domain",
+        "placeholder": "Enter domain name"
+      },
+      {
+        "id": "company",
+        "type": "short-input",
+        "title": "Company Name",
+        "placeholder": "Enter company name"
+      },
+      {
+        "id": "type",
+        "type": "dropdown",
+        "title": "Email Type",
+        "options": [
+          {
+            "label": "All",
+            "value": "all"
+          },
+          {
+            "label": "Personal",
+            "value": "personal"
+          },
+          {
+            "label": "Generic",
+            "value": "generic"
+          }
+        ]
+      },
+      {
+        "id": "apiKey",
+        "type": "short-input",
+        "title": "API Key",
+        "placeholder": "Enter your Hunter.io API key",
+        "password": true
+      }
+    ],
+    "tools": {
+      "access": [
+        "hunter_discover",
+        "hunter_domain_search",
+        "hunter_email_finder",
+        "hunter_email_verifier",
+        "hunter_companies_find",
+        "hunter_email_count"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "results": {
+        "type": "json"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "hunter_companies_find",
+      "name": "Hunter Companies Find",
+      "description": "Enriches company data using domain name.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "hunter",
+        "operation": "hunter_companies_find"
+      }
+    },
+    {
+      "id": "hunter_discover",
+      "name": "Hunter Discover",
+      "description": "Returns companies matching a set of criteria using Hunter.io AI-powered search.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "hunter",
+        "operation": "hunter_discover"
+      }
+    },
+    {
+      "id": "hunter_domain_search",
+      "name": "Hunter Domain Search",
+      "description": "Returns all the email addresses found using one given domain name, with sources.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "hunter",
+        "operation": "hunter_domain_search"
+      }
+    },
+    {
+      "id": "hunter_email_count",
+      "name": "Hunter Email Count",
+      "description": "Returns the total number of email addresses found for a domain or company.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "hunter",
+        "operation": "hunter_email_count"
+      }
+    },
+    {
+      "id": "hunter_email_finder",
+      "name": "Hunter Email Finder",
+      "description": "Finds the most likely email address for a person given their name and company domain.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "hunter",
+        "operation": "hunter_email_finder"
+      }
+    },
+    {
+      "id": "hunter_email_verifier",
+      "name": "Hunter Email Verifier",
+      "description": "Verifies the deliverability of an email address and provides detailed verification status.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "hunter",
+        "operation": "hunter_email_verifier"
+      }
+    }
+  ]
+}

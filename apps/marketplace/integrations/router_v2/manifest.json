@@ -1,0 +1,306 @@
+{
+  "id": "router_v2",
+  "name": "Router",
+  "version": "1.0.0",
+  "description": "Route workflow based on context",
+  "icon": "ConnectIcon",
+  "block": {
+    "type": "router_v2",
+    "name": "Router",
+    "description": "Route workflow based on context",
+    "longDescription": "Intelligently route workflow execution to different paths based on context analysis. Define multiple routes with descriptions, and an LLM will determine which route to take based on the provided context.",
+    "docsLink": "https://docs.sim.ai/blocks/router",
+    "category": "blocks",
+    "bgColor": "#28C43F",
+    "icon": "ConnectIcon",
+    "subBlocks": [
+      {
+        "id": "context",
+        "title": "Context",
+        "type": "long-input",
+        "placeholder": "Enter the context to analyze for routing...",
+        "required": true
+      },
+      {
+        "id": "routes",
+        "type": "router-input"
+      },
+      {
+        "id": "model",
+        "title": "Model",
+        "type": "combobox",
+        "placeholder": "Type or select a model...",
+        "required": true,
+        "default": "claude-sonnet-4-5"
+      },
+      {
+        "id": "vertexCredential",
+        "title": "Google Cloud Account",
+        "type": "oauth-input",
+        "placeholder": "Select Google Cloud account",
+        "required": true,
+        "condition": {
+          "field": "model",
+          "value": "@@vertex.models"
+        }
+      },
+      {
+        "id": "apiKey",
+        "title": "API Key",
+        "type": "short-input",
+        "placeholder": "Enter your API key",
+        "password": true,
+        "required": true,
+        "condition": {
+          "field": "model",
+          "value": "@@hostedModels+vertex+bedrock",
+          "not": true
+        }
+      },
+      {
+        "id": "azureEndpoint",
+        "title": "Azure OpenAI Endpoint",
+        "type": "short-input",
+        "password": true,
+        "placeholder": "https://your-resource.openai.azure.com",
+        "condition": {
+          "field": "model",
+          "value": "@@azure-openai.models"
+        }
+      },
+      {
+        "id": "azureApiVersion",
+        "title": "Azure API Version",
+        "type": "short-input",
+        "placeholder": "2024-07-01-preview",
+        "condition": {
+          "field": "model",
+          "value": "@@azure-openai.models"
+        }
+      },
+      {
+        "id": "vertexProject",
+        "title": "Vertex AI Project",
+        "type": "short-input",
+        "placeholder": "your-gcp-project-id",
+        "required": true,
+        "condition": {
+          "field": "model",
+          "value": "@@vertex.models"
+        }
+      },
+      {
+        "id": "vertexLocation",
+        "title": "Vertex AI Location",
+        "type": "short-input",
+        "placeholder": "us-central1",
+        "required": true,
+        "condition": {
+          "field": "model",
+          "value": "@@vertex.models"
+        }
+      },
+      {
+        "id": "bedrockAccessKeyId",
+        "title": "AWS Access Key ID",
+        "type": "short-input",
+        "password": true,
+        "placeholder": "Enter your AWS Access Key ID",
+        "required": true,
+        "condition": {
+          "field": "model",
+          "value": "@@bedrock.models"
+        }
+      },
+      {
+        "id": "bedrockSecretKey",
+        "title": "AWS Secret Access Key",
+        "type": "short-input",
+        "password": true,
+        "placeholder": "Enter your AWS Secret Access Key",
+        "required": true,
+        "condition": {
+          "field": "model",
+          "value": "@@bedrock.models"
+        }
+      },
+      {
+        "id": "bedrockRegion",
+        "title": "AWS Region",
+        "type": "short-input",
+        "placeholder": "us-east-1",
+        "condition": {
+          "field": "model",
+          "value": "@@bedrock.models"
+        }
+      }
+    ],
+    "tools": {
+      "access": [
+        "openai_chat",
+        "anthropic_chat",
+        "google_chat",
+        "xai_chat",
+        "deepseek_chat",
+        "deepseek_reasoner"
+      ],
+      "config": {
+        "tool": "@@enhanced"
+      }
+    },
+    "inputs": {
+      "context": {
+        "type": "string",
+        "description": "Context for routing decision"
+      },
+      "routes": {
+        "type": "json",
+        "description": "Route definitions with descriptions"
+      },
+      "model": {
+        "type": "string",
+        "description": "AI model to use"
+      },
+      "apiKey": {
+        "type": "string",
+        "description": "Provider API key"
+      },
+      "azureEndpoint": {
+        "type": "string",
+        "description": "Azure OpenAI endpoint URL"
+      },
+      "azureApiVersion": {
+        "type": "string",
+        "description": "Azure API version"
+      },
+      "vertexProject": {
+        "type": "string",
+        "description": "Google Cloud project ID for Vertex AI"
+      },
+      "vertexLocation": {
+        "type": "string",
+        "description": "Google Cloud location for Vertex AI"
+      },
+      "vertexCredential": {
+        "type": "string",
+        "description": "Google Cloud OAuth credential ID for Vertex AI"
+      },
+      "bedrockAccessKeyId": {
+        "type": "string",
+        "description": "AWS Access Key ID for Bedrock"
+      },
+      "bedrockSecretKey": {
+        "type": "string",
+        "description": "AWS Secret Access Key for Bedrock"
+      },
+      "bedrockRegion": {
+        "type": "string",
+        "description": "AWS region for Bedrock"
+      }
+    },
+    "outputs": {
+      "context": {
+        "type": "string",
+        "description": "Context used for routing"
+      },
+      "model": {
+        "type": "string",
+        "description": "Model used"
+      },
+      "tokens": {
+        "type": "json",
+        "description": "Token usage"
+      },
+      "cost": {
+        "type": "json",
+        "description": "Cost information"
+      },
+      "selectedRoute": {
+        "type": "string",
+        "description": "Selected route ID"
+      },
+      "reasoning": {
+        "type": "string",
+        "description": "Explanation of why this route was chosen"
+      },
+      "selectedPath": {
+        "type": "json",
+        "description": "Selected routing path"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "openai_chat",
+      "name": "openai chat",
+      "description": "",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "router_v2",
+        "operation": "openai_chat"
+      }
+    },
+    {
+      "id": "anthropic_chat",
+      "name": "anthropic chat",
+      "description": "",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "router_v2",
+        "operation": "anthropic_chat"
+      }
+    },
+    {
+      "id": "google_chat",
+      "name": "google chat",
+      "description": "",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "router_v2",
+        "operation": "google_chat"
+      }
+    },
+    {
+      "id": "xai_chat",
+      "name": "xai chat",
+      "description": "",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "router_v2",
+        "operation": "xai_chat"
+      }
+    },
+    {
+      "id": "deepseek_chat",
+      "name": "deepseek chat",
+      "description": "",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "router_v2",
+        "operation": "deepseek_chat"
+      }
+    },
+    {
+      "id": "deepseek_reasoner",
+      "name": "deepseek reasoner",
+      "description": "",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "router_v2",
+        "operation": "deepseek_reasoner"
+      }
+    }
+  ]
+}

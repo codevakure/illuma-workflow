@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git rm:*)",
+      "Bash(cmd //c \"del /f /q \\\\\\\\?\\\\%cd%\\\\nul\")",
+      "Bash(cmd //c \"del /f /q \\\\\\\\?\\\\C:\\\\Projects\\\\Chat\\\\agent-builders\\\\sim-v2\\\\apps\\\\api\\\\nul\")",
+      "Bash(powershell -Command \"Remove-Item -Path ''\\\\?\\\\C:\\\\Projects\\\\Chat\\\\agent-builders\\\\sim-v2\\\\apps\\\\api\\\\nul'' -Force\")",
+      "Bash(powershell -Command \"Remove-Item -LiteralPath ''C:\\\\Projects\\\\Chat\\\\agent-builders\\\\sim-v2\\\\apps\\\\api\\\\nul'' -Force -ErrorAction SilentlyContinue; if \\(Test-Path ''C:\\\\Projects\\\\Chat\\\\agent-builders\\\\sim-v2\\\\apps\\\\api\\\\nul''\\) { ''Still exists'' } else { ''Deleted'' }\")",
+      "Bash(powershell:*)",
+      "Bash(git clean:*)",
+      "Bash(cmd //c \"rename nul nul.txt\")",
+      "Bash(python -c \"import os; os.remove\\(r''\\\\\\\\?\\\\C:\\\\Projects\\\\Chat\\\\agent-builders\\\\sim-v2\\\\apps\\\\api\\\\nul''\\)\")",
+      "Bash(python -c:*)",
+      "Bash(git check-ignore:*)",
+      "Bash(git add:*)"
+    ]
+  }
+}

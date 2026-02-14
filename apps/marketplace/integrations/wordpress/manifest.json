@@ -1,0 +1,866 @@
+{
+  "id": "wordpress",
+  "name": "WordPress",
+  "version": "1.0.0",
+  "description": "Manage WordPress content",
+  "icon": "WordpressIcon",
+  "block": {
+    "type": "wordpress",
+    "name": "WordPress",
+    "description": "Manage WordPress content",
+    "longDescription": "Integrate with WordPress to create, update, and manage posts, pages, media, comments, categories, tags, and users. Supports WordPress.com sites via OAuth and self-hosted WordPress sites using Application Passwords authentication.",
+    "docsLink": "https://docs.sim.ai/tools/wordpress",
+    "category": "tools",
+    "bgColor": "#21759B",
+    "icon": "WordpressIcon",
+    "authMode": "oauth",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Create Post",
+            "value": "wordpress_create_post"
+          },
+          {
+            "label": "Update Post",
+            "value": "wordpress_update_post"
+          },
+          {
+            "label": "Delete Post",
+            "value": "wordpress_delete_post"
+          },
+          {
+            "label": "Get Post",
+            "value": "wordpress_get_post"
+          },
+          {
+            "label": "List Posts",
+            "value": "wordpress_list_posts"
+          },
+          {
+            "label": "Create Page",
+            "value": "wordpress_create_page"
+          },
+          {
+            "label": "Update Page",
+            "value": "wordpress_update_page"
+          },
+          {
+            "label": "Delete Page",
+            "value": "wordpress_delete_page"
+          },
+          {
+            "label": "Get Page",
+            "value": "wordpress_get_page"
+          },
+          {
+            "label": "List Pages",
+            "value": "wordpress_list_pages"
+          },
+          {
+            "label": "Upload Media",
+            "value": "wordpress_upload_media"
+          },
+          {
+            "label": "Get Media",
+            "value": "wordpress_get_media"
+          },
+          {
+            "label": "List Media",
+            "value": "wordpress_list_media"
+          },
+          {
+            "label": "Delete Media",
+            "value": "wordpress_delete_media"
+          },
+          {
+            "label": "Create Comment",
+            "value": "wordpress_create_comment"
+          },
+          {
+            "label": "List Comments",
+            "value": "wordpress_list_comments"
+          },
+          {
+            "label": "Update Comment",
+            "value": "wordpress_update_comment"
+          },
+          {
+            "label": "Delete Comment",
+            "value": "wordpress_delete_comment"
+          },
+          {
+            "label": "Create Category",
+            "value": "wordpress_create_category"
+          },
+          {
+            "label": "List Categories",
+            "value": "wordpress_list_categories"
+          },
+          {
+            "label": "Create Tag",
+            "value": "wordpress_create_tag"
+          },
+          {
+            "label": "List Tags",
+            "value": "wordpress_list_tags"
+          },
+          {
+            "label": "Get Current User",
+            "value": "wordpress_get_current_user"
+          },
+          {
+            "label": "List Users",
+            "value": "wordpress_list_users"
+          },
+          {
+            "label": "Get User",
+            "value": "wordpress_get_user"
+          },
+          {
+            "label": "Search Content",
+            "value": "wordpress_search_content"
+          }
+        ]
+      },
+      {
+        "id": "credential",
+        "type": "oauth-input",
+        "title": "WordPress Account",
+        "placeholder": "Select WordPress account"
+      },
+      {
+        "id": "siteId",
+        "type": "short-input",
+        "title": "Site ID or Domain",
+        "placeholder": "e.g., 12345678 or yoursite.wordpress.com"
+      },
+      {
+        "id": "postId",
+        "type": "short-input",
+        "title": "Post ID",
+        "placeholder": "Enter post ID"
+      },
+      {
+        "id": "title",
+        "type": "short-input",
+        "title": "Title",
+        "placeholder": "Post or page title"
+      },
+      {
+        "id": "content",
+        "type": "long-input",
+        "title": "Content",
+        "placeholder": "Post or page content (HTML or plain text)"
+      },
+      {
+        "id": "status",
+        "type": "dropdown",
+        "title": "Status",
+        "options": [
+          {
+            "label": "Publish",
+            "value": "publish"
+          },
+          {
+            "label": "Draft",
+            "value": "draft"
+          },
+          {
+            "label": "Pending",
+            "value": "pending"
+          },
+          {
+            "label": "Private",
+            "value": "private"
+          }
+        ]
+      },
+      {
+        "id": "excerpt",
+        "type": "long-input",
+        "title": "Excerpt",
+        "placeholder": "Post or page excerpt"
+      },
+      {
+        "id": "slug",
+        "type": "short-input",
+        "title": "Slug",
+        "placeholder": "URL slug (optional)"
+      },
+      {
+        "id": "categories",
+        "type": "short-input",
+        "title": "Categories",
+        "placeholder": "Comma-separated category IDs"
+      },
+      {
+        "id": "tags",
+        "type": "short-input",
+        "title": "Tags",
+        "placeholder": "Comma-separated tag IDs"
+      },
+      {
+        "id": "featuredMedia",
+        "type": "short-input",
+        "title": "Featured Image ID",
+        "placeholder": "Media ID for featured image"
+      },
+      {
+        "id": "pageId",
+        "type": "short-input",
+        "title": "Page ID",
+        "placeholder": "Enter page ID"
+      },
+      {
+        "id": "parent",
+        "type": "short-input",
+        "title": "Parent Page ID",
+        "placeholder": "Parent page ID (for hierarchy)"
+      },
+      {
+        "id": "menuOrder",
+        "type": "short-input",
+        "title": "Menu Order",
+        "placeholder": "Order in menu (number)"
+      },
+      {
+        "id": "fileUpload",
+        "type": "file-upload",
+        "title": "Upload File",
+        "placeholder": "Upload a media file to WordPress",
+        "mode": "basic",
+        "canonicalParamId": "file"
+      },
+      {
+        "id": "file",
+        "type": "short-input",
+        "title": "File Reference",
+        "placeholder": "Reference file from previous block (e.g., {{block_name.file}})",
+        "mode": "advanced",
+        "canonicalParamId": "file"
+      },
+      {
+        "id": "filename",
+        "type": "short-input",
+        "title": "Filename Override",
+        "placeholder": "Optional: Override filename (e.g., image.jpg)"
+      },
+      {
+        "id": "mediaTitle",
+        "type": "short-input",
+        "title": "Media Title",
+        "placeholder": "Title for the media"
+      },
+      {
+        "id": "caption",
+        "type": "short-input",
+        "title": "Caption",
+        "placeholder": "Media caption"
+      },
+      {
+        "id": "altText",
+        "type": "short-input",
+        "title": "Alt Text",
+        "placeholder": "Alternative text for accessibility"
+      },
+      {
+        "id": "mediaId",
+        "type": "short-input",
+        "title": "Media ID",
+        "placeholder": "Enter media ID"
+      },
+      {
+        "id": "mediaType",
+        "type": "dropdown",
+        "title": "Media Type",
+        "options": [
+          {
+            "label": "Image",
+            "value": "image"
+          },
+          {
+            "label": "Video",
+            "value": "video"
+          },
+          {
+            "label": "Audio",
+            "value": "audio"
+          },
+          {
+            "label": "Application",
+            "value": "application"
+          }
+        ]
+      },
+      {
+        "id": "commentPostId",
+        "type": "short-input",
+        "title": "Post ID",
+        "placeholder": "Post ID to comment on"
+      },
+      {
+        "id": "commentContent",
+        "type": "long-input",
+        "title": "Comment Content",
+        "placeholder": "Comment text"
+      },
+      {
+        "id": "commentId",
+        "type": "short-input",
+        "title": "Comment ID",
+        "placeholder": "Enter comment ID"
+      },
+      {
+        "id": "commentStatus",
+        "type": "dropdown",
+        "title": "Comment Status",
+        "options": [
+          {
+            "label": "Approved",
+            "value": "approved"
+          },
+          {
+            "label": "Hold",
+            "value": "hold"
+          },
+          {
+            "label": "Spam",
+            "value": "spam"
+          },
+          {
+            "label": "Trash",
+            "value": "trash"
+          }
+        ]
+      },
+      {
+        "id": "categoryName",
+        "type": "short-input",
+        "title": "Category Name",
+        "placeholder": "Category name"
+      },
+      {
+        "id": "categoryDescription",
+        "type": "long-input",
+        "title": "Description",
+        "placeholder": "Category description"
+      },
+      {
+        "id": "categoryParent",
+        "type": "short-input",
+        "title": "Parent Category ID",
+        "placeholder": "Parent category ID"
+      },
+      {
+        "id": "categorySlug",
+        "type": "short-input",
+        "title": "Category Slug",
+        "placeholder": "URL slug (optional)"
+      },
+      {
+        "id": "tagName",
+        "type": "short-input",
+        "title": "Tag Name",
+        "placeholder": "Tag name"
+      },
+      {
+        "id": "tagDescription",
+        "type": "long-input",
+        "title": "Description",
+        "placeholder": "Tag description"
+      },
+      {
+        "id": "tagSlug",
+        "type": "short-input",
+        "title": "Tag Slug",
+        "placeholder": "URL slug (optional)"
+      },
+      {
+        "id": "userId",
+        "type": "short-input",
+        "title": "User ID",
+        "placeholder": "Enter user ID"
+      },
+      {
+        "id": "roles",
+        "type": "short-input",
+        "title": "User Roles",
+        "placeholder": "Comma-separated role names (e.g., administrator, editor)"
+      },
+      {
+        "id": "query",
+        "type": "short-input",
+        "title": "Search Query",
+        "placeholder": "Search keywords"
+      },
+      {
+        "id": "searchType",
+        "type": "dropdown",
+        "title": "Content Type",
+        "options": [
+          {
+            "label": "Post",
+            "value": "post"
+          },
+          {
+            "label": "Page",
+            "value": "page"
+          },
+          {
+            "label": "Attachment",
+            "value": "attachment"
+          }
+        ]
+      },
+      {
+        "id": "perPage",
+        "type": "short-input",
+        "title": "Results Per Page",
+        "placeholder": "10 (max 100)"
+      },
+      {
+        "id": "page",
+        "type": "short-input",
+        "title": "Page Number",
+        "placeholder": "1"
+      },
+      {
+        "id": "search",
+        "type": "short-input",
+        "title": "Search Filter",
+        "placeholder": "Search term to filter results"
+      },
+      {
+        "id": "orderBy",
+        "type": "dropdown",
+        "title": "Order By",
+        "options": [
+          {
+            "label": "Date",
+            "value": "date"
+          },
+          {
+            "label": "ID",
+            "value": "id"
+          },
+          {
+            "label": "Title",
+            "value": "title"
+          },
+          {
+            "label": "Slug",
+            "value": "slug"
+          },
+          {
+            "label": "Modified",
+            "value": "modified"
+          }
+        ]
+      },
+      {
+        "id": "order",
+        "type": "dropdown",
+        "title": "Order",
+        "options": [
+          {
+            "label": "Descending",
+            "value": "desc"
+          },
+          {
+            "label": "Ascending",
+            "value": "asc"
+          }
+        ]
+      },
+      {
+        "id": "listStatus",
+        "type": "dropdown",
+        "title": "Status Filter",
+        "options": [
+          {
+            "label": "Published",
+            "value": "publish"
+          },
+          {
+            "label": "Draft",
+            "value": "draft"
+          },
+          {
+            "label": "Pending",
+            "value": "pending"
+          },
+          {
+            "label": "Private",
+            "value": "private"
+          }
+        ]
+      },
+      {
+        "id": "force",
+        "type": "switch",
+        "title": "Force Delete"
+      }
+    ],
+    "tools": {
+      "access": [
+        "wordpress_create_post",
+        "wordpress_update_post",
+        "wordpress_delete_post",
+        "wordpress_get_post",
+        "wordpress_list_posts",
+        "wordpress_create_page",
+        "wordpress_update_page",
+        "wordpress_delete_page",
+        "wordpress_get_page",
+        "wordpress_list_pages",
+        "wordpress_upload_media",
+        "wordpress_get_media",
+        "wordpress_list_media",
+        "wordpress_delete_media",
+        "wordpress_create_comment",
+        "wordpress_list_comments",
+        "wordpress_update_comment",
+        "wordpress_delete_comment",
+        "wordpress_create_category",
+        "wordpress_list_categories",
+        "wordpress_create_tag",
+        "wordpress_list_tags",
+        "wordpress_get_current_user",
+        "wordpress_list_users",
+        "wordpress_get_user",
+        "wordpress_search_content"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "post": {
+        "type": "json"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "wordpress_create_category",
+      "name": "WordPress Create Category",
+      "description": "Create a new category in WordPress.com",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "wordpress",
+        "operation": "wordpress_create_category"
+      }
+    },
+    {
+      "id": "wordpress_create_comment",
+      "name": "WordPress Create Comment",
+      "description": "Create a new comment on a WordPress.com post",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "wordpress",
+        "operation": "wordpress_create_comment"
+      }
+    },
+    {
+      "id": "wordpress_create_page",
+      "name": "WordPress Create Page",
+      "description": "Create a new page in WordPress.com",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "wordpress",
+        "operation": "wordpress_create_page"
+      }
+    },
+    {
+      "id": "wordpress_create_post",
+      "name": "WordPress Create Post",
+      "description": "Create a new blog post in WordPress.com",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "wordpress",
+        "operation": "wordpress_create_post"
+      }
+    },
+    {
+      "id": "wordpress_create_tag",
+      "name": "WordPress Create Tag",
+      "description": "Create a new tag in WordPress.com",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "wordpress",
+        "operation": "wordpress_create_tag"
+      }
+    },
+    {
+      "id": "wordpress_delete_comment",
+      "name": "WordPress Delete Comment",
+      "description": "Delete a comment from WordPress.com",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "wordpress",
+        "operation": "wordpress_delete_comment"
+      }
+    },
+    {
+      "id": "wordpress_delete_media",
+      "name": "WordPress Delete Media",
+      "description": "Delete a media item from WordPress.com",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "wordpress",
+        "operation": "wordpress_delete_media"
+      }
+    },
+    {
+      "id": "wordpress_delete_page",
+      "name": "WordPress Delete Page",
+      "description": "Delete a page from WordPress.com",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "wordpress",
+        "operation": "wordpress_delete_page"
+      }
+    },
+    {
+      "id": "wordpress_delete_post",
+      "name": "WordPress Delete Post",
+      "description": "Delete a blog post from WordPress.com",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "wordpress",
+        "operation": "wordpress_delete_post"
+      }
+    },
+    {
+      "id": "wordpress_get_current_user",
+      "name": "WordPress Get Current User",
+      "description": "Get information about the currently authenticated WordPress.com user",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "wordpress",
+        "operation": "wordpress_get_current_user"
+      }
+    },
+    {
+      "id": "wordpress_get_media",
+      "name": "WordPress Get Media",
+      "description": "Get a single media item from WordPress.com by ID",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "wordpress",
+        "operation": "wordpress_get_media"
+      }
+    },
+    {
+      "id": "wordpress_get_page",
+      "name": "WordPress Get Page",
+      "description": "Get a single page from WordPress.com by ID",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "wordpress",
+        "operation": "wordpress_get_page"
+      }
+    },
+    {
+      "id": "wordpress_get_post",
+      "name": "WordPress Get Post",
+      "description": "Get a single blog post from WordPress.com by ID",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "wordpress",
+        "operation": "wordpress_get_post"
+      }
+    },
+    {
+      "id": "wordpress_get_user",
+      "name": "WordPress Get User",
+      "description": "Get a specific user from WordPress.com by ID",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "wordpress",
+        "operation": "wordpress_get_user"
+      }
+    },
+    {
+      "id": "wordpress_list_categories",
+      "name": "WordPress List Categories",
+      "description": "List categories from WordPress.com",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "wordpress",
+        "operation": "wordpress_list_categories"
+      }
+    },
+    {
+      "id": "wordpress_list_comments",
+      "name": "WordPress List Comments",
+      "description": "List comments from WordPress.com with optional filters",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "wordpress",
+        "operation": "wordpress_list_comments"
+      }
+    },
+    {
+      "id": "wordpress_list_media",
+      "name": "WordPress List Media",
+      "description": "List media items from the WordPress.com media library",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "wordpress",
+        "operation": "wordpress_list_media"
+      }
+    },
+    {
+      "id": "wordpress_list_pages",
+      "name": "WordPress List Pages",
+      "description": "List pages from WordPress.com with optional filters",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "wordpress",
+        "operation": "wordpress_list_pages"
+      }
+    },
+    {
+      "id": "wordpress_list_posts",
+      "name": "WordPress List Posts",
+      "description": "List blog posts from WordPress.com with optional filters",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "wordpress",
+        "operation": "wordpress_list_posts"
+      }
+    },
+    {
+      "id": "wordpress_list_tags",
+      "name": "WordPress List Tags",
+      "description": "List tags from WordPress.com",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "wordpress",
+        "operation": "wordpress_list_tags"
+      }
+    },
+    {
+      "id": "wordpress_list_users",
+      "name": "WordPress List Users",
+      "description": "List users from WordPress.com (requires admin privileges)",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "wordpress",
+        "operation": "wordpress_list_users"
+      }
+    },
+    {
+      "id": "wordpress_search_content",
+      "name": "WordPress Search Content",
+      "description": "Search across all content types in WordPress.com (posts, pages, media)",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "wordpress",
+        "operation": "wordpress_search_content"
+      }
+    },
+    {
+      "id": "wordpress_update_comment",
+      "name": "WordPress Update Comment",
+      "description": "Update a comment in WordPress.com (content or status)",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "wordpress",
+        "operation": "wordpress_update_comment"
+      }
+    },
+    {
+      "id": "wordpress_update_page",
+      "name": "WordPress Update Page",
+      "description": "Update an existing page in WordPress.com",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "wordpress",
+        "operation": "wordpress_update_page"
+      }
+    },
+    {
+      "id": "wordpress_update_post",
+      "name": "WordPress Update Post",
+      "description": "Update an existing blog post in WordPress.com",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "wordpress",
+        "operation": "wordpress_update_post"
+      }
+    },
+    {
+      "id": "wordpress_upload_media",
+      "name": "WordPress Upload Media",
+      "description": "Upload a media file (image, video, document) to WordPress.com",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "wordpress",
+        "operation": "wordpress_upload_media"
+      }
+    }
+  ]
+}

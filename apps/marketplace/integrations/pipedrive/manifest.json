@@ -1,0 +1,921 @@
+{
+  "id": "pipedrive",
+  "name": "Pipedrive",
+  "version": "1.0.0",
+  "description": "Interact with Pipedrive CRM",
+  "icon": "PipedriveIcon",
+  "block": {
+    "type": "pipedrive",
+    "name": "Pipedrive",
+    "description": "Interact with Pipedrive CRM",
+    "longDescription": "Integrate Pipedrive into your workflow. Manage deals, contacts, sales pipeline, projects, activities, files, and communications with powerful CRM capabilities.",
+    "docsLink": "https://docs.sim.ai/tools/pipedrive",
+    "category": "tools",
+    "bgColor": "#2E6936",
+    "icon": "PipedriveIcon",
+    "authMode": "oauth",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Get All Deals",
+            "value": "get_all_deals"
+          },
+          {
+            "label": "Get Deal",
+            "value": "get_deal"
+          },
+          {
+            "label": "Create Deal",
+            "value": "create_deal"
+          },
+          {
+            "label": "Update Deal",
+            "value": "update_deal"
+          },
+          {
+            "label": "Get Files",
+            "value": "get_files"
+          },
+          {
+            "label": "Get Mail Threads",
+            "value": "get_mail_messages"
+          },
+          {
+            "label": "Get Mail Thread Messages",
+            "value": "get_mail_thread"
+          },
+          {
+            "label": "Get Pipelines",
+            "value": "get_pipelines"
+          },
+          {
+            "label": "Get Pipeline Deals",
+            "value": "get_pipeline_deals"
+          },
+          {
+            "label": "Get Projects",
+            "value": "get_projects"
+          },
+          {
+            "label": "Create Project",
+            "value": "create_project"
+          },
+          {
+            "label": "Get Activities",
+            "value": "get_activities"
+          },
+          {
+            "label": "Create Activity",
+            "value": "create_activity"
+          },
+          {
+            "label": "Update Activity",
+            "value": "update_activity"
+          },
+          {
+            "label": "Get Leads",
+            "value": "get_leads"
+          },
+          {
+            "label": "Create Lead",
+            "value": "create_lead"
+          },
+          {
+            "label": "Update Lead",
+            "value": "update_lead"
+          },
+          {
+            "label": "Delete Lead",
+            "value": "delete_lead"
+          }
+        ]
+      },
+      {
+        "id": "credential",
+        "type": "oauth-input",
+        "title": "Pipedrive Account",
+        "placeholder": "Select Pipedrive account"
+      },
+      {
+        "id": "status",
+        "type": "dropdown",
+        "title": "Status",
+        "options": [
+          {
+            "label": "Open",
+            "value": "open"
+          },
+          {
+            "label": "Won",
+            "value": "won"
+          },
+          {
+            "label": "Lost",
+            "value": "lost"
+          }
+        ]
+      },
+      {
+        "id": "person_id",
+        "type": "short-input",
+        "title": "Person ID",
+        "placeholder": "Filter by person ID"
+      },
+      {
+        "id": "org_id",
+        "type": "short-input",
+        "title": "Organization ID",
+        "placeholder": "Filter by organization ID"
+      },
+      {
+        "id": "pipeline_id",
+        "type": "short-input",
+        "title": "Pipeline ID",
+        "placeholder": "Filter by pipeline ID "
+      },
+      {
+        "id": "updated_since",
+        "type": "short-input",
+        "title": "Updated Since",
+        "placeholder": "Date (2025-01-01T10:20:00Z)"
+      },
+      {
+        "id": "limit",
+        "type": "short-input",
+        "title": "Limit",
+        "placeholder": "Number of results (default 100, max 500)"
+      },
+      {
+        "id": "deal_id",
+        "type": "short-input",
+        "title": "Deal ID",
+        "placeholder": "Enter deal ID"
+      },
+      {
+        "id": "title",
+        "type": "short-input",
+        "title": "Title",
+        "placeholder": "Enter deal title"
+      },
+      {
+        "id": "value",
+        "type": "short-input",
+        "title": "Value",
+        "placeholder": "Monetary value "
+      },
+      {
+        "id": "currency",
+        "type": "short-input",
+        "title": "Currency",
+        "placeholder": "Currency code (e.g., USD, EUR)"
+      },
+      {
+        "id": "person_id",
+        "type": "short-input",
+        "title": "Person ID",
+        "placeholder": "Associated person ID "
+      },
+      {
+        "id": "org_id",
+        "type": "short-input",
+        "title": "Organization ID",
+        "placeholder": "Associated organization ID "
+      },
+      {
+        "id": "pipeline_id",
+        "type": "short-input",
+        "title": "Pipeline ID",
+        "placeholder": "Pipeline ID "
+      },
+      {
+        "id": "stage_id",
+        "type": "short-input",
+        "title": "Stage ID",
+        "placeholder": "Stage ID "
+      },
+      {
+        "id": "status",
+        "type": "dropdown",
+        "title": "Status",
+        "options": [
+          {
+            "label": "Open",
+            "value": "open"
+          },
+          {
+            "label": "Won",
+            "value": "won"
+          },
+          {
+            "label": "Lost",
+            "value": "lost"
+          }
+        ]
+      },
+      {
+        "id": "expected_close_date",
+        "type": "short-input",
+        "title": "Expected Close Date",
+        "placeholder": "YYYY-MM-DD "
+      },
+      {
+        "id": "title",
+        "type": "short-input",
+        "title": "New Title",
+        "placeholder": "New deal title "
+      },
+      {
+        "id": "deal_id",
+        "type": "short-input",
+        "title": "Deal ID",
+        "placeholder": "Filter by deal ID "
+      },
+      {
+        "id": "person_id",
+        "type": "short-input",
+        "title": "Person ID",
+        "placeholder": "Filter by person ID "
+      },
+      {
+        "id": "org_id",
+        "type": "short-input",
+        "title": "Organization ID",
+        "placeholder": "Filter by organization ID "
+      },
+      {
+        "id": "limit",
+        "type": "short-input",
+        "title": "Limit",
+        "placeholder": "Number of results (default 100, max 500)"
+      },
+      {
+        "id": "folder",
+        "type": "dropdown",
+        "title": "Folder",
+        "options": [
+          {
+            "label": "Inbox",
+            "value": "inbox"
+          },
+          {
+            "label": "Drafts",
+            "value": "drafts"
+          },
+          {
+            "label": "Sent",
+            "value": "sent"
+          },
+          {
+            "label": "Archive",
+            "value": "archive"
+          }
+        ]
+      },
+      {
+        "id": "limit",
+        "type": "short-input",
+        "title": "Limit",
+        "placeholder": "Number of results (default 50)"
+      },
+      {
+        "id": "thread_id",
+        "type": "short-input",
+        "title": "Thread ID",
+        "placeholder": "Enter mail thread ID"
+      },
+      {
+        "id": "sort_by",
+        "type": "dropdown",
+        "title": "Sort By",
+        "options": [
+          {
+            "label": "ID",
+            "value": "id"
+          },
+          {
+            "label": "Update Time",
+            "value": "update_time"
+          },
+          {
+            "label": "Add Time",
+            "value": "add_time"
+          }
+        ]
+      },
+      {
+        "id": "sort_direction",
+        "type": "dropdown",
+        "title": "Sort Direction",
+        "options": [
+          {
+            "label": "Ascending",
+            "value": "asc"
+          },
+          {
+            "label": "Descending",
+            "value": "desc"
+          }
+        ]
+      },
+      {
+        "id": "limit",
+        "type": "short-input",
+        "title": "Limit",
+        "placeholder": "Number of results (default 100, max 500)"
+      },
+      {
+        "id": "cursor",
+        "type": "short-input",
+        "title": "Cursor",
+        "placeholder": "Pagination cursor (optional)"
+      },
+      {
+        "id": "pipeline_id",
+        "type": "short-input",
+        "title": "Pipeline ID",
+        "placeholder": "Enter pipeline ID"
+      },
+      {
+        "id": "stage_id",
+        "type": "short-input",
+        "title": "Stage ID",
+        "placeholder": "Filter by stage ID "
+      },
+      {
+        "id": "status",
+        "type": "dropdown",
+        "title": "Status",
+        "options": [
+          {
+            "label": "Open",
+            "value": "open"
+          },
+          {
+            "label": "Won",
+            "value": "won"
+          },
+          {
+            "label": "Lost",
+            "value": "lost"
+          }
+        ]
+      },
+      {
+        "id": "limit",
+        "type": "short-input",
+        "title": "Limit",
+        "placeholder": "Number of results (default 100, max 500)"
+      },
+      {
+        "id": "project_id",
+        "type": "short-input",
+        "title": "Project ID",
+        "placeholder": "Project ID"
+      },
+      {
+        "id": "status",
+        "type": "dropdown",
+        "title": "Status",
+        "options": [
+          {
+            "label": "Open",
+            "value": "open"
+          },
+          {
+            "label": "Completed",
+            "value": "completed"
+          }
+        ]
+      },
+      {
+        "id": "limit",
+        "type": "short-input",
+        "title": "Limit",
+        "placeholder": "Number of results (default 100, max 500)"
+      },
+      {
+        "id": "title",
+        "type": "short-input",
+        "title": "Title",
+        "placeholder": "Enter project title"
+      },
+      {
+        "id": "description",
+        "type": "long-input",
+        "title": "Description",
+        "placeholder": "Project description "
+      },
+      {
+        "id": "start_date",
+        "type": "short-input",
+        "title": "Start Date",
+        "placeholder": "YYYY-MM-DD "
+      },
+      {
+        "id": "end_date",
+        "type": "short-input",
+        "title": "End Date",
+        "placeholder": "YYYY-MM-DD "
+      },
+      {
+        "id": "deal_id",
+        "type": "short-input",
+        "title": "Deal ID",
+        "placeholder": "Filter by deal ID "
+      },
+      {
+        "id": "person_id",
+        "type": "short-input",
+        "title": "Person ID",
+        "placeholder": "Filter by person ID "
+      },
+      {
+        "id": "org_id",
+        "type": "short-input",
+        "title": "Organization ID",
+        "placeholder": "Filter by organization ID "
+      },
+      {
+        "id": "type",
+        "type": "dropdown",
+        "title": "Activity Type",
+        "options": [
+          {
+            "label": "Call",
+            "value": "call"
+          },
+          {
+            "label": "Meeting",
+            "value": "meeting"
+          },
+          {
+            "label": "Task",
+            "value": "task"
+          },
+          {
+            "label": "Deadline",
+            "value": "deadline"
+          },
+          {
+            "label": "Email",
+            "value": "email"
+          },
+          {
+            "label": "Lunch",
+            "value": "lunch"
+          }
+        ]
+      },
+      {
+        "id": "done",
+        "type": "dropdown",
+        "title": "Completion Status",
+        "options": [
+          {
+            "label": "Not Done",
+            "value": "0"
+          },
+          {
+            "label": "Done",
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "id": "limit",
+        "type": "short-input",
+        "title": "Limit",
+        "placeholder": "Number of results (default 100, max 500)"
+      },
+      {
+        "id": "subject",
+        "type": "short-input",
+        "title": "Subject",
+        "placeholder": "Activity subject/title"
+      },
+      {
+        "id": "type",
+        "type": "dropdown",
+        "title": "Activity Type",
+        "options": [
+          {
+            "label": "Call",
+            "value": "call"
+          },
+          {
+            "label": "Meeting",
+            "value": "meeting"
+          },
+          {
+            "label": "Task",
+            "value": "task"
+          },
+          {
+            "label": "Deadline",
+            "value": "deadline"
+          },
+          {
+            "label": "Email",
+            "value": "email"
+          },
+          {
+            "label": "Lunch",
+            "value": "lunch"
+          }
+        ]
+      },
+      {
+        "id": "due_date",
+        "type": "short-input",
+        "title": "Due Date",
+        "placeholder": "YYYY-MM-DD"
+      },
+      {
+        "id": "due_time",
+        "type": "short-input",
+        "title": "Due Time",
+        "placeholder": "HH:MM "
+      },
+      {
+        "id": "duration",
+        "type": "short-input",
+        "title": "Duration",
+        "placeholder": "HH:MM "
+      },
+      {
+        "id": "note",
+        "type": "long-input",
+        "title": "Notes",
+        "placeholder": "Activity notes "
+      },
+      {
+        "id": "activity_id",
+        "type": "short-input",
+        "title": "Activity ID",
+        "placeholder": "Enter activity ID"
+      },
+      {
+        "id": "done",
+        "type": "dropdown",
+        "title": "Mark as Done",
+        "options": [
+          {
+            "label": "Not Done",
+            "value": "0"
+          },
+          {
+            "label": "Done",
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "id": "lead_id",
+        "type": "short-input",
+        "title": "Lead ID",
+        "placeholder": "Lead ID"
+      },
+      {
+        "id": "archived",
+        "type": "dropdown",
+        "title": "Archived",
+        "options": [
+          {
+            "label": "Active Leads",
+            "value": "false"
+          },
+          {
+            "label": "Archived Leads",
+            "value": "true"
+          }
+        ]
+      },
+      {
+        "id": "title",
+        "type": "short-input",
+        "title": "Title",
+        "placeholder": "Enter lead title"
+      },
+      {
+        "id": "title",
+        "type": "short-input",
+        "title": "New Title",
+        "placeholder": "New lead title"
+      },
+      {
+        "id": "person_id",
+        "type": "short-input",
+        "title": "Person ID",
+        "placeholder": "Person ID to link lead to"
+      },
+      {
+        "id": "organization_id",
+        "type": "short-input",
+        "title": "Organization ID",
+        "placeholder": "Organization ID to link lead to"
+      },
+      {
+        "id": "owner_id",
+        "type": "short-input",
+        "title": "Owner ID",
+        "placeholder": "Owner user ID"
+      },
+      {
+        "id": "value_amount",
+        "type": "short-input",
+        "title": "Value Amount",
+        "placeholder": "Potential value amount"
+      },
+      {
+        "id": "value_currency",
+        "type": "short-input",
+        "title": "Value Currency",
+        "placeholder": "Currency code (e.g., USD, EUR)"
+      },
+      {
+        "id": "expected_close_date",
+        "type": "short-input",
+        "title": "Expected Close Date",
+        "placeholder": "YYYY-MM-DD"
+      },
+      {
+        "id": "is_archived",
+        "type": "dropdown",
+        "title": "Archive Lead",
+        "options": [
+          {
+            "label": "No",
+            "value": "false"
+          },
+          {
+            "label": "Yes",
+            "value": "true"
+          }
+        ]
+      },
+      {
+        "id": "limit",
+        "type": "short-input",
+        "title": "Limit",
+        "placeholder": "Number of results (default 100)"
+      }
+    ],
+    "tools": {
+      "access": [
+        "pipedrive_get_all_deals",
+        "pipedrive_get_deal",
+        "pipedrive_create_deal",
+        "pipedrive_update_deal",
+        "pipedrive_get_files",
+        "pipedrive_get_mail_messages",
+        "pipedrive_get_mail_thread",
+        "pipedrive_get_pipelines",
+        "pipedrive_get_pipeline_deals",
+        "pipedrive_get_projects",
+        "pipedrive_create_project",
+        "pipedrive_get_activities",
+        "pipedrive_create_activity",
+        "pipedrive_update_activity",
+        "pipedrive_get_leads",
+        "pipedrive_create_lead",
+        "pipedrive_update_lead",
+        "pipedrive_delete_lead"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "deals": {
+        "type": "json"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "pipedrive_create_activity",
+      "name": "Create Activity in Pipedrive",
+      "description": "Create a new activity (task) in Pipedrive",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "pipedrive",
+        "operation": "pipedrive_create_activity"
+      }
+    },
+    {
+      "id": "pipedrive_create_deal",
+      "name": "Create Deal in Pipedrive",
+      "description": "Create a new deal in Pipedrive",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "pipedrive",
+        "operation": "pipedrive_create_deal"
+      }
+    },
+    {
+      "id": "pipedrive_create_lead",
+      "name": "Create Lead in Pipedrive",
+      "description": "Create a new lead in Pipedrive",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "pipedrive",
+        "operation": "pipedrive_create_lead"
+      }
+    },
+    {
+      "id": "pipedrive_create_project",
+      "name": "Create Project in Pipedrive",
+      "description": "Create a new project in Pipedrive",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "pipedrive",
+        "operation": "pipedrive_create_project"
+      }
+    },
+    {
+      "id": "pipedrive_delete_lead",
+      "name": "Delete Lead from Pipedrive",
+      "description": "Delete a specific lead from Pipedrive",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "pipedrive",
+        "operation": "pipedrive_delete_lead"
+      }
+    },
+    {
+      "id": "pipedrive_get_activities",
+      "name": "Get Activities from Pipedrive",
+      "description": "Retrieve activities (tasks) from Pipedrive with optional filters",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "pipedrive",
+        "operation": "pipedrive_get_activities"
+      }
+    },
+    {
+      "id": "pipedrive_get_all_deals",
+      "name": "Get All Deals from Pipedrive",
+      "description": "Retrieve all deals from Pipedrive with optional filters",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "pipedrive",
+        "operation": "pipedrive_get_all_deals"
+      }
+    },
+    {
+      "id": "pipedrive_get_deal",
+      "name": "Get Deal Details from Pipedrive",
+      "description": "Retrieve detailed information about a specific deal",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "pipedrive",
+        "operation": "pipedrive_get_deal"
+      }
+    },
+    {
+      "id": "pipedrive_get_files",
+      "name": "Get Files from Pipedrive",
+      "description": "Retrieve files from Pipedrive with optional filters",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "pipedrive",
+        "operation": "pipedrive_get_files"
+      }
+    },
+    {
+      "id": "pipedrive_get_leads",
+      "name": "Get Leads from Pipedrive",
+      "description": "Retrieve all leads or a specific lead from Pipedrive",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "pipedrive",
+        "operation": "pipedrive_get_leads"
+      }
+    },
+    {
+      "id": "pipedrive_get_mail_messages",
+      "name": "Get Mail Threads from Pipedrive",
+      "description": "Retrieve mail threads from Pipedrive mailbox",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "pipedrive",
+        "operation": "pipedrive_get_mail_messages"
+      }
+    },
+    {
+      "id": "pipedrive_get_mail_thread",
+      "name": "Get Mail Thread Messages from Pipedrive",
+      "description": "Retrieve all messages from a specific mail thread",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "pipedrive",
+        "operation": "pipedrive_get_mail_thread"
+      }
+    },
+    {
+      "id": "pipedrive_get_pipelines",
+      "name": "Get Pipelines from Pipedrive",
+      "description": "Retrieve all pipelines from Pipedrive",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "pipedrive",
+        "operation": "pipedrive_get_pipelines"
+      }
+    },
+    {
+      "id": "pipedrive_get_pipeline_deals",
+      "name": "Get Pipeline Deals from Pipedrive",
+      "description": "Retrieve all deals in a specific pipeline",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "pipedrive",
+        "operation": "pipedrive_get_pipeline_deals"
+      }
+    },
+    {
+      "id": "pipedrive_get_projects",
+      "name": "Get Projects from Pipedrive",
+      "description": "Retrieve all projects or a specific project from Pipedrive",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "pipedrive",
+        "operation": "pipedrive_get_projects"
+      }
+    },
+    {
+      "id": "pipedrive_update_activity",
+      "name": "Update Activity in Pipedrive",
+      "description": "Update an existing activity (task) in Pipedrive",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "pipedrive",
+        "operation": "pipedrive_update_activity"
+      }
+    },
+    {
+      "id": "pipedrive_update_deal",
+      "name": "Update Deal in Pipedrive",
+      "description": "Update an existing deal in Pipedrive",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "pipedrive",
+        "operation": "pipedrive_update_deal"
+      }
+    },
+    {
+      "id": "pipedrive_update_lead",
+      "name": "Update Lead in Pipedrive",
+      "description": "Update an existing lead in Pipedrive",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "pipedrive",
+        "operation": "pipedrive_update_lead"
+      }
+    }
+  ]
+}

@@ -1,0 +1,1150 @@
+{
+  "id": "intercom",
+  "name": "Intercom (Legacy)",
+  "version": "1.0.0",
+  "description": "Manage contacts, companies, conversations, tickets, and messages in Intercom",
+  "icon": "IntercomIcon",
+  "block": {
+    "type": "intercom",
+    "name": "Intercom (Legacy)",
+    "description": "Manage contacts, companies, conversations, tickets, and messages in Intercom",
+    "longDescription": "Integrate Intercom into the workflow. Can create, get, update, list, search, and delete contacts; create, get, and list companies; get, list, reply, and search conversations; create and get tickets; and create messages.",
+    "docsLink": "https://docs.sim.ai/tools/intercom",
+    "category": "tools",
+    "bgColor": "#E0E0E0",
+    "icon": "IntercomIcon",
+    "authMode": "api_key",
+    "hideFromToolbar": true,
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Create Contact",
+            "value": "create_contact"
+          },
+          {
+            "label": "Get Contact",
+            "value": "get_contact"
+          },
+          {
+            "label": "Update Contact",
+            "value": "update_contact"
+          },
+          {
+            "label": "List Contacts",
+            "value": "list_contacts"
+          },
+          {
+            "label": "Search Contacts",
+            "value": "search_contacts"
+          },
+          {
+            "label": "Delete Contact",
+            "value": "delete_contact"
+          },
+          {
+            "label": "Create Company",
+            "value": "create_company"
+          },
+          {
+            "label": "Get Company",
+            "value": "get_company"
+          },
+          {
+            "label": "List Companies",
+            "value": "list_companies"
+          },
+          {
+            "label": "Get Conversation",
+            "value": "get_conversation"
+          },
+          {
+            "label": "List Conversations",
+            "value": "list_conversations"
+          },
+          {
+            "label": "Reply to Conversation",
+            "value": "reply_conversation"
+          },
+          {
+            "label": "Search Conversations",
+            "value": "search_conversations"
+          },
+          {
+            "label": "Create Ticket",
+            "value": "create_ticket"
+          },
+          {
+            "label": "Get Ticket",
+            "value": "get_ticket"
+          },
+          {
+            "label": "Update Ticket",
+            "value": "update_ticket"
+          },
+          {
+            "label": "Create Message",
+            "value": "create_message"
+          },
+          {
+            "label": "List Admins",
+            "value": "list_admins"
+          },
+          {
+            "label": "Close Conversation",
+            "value": "close_conversation"
+          },
+          {
+            "label": "Open Conversation",
+            "value": "open_conversation"
+          },
+          {
+            "label": "Snooze Conversation",
+            "value": "snooze_conversation"
+          },
+          {
+            "label": "Assign Conversation",
+            "value": "assign_conversation"
+          },
+          {
+            "label": "List Tags",
+            "value": "list_tags"
+          },
+          {
+            "label": "Create Tag",
+            "value": "create_tag"
+          },
+          {
+            "label": "Tag Contact",
+            "value": "tag_contact"
+          },
+          {
+            "label": "Untag Contact",
+            "value": "untag_contact"
+          },
+          {
+            "label": "Tag Conversation",
+            "value": "tag_conversation"
+          },
+          {
+            "label": "Create Note",
+            "value": "create_note"
+          },
+          {
+            "label": "Create Event",
+            "value": "create_event"
+          },
+          {
+            "label": "Attach Contact to Company",
+            "value": "attach_contact_to_company"
+          },
+          {
+            "label": "Detach Contact from Company",
+            "value": "detach_contact_from_company"
+          }
+        ]
+      },
+      {
+        "id": "accessToken",
+        "type": "short-input",
+        "title": "Access Token",
+        "placeholder": "Enter your Intercom access token",
+        "password": true
+      },
+      {
+        "id": "role",
+        "type": "dropdown",
+        "title": "Role",
+        "options": [
+          {
+            "label": "Lead",
+            "value": "lead"
+          },
+          {
+            "label": "User",
+            "value": "user"
+          }
+        ]
+      },
+      {
+        "id": "contactId",
+        "type": "short-input",
+        "title": "Contact ID",
+        "placeholder": "Contact ID"
+      },
+      {
+        "id": "email",
+        "type": "short-input",
+        "title": "Email",
+        "placeholder": "Contact email"
+      },
+      {
+        "id": "external_id",
+        "type": "short-input",
+        "title": "External ID",
+        "placeholder": "External identifier for the contact"
+      },
+      {
+        "id": "phone",
+        "type": "short-input",
+        "title": "Phone",
+        "placeholder": "Contact phone number"
+      },
+      {
+        "id": "name",
+        "type": "short-input",
+        "title": "Name",
+        "placeholder": "Contact name"
+      },
+      {
+        "id": "avatar",
+        "type": "short-input",
+        "title": "Avatar URL",
+        "placeholder": "Avatar image URL"
+      },
+      {
+        "id": "signed_up_at",
+        "type": "short-input",
+        "title": "Signed Up At",
+        "placeholder": "Unix timestamp"
+      },
+      {
+        "id": "last_seen_at",
+        "type": "short-input",
+        "title": "Last Seen At",
+        "placeholder": "Unix timestamp"
+      },
+      {
+        "id": "owner_id",
+        "type": "short-input",
+        "title": "Owner ID",
+        "placeholder": "Admin ID"
+      },
+      {
+        "id": "unsubscribed_from_emails",
+        "type": "dropdown",
+        "title": "Unsubscribed from Emails",
+        "options": [
+          {
+            "label": "True",
+            "value": "true"
+          },
+          {
+            "label": "False",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "id": "custom_attributes",
+        "type": "long-input",
+        "title": "Custom Attributes",
+        "placeholder": "JSON object with custom attributes"
+      },
+      {
+        "id": "contact_company_id",
+        "type": "short-input",
+        "title": "Company ID",
+        "placeholder": "Company ID to associate with contact"
+      },
+      {
+        "id": "query",
+        "type": "long-input",
+        "title": "Search Query",
+        "placeholder": "JSON search query or text"
+      },
+      {
+        "id": "sort_field",
+        "type": "short-input",
+        "title": "Sort Field",
+        "placeholder": "Field to sort by (e.g., name, created_at)"
+      },
+      {
+        "id": "sort_order",
+        "type": "dropdown",
+        "title": "Sort Order",
+        "options": [
+          {
+            "label": "Descending",
+            "value": "descending"
+          },
+          {
+            "label": "Ascending",
+            "value": "ascending"
+          }
+        ]
+      },
+      {
+        "id": "companyId",
+        "type": "short-input",
+        "title": "Company ID",
+        "placeholder": "Intercom company ID"
+      },
+      {
+        "id": "company_id",
+        "type": "short-input",
+        "title": "Company ID (External)",
+        "placeholder": "Your unique identifier for the company"
+      },
+      {
+        "id": "company_name",
+        "type": "short-input",
+        "title": "Company Name",
+        "placeholder": "Company name"
+      },
+      {
+        "id": "website",
+        "type": "short-input",
+        "title": "Website",
+        "placeholder": "Company website"
+      },
+      {
+        "id": "plan",
+        "type": "short-input",
+        "title": "Plan",
+        "placeholder": "Subscription plan"
+      },
+      {
+        "id": "size",
+        "type": "short-input",
+        "title": "Size",
+        "placeholder": "Number of employees"
+      },
+      {
+        "id": "industry",
+        "type": "short-input",
+        "title": "Industry",
+        "placeholder": "Company industry"
+      },
+      {
+        "id": "monthly_spend",
+        "type": "short-input",
+        "title": "Monthly Spend",
+        "placeholder": "Revenue amount"
+      },
+      {
+        "id": "remote_created_at",
+        "type": "short-input",
+        "title": "Remote Created At",
+        "placeholder": "Unix timestamp when company was created"
+      },
+      {
+        "id": "conversationId",
+        "type": "short-input",
+        "title": "Conversation ID",
+        "placeholder": "Conversation ID"
+      },
+      {
+        "id": "display_as",
+        "type": "dropdown",
+        "title": "Display As",
+        "options": [
+          {
+            "label": "HTML",
+            "value": "html"
+          },
+          {
+            "label": "Plain Text",
+            "value": "plaintext"
+          }
+        ]
+      },
+      {
+        "id": "include_translations",
+        "type": "dropdown",
+        "title": "Include Translations",
+        "options": [
+          {
+            "label": "False",
+            "value": "false"
+          },
+          {
+            "label": "True",
+            "value": "true"
+          }
+        ]
+      },
+      {
+        "id": "sort",
+        "type": "short-input",
+        "title": "Sort By",
+        "placeholder": "Field to sort by (e.g., waiting_since, updated_at)"
+      },
+      {
+        "id": "order",
+        "type": "dropdown",
+        "title": "Order",
+        "options": [
+          {
+            "label": "Descending",
+            "value": "desc"
+          },
+          {
+            "label": "Ascending",
+            "value": "asc"
+          }
+        ]
+      },
+      {
+        "id": "message_type",
+        "type": "dropdown",
+        "title": "Message Type",
+        "options": [
+          {
+            "label": "Comment",
+            "value": "comment"
+          },
+          {
+            "label": "Note",
+            "value": "note"
+          }
+        ]
+      },
+      {
+        "id": "body",
+        "type": "long-input",
+        "title": "Message Body",
+        "placeholder": "Message text"
+      },
+      {
+        "id": "admin_id",
+        "type": "short-input",
+        "title": "Admin ID",
+        "placeholder": "ID of the admin performing the action"
+      },
+      {
+        "id": "attachment_urls",
+        "type": "short-input",
+        "title": "Attachment URLs",
+        "placeholder": "Comma-separated image URLs (max 10)"
+      },
+      {
+        "id": "reply_created_at",
+        "type": "short-input",
+        "title": "Created At",
+        "placeholder": "Unix timestamp for reply creation time"
+      },
+      {
+        "id": "ticketId",
+        "type": "short-input",
+        "title": "Ticket ID",
+        "placeholder": "Ticket ID"
+      },
+      {
+        "id": "ticket_type_id",
+        "type": "short-input",
+        "title": "Ticket Type ID",
+        "placeholder": "ID of the ticket type"
+      },
+      {
+        "id": "contacts",
+        "type": "long-input",
+        "title": "Contacts",
+        "placeholder": "JSON array of contact identifiers"
+      },
+      {
+        "id": "ticket_attributes",
+        "type": "long-input",
+        "title": "Ticket Attributes",
+        "placeholder": "JSON object with ticket attributes"
+      },
+      {
+        "id": "ticket_company_id",
+        "type": "short-input",
+        "title": "Company ID",
+        "placeholder": "Company ID to associate with ticket"
+      },
+      {
+        "id": "ticket_created_at",
+        "type": "short-input",
+        "title": "Created At",
+        "placeholder": "Unix timestamp for ticket creation time"
+      },
+      {
+        "id": "conversation_to_link_id",
+        "type": "short-input",
+        "title": "Conversation to Link",
+        "placeholder": "ID of conversation to link to ticket"
+      },
+      {
+        "id": "disable_notifications",
+        "type": "dropdown",
+        "title": "Disable Notifications",
+        "options": [
+          {
+            "label": "False",
+            "value": "false"
+          },
+          {
+            "label": "True",
+            "value": "true"
+          }
+        ]
+      },
+      {
+        "id": "message_type_msg",
+        "type": "dropdown",
+        "title": "Message Type",
+        "options": [
+          {
+            "label": "In-App",
+            "value": "inapp"
+          },
+          {
+            "label": "Email",
+            "value": "email"
+          }
+        ]
+      },
+      {
+        "id": "template",
+        "type": "dropdown",
+        "title": "Template",
+        "options": [
+          {
+            "label": "Plain",
+            "value": "plain"
+          },
+          {
+            "label": "Personal",
+            "value": "personal"
+          }
+        ]
+      },
+      {
+        "id": "subject",
+        "type": "short-input",
+        "title": "Subject",
+        "placeholder": "Email subject (for email type)"
+      },
+      {
+        "id": "from_type",
+        "type": "dropdown",
+        "title": "From Type",
+        "options": [
+          {
+            "label": "Admin",
+            "value": "admin"
+          }
+        ]
+      },
+      {
+        "id": "from_id",
+        "type": "short-input",
+        "title": "From ID",
+        "placeholder": "Admin ID"
+      },
+      {
+        "id": "to_type",
+        "type": "dropdown",
+        "title": "To Type",
+        "options": [
+          {
+            "label": "Contact",
+            "value": "contact"
+          }
+        ]
+      },
+      {
+        "id": "to_id",
+        "type": "short-input",
+        "title": "To ID",
+        "placeholder": "Contact ID"
+      },
+      {
+        "id": "message_created_at",
+        "type": "short-input",
+        "title": "Created At",
+        "placeholder": "Unix timestamp for message creation time"
+      },
+      {
+        "id": "per_page",
+        "type": "short-input",
+        "title": "Per Page",
+        "placeholder": "Results per page (max: 150)",
+        "max": 150
+      },
+      {
+        "id": "starting_after",
+        "type": "short-input",
+        "title": "Starting After",
+        "placeholder": "Cursor for pagination"
+      },
+      {
+        "id": "page",
+        "type": "short-input",
+        "title": "Page",
+        "placeholder": "Page number"
+      },
+      {
+        "id": "close_body",
+        "type": "long-input",
+        "title": "Closing Message",
+        "placeholder": "Optional message to add when closing"
+      },
+      {
+        "id": "snoozed_until",
+        "type": "short-input",
+        "title": "Snooze Until",
+        "placeholder": "Unix timestamp when conversation should reopen"
+      },
+      {
+        "id": "assignee_id",
+        "type": "short-input",
+        "title": "Assignee ID",
+        "placeholder": "Admin or team ID to assign to (0 to unassign)"
+      },
+      {
+        "id": "assign_body",
+        "type": "long-input",
+        "title": "Assignment Message",
+        "placeholder": "Optional message when assigning"
+      },
+      {
+        "id": "update_ticket_attributes",
+        "type": "long-input",
+        "title": "Ticket Attributes",
+        "placeholder": "JSON object with ticket attributes to update"
+      },
+      {
+        "id": "ticket_open",
+        "type": "dropdown",
+        "title": "Ticket Open",
+        "options": [
+          {
+            "label": "Keep Open",
+            "value": "true"
+          },
+          {
+            "label": "Close Ticket",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "id": "ticket_is_shared",
+        "type": "dropdown",
+        "title": "Ticket Visible to Users",
+        "options": [
+          {
+            "label": "Yes",
+            "value": "true"
+          },
+          {
+            "label": "No",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "id": "ticket_snoozed_until",
+        "type": "short-input",
+        "title": "Snooze Ticket Until",
+        "placeholder": "Unix timestamp when ticket should reopen"
+      },
+      {
+        "id": "ticket_assignee_id",
+        "type": "short-input",
+        "title": "Ticket Assignee ID",
+        "placeholder": "Admin or team ID to assign to (0 to unassign)"
+      },
+      {
+        "id": "tagId",
+        "type": "short-input",
+        "title": "Tag ID",
+        "placeholder": "ID of the tag"
+      },
+      {
+        "id": "tag_name",
+        "type": "short-input",
+        "title": "Tag Name",
+        "placeholder": "Name of the tag to create"
+      },
+      {
+        "id": "tag_id_update",
+        "type": "short-input",
+        "title": "Tag ID (for update)",
+        "placeholder": "ID of existing tag to update (leave empty to create new)"
+      },
+      {
+        "id": "tag_contact_id",
+        "type": "short-input",
+        "title": "Contact ID",
+        "placeholder": "ID of the contact"
+      },
+      {
+        "id": "note_body",
+        "type": "long-input",
+        "title": "Note Content",
+        "placeholder": "Text content of the note"
+      },
+      {
+        "id": "event_name",
+        "type": "short-input",
+        "title": "Event Name",
+        "placeholder": "Event name (e.g., order-completed)"
+      },
+      {
+        "id": "event_user_id",
+        "type": "short-input",
+        "title": "User ID",
+        "placeholder": "Your identifier for the user"
+      },
+      {
+        "id": "event_email",
+        "type": "short-input",
+        "title": "User Email",
+        "placeholder": "Email address of the user"
+      },
+      {
+        "id": "event_contact_id",
+        "type": "short-input",
+        "title": "Contact ID",
+        "placeholder": "Intercom contact ID"
+      },
+      {
+        "id": "event_metadata",
+        "type": "long-input",
+        "title": "Event Metadata",
+        "placeholder": "JSON object with event metadata (max 10 keys)"
+      },
+      {
+        "id": "event_created_at",
+        "type": "short-input",
+        "title": "Event Time",
+        "placeholder": "Unix timestamp when event occurred"
+      },
+      {
+        "id": "attach_company_id",
+        "type": "short-input",
+        "title": "Company ID",
+        "placeholder": "ID of the company to attach/detach"
+      }
+    ],
+    "tools": {
+      "access": [
+        "intercom_create_contact",
+        "intercom_get_contact",
+        "intercom_update_contact",
+        "intercom_list_contacts",
+        "intercom_search_contacts",
+        "intercom_delete_contact",
+        "intercom_create_company",
+        "intercom_get_company",
+        "intercom_list_companies",
+        "intercom_get_conversation",
+        "intercom_list_conversations",
+        "intercom_reply_conversation",
+        "intercom_search_conversations",
+        "intercom_create_ticket",
+        "intercom_get_ticket",
+        "intercom_create_message",
+        "intercom_update_ticket_v2",
+        "intercom_list_admins_v2",
+        "intercom_close_conversation_v2",
+        "intercom_open_conversation_v2",
+        "intercom_snooze_conversation_v2",
+        "intercom_assign_conversation_v2",
+        "intercom_list_tags_v2",
+        "intercom_create_tag_v2",
+        "intercom_tag_contact_v2",
+        "intercom_untag_contact_v2",
+        "intercom_tag_conversation_v2",
+        "intercom_create_note_v2",
+        "intercom_create_event_v2",
+        "intercom_attach_contact_to_company_v2",
+        "intercom_detach_contact_from_company_v2"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "boolean"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "intercom_assign_conversation_v2",
+      "name": "Assign Conversation in Intercom",
+      "description": "Intercom API access token",
+      "version": "2.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "intercom",
+        "operation": "intercom_assign_conversation_v2"
+      }
+    },
+    {
+      "id": "intercom_attach_contact_to_company_v2",
+      "name": "Attach Contact to Company in Intercom",
+      "description": "Intercom API access token",
+      "version": "2.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "intercom",
+        "operation": "intercom_attach_contact_to_company_v2"
+      }
+    },
+    {
+      "id": "intercom_close_conversation_v2",
+      "name": "Close Conversation in Intercom",
+      "description": "Intercom API access token",
+      "version": "2.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "intercom",
+        "operation": "intercom_close_conversation_v2"
+      }
+    },
+    {
+      "id": "intercom_create_company",
+      "name": "Create Company in Intercom",
+      "description": "Intercom API access token",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "intercom",
+        "operation": "intercom_create_company"
+      }
+    },
+    {
+      "id": "intercom_create_contact",
+      "name": "Create Contact in Intercom",
+      "description": "Intercom API access token",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "intercom",
+        "operation": "intercom_create_contact"
+      }
+    },
+    {
+      "id": "intercom_create_event_v2",
+      "name": "Create Event in Intercom",
+      "description": "Intercom API access token",
+      "version": "2.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "intercom",
+        "operation": "intercom_create_event_v2"
+      }
+    },
+    {
+      "id": "intercom_create_message",
+      "name": "Create Message in Intercom",
+      "description": "Intercom API access token",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "intercom",
+        "operation": "intercom_create_message"
+      }
+    },
+    {
+      "id": "intercom_create_note_v2",
+      "name": "Create Note in Intercom",
+      "description": "Intercom API access token",
+      "version": "2.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "intercom",
+        "operation": "intercom_create_note_v2"
+      }
+    },
+    {
+      "id": "intercom_create_tag_v2",
+      "name": "Create Tag in Intercom",
+      "description": "Intercom API access token",
+      "version": "2.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "intercom",
+        "operation": "intercom_create_tag_v2"
+      }
+    },
+    {
+      "id": "intercom_create_ticket",
+      "name": "Create Ticket in Intercom",
+      "description": "Intercom API access token",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "intercom",
+        "operation": "intercom_create_ticket"
+      }
+    },
+    {
+      "id": "intercom_delete_contact",
+      "name": "Delete Contact from Intercom",
+      "description": "Intercom API access token",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "intercom",
+        "operation": "intercom_delete_contact"
+      }
+    },
+    {
+      "id": "intercom_detach_contact_from_company_v2",
+      "name": "Detach Contact from Company in Intercom",
+      "description": "Intercom API access token",
+      "version": "2.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "intercom",
+        "operation": "intercom_detach_contact_from_company_v2"
+      }
+    },
+    {
+      "id": "intercom_get_company",
+      "name": "Get Company from Intercom",
+      "description": "Intercom API access token",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "intercom",
+        "operation": "intercom_get_company"
+      }
+    },
+    {
+      "id": "intercom_get_contact",
+      "name": "Get Single Contact from Intercom",
+      "description": "Intercom API access token",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "intercom",
+        "operation": "intercom_get_contact"
+      }
+    },
+    {
+      "id": "intercom_get_conversation",
+      "name": "Get Conversation from Intercom",
+      "description": "Intercom API access token",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "intercom",
+        "operation": "intercom_get_conversation"
+      }
+    },
+    {
+      "id": "intercom_get_ticket",
+      "name": "Get Ticket from Intercom",
+      "description": "Intercom API access token",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "intercom",
+        "operation": "intercom_get_ticket"
+      }
+    },
+    {
+      "id": "intercom_list_admins_v2",
+      "name": "List Admins from Intercom",
+      "description": "Intercom API access token",
+      "version": "2.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "intercom",
+        "operation": "intercom_list_admins_v2"
+      }
+    },
+    {
+      "id": "intercom_list_companies",
+      "name": "List Companies from Intercom",
+      "description": "Intercom API access token",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "intercom",
+        "operation": "intercom_list_companies"
+      }
+    },
+    {
+      "id": "intercom_list_contacts",
+      "name": "List Contacts from Intercom",
+      "description": "Intercom API access token",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "intercom",
+        "operation": "intercom_list_contacts"
+      }
+    },
+    {
+      "id": "intercom_list_conversations",
+      "name": "List Conversations from Intercom",
+      "description": "Intercom API access token",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "intercom",
+        "operation": "intercom_list_conversations"
+      }
+    },
+    {
+      "id": "intercom_list_tags_v2",
+      "name": "List Tags from Intercom",
+      "description": "Intercom API access token",
+      "version": "2.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "intercom",
+        "operation": "intercom_list_tags_v2"
+      }
+    },
+    {
+      "id": "intercom_open_conversation_v2",
+      "name": "Open Conversation in Intercom",
+      "description": "Intercom API access token",
+      "version": "2.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "intercom",
+        "operation": "intercom_open_conversation_v2"
+      }
+    },
+    {
+      "id": "intercom_reply_conversation",
+      "name": "Reply to Conversation in Intercom",
+      "description": "Intercom API access token",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "intercom",
+        "operation": "intercom_reply_conversation"
+      }
+    },
+    {
+      "id": "intercom_search_contacts",
+      "name": "Search Contacts in Intercom",
+      "description": "Intercom API access token",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "intercom",
+        "operation": "intercom_search_contacts"
+      }
+    },
+    {
+      "id": "intercom_search_conversations",
+      "name": "Search Conversations in Intercom",
+      "description": "Intercom API access token",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "intercom",
+        "operation": "intercom_search_conversations"
+      }
+    },
+    {
+      "id": "intercom_snooze_conversation_v2",
+      "name": "Snooze Conversation in Intercom",
+      "description": "Intercom API access token",
+      "version": "2.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "intercom",
+        "operation": "intercom_snooze_conversation_v2"
+      }
+    },
+    {
+      "id": "intercom_tag_contact_v2",
+      "name": "Tag Contact in Intercom",
+      "description": "Intercom API access token",
+      "version": "2.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "intercom",
+        "operation": "intercom_tag_contact_v2"
+      }
+    },
+    {
+      "id": "intercom_tag_conversation_v2",
+      "name": "Tag Conversation in Intercom",
+      "description": "Intercom API access token",
+      "version": "2.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "intercom",
+        "operation": "intercom_tag_conversation_v2"
+      }
+    },
+    {
+      "id": "intercom_untag_contact_v2",
+      "name": "Untag Contact in Intercom",
+      "description": "Intercom API access token",
+      "version": "2.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "intercom",
+        "operation": "intercom_untag_contact_v2"
+      }
+    },
+    {
+      "id": "intercom_update_contact",
+      "name": "Update Contact in Intercom",
+      "description": "Intercom API access token",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "intercom",
+        "operation": "intercom_update_contact"
+      }
+    },
+    {
+      "id": "intercom_update_ticket_v2",
+      "name": "Update Ticket in Intercom",
+      "description": "Intercom API access token",
+      "version": "2.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "intercom",
+        "operation": "intercom_update_ticket_v2"
+      }
+    }
+  ]
+}

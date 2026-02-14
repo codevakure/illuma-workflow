@@ -1,0 +1,445 @@
+{
+  "id": "google_groups",
+  "name": "Google Groups",
+  "version": "1.0.0",
+  "description": "Manage Google Workspace Groups and their members",
+  "icon": "GoogleGroupsIcon",
+  "block": {
+    "type": "google_groups",
+    "name": "Google Groups",
+    "description": "Manage Google Workspace Groups and their members",
+    "longDescription": "Connect to Google Workspace to create, update, and manage groups and their members using the Admin SDK Directory API.",
+    "docsLink": "https://developers.google.com/admin-sdk/directory/v1/guides/manage-groups",
+    "category": "tools",
+    "bgColor": "#E8F0FE",
+    "icon": "GoogleGroupsIcon",
+    "authMode": "oauth",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "List Groups",
+            "value": "list_groups"
+          },
+          {
+            "label": "Get Group",
+            "value": "get_group"
+          },
+          {
+            "label": "Create Group",
+            "value": "create_group"
+          },
+          {
+            "label": "Update Group",
+            "value": "update_group"
+          },
+          {
+            "label": "Delete Group",
+            "value": "delete_group"
+          },
+          {
+            "label": "List Members",
+            "value": "list_members"
+          },
+          {
+            "label": "Get Member",
+            "value": "get_member"
+          },
+          {
+            "label": "Add Member",
+            "value": "add_member"
+          },
+          {
+            "label": "Update Member Role",
+            "value": "update_member"
+          },
+          {
+            "label": "Remove Member",
+            "value": "remove_member"
+          },
+          {
+            "label": "Check Membership",
+            "value": "has_member"
+          },
+          {
+            "label": "List Aliases",
+            "value": "list_aliases"
+          },
+          {
+            "label": "Add Alias",
+            "value": "add_alias"
+          },
+          {
+            "label": "Remove Alias",
+            "value": "remove_alias"
+          },
+          {
+            "label": "Get Settings",
+            "value": "get_settings"
+          },
+          {
+            "label": "Update Settings",
+            "value": "update_settings"
+          }
+        ]
+      },
+      {
+        "id": "credential",
+        "type": "oauth-input",
+        "title": "Google Groups Account",
+        "placeholder": "Select Google Workspace account"
+      },
+      {
+        "id": "customer",
+        "type": "short-input",
+        "title": "Customer ID",
+        "placeholder": "my_customer (default)"
+      },
+      {
+        "id": "domain",
+        "type": "short-input",
+        "title": "Domain",
+        "placeholder": "Filter by domain (e.g., example.com)"
+      },
+      {
+        "id": "query",
+        "type": "short-input",
+        "title": "Search Query",
+        "placeholder": "Filter query (e.g., email:admin*)"
+      },
+      {
+        "id": "maxResults",
+        "type": "short-input",
+        "title": "Max Results",
+        "placeholder": "Maximum results (1-200)"
+      },
+      {
+        "id": "groupKey",
+        "type": "short-input",
+        "title": "Group Email or ID",
+        "placeholder": "group@example.com or group ID"
+      },
+      {
+        "id": "groupEmail",
+        "type": "short-input",
+        "title": "Group Email",
+        "placeholder": "group@example.com"
+      },
+      {
+        "id": "alias",
+        "type": "short-input",
+        "title": "Alias Email",
+        "placeholder": "alias@example.com"
+      },
+      {
+        "id": "email",
+        "type": "short-input",
+        "title": "Group Email",
+        "placeholder": "newgroup@example.com"
+      },
+      {
+        "id": "name",
+        "type": "short-input",
+        "title": "Group Name",
+        "placeholder": "Display name for the group"
+      },
+      {
+        "id": "description",
+        "type": "long-input",
+        "title": "Description",
+        "placeholder": "Optional description for the group"
+      },
+      {
+        "id": "newName",
+        "type": "short-input",
+        "title": "New Name",
+        "placeholder": "New display name"
+      },
+      {
+        "id": "newEmail",
+        "type": "short-input",
+        "title": "New Email",
+        "placeholder": "New email address"
+      },
+      {
+        "id": "memberKey",
+        "type": "short-input",
+        "title": "Member Email or ID",
+        "placeholder": "user@example.com or member ID"
+      },
+      {
+        "id": "memberEmail",
+        "type": "short-input",
+        "title": "Member Email",
+        "placeholder": "user@example.com"
+      },
+      {
+        "id": "role",
+        "type": "dropdown",
+        "title": "Member Role",
+        "options": [
+          {
+            "label": "MEMBER",
+            "value": "MEMBER"
+          },
+          {
+            "label": "Member",
+            "value": "Member"
+          },
+          {
+            "label": "MANAGER",
+            "value": "MANAGER"
+          },
+          {
+            "label": "Manager",
+            "value": "Manager"
+          },
+          {
+            "label": "OWNER",
+            "value": "OWNER"
+          },
+          {
+            "label": "Owner",
+            "value": "Owner"
+          }
+        ]
+      },
+      {
+        "id": "roles",
+        "type": "short-input",
+        "title": "Filter by Roles",
+        "placeholder": "OWNER,MANAGER,MEMBER"
+      }
+    ],
+    "tools": {
+      "access": [
+        "google_groups_list_groups",
+        "google_groups_get_group",
+        "google_groups_create_group",
+        "google_groups_update_group",
+        "google_groups_delete_group",
+        "google_groups_list_members",
+        "google_groups_get_member",
+        "google_groups_add_member",
+        "google_groups_remove_member",
+        "google_groups_update_member",
+        "google_groups_has_member",
+        "google_groups_list_aliases",
+        "google_groups_add_alias",
+        "google_groups_remove_alias",
+        "google_groups_get_settings",
+        "google_groups_update_settings"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "groups": {
+        "type": "json"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "google_groups_add_alias",
+      "name": "Google Groups Add Alias",
+      "description": "Add an email alias to a Google Group",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_groups",
+        "operation": "google_groups_add_alias"
+      }
+    },
+    {
+      "id": "google_groups_add_member",
+      "name": "Google Groups Add Member",
+      "description": "Add a new member to a Google Group",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_groups",
+        "operation": "google_groups_add_member"
+      }
+    },
+    {
+      "id": "google_groups_create_group",
+      "name": "Google Groups Create Group",
+      "description": "Create a new Google Group in the domain",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_groups",
+        "operation": "google_groups_create_group"
+      }
+    },
+    {
+      "id": "google_groups_delete_group",
+      "name": "Google Groups Delete Group",
+      "description": "Delete a Google Group",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_groups",
+        "operation": "google_groups_delete_group"
+      }
+    },
+    {
+      "id": "google_groups_get_group",
+      "name": "Google Groups Get Group",
+      "description": "Get details of a specific Google Group by email or group ID",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_groups",
+        "operation": "google_groups_get_group"
+      }
+    },
+    {
+      "id": "google_groups_get_member",
+      "name": "Google Groups Get Member",
+      "description": "Get details of a specific member in a Google Group",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_groups",
+        "operation": "google_groups_get_member"
+      }
+    },
+    {
+      "id": "google_groups_get_settings",
+      "name": "Google Groups Get Settings",
+      "description": "Get the settings for a Google Group including access permissions, moderation, and posting options",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_groups",
+        "operation": "google_groups_get_settings"
+      }
+    },
+    {
+      "id": "google_groups_has_member",
+      "name": "Google Groups Has Member",
+      "description": "Check if a user is a member of a Google Group",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_groups",
+        "operation": "google_groups_has_member"
+      }
+    },
+    {
+      "id": "google_groups_list_aliases",
+      "name": "Google Groups List Aliases",
+      "description": "List all email aliases for a Google Group",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_groups",
+        "operation": "google_groups_list_aliases"
+      }
+    },
+    {
+      "id": "google_groups_list_groups",
+      "name": "Google Groups List Groups",
+      "description": "List all groups in a Google Workspace domain",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_groups",
+        "operation": "google_groups_list_groups"
+      }
+    },
+    {
+      "id": "google_groups_list_members",
+      "name": "Google Groups List Members",
+      "description": "List all members of a Google Group",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_groups",
+        "operation": "google_groups_list_members"
+      }
+    },
+    {
+      "id": "google_groups_remove_alias",
+      "name": "Google Groups Remove Alias",
+      "description": "Remove an email alias from a Google Group",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_groups",
+        "operation": "google_groups_remove_alias"
+      }
+    },
+    {
+      "id": "google_groups_remove_member",
+      "name": "Google Groups Remove Member",
+      "description": "Remove a member from a Google Group",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_groups",
+        "operation": "google_groups_remove_member"
+      }
+    },
+    {
+      "id": "google_groups_update_group",
+      "name": "Google Groups Update Group",
+      "description": "Update an existing Google Group",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_groups",
+        "operation": "google_groups_update_group"
+      }
+    },
+    {
+      "id": "google_groups_update_member",
+      "name": "Google Groups Update Member",
+      "description": "Update a member",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_groups",
+        "operation": "google_groups_update_member"
+      }
+    },
+    {
+      "id": "google_groups_update_settings",
+      "name": "Google Groups Update Settings",
+      "description": "Update the settings for a Google Group including access permissions, moderation, and posting options",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_groups",
+        "operation": "google_groups_update_settings"
+      }
+    }
+  ]
+}

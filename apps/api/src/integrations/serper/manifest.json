@@ -1,0 +1,161 @@
+{
+  "id": "serper",
+  "name": "Serper",
+  "version": "1.0.0",
+  "description": "Google search results via Serper.dev API",
+  "icon": "SerperIcon",
+
+  "block": {
+    "type": "serper",
+    "name": "Serper",
+    "description": "Search with Serper",
+    "longDescription": "Search the web using Serper.dev's Google Search API. Get organic results, news, places, and images with structured data. Supports multiple search types and geographic targeting.",
+    "docsLink": "https://docs.sim.ai/tools/serper",
+    "category": "tools",
+    "bgColor": "#3B82F6",
+    "icon": "SerperIcon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "query",
+        "title": "Search Query",
+        "type": "long-input",
+        "placeholder": "Enter your search query...",
+        "required": true
+      },
+      {
+        "id": "type",
+        "title": "Search Type",
+        "type": "dropdown",
+        "options": [
+          { "value": "search", "label": "Web Search" },
+          { "value": "news", "label": "News" },
+          { "value": "places", "label": "Places" },
+          { "value": "images", "label": "Images" }
+        ],
+        "default": "search"
+      },
+      {
+        "id": "num",
+        "title": "Number of Results",
+        "type": "dropdown",
+        "options": [
+          { "value": "10", "label": "10" },
+          { "value": "20", "label": "20" },
+          { "value": "30", "label": "30" },
+          { "value": "50", "label": "50" },
+          { "value": "100", "label": "100" }
+        ],
+        "default": "10"
+      },
+      {
+        "id": "gl",
+        "title": "Country Code",
+        "type": "dropdown",
+        "options": [
+          { "value": "us", "label": "US" },
+          { "value": "gb", "label": "UK" },
+          { "value": "ca", "label": "Canada" },
+          { "value": "au", "label": "Australia" },
+          { "value": "de", "label": "Germany" },
+          { "value": "fr", "label": "France" }
+        ],
+        "default": "us"
+      },
+      {
+        "id": "hl",
+        "title": "Language Code",
+        "type": "dropdown",
+        "options": [
+          { "value": "en", "label": "English" },
+          { "value": "es", "label": "Spanish" },
+          { "value": "fr", "label": "French" },
+          { "value": "de", "label": "German" },
+          { "value": "it", "label": "Italian" }
+        ],
+        "default": "en"
+      },
+      {
+        "id": "apiKey",
+        "title": "API Key",
+        "type": "short-input",
+        "placeholder": "Enter your Serper API key...",
+        "required": true,
+        "password": true
+      }
+    ],
+    "tools": {
+      "access": ["serper_search"],
+      "config": {
+        "tool": "serper_search"
+      }
+    },
+    "inputs": {
+      "query": { "type": "string", "required": true, "description": "The search query to execute" },
+      "type": { "type": "string", "description": "Search type" },
+      "num": { "type": "number", "description": "Number of results to return" },
+      "gl": { "type": "string", "description": "Country code" },
+      "hl": { "type": "string", "description": "Language code" }
+    },
+    "outputs": {
+      "results": { "type": "json", "description": "Array of search results" },
+      "searchParameters": { "type": "json", "description": "Parameters used for the search" }
+    }
+  },
+
+  "tools": [
+    {
+      "id": "serper_search",
+      "name": "Serper Search",
+      "description": "Search the web using Serper.dev's Google Search API with support for web, news, places, and image search types.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "proxy": {
+        "handler": "serper",
+        "operation": "search"
+      },
+      "params": {
+        "query": {
+          "type": "string",
+          "required": true,
+          "visibility": "user-or-llm",
+          "description": "The search query to execute"
+        },
+        "type": {
+          "type": "string",
+          "required": false,
+          "visibility": "user-only",
+          "description": "Type of search: search, news, places, images"
+        },
+        "num": {
+          "type": "number",
+          "required": false,
+          "visibility": "user-only",
+          "description": "Number of results to return (10-100)"
+        },
+        "gl": {
+          "type": "string",
+          "required": false,
+          "visibility": "user-only",
+          "description": "Country code for result localization"
+        },
+        "hl": {
+          "type": "string",
+          "required": false,
+          "visibility": "user-only",
+          "description": "Language code for results"
+        },
+        "apiKey": {
+          "type": "string",
+          "required": true,
+          "visibility": "user-only",
+          "description": "Serper API Key"
+        }
+      },
+      "outputs": {
+        "results": { "type": "array", "description": "Array of search results with titles, URLs, and snippets" },
+        "searchParameters": { "type": "object", "description": "The search parameters used" }
+      }
+    }
+  ]
+}

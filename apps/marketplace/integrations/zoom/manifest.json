@@ -1,0 +1,426 @@
+{
+  "id": "zoom",
+  "name": "Zoom",
+  "version": "1.0.0",
+  "description": "Create and manage Zoom meetings and recordings",
+  "icon": "ZoomIcon",
+  "block": {
+    "type": "zoom",
+    "name": "Zoom",
+    "description": "Create and manage Zoom meetings and recordings",
+    "longDescription": "Integrate Zoom into workflows. Create, list, update, and delete Zoom meetings. Get meeting details, invitations, recordings, and participants. Manage cloud recordings programmatically.",
+    "docsLink": "https://docs.sim.ai/tools/zoom",
+    "category": "tools",
+    "bgColor": "#2D8CFF",
+    "icon": "ZoomIcon",
+    "authMode": "oauth",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Create Meeting",
+            "value": "zoom_create_meeting"
+          },
+          {
+            "label": "List Meetings",
+            "value": "zoom_list_meetings"
+          },
+          {
+            "label": "Get Meeting",
+            "value": "zoom_get_meeting"
+          },
+          {
+            "label": "Update Meeting",
+            "value": "zoom_update_meeting"
+          },
+          {
+            "label": "Delete Meeting",
+            "value": "zoom_delete_meeting"
+          },
+          {
+            "label": "Get Meeting Invitation",
+            "value": "zoom_get_meeting_invitation"
+          },
+          {
+            "label": "List Recordings",
+            "value": "zoom_list_recordings"
+          },
+          {
+            "label": "Get Meeting Recordings",
+            "value": "zoom_get_meeting_recordings"
+          },
+          {
+            "label": "Delete Recording",
+            "value": "zoom_delete_recording"
+          },
+          {
+            "label": "List Past Participants",
+            "value": "zoom_list_past_participants"
+          }
+        ]
+      },
+      {
+        "id": "credential",
+        "type": "oauth-input",
+        "title": "Zoom Account",
+        "placeholder": "Select Zoom account"
+      },
+      {
+        "id": "userId",
+        "type": "short-input",
+        "title": "User ID",
+        "placeholder": "me (or user ID/email)"
+      },
+      {
+        "id": "meetingId",
+        "type": "short-input",
+        "title": "Meeting ID",
+        "placeholder": "Enter meeting ID"
+      },
+      {
+        "id": "topic",
+        "type": "short-input",
+        "title": "Topic",
+        "placeholder": "Meeting topic"
+      },
+      {
+        "id": "topicUpdate",
+        "type": "short-input",
+        "title": "Topic",
+        "placeholder": "Meeting topic (optional)"
+      },
+      {
+        "id": "type",
+        "type": "dropdown",
+        "title": "Meeting Type",
+        "options": [
+          {
+            "label": "Scheduled",
+            "value": "2"
+          },
+          {
+            "label": "Instant",
+            "value": "1"
+          },
+          {
+            "label": "Recurring (no fixed time)",
+            "value": "3"
+          },
+          {
+            "label": "Recurring (fixed time)",
+            "value": "8"
+          }
+        ]
+      },
+      {
+        "id": "startTime",
+        "type": "short-input",
+        "title": "Start Time",
+        "placeholder": "2025-06-03T10:00:00Z"
+      },
+      {
+        "id": "duration",
+        "type": "short-input",
+        "title": "Duration (minutes)",
+        "placeholder": "30"
+      },
+      {
+        "id": "timezone",
+        "type": "short-input",
+        "title": "Timezone",
+        "placeholder": "America/Los_Angeles"
+      },
+      {
+        "id": "password",
+        "type": "short-input",
+        "title": "Password",
+        "placeholder": "Meeting password"
+      },
+      {
+        "id": "agenda",
+        "type": "long-input",
+        "title": "Agenda",
+        "placeholder": "Meeting agenda"
+      },
+      {
+        "id": "hostVideo",
+        "type": "switch",
+        "title": "Host Video"
+      },
+      {
+        "id": "participantVideo",
+        "type": "switch",
+        "title": "Participant Video"
+      },
+      {
+        "id": "joinBeforeHost",
+        "type": "switch",
+        "title": "Join Before Host"
+      },
+      {
+        "id": "muteUponEntry",
+        "type": "switch",
+        "title": "Mute Upon Entry"
+      },
+      {
+        "id": "waitingRoom",
+        "type": "switch",
+        "title": "Waiting Room"
+      },
+      {
+        "id": "autoRecording",
+        "type": "dropdown",
+        "title": "Auto Recording",
+        "options": [
+          {
+            "label": "None",
+            "value": "none"
+          },
+          {
+            "label": "Local",
+            "value": "local"
+          },
+          {
+            "label": "Cloud",
+            "value": "cloud"
+          }
+        ]
+      },
+      {
+        "id": "listType",
+        "type": "dropdown",
+        "title": "Meeting Type Filter",
+        "options": [
+          {
+            "label": "Scheduled",
+            "value": "scheduled"
+          },
+          {
+            "label": "Live",
+            "value": "live"
+          },
+          {
+            "label": "Upcoming",
+            "value": "upcoming"
+          },
+          {
+            "label": "Upcoming Meetings",
+            "value": "upcoming_meetings"
+          },
+          {
+            "label": "Previous Meetings",
+            "value": "previous_meetings"
+          }
+        ]
+      },
+      {
+        "id": "pageSize",
+        "type": "short-input",
+        "title": "Page Size",
+        "placeholder": "Number of results (max 300)"
+      },
+      {
+        "id": "nextPageToken",
+        "type": "short-input",
+        "title": "Page Token",
+        "placeholder": "Token for next page"
+      },
+      {
+        "id": "fromDate",
+        "type": "short-input",
+        "title": "From Date",
+        "placeholder": "yyyy-mm-dd (within last 6 months)"
+      },
+      {
+        "id": "toDate",
+        "type": "short-input",
+        "title": "To Date",
+        "placeholder": "yyyy-mm-dd"
+      },
+      {
+        "id": "recordingId",
+        "type": "short-input",
+        "title": "Recording ID",
+        "placeholder": "Specific recording file ID (optional)"
+      },
+      {
+        "id": "deleteAction",
+        "type": "dropdown",
+        "title": "Delete Action",
+        "options": [
+          {
+            "label": "Move to Trash",
+            "value": "trash"
+          },
+          {
+            "label": "Permanently Delete",
+            "value": "delete"
+          }
+        ]
+      },
+      {
+        "id": "occurrenceId",
+        "type": "short-input",
+        "title": "Occurrence ID",
+        "placeholder": "For recurring meetings"
+      },
+      {
+        "id": "cancelMeetingReminder",
+        "type": "switch",
+        "title": "Send Cancellation Email"
+      }
+    ],
+    "tools": {
+      "access": [
+        "zoom_create_meeting",
+        "zoom_list_meetings",
+        "zoom_get_meeting",
+        "zoom_update_meeting",
+        "zoom_delete_meeting",
+        "zoom_get_meeting_invitation",
+        "zoom_list_recordings",
+        "zoom_get_meeting_recordings",
+        "zoom_delete_recording",
+        "zoom_list_past_participants"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "boolean"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "zoom_create_meeting",
+      "name": "Zoom Create Meeting",
+      "description": "Create a new Zoom meeting",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "zoom",
+        "operation": "zoom_create_meeting"
+      }
+    },
+    {
+      "id": "zoom_delete_meeting",
+      "name": "Zoom Delete Meeting",
+      "description": "Delete or cancel a Zoom meeting",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "zoom",
+        "operation": "zoom_delete_meeting"
+      }
+    },
+    {
+      "id": "zoom_delete_recording",
+      "name": "Zoom Delete Recording",
+      "description": "Delete cloud recordings for a Zoom meeting",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "zoom",
+        "operation": "zoom_delete_recording"
+      }
+    },
+    {
+      "id": "zoom_get_meeting",
+      "name": "Zoom Get Meeting",
+      "description": "Get details of a specific Zoom meeting",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "zoom",
+        "operation": "zoom_get_meeting"
+      }
+    },
+    {
+      "id": "zoom_get_meeting_invitation",
+      "name": "Zoom Get Meeting Invitation",
+      "description": "Get the meeting invitation text for a Zoom meeting",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "zoom",
+        "operation": "zoom_get_meeting_invitation"
+      }
+    },
+    {
+      "id": "zoom_get_meeting_recordings",
+      "name": "Zoom Get Meeting Recordings",
+      "description": "Get all recordings for a specific Zoom meeting",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "zoom",
+        "operation": "zoom_get_meeting_recordings"
+      }
+    },
+    {
+      "id": "zoom_list_meetings",
+      "name": "Zoom List Meetings",
+      "description": "List all meetings for a Zoom user",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "zoom",
+        "operation": "zoom_list_meetings"
+      }
+    },
+    {
+      "id": "zoom_list_past_participants",
+      "name": "Zoom List Past Participants",
+      "description": "List participants from a past Zoom meeting",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "zoom",
+        "operation": "zoom_list_past_participants"
+      }
+    },
+    {
+      "id": "zoom_list_recordings",
+      "name": "Zoom List Recordings",
+      "description": "List all cloud recordings for a Zoom user",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "zoom",
+        "operation": "zoom_list_recordings"
+      }
+    },
+    {
+      "id": "zoom_update_meeting",
+      "name": "Zoom Update Meeting",
+      "description": "Update an existing Zoom meeting",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "zoom",
+        "operation": "zoom_update_meeting"
+      }
+    }
+  ]
+}

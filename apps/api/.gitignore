@@ -1,0 +1,39 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Database
+*.sqlite
+*.sqlite3
+*.db
+
+# Logs
+*.log
+
+# Cache
+.cache/
+*.tsbuildinfo
+
+# Windows reserved names
+nul
+NUL
+con
+CON
+prn
+PRN
+aux
+AUX
+
+# Debug
+.debug/
+
+# Drizzle
+drizzle/meta/.snapshot.json

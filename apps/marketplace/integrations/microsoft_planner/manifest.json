@@ -1,0 +1,385 @@
+{
+  "id": "microsoft_planner",
+  "name": "Microsoft Planner",
+  "version": "1.0.0",
+  "description": "Manage tasks, plans, and buckets in Microsoft Planner",
+  "icon": "MicrosoftPlannerIcon",
+  "block": {
+    "type": "microsoft_planner",
+    "name": "Microsoft Planner",
+    "description": "Manage tasks, plans, and buckets in Microsoft Planner",
+    "longDescription": "Integrate Microsoft Planner into the workflow. Manage tasks, plans, buckets, and task details including checklists and references.",
+    "docsLink": "https://docs.sim.ai/tools/microsoft_planner",
+    "category": "tools",
+    "bgColor": "#E0E0E0",
+    "icon": "MicrosoftPlannerIcon",
+    "authMode": "oauth",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Read Task",
+            "value": "read_task"
+          },
+          {
+            "label": "Create Task",
+            "value": "create_task"
+          },
+          {
+            "label": "Update Task",
+            "value": "update_task"
+          },
+          {
+            "label": "Delete Task",
+            "value": "delete_task"
+          },
+          {
+            "label": "List Plans",
+            "value": "list_plans"
+          },
+          {
+            "label": "Read Plan",
+            "value": "read_plan"
+          },
+          {
+            "label": "List Buckets",
+            "value": "list_buckets"
+          },
+          {
+            "label": "Read Bucket",
+            "value": "read_bucket"
+          },
+          {
+            "label": "Create Bucket",
+            "value": "create_bucket"
+          },
+          {
+            "label": "Update Bucket",
+            "value": "update_bucket"
+          },
+          {
+            "label": "Delete Bucket",
+            "value": "delete_bucket"
+          },
+          {
+            "label": "Get Task Details",
+            "value": "get_task_details"
+          },
+          {
+            "label": "Update Task Details",
+            "value": "update_task_details"
+          }
+        ]
+      },
+      {
+        "id": "credential",
+        "type": "oauth-input",
+        "title": "Microsoft Account",
+        "placeholder": "Select Microsoft account"
+      },
+      {
+        "id": "planId",
+        "type": "short-input",
+        "title": "Plan ID",
+        "placeholder": "Enter the plan ID"
+      },
+      {
+        "id": "taskSelector",
+        "type": "file-selector",
+        "title": "Task ID",
+        "placeholder": "Select a task",
+        "mode": "basic",
+        "canonicalParamId": "readTaskId"
+      },
+      {
+        "id": "manualReadTaskId",
+        "type": "short-input",
+        "title": "Manual Task ID",
+        "placeholder": "Enter the task ID",
+        "mode": "advanced",
+        "canonicalParamId": "readTaskId"
+      },
+      {
+        "id": "updateTaskId",
+        "type": "short-input",
+        "title": "Task ID",
+        "placeholder": "Enter the task ID"
+      },
+      {
+        "id": "bucketIdForRead",
+        "type": "short-input",
+        "title": "Bucket ID",
+        "placeholder": "Enter the bucket ID"
+      },
+      {
+        "id": "etag",
+        "type": "short-input",
+        "title": "ETag",
+        "placeholder": "Etag of the item"
+      },
+      {
+        "id": "title",
+        "type": "short-input",
+        "title": "Task Title",
+        "placeholder": "Enter the task title"
+      },
+      {
+        "id": "name",
+        "type": "short-input",
+        "title": "Bucket Name",
+        "placeholder": "Enter the bucket name"
+      },
+      {
+        "id": "description",
+        "type": "long-input",
+        "title": "Description",
+        "placeholder": "Enter task description"
+      },
+      {
+        "id": "dueDateTime",
+        "type": "short-input",
+        "title": "Due Date",
+        "placeholder": "Enter due date in ISO 8601 format (e.g., 2024-12-31T23:59:59Z)"
+      },
+      {
+        "id": "startDateTime",
+        "type": "short-input",
+        "title": "Start Date",
+        "placeholder": "Enter start date in ISO 8601 format (optional)"
+      },
+      {
+        "id": "assigneeUserId",
+        "type": "short-input",
+        "title": "Assignee User ID",
+        "placeholder": "Enter the user ID to assign this task to (optional)"
+      },
+      {
+        "id": "bucketId",
+        "type": "short-input",
+        "title": "Bucket ID",
+        "placeholder": "Enter the bucket ID to organize the task (optional)"
+      },
+      {
+        "id": "priority",
+        "type": "short-input",
+        "title": "Priority",
+        "placeholder": "Enter priority (0-10, optional)"
+      },
+      {
+        "id": "percentComplete",
+        "type": "short-input",
+        "title": "Percent Complete",
+        "placeholder": "Enter completion percentage (0-100, optional)"
+      },
+      {
+        "id": "checklist",
+        "type": "long-input",
+        "title": "Checklist (JSON)",
+        "placeholder": "Enter checklist as JSON object (optional)"
+      },
+      {
+        "id": "references",
+        "type": "long-input",
+        "title": "References (JSON)",
+        "placeholder": "Enter references as JSON object (optional)"
+      },
+      {
+        "id": "previewType",
+        "type": "short-input",
+        "title": "Preview Type",
+        "placeholder": "Enter preview type (automatic, noPreview, checklist, description, reference)"
+      }
+    ],
+    "tools": {
+      "access": [
+        "microsoft_planner_read_task",
+        "microsoft_planner_create_task",
+        "microsoft_planner_update_task",
+        "microsoft_planner_delete_task",
+        "microsoft_planner_list_plans",
+        "microsoft_planner_read_plan",
+        "microsoft_planner_list_buckets",
+        "microsoft_planner_read_bucket",
+        "microsoft_planner_create_bucket",
+        "microsoft_planner_update_bucket",
+        "microsoft_planner_delete_bucket",
+        "microsoft_planner_get_task_details",
+        "microsoft_planner_update_task_details"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "message": {
+        "type": "string"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "microsoft_planner_create_bucket",
+      "name": "Create Microsoft Planner Bucket",
+      "description": "Create a new bucket in a Microsoft Planner plan",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "microsoft_planner",
+        "operation": "microsoft_planner_create_bucket"
+      }
+    },
+    {
+      "id": "microsoft_planner_create_task",
+      "name": "Create Microsoft Planner Task",
+      "description": "Create a new task in Microsoft Planner",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "microsoft_planner",
+        "operation": "microsoft_planner_create_task"
+      }
+    },
+    {
+      "id": "microsoft_planner_delete_bucket",
+      "name": "Delete Microsoft Planner Bucket",
+      "description": "Delete a bucket from Microsoft Planner",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "microsoft_planner",
+        "operation": "microsoft_planner_delete_bucket"
+      }
+    },
+    {
+      "id": "microsoft_planner_delete_task",
+      "name": "Delete Microsoft Planner Task",
+      "description": "Delete a task from Microsoft Planner",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "microsoft_planner",
+        "operation": "microsoft_planner_delete_task"
+      }
+    },
+    {
+      "id": "microsoft_planner_get_task_details",
+      "name": "Get Microsoft Planner Task Details",
+      "description": "Get detailed information about a task including checklist and references",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "microsoft_planner",
+        "operation": "microsoft_planner_get_task_details"
+      }
+    },
+    {
+      "id": "microsoft_planner_list_buckets",
+      "name": "List Microsoft Planner Buckets",
+      "description": "List all buckets in a Microsoft Planner plan",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "microsoft_planner",
+        "operation": "microsoft_planner_list_buckets"
+      }
+    },
+    {
+      "id": "microsoft_planner_list_plans",
+      "name": "List Microsoft Planner Plans",
+      "description": "List all plans shared with the current user",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "microsoft_planner",
+        "operation": "microsoft_planner_list_plans"
+      }
+    },
+    {
+      "id": "microsoft_planner_read_bucket",
+      "name": "Read Microsoft Planner Bucket",
+      "description": "Get details of a specific bucket",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "microsoft_planner",
+        "operation": "microsoft_planner_read_bucket"
+      }
+    },
+    {
+      "id": "microsoft_planner_read_plan",
+      "name": "Read Microsoft Planner Plan",
+      "description": "Get details of a specific Microsoft Planner plan",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "microsoft_planner",
+        "operation": "microsoft_planner_read_plan"
+      }
+    },
+    {
+      "id": "microsoft_planner_read_task",
+      "name": "Read Microsoft Planner Tasks",
+      "description": "Read tasks from Microsoft Planner - get all user tasks or all tasks from a specific plan",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "microsoft_planner",
+        "operation": "microsoft_planner_read_task"
+      }
+    },
+    {
+      "id": "microsoft_planner_update_bucket",
+      "name": "Update Microsoft Planner Bucket",
+      "description": "Update a bucket in Microsoft Planner",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "microsoft_planner",
+        "operation": "microsoft_planner_update_bucket"
+      }
+    },
+    {
+      "id": "microsoft_planner_update_task",
+      "name": "Update Microsoft Planner Task",
+      "description": "Update a task in Microsoft Planner",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "microsoft_planner",
+        "operation": "microsoft_planner_update_task"
+      }
+    },
+    {
+      "id": "microsoft_planner_update_task_details",
+      "name": "Update Microsoft Planner Task Details",
+      "description": "Update task details including description, checklist items, and references in Microsoft Planner",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "microsoft_planner",
+        "operation": "microsoft_planner_update_task_details"
+      }
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "id": "openai",
+  "name": "Embeddings",
+  "version": "1.0.0",
+  "description": "Generate Open AI embeddings",
+  "icon": "OpenAIIcon",
+  "block": {
+    "type": "openai",
+    "name": "Embeddings",
+    "description": "Generate Open AI embeddings",
+    "longDescription": "Integrate Embeddings into the workflow. Can generate embeddings from text.",
+    "docsLink": "https://docs.sim.ai/tools/openai",
+    "category": "tools",
+    "bgColor": "#10a37f",
+    "icon": "OpenAIIcon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "input",
+        "type": "long-input",
+        "title": "Input Text",
+        "placeholder": "Enter text to generate embeddings for"
+      },
+      {
+        "id": "model",
+        "type": "dropdown",
+        "title": "Model",
+        "options": [
+          {
+            "label": "text-embedding-3-small",
+            "value": "text-embedding-3-small"
+          },
+          {
+            "label": "text-embedding-3-large",
+            "value": "text-embedding-3-large"
+          },
+          {
+            "label": "text-embedding-ada-002",
+            "value": "text-embedding-ada-002"
+          }
+        ]
+      },
+      {
+        "id": "apiKey",
+        "type": "short-input",
+        "title": "API Key",
+        "placeholder": "Enter your OpenAI API key",
+        "password": true
+      }
+    ],
+    "tools": {
+      "access": [
+        "openai_embeddings"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "input": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "embeddings": {
+        "type": "json"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "openai_embeddings",
+      "name": "OpenAI Embeddings",
+      "description": "Generate embeddings from text using OpenAI",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "openai",
+        "operation": "openai_embeddings"
+      }
+    }
+  ]
+}

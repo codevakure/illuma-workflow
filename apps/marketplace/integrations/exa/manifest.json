@@ -1,0 +1,443 @@
+{
+  "id": "exa",
+  "name": "Exa",
+  "version": "1.0.0",
+  "description": "Search with Exa AI",
+  "icon": "ExaAIIcon",
+  "block": {
+    "type": "exa",
+    "name": "Exa",
+    "description": "Search with Exa AI",
+    "longDescription": "Integrate Exa into the workflow. Can search, get contents, find similar links, answer a question, and perform research.",
+    "docsLink": "https://docs.sim.ai/tools/exa",
+    "category": "tools",
+    "bgColor": "#1F40ED",
+    "icon": "ExaAIIcon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Search",
+            "value": "exa_search"
+          },
+          {
+            "label": "Get Contents",
+            "value": "exa_get_contents"
+          },
+          {
+            "label": "Find Similar Links",
+            "value": "exa_find_similar_links"
+          },
+          {
+            "label": "Answer",
+            "value": "exa_answer"
+          },
+          {
+            "label": "Research",
+            "value": "exa_research"
+          }
+        ]
+      },
+      {
+        "id": "query",
+        "type": "long-input",
+        "title": "Search Query",
+        "placeholder": "Enter your search query..."
+      },
+      {
+        "id": "numResults",
+        "type": "short-input",
+        "title": "Number of Results",
+        "placeholder": "10"
+      },
+      {
+        "id": "useAutoprompt",
+        "type": "switch",
+        "title": "Use Autoprompt"
+      },
+      {
+        "id": "type",
+        "type": "dropdown",
+        "title": "Search Type",
+        "options": [
+          {
+            "label": "Auto",
+            "value": "auto"
+          },
+          {
+            "label": "Neural",
+            "value": "neural"
+          },
+          {
+            "label": "Keyword",
+            "value": "keyword"
+          },
+          {
+            "label": "Fast",
+            "value": "fast"
+          }
+        ]
+      },
+      {
+        "id": "includeDomains",
+        "type": "long-input",
+        "title": "Include Domains",
+        "placeholder": "example.com, another.com (comma-separated)"
+      },
+      {
+        "id": "excludeDomains",
+        "type": "long-input",
+        "title": "Exclude Domains",
+        "placeholder": "exclude.com, another.com (comma-separated)"
+      },
+      {
+        "id": "category",
+        "type": "dropdown",
+        "title": "Category Filter",
+        "options": [
+          {
+            "label": "Company",
+            "value": "company"
+          },
+          {
+            "label": "Research Paper",
+            "value": "research_paper"
+          },
+          {
+            "label": "News Article",
+            "value": "news_article"
+          },
+          {
+            "label": "PDF",
+            "value": "pdf"
+          },
+          {
+            "label": "GitHub",
+            "value": "github"
+          },
+          {
+            "label": "Tweet",
+            "value": "tweet"
+          },
+          {
+            "label": "Movie",
+            "value": "movie"
+          },
+          {
+            "label": "Song",
+            "value": "song"
+          },
+          {
+            "label": "Personal Site",
+            "value": "personal_site"
+          }
+        ]
+      },
+      {
+        "id": "text",
+        "type": "switch",
+        "title": "Include Text"
+      },
+      {
+        "id": "highlights",
+        "type": "switch",
+        "title": "Include Highlights"
+      },
+      {
+        "id": "summary",
+        "type": "switch",
+        "title": "Include Summary"
+      },
+      {
+        "id": "livecrawl",
+        "type": "dropdown",
+        "title": "Live Crawl Mode",
+        "options": [
+          {
+            "label": "Never (default)",
+            "value": "never"
+          },
+          {
+            "label": "Fallback",
+            "value": "fallback"
+          },
+          {
+            "label": "Always",
+            "value": "always"
+          }
+        ]
+      },
+      {
+        "id": "urls",
+        "type": "long-input",
+        "title": "URLs",
+        "placeholder": "Enter URLs to retrieve content from (comma-separated)..."
+      },
+      {
+        "id": "text",
+        "type": "switch",
+        "title": "Include Text"
+      },
+      {
+        "id": "summaryQuery",
+        "type": "long-input",
+        "title": "Summary Query",
+        "placeholder": "Enter a query to guide the summary generation..."
+      },
+      {
+        "id": "subpages",
+        "type": "short-input",
+        "title": "Number of Subpages",
+        "placeholder": "5"
+      },
+      {
+        "id": "subpageTarget",
+        "type": "long-input",
+        "title": "Subpage Target Keywords",
+        "placeholder": "docs, tutorial, about (comma-separated)"
+      },
+      {
+        "id": "highlights",
+        "type": "switch",
+        "title": "Include Highlights"
+      },
+      {
+        "id": "url",
+        "type": "long-input",
+        "title": "URL",
+        "placeholder": "Enter URL to find similar links for..."
+      },
+      {
+        "id": "numResults",
+        "type": "short-input",
+        "title": "Number of Results",
+        "placeholder": "10"
+      },
+      {
+        "id": "text",
+        "type": "switch",
+        "title": "Include Text"
+      },
+      {
+        "id": "includeDomains",
+        "type": "long-input",
+        "title": "Include Domains",
+        "placeholder": "example.com, another.com (comma-separated)"
+      },
+      {
+        "id": "excludeDomains",
+        "type": "long-input",
+        "title": "Exclude Domains",
+        "placeholder": "exclude.com, another.com (comma-separated)"
+      },
+      {
+        "id": "excludeSourceDomain",
+        "type": "switch",
+        "title": "Exclude Source Domain"
+      },
+      {
+        "id": "category",
+        "type": "dropdown",
+        "title": "Category Filter",
+        "options": [
+          {
+            "label": "Company",
+            "value": "company"
+          },
+          {
+            "label": "Research Paper",
+            "value": "research_paper"
+          },
+          {
+            "label": "News Article",
+            "value": "news_article"
+          },
+          {
+            "label": "PDF",
+            "value": "pdf"
+          },
+          {
+            "label": "GitHub",
+            "value": "github"
+          },
+          {
+            "label": "Tweet",
+            "value": "tweet"
+          },
+          {
+            "label": "Movie",
+            "value": "movie"
+          },
+          {
+            "label": "Song",
+            "value": "song"
+          },
+          {
+            "label": "Personal Site",
+            "value": "personal_site"
+          }
+        ]
+      },
+      {
+        "id": "highlights",
+        "type": "switch",
+        "title": "Include Highlights"
+      },
+      {
+        "id": "summary",
+        "type": "switch",
+        "title": "Include Summary"
+      },
+      {
+        "id": "livecrawl",
+        "type": "dropdown",
+        "title": "Live Crawl Mode",
+        "options": [
+          {
+            "label": "Never (default)",
+            "value": "never"
+          },
+          {
+            "label": "Fallback",
+            "value": "fallback"
+          },
+          {
+            "label": "Always",
+            "value": "always"
+          }
+        ]
+      },
+      {
+        "id": "query",
+        "type": "long-input",
+        "title": "Question",
+        "placeholder": "Enter your question..."
+      },
+      {
+        "id": "text",
+        "type": "switch",
+        "title": "Include Text"
+      },
+      {
+        "id": "query",
+        "type": "long-input",
+        "title": "Research Query",
+        "placeholder": "Enter your research topic or question..."
+      },
+      {
+        "id": "model",
+        "type": "dropdown",
+        "title": "Research Model",
+        "options": [
+          {
+            "label": "Standard (default)",
+            "value": "exa-research"
+          },
+          {
+            "label": "Fast",
+            "value": "exa-research-fast"
+          },
+          {
+            "label": "Pro",
+            "value": "exa-research-pro"
+          }
+        ]
+      },
+      {
+        "id": "apiKey",
+        "type": "short-input",
+        "title": "API Key",
+        "placeholder": "Enter your Exa API key",
+        "password": true
+      }
+    ],
+    "tools": {
+      "access": [
+        "exa_search",
+        "exa_get_contents",
+        "exa_find_similar_links",
+        "exa_answer",
+        "exa_research"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "results": {
+        "type": "json"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "exa_answer",
+      "name": "Exa Answer",
+      "description": "Get an AI-generated answer to a question with citations from the web using Exa AI.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "exa",
+        "operation": "exa_answer"
+      }
+    },
+    {
+      "id": "exa_find_similar_links",
+      "name": "Exa Find Similar Links",
+      "description": "Find webpages similar to a given URL using Exa AI. Returns a list of similar links with titles and text snippets.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "exa",
+        "operation": "exa_find_similar_links"
+      }
+    },
+    {
+      "id": "exa_get_contents",
+      "name": "Exa Get Contents",
+      "description": "Retrieve the contents of webpages using Exa AI. Returns the title, text content, and optional summaries for each URL.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "exa",
+        "operation": "exa_get_contents"
+      }
+    },
+    {
+      "id": "exa_research",
+      "name": "Exa Research",
+      "description": "Perform comprehensive research using AI to generate detailed reports with citations",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "exa",
+        "operation": "exa_research"
+      }
+    },
+    {
+      "id": "exa_search",
+      "name": "Exa Search",
+      "description": "Search the web using Exa AI. Returns relevant search results with titles, URLs, and text snippets.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "exa",
+        "operation": "exa_search"
+      }
+    }
+  ]
+}

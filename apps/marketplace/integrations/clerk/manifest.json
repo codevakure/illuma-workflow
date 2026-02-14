@@ -1,0 +1,420 @@
+{
+  "id": "clerk",
+  "name": "Clerk",
+  "version": "1.0.0",
+  "description": "Manage users, organizations, and sessions in Clerk",
+  "icon": "ClerkIcon",
+  "block": {
+    "type": "clerk",
+    "name": "Clerk",
+    "description": "Manage users, organizations, and sessions in Clerk",
+    "longDescription": "Integrate Clerk authentication and user management into your workflow. Create, update, delete, and list users. Manage organizations and their memberships. Monitor and control user sessions.",
+    "docsLink": "https://docs.sim.ai/tools/clerk",
+    "category": "tools",
+    "bgColor": "#131316",
+    "icon": "ClerkIcon",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "List Users",
+            "value": "clerk_list_users"
+          },
+          {
+            "label": "Get User",
+            "value": "clerk_get_user"
+          },
+          {
+            "label": "Create User",
+            "value": "clerk_create_user"
+          },
+          {
+            "label": "Update User",
+            "value": "clerk_update_user"
+          },
+          {
+            "label": "Delete User",
+            "value": "clerk_delete_user"
+          },
+          {
+            "label": "List Organizations",
+            "value": "clerk_list_organizations"
+          },
+          {
+            "label": "Get Organization",
+            "value": "clerk_get_organization"
+          },
+          {
+            "label": "Create Organization",
+            "value": "clerk_create_organization"
+          },
+          {
+            "label": "List Sessions",
+            "value": "clerk_list_sessions"
+          },
+          {
+            "label": "Get Session",
+            "value": "clerk_get_session"
+          },
+          {
+            "label": "Revoke Session",
+            "value": "clerk_revoke_session"
+          }
+        ]
+      },
+      {
+        "id": "secretKey",
+        "type": "short-input",
+        "title": "Secret Key",
+        "placeholder": "sk_live_... or sk_test_...",
+        "password": true
+      },
+      {
+        "id": "query",
+        "type": "short-input",
+        "title": "Search Query",
+        "placeholder": "Search by email, phone, username, or name"
+      },
+      {
+        "id": "emailAddressFilter",
+        "type": "short-input",
+        "title": "Email Filter",
+        "placeholder": "Filter by email (comma-separated)"
+      },
+      {
+        "id": "usernameFilter",
+        "type": "short-input",
+        "title": "Username Filter",
+        "placeholder": "Filter by username (comma-separated)"
+      },
+      {
+        "id": "userId",
+        "type": "short-input",
+        "title": "User ID",
+        "placeholder": "user_..."
+      },
+      {
+        "id": "emailAddress",
+        "type": "short-input",
+        "title": "Email Address",
+        "placeholder": "user@example.com (comma-separated for multiple)"
+      },
+      {
+        "id": "phoneNumber",
+        "type": "short-input",
+        "title": "Phone Number",
+        "placeholder": "+1234567890 (comma-separated for multiple)"
+      },
+      {
+        "id": "username",
+        "type": "short-input",
+        "title": "Username",
+        "placeholder": "johndoe"
+      },
+      {
+        "id": "password",
+        "type": "short-input",
+        "title": "Password",
+        "placeholder": "Minimum 8 characters",
+        "password": true
+      },
+      {
+        "id": "firstName",
+        "type": "short-input",
+        "title": "First Name",
+        "placeholder": "John"
+      },
+      {
+        "id": "lastName",
+        "type": "short-input",
+        "title": "Last Name",
+        "placeholder": "Doe"
+      },
+      {
+        "id": "externalId",
+        "type": "short-input",
+        "title": "External ID",
+        "placeholder": "Your system user ID"
+      },
+      {
+        "id": "publicMetadata",
+        "type": "code",
+        "title": "Public Metadata",
+        "placeholder": "{"
+      },
+      {
+        "id": "privateMetadata",
+        "type": "code",
+        "title": "Private Metadata",
+        "placeholder": "{"
+      },
+      {
+        "id": "orgQuery",
+        "type": "short-input",
+        "title": "Search Query",
+        "placeholder": "Search by name, ID, or slug"
+      },
+      {
+        "id": "includeMembersCount",
+        "type": "switch",
+        "title": "Include Members Count"
+      },
+      {
+        "id": "organizationId",
+        "type": "short-input",
+        "title": "Organization ID",
+        "placeholder": "org_... or slug"
+      },
+      {
+        "id": "orgName",
+        "type": "short-input",
+        "title": "Organization Name",
+        "placeholder": "Acme Corp"
+      },
+      {
+        "id": "createdBy",
+        "type": "short-input",
+        "title": "Creator User ID",
+        "placeholder": "user_... (will become admin)"
+      },
+      {
+        "id": "slug",
+        "type": "short-input",
+        "title": "Slug",
+        "placeholder": "acme-corp"
+      },
+      {
+        "id": "maxAllowedMemberships",
+        "type": "short-input",
+        "title": "Max Members",
+        "placeholder": "0 for unlimited"
+      },
+      {
+        "id": "sessionUserId",
+        "type": "short-input",
+        "title": "User ID",
+        "placeholder": "user_..."
+      },
+      {
+        "id": "clientId",
+        "type": "short-input",
+        "title": "Client ID",
+        "placeholder": "client_..."
+      },
+      {
+        "id": "sessionStatus",
+        "type": "dropdown",
+        "title": "Status",
+        "options": [
+          {
+            "label": "Active",
+            "value": "active"
+          },
+          {
+            "label": "Ended",
+            "value": "ended"
+          },
+          {
+            "label": "Expired",
+            "value": "expired"
+          },
+          {
+            "label": "Revoked",
+            "value": "revoked"
+          },
+          {
+            "label": "Abandoned",
+            "value": "abandoned"
+          },
+          {
+            "label": "Pending",
+            "value": "pending"
+          }
+        ]
+      },
+      {
+        "id": "sessionId",
+        "type": "short-input",
+        "title": "Session ID",
+        "placeholder": "sess_..."
+      },
+      {
+        "id": "limit",
+        "type": "short-input",
+        "title": "Limit",
+        "placeholder": "Results per page (1-500, default: 10)"
+      },
+      {
+        "id": "offset",
+        "type": "short-input",
+        "title": "Offset",
+        "placeholder": "Skip N results for pagination"
+      }
+    ],
+    "tools": {
+      "access": [
+        "clerk_list_users",
+        "clerk_get_user",
+        "clerk_create_user",
+        "clerk_update_user",
+        "clerk_delete_user",
+        "clerk_list_organizations",
+        "clerk_get_organization",
+        "clerk_create_organization",
+        "clerk_list_sessions",
+        "clerk_get_session",
+        "clerk_revoke_session"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "users": {
+        "type": "json"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "clerk_create_organization",
+      "name": "Create Organization in Clerk",
+      "description": "Create a new organization in your Clerk application",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "clerk",
+        "operation": "clerk_create_organization"
+      }
+    },
+    {
+      "id": "clerk_create_user",
+      "name": "Create User in Clerk",
+      "description": "Create a new user in your Clerk application",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "clerk",
+        "operation": "clerk_create_user"
+      }
+    },
+    {
+      "id": "clerk_delete_user",
+      "name": "Delete User from Clerk",
+      "description": "Delete a user from your Clerk application",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "clerk",
+        "operation": "clerk_delete_user"
+      }
+    },
+    {
+      "id": "clerk_get_organization",
+      "name": "Get Organization from Clerk",
+      "description": "Retrieve a single organization by ID or slug from Clerk",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "clerk",
+        "operation": "clerk_get_organization"
+      }
+    },
+    {
+      "id": "clerk_get_session",
+      "name": "Get Session from Clerk",
+      "description": "Retrieve a single session by ID from Clerk",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "clerk",
+        "operation": "clerk_get_session"
+      }
+    },
+    {
+      "id": "clerk_get_user",
+      "name": "Get User from Clerk",
+      "description": "Retrieve a single user by their ID from Clerk",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "clerk",
+        "operation": "clerk_get_user"
+      }
+    },
+    {
+      "id": "clerk_list_organizations",
+      "name": "List Organizations from Clerk",
+      "description": "List all organizations in your Clerk application with optional filtering",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "clerk",
+        "operation": "clerk_list_organizations"
+      }
+    },
+    {
+      "id": "clerk_list_sessions",
+      "name": "List Sessions from Clerk",
+      "description": "List sessions for a user or client in your Clerk application",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "clerk",
+        "operation": "clerk_list_sessions"
+      }
+    },
+    {
+      "id": "clerk_list_users",
+      "name": "List Users from Clerk",
+      "description": "List all users in your Clerk application with optional filtering and pagination",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "clerk",
+        "operation": "clerk_list_users"
+      }
+    },
+    {
+      "id": "clerk_revoke_session",
+      "name": "Revoke Session in Clerk",
+      "description": "Revoke a session to immediately invalidate it",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "clerk",
+        "operation": "clerk_revoke_session"
+      }
+    },
+    {
+      "id": "clerk_update_user",
+      "name": "Update User in Clerk",
+      "description": "Update an existing user in your Clerk application",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "clerk",
+        "operation": "clerk_update_user"
+      }
+    }
+  ]
+}

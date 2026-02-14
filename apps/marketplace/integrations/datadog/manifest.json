@@ -1,0 +1,553 @@
+{
+  "id": "datadog",
+  "name": "Datadog",
+  "version": "1.0.0",
+  "description": "Monitor infrastructure, applications, and logs with Datadog",
+  "icon": "DatadogIcon",
+  "block": {
+    "type": "datadog",
+    "name": "Datadog",
+    "description": "Monitor infrastructure, applications, and logs with Datadog",
+    "longDescription": "Integrate Datadog monitoring into workflows. Submit metrics, manage monitors, query logs, create events, handle downtimes, and more.",
+    "docsLink": "https://docs.sim.ai/tools/datadog",
+    "category": "tools",
+    "bgColor": "#632CA6",
+    "icon": "DatadogIcon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Submit Metrics",
+            "value": "datadog_submit_metrics"
+          },
+          {
+            "label": "Query Timeseries",
+            "value": "datadog_query_timeseries"
+          },
+          {
+            "label": "Create Event",
+            "value": "datadog_create_event"
+          },
+          {
+            "label": "Create Monitor",
+            "value": "datadog_create_monitor"
+          },
+          {
+            "label": "Get Monitor",
+            "value": "datadog_get_monitor"
+          },
+          {
+            "label": "List Monitors",
+            "value": "datadog_list_monitors"
+          },
+          {
+            "label": "Mute Monitor",
+            "value": "datadog_mute_monitor"
+          },
+          {
+            "label": "Query Logs",
+            "value": "datadog_query_logs"
+          },
+          {
+            "label": "Send Logs",
+            "value": "datadog_send_logs"
+          },
+          {
+            "label": "Create Downtime",
+            "value": "datadog_create_downtime"
+          },
+          {
+            "label": "List Downtimes",
+            "value": "datadog_list_downtimes"
+          },
+          {
+            "label": "Cancel Downtime",
+            "value": "datadog_cancel_downtime"
+          }
+        ]
+      },
+      {
+        "id": "series",
+        "type": "code",
+        "title": "Metrics Data (JSON)",
+        "placeholder": "[\n  {\n    "
+      },
+      {
+        "id": "query",
+        "type": "long-input",
+        "title": "Query",
+        "placeholder": "avg:system.cpu.user{*}"
+      },
+      {
+        "id": "from",
+        "type": "short-input",
+        "title": "From (Unix Timestamp)",
+        "placeholder": "e.g., 1701360000"
+      },
+      {
+        "id": "to",
+        "type": "short-input",
+        "title": "To (Unix Timestamp)",
+        "placeholder": "e.g., 1701446400"
+      },
+      {
+        "id": "title",
+        "type": "short-input",
+        "title": "Event Title",
+        "placeholder": "Deployment completed"
+      },
+      {
+        "id": "text",
+        "type": "long-input",
+        "title": "Event Text",
+        "placeholder": "Describe the event..."
+      },
+      {
+        "id": "alertType",
+        "type": "dropdown",
+        "title": "Alert Type",
+        "options": [
+          {
+            "label": "Info",
+            "value": "info"
+          },
+          {
+            "label": "Success",
+            "value": "success"
+          },
+          {
+            "label": "Warning",
+            "value": "warning"
+          },
+          {
+            "label": "Error",
+            "value": "error"
+          }
+        ]
+      },
+      {
+        "id": "priority",
+        "type": "dropdown",
+        "title": "Priority",
+        "options": [
+          {
+            "label": "Normal",
+            "value": "normal"
+          },
+          {
+            "label": "Low",
+            "value": "low"
+          }
+        ]
+      },
+      {
+        "id": "tags",
+        "type": "short-input",
+        "title": "Tags",
+        "placeholder": "env:production, service:api"
+      },
+      {
+        "id": "name",
+        "type": "short-input",
+        "title": "Monitor Name",
+        "placeholder": "High CPU Usage Alert"
+      },
+      {
+        "id": "type",
+        "type": "dropdown",
+        "title": "Monitor Type",
+        "options": [
+          {
+            "label": "Metric Alert",
+            "value": "metric alert"
+          },
+          {
+            "label": "Service Check",
+            "value": "service check"
+          },
+          {
+            "label": "Event Alert",
+            "value": "event alert"
+          },
+          {
+            "label": "Log Alert",
+            "value": "log alert"
+          },
+          {
+            "label": "Query Alert",
+            "value": "query alert"
+          },
+          {
+            "label": "Composite",
+            "value": "composite"
+          },
+          {
+            "label": "SLO Alert",
+            "value": "slo alert"
+          }
+        ]
+      },
+      {
+        "id": "monitorQuery",
+        "type": "long-input",
+        "title": "Monitor Query",
+        "placeholder": "avg(last_5m):avg:system.cpu.idle{*} < 20"
+      },
+      {
+        "id": "message",
+        "type": "long-input",
+        "title": "Notification Message",
+        "placeholder": "Alert! CPU usage is high. @slack-alerts"
+      },
+      {
+        "id": "monitorTags",
+        "type": "short-input",
+        "title": "Tags",
+        "placeholder": "team:backend, priority:high"
+      },
+      {
+        "id": "monitorPriority",
+        "type": "short-input",
+        "title": "Priority (1-5)",
+        "placeholder": "3"
+      },
+      {
+        "id": "options",
+        "type": "code",
+        "title": "Options (JSON)",
+        "placeholder": "{"
+      },
+      {
+        "id": "monitorId",
+        "type": "short-input",
+        "title": "Monitor ID",
+        "placeholder": "12345678"
+      },
+      {
+        "id": "listMonitorName",
+        "type": "short-input",
+        "title": "Filter by Name",
+        "placeholder": "CPU"
+      },
+      {
+        "id": "listMonitorTags",
+        "type": "short-input",
+        "title": "Filter by Tags",
+        "placeholder": "env:production"
+      },
+      {
+        "id": "muteMonitorId",
+        "type": "short-input",
+        "title": "Monitor ID",
+        "placeholder": "12345678"
+      },
+      {
+        "id": "scope",
+        "type": "short-input",
+        "title": "Scope",
+        "placeholder": "host:myhost (optional)"
+      },
+      {
+        "id": "end",
+        "type": "short-input",
+        "title": "End Time (Unix Timestamp)",
+        "placeholder": "Leave empty for indefinite"
+      },
+      {
+        "id": "logQuery",
+        "type": "long-input",
+        "title": "Search Query",
+        "placeholder": "service:web-app status:error"
+      },
+      {
+        "id": "logFrom",
+        "type": "short-input",
+        "title": "From",
+        "placeholder": "now-1h"
+      },
+      {
+        "id": "logTo",
+        "type": "short-input",
+        "title": "To",
+        "placeholder": "now"
+      },
+      {
+        "id": "logLimit",
+        "type": "short-input",
+        "title": "Limit",
+        "placeholder": "50"
+      },
+      {
+        "id": "logs",
+        "type": "code",
+        "title": "Logs (JSON)",
+        "placeholder": "[\n  {\n    "
+      },
+      {
+        "id": "downtimeScope",
+        "type": "short-input",
+        "title": "Scope",
+        "placeholder": "host:myhost or env:production or *"
+      },
+      {
+        "id": "downtimeMessage",
+        "type": "long-input",
+        "title": "Message",
+        "placeholder": "Scheduled maintenance"
+      },
+      {
+        "id": "downtimeStart",
+        "type": "short-input",
+        "title": "Start Time (Unix Timestamp)",
+        "placeholder": "Leave empty for now"
+      },
+      {
+        "id": "downtimeEnd",
+        "type": "short-input",
+        "title": "End Time (Unix Timestamp)",
+        "placeholder": "e.g., 1701450000"
+      },
+      {
+        "id": "downtimeMonitorId",
+        "type": "short-input",
+        "title": "Monitor ID (optional)",
+        "placeholder": "12345678"
+      },
+      {
+        "id": "currentOnly",
+        "type": "switch",
+        "title": "Current Only"
+      },
+      {
+        "id": "downtimeId",
+        "type": "short-input",
+        "title": "Downtime ID",
+        "placeholder": "abc123"
+      },
+      {
+        "id": "apiKey",
+        "type": "short-input",
+        "title": "API Key",
+        "placeholder": "Enter your Datadog API key",
+        "password": true
+      },
+      {
+        "id": "applicationKey",
+        "type": "short-input",
+        "title": "Application Key",
+        "placeholder": "Enter your Datadog application key",
+        "password": true
+      },
+      {
+        "id": "site",
+        "type": "dropdown",
+        "title": "Datadog Site",
+        "options": [
+          {
+            "label": "US1 (datadoghq.com)",
+            "value": "datadoghq.com"
+          },
+          {
+            "label": "US3 (us3.datadoghq.com)",
+            "value": "us3.datadoghq.com"
+          },
+          {
+            "label": "US5 (us5.datadoghq.com)",
+            "value": "us5.datadoghq.com"
+          },
+          {
+            "label": "EU (datadoghq.eu)",
+            "value": "datadoghq.eu"
+          },
+          {
+            "label": "AP1 (ap1.datadoghq.com)",
+            "value": "ap1.datadoghq.com"
+          },
+          {
+            "label": "US1-FED (ddog-gov.com)",
+            "value": "ddog-gov.com"
+          }
+        ]
+      }
+    ],
+    "tools": {
+      "access": [
+        "datadog_submit_metrics",
+        "datadog_query_timeseries",
+        "datadog_create_event",
+        "datadog_create_monitor",
+        "datadog_get_monitor",
+        "datadog_list_monitors",
+        "datadog_mute_monitor",
+        "datadog_query_logs",
+        "datadog_send_logs",
+        "datadog_create_downtime",
+        "datadog_list_downtimes",
+        "datadog_cancel_downtime"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "boolean"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "datadog_cancel_downtime",
+      "name": "Datadog Cancel Downtime",
+      "description": "Cancel a scheduled downtime.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "datadog",
+        "operation": "datadog_cancel_downtime"
+      }
+    },
+    {
+      "id": "datadog_create_downtime",
+      "name": "Datadog Create Downtime",
+      "description": "Schedule a downtime to suppress monitor notifications during maintenance windows.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "datadog",
+        "operation": "datadog_create_downtime"
+      }
+    },
+    {
+      "id": "datadog_create_event",
+      "name": "Datadog Create Event",
+      "description": "Post an event to the Datadog event stream. Use for deployment notifications, alerts, or any significant occurrences.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "datadog",
+        "operation": "datadog_create_event"
+      }
+    },
+    {
+      "id": "datadog_create_monitor",
+      "name": "Datadog Create Monitor",
+      "description": "Create a new monitor/alert in Datadog. Monitors can track metrics, service checks, events, and more.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "datadog",
+        "operation": "datadog_create_monitor"
+      }
+    },
+    {
+      "id": "datadog_get_monitor",
+      "name": "Datadog Get Monitor",
+      "description": "Retrieve details of a specific monitor by ID.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "datadog",
+        "operation": "datadog_get_monitor"
+      }
+    },
+    {
+      "id": "datadog_list_downtimes",
+      "name": "Datadog List Downtimes",
+      "description": "List all scheduled downtimes in Datadog.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "datadog",
+        "operation": "datadog_list_downtimes"
+      }
+    },
+    {
+      "id": "datadog_list_monitors",
+      "name": "Datadog List Monitors",
+      "description": "List all monitors in Datadog with optional filtering by name, tags, or state.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "datadog",
+        "operation": "datadog_list_monitors"
+      }
+    },
+    {
+      "id": "datadog_mute_monitor",
+      "name": "Datadog Mute Monitor",
+      "description": "Mute a monitor to temporarily suppress notifications.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "datadog",
+        "operation": "datadog_mute_monitor"
+      }
+    },
+    {
+      "id": "datadog_query_logs",
+      "name": "Datadog Query Logs",
+      "description": "Search and retrieve logs from Datadog. Use for troubleshooting, analysis, or monitoring.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "datadog",
+        "operation": "datadog_query_logs"
+      }
+    },
+    {
+      "id": "datadog_query_timeseries",
+      "name": "Datadog Query Timeseries",
+      "description": "Query metric timeseries data from Datadog. Use for analyzing trends, creating reports, or retrieving metric values.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "datadog",
+        "operation": "datadog_query_timeseries"
+      }
+    },
+    {
+      "id": "datadog_send_logs",
+      "name": "Datadog Send Logs",
+      "description": "Send log entries to Datadog for centralized logging and analysis.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "datadog",
+        "operation": "datadog_send_logs"
+      }
+    },
+    {
+      "id": "datadog_submit_metrics",
+      "name": "Datadog Submit Metrics",
+      "description": "Submit custom metrics to Datadog. Use for tracking application performance, business metrics, or custom monitoring data.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "datadog",
+        "operation": "datadog_submit_metrics"
+      }
+    }
+  ]
+}

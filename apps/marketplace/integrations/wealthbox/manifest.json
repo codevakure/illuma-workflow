@@ -1,0 +1,224 @@
+{
+  "id": "wealthbox",
+  "name": "Wealthbox",
+  "version": "1.0.0",
+  "description": "Interact with Wealthbox",
+  "icon": "WealthboxIcon",
+  "block": {
+    "type": "wealthbox",
+    "name": "Wealthbox",
+    "description": "Interact with Wealthbox",
+    "longDescription": "Integrate Wealthbox into the workflow. Can read and write notes, read and write contacts, and read and write tasks.",
+    "docsLink": "https://docs.sim.ai/tools/wealthbox",
+    "category": "tools",
+    "bgColor": "#E0E0E0",
+    "icon": "WealthboxIcon",
+    "authMode": "oauth",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Read Note",
+            "value": "read_note"
+          },
+          {
+            "label": "Write Note",
+            "value": "write_note"
+          },
+          {
+            "label": "Read Contact",
+            "value": "read_contact"
+          },
+          {
+            "label": "Write Contact",
+            "value": "write_contact"
+          },
+          {
+            "label": "Read Task",
+            "value": "read_task"
+          },
+          {
+            "label": "Write Task",
+            "value": "write_task"
+          }
+        ]
+      },
+      {
+        "id": "credential",
+        "type": "oauth-input",
+        "title": "Wealthbox Account",
+        "placeholder": "Select Wealthbox account"
+      },
+      {
+        "id": "noteId",
+        "type": "short-input",
+        "title": "Note ID",
+        "placeholder": "Enter Note ID (optional)"
+      },
+      {
+        "id": "contactId",
+        "type": "file-selector",
+        "title": "Select Contact",
+        "placeholder": "Enter Contact ID",
+        "mode": "basic",
+        "canonicalParamId": "contactId"
+      },
+      {
+        "id": "manualContactId",
+        "type": "short-input",
+        "title": "Contact ID",
+        "placeholder": "Enter Contact ID",
+        "mode": "advanced",
+        "canonicalParamId": "contactId"
+      },
+      {
+        "id": "taskId",
+        "type": "short-input",
+        "title": "Task ID",
+        "placeholder": "Enter Task ID"
+      },
+      {
+        "id": "title",
+        "type": "short-input",
+        "title": "Title",
+        "placeholder": "Enter Title"
+      },
+      {
+        "id": "dueDate",
+        "type": "short-input",
+        "title": "Due Date",
+        "placeholder": "Enter due date (e.g., 2015-05-24 11:00 AM -0400)"
+      },
+      {
+        "id": "firstName",
+        "type": "short-input",
+        "title": "First Name",
+        "placeholder": "Enter First Name"
+      },
+      {
+        "id": "lastName",
+        "type": "short-input",
+        "title": "Last Name",
+        "placeholder": "Enter Last Name"
+      },
+      {
+        "id": "emailAddress",
+        "type": "short-input",
+        "title": "Email Address",
+        "placeholder": "Enter Email Address"
+      },
+      {
+        "id": "content",
+        "type": "long-input",
+        "title": "Content",
+        "placeholder": "Enter Content"
+      },
+      {
+        "id": "backgroundInformation",
+        "type": "long-input",
+        "title": "Background Information",
+        "placeholder": "Enter Background Information"
+      }
+    ],
+    "tools": {
+      "access": [
+        "wealthbox_read_note",
+        "wealthbox_write_note",
+        "wealthbox_read_contact",
+        "wealthbox_write_contact",
+        "wealthbox_read_task",
+        "wealthbox_write_task"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "note": {
+        "type": "json"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "wealthbox_read_contact",
+      "name": "Read Wealthbox Contact",
+      "description": "Read content from a Wealthbox contact",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "wealthbox",
+        "operation": "wealthbox_read_contact"
+      }
+    },
+    {
+      "id": "wealthbox_read_note",
+      "name": "Read Wealthbox Note",
+      "description": "Read content from a Wealthbox note",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "wealthbox",
+        "operation": "wealthbox_read_note"
+      }
+    },
+    {
+      "id": "wealthbox_read_task",
+      "name": "Read Wealthbox Task",
+      "description": "Read content from a Wealthbox task",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "wealthbox",
+        "operation": "wealthbox_read_task"
+      }
+    },
+    {
+      "id": "wealthbox_write_contact",
+      "name": "Write Wealthbox Contact",
+      "description": "Create a new Wealthbox contact",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "wealthbox",
+        "operation": "wealthbox_write_contact"
+      }
+    },
+    {
+      "id": "wealthbox_write_note",
+      "name": "Write Wealthbox Note",
+      "description": "Create or update a Wealthbox note",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "wealthbox",
+        "operation": "wealthbox_write_note"
+      }
+    },
+    {
+      "id": "wealthbox_write_task",
+      "name": "Write Wealthbox Task",
+      "description": "Create or update a Wealthbox task",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "wealthbox",
+        "operation": "wealthbox_write_task"
+      }
+    }
+  ]
+}

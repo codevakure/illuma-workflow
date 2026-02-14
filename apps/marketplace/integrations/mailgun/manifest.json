@@ -1,0 +1,363 @@
+{
+  "id": "mailgun",
+  "name": "Mailgun",
+  "version": "1.0.0",
+  "description": "Send emails and manage mailing lists with Mailgun",
+  "icon": "MailgunIcon",
+  "block": {
+    "type": "mailgun",
+    "name": "Mailgun",
+    "description": "Send emails and manage mailing lists with Mailgun",
+    "longDescription": "Integrate Mailgun into your workflow. Send transactional emails, manage mailing lists and members, view domain information, and track email events. Supports text and HTML emails, tags for tracking, and comprehensive list management.",
+    "docsLink": "https://docs.sim.ai/tools/mailgun",
+    "category": "tools",
+    "bgColor": "#E0E0E0",
+    "icon": "MailgunIcon",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Send Message",
+            "value": "send_message"
+          },
+          {
+            "label": "Get Message",
+            "value": "get_message"
+          },
+          {
+            "label": "List Messages",
+            "value": "list_messages"
+          },
+          {
+            "label": "Create Mailing List",
+            "value": "create_mailing_list"
+          },
+          {
+            "label": "Get Mailing List",
+            "value": "get_mailing_list"
+          },
+          {
+            "label": "Add List Member",
+            "value": "add_list_member"
+          },
+          {
+            "label": "List Domains",
+            "value": "list_domains"
+          },
+          {
+            "label": "Get Domain",
+            "value": "get_domain"
+          }
+        ]
+      },
+      {
+        "id": "apiKey",
+        "type": "short-input",
+        "title": "Mailgun API Key",
+        "placeholder": "Enter your Mailgun API key",
+        "password": true
+      },
+      {
+        "id": "domain",
+        "type": "short-input",
+        "title": "Domain",
+        "placeholder": "mg.example.com"
+      },
+      {
+        "id": "from",
+        "type": "short-input",
+        "title": "From Email",
+        "placeholder": "sender@example.com"
+      },
+      {
+        "id": "to",
+        "type": "short-input",
+        "title": "To Email",
+        "placeholder": "recipient@example.com"
+      },
+      {
+        "id": "subject",
+        "type": "short-input",
+        "title": "Subject",
+        "placeholder": "Email subject"
+      },
+      {
+        "id": "text",
+        "type": "long-input",
+        "title": "Text Body",
+        "placeholder": "Plain text email body"
+      },
+      {
+        "id": "html",
+        "type": "code",
+        "title": "HTML Body",
+        "placeholder": "<html><body>HTML email body</body></html>"
+      },
+      {
+        "id": "cc",
+        "type": "short-input",
+        "title": "CC",
+        "placeholder": "cc@example.com"
+      },
+      {
+        "id": "bcc",
+        "type": "short-input",
+        "title": "BCC",
+        "placeholder": "bcc@example.com"
+      },
+      {
+        "id": "tags",
+        "type": "short-input",
+        "title": "Tags",
+        "placeholder": "tag1, tag2"
+      },
+      {
+        "id": "messageKey",
+        "type": "short-input",
+        "title": "Message Key",
+        "placeholder": "Message storage key"
+      },
+      {
+        "id": "event",
+        "type": "dropdown",
+        "title": "Event Type",
+        "options": [
+          {
+            "label": "Accepted",
+            "value": "accepted"
+          },
+          {
+            "label": "Delivered",
+            "value": "delivered"
+          },
+          {
+            "label": "Failed",
+            "value": "failed"
+          },
+          {
+            "label": "Opened",
+            "value": "opened"
+          },
+          {
+            "label": "Clicked",
+            "value": "clicked"
+          },
+          {
+            "label": "Unsubscribed",
+            "value": "unsubscribed"
+          },
+          {
+            "label": "Complained",
+            "value": "complained"
+          },
+          {
+            "label": "Stored",
+            "value": "stored"
+          }
+        ]
+      },
+      {
+        "id": "limit",
+        "type": "short-input",
+        "title": "Limit",
+        "placeholder": "100"
+      },
+      {
+        "id": "address",
+        "type": "short-input",
+        "title": "List Address",
+        "placeholder": "list@example.com"
+      },
+      {
+        "id": "name",
+        "type": "short-input",
+        "title": "List Name",
+        "placeholder": "My Mailing List"
+      },
+      {
+        "id": "description",
+        "type": "long-input",
+        "title": "Description",
+        "placeholder": "Description of the mailing list"
+      },
+      {
+        "id": "accessLevel",
+        "type": "dropdown",
+        "title": "Access Level",
+        "options": [
+          {
+            "label": "Read Only",
+            "value": "readonly"
+          },
+          {
+            "label": "Members",
+            "value": "members"
+          },
+          {
+            "label": "Everyone",
+            "value": "everyone"
+          }
+        ]
+      },
+      {
+        "id": "memberAddress",
+        "type": "short-input",
+        "title": "Member Email",
+        "placeholder": "member@example.com"
+      },
+      {
+        "id": "memberName",
+        "type": "short-input",
+        "title": "Member Name",
+        "placeholder": "John Doe"
+      },
+      {
+        "id": "vars",
+        "type": "code",
+        "title": "Custom Variables",
+        "placeholder": "{"
+      },
+      {
+        "id": "subscribed",
+        "type": "dropdown",
+        "title": "Subscribed",
+        "options": [
+          {
+            "label": "Yes",
+            "value": "true"
+          },
+          {
+            "label": "No",
+            "value": "false"
+          }
+        ]
+      }
+    ],
+    "tools": {
+      "access": [
+        "mailgun_send_message",
+        "mailgun_get_message",
+        "mailgun_list_messages",
+        "mailgun_create_mailing_list",
+        "mailgun_get_mailing_list",
+        "mailgun_add_list_member",
+        "mailgun_list_domains",
+        "mailgun_get_domain"
+      ],
+      "config": {
+        "tool": "mailgun__{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "boolean"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "mailgun_add_list_member",
+      "name": "Mailgun Add List Member",
+      "description": "Add a member to a mailing list",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "mailgun",
+        "operation": "mailgun_add_list_member"
+      }
+    },
+    {
+      "id": "mailgun_create_mailing_list",
+      "name": "Mailgun Create Mailing List",
+      "description": "Create a new mailing list",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "mailgun",
+        "operation": "mailgun_create_mailing_list"
+      }
+    },
+    {
+      "id": "mailgun_get_domain",
+      "name": "Mailgun Get Domain",
+      "description": "Get details of a specific domain",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "mailgun",
+        "operation": "mailgun_get_domain"
+      }
+    },
+    {
+      "id": "mailgun_get_mailing_list",
+      "name": "Mailgun Get Mailing List",
+      "description": "Get details of a mailing list",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "mailgun",
+        "operation": "mailgun_get_mailing_list"
+      }
+    },
+    {
+      "id": "mailgun_get_message",
+      "name": "Mailgun Get Message",
+      "description": "Retrieve a stored message by its key",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "mailgun",
+        "operation": "mailgun_get_message"
+      }
+    },
+    {
+      "id": "mailgun_list_domains",
+      "name": "Mailgun List Domains",
+      "description": "List all domains for your Mailgun account",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "mailgun",
+        "operation": "mailgun_list_domains"
+      }
+    },
+    {
+      "id": "mailgun_list_messages",
+      "name": "Mailgun List Messages",
+      "description": "List events (logs) for messages sent through Mailgun",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "mailgun",
+        "operation": "mailgun_list_messages"
+      }
+    },
+    {
+      "id": "mailgun_send_message",
+      "name": "Mailgun Send Message",
+      "description": "Send an email using Mailgun API",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "mailgun",
+        "operation": "mailgun_send_message"
+      }
+    }
+  ]
+}

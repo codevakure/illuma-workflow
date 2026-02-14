@@ -1,0 +1,617 @@
+{
+  "id": "reddit",
+  "name": "Reddit",
+  "version": "1.0.0",
+  "description": "Access Reddit data and content",
+  "icon": "RedditIcon",
+  "block": {
+    "type": "reddit",
+    "name": "Reddit",
+    "description": "Access Reddit data and content",
+    "longDescription": "Integrate Reddit into workflows. Read posts, comments, and search content. Submit posts, vote, reply, edit, and manage your Reddit account.",
+    "docsLink": "https://docs.sim.ai/tools/reddit",
+    "category": "tools",
+    "bgColor": "#FF5700",
+    "icon": "RedditIcon",
+    "authMode": "oauth",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Get Posts",
+            "value": "get_posts"
+          },
+          {
+            "label": "Get Comments",
+            "value": "get_comments"
+          },
+          {
+            "label": "Get Controversial Posts",
+            "value": "get_controversial"
+          },
+          {
+            "label": "Search Subreddit",
+            "value": "search"
+          },
+          {
+            "label": "Submit Post",
+            "value": "submit_post"
+          },
+          {
+            "label": "Vote",
+            "value": "vote"
+          },
+          {
+            "label": "Save",
+            "value": "save"
+          },
+          {
+            "label": "Unsave",
+            "value": "unsave"
+          },
+          {
+            "label": "Reply",
+            "value": "reply"
+          },
+          {
+            "label": "Edit",
+            "value": "edit"
+          },
+          {
+            "label": "Delete",
+            "value": "delete"
+          },
+          {
+            "label": "Subscribe",
+            "value": "subscribe"
+          }
+        ]
+      },
+      {
+        "id": "credential",
+        "type": "oauth-input",
+        "title": "Reddit Account",
+        "placeholder": "Select Reddit account"
+      },
+      {
+        "id": "subreddit",
+        "type": "short-input",
+        "title": "Subreddit",
+        "placeholder": "Enter subreddit name (without r/)"
+      },
+      {
+        "id": "sort",
+        "type": "dropdown",
+        "title": "Sort By",
+        "options": [
+          {
+            "label": "Hot",
+            "value": "hot"
+          },
+          {
+            "label": "New",
+            "value": "new"
+          },
+          {
+            "label": "Top",
+            "value": "top"
+          },
+          {
+            "label": "Rising",
+            "value": "rising"
+          }
+        ]
+      },
+      {
+        "id": "time",
+        "type": "dropdown",
+        "title": "Time Filter (for Top sort)",
+        "options": [
+          {
+            "label": "Day",
+            "value": "day"
+          },
+          {
+            "label": "Week",
+            "value": "week"
+          },
+          {
+            "label": "Month",
+            "value": "month"
+          },
+          {
+            "label": "Year",
+            "value": "year"
+          },
+          {
+            "label": "All Time",
+            "value": "all"
+          }
+        ]
+      },
+      {
+        "id": "limit",
+        "type": "short-input",
+        "title": "Max Posts",
+        "placeholder": "10"
+      },
+      {
+        "id": "postId",
+        "type": "short-input",
+        "title": "Post ID",
+        "placeholder": "Enter post ID"
+      },
+      {
+        "id": "commentSort",
+        "type": "dropdown",
+        "title": "Sort Comments By",
+        "options": [
+          {
+            "label": "Confidence",
+            "value": "confidence"
+          },
+          {
+            "label": "Top",
+            "value": "top"
+          },
+          {
+            "label": "New",
+            "value": "new"
+          },
+          {
+            "label": "Controversial",
+            "value": "controversial"
+          },
+          {
+            "label": "Old",
+            "value": "old"
+          },
+          {
+            "label": "Random",
+            "value": "random"
+          },
+          {
+            "label": "Q&A",
+            "value": "qa"
+          }
+        ]
+      },
+      {
+        "id": "commentLimit",
+        "type": "short-input",
+        "title": "Number of Comments",
+        "placeholder": "50"
+      },
+      {
+        "id": "controversialTime",
+        "type": "dropdown",
+        "title": "Time Filter",
+        "options": [
+          {
+            "label": "Hour",
+            "value": "hour"
+          },
+          {
+            "label": "Day",
+            "value": "day"
+          },
+          {
+            "label": "Week",
+            "value": "week"
+          },
+          {
+            "label": "Month",
+            "value": "month"
+          },
+          {
+            "label": "Year",
+            "value": "year"
+          },
+          {
+            "label": "All Time",
+            "value": "all"
+          }
+        ]
+      },
+      {
+        "id": "controversialLimit",
+        "type": "short-input",
+        "title": "Max Posts",
+        "placeholder": "10"
+      },
+      {
+        "id": "searchQuery",
+        "type": "short-input",
+        "title": "Search Query",
+        "placeholder": "Enter search query"
+      },
+      {
+        "id": "searchSort",
+        "type": "dropdown",
+        "title": "Sort By",
+        "options": [
+          {
+            "label": "Relevance",
+            "value": "relevance"
+          },
+          {
+            "label": "Hot",
+            "value": "hot"
+          },
+          {
+            "label": "Top",
+            "value": "top"
+          },
+          {
+            "label": "New",
+            "value": "new"
+          },
+          {
+            "label": "Comments",
+            "value": "comments"
+          }
+        ]
+      },
+      {
+        "id": "searchTime",
+        "type": "dropdown",
+        "title": "Time Filter",
+        "options": [
+          {
+            "label": "Hour",
+            "value": "hour"
+          },
+          {
+            "label": "Day",
+            "value": "day"
+          },
+          {
+            "label": "Week",
+            "value": "week"
+          },
+          {
+            "label": "Month",
+            "value": "month"
+          },
+          {
+            "label": "Year",
+            "value": "year"
+          },
+          {
+            "label": "All Time",
+            "value": "all"
+          }
+        ]
+      },
+      {
+        "id": "searchLimit",
+        "type": "short-input",
+        "title": "Max Results",
+        "placeholder": "10"
+      },
+      {
+        "id": "submitSubreddit",
+        "type": "short-input",
+        "title": "Subreddit",
+        "placeholder": "Enter subreddit name (without r/)"
+      },
+      {
+        "id": "title",
+        "type": "short-input",
+        "title": "Post Title",
+        "placeholder": "Enter post title"
+      },
+      {
+        "id": "postType",
+        "type": "dropdown",
+        "title": "Post Type",
+        "options": [
+          {
+            "label": "Text Post",
+            "value": "text"
+          },
+          {
+            "label": "Link Post",
+            "value": "link"
+          }
+        ]
+      },
+      {
+        "id": "text",
+        "type": "long-input",
+        "title": "Post Text (Markdown)",
+        "placeholder": "Enter post text in markdown format"
+      },
+      {
+        "id": "url",
+        "type": "short-input",
+        "title": "URL",
+        "placeholder": "Enter URL to share"
+      },
+      {
+        "id": "nsfw",
+        "type": "dropdown",
+        "title": "Mark as NSFW",
+        "options": [
+          {
+            "label": "No",
+            "value": "false"
+          },
+          {
+            "label": "Yes",
+            "value": "true"
+          }
+        ]
+      },
+      {
+        "id": "spoiler",
+        "type": "dropdown",
+        "title": "Mark as Spoiler",
+        "options": [
+          {
+            "label": "No",
+            "value": "false"
+          },
+          {
+            "label": "Yes",
+            "value": "true"
+          }
+        ]
+      },
+      {
+        "id": "voteId",
+        "type": "short-input",
+        "title": "Post/Comment ID",
+        "placeholder": "Enter thing ID (e.g., t3_xxxxx for post, t1_xxxxx for comment)"
+      },
+      {
+        "id": "voteDirection",
+        "type": "dropdown",
+        "title": "Vote Direction",
+        "options": [
+          {
+            "label": "Upvote",
+            "value": "1"
+          },
+          {
+            "label": "Unvote",
+            "value": "0"
+          },
+          {
+            "label": "Downvote",
+            "value": "-1"
+          }
+        ]
+      },
+      {
+        "id": "saveId",
+        "type": "short-input",
+        "title": "Post/Comment ID",
+        "placeholder": "Enter thing ID (e.g., t3_xxxxx for post, t1_xxxxx for comment)"
+      },
+      {
+        "id": "saveCategory",
+        "type": "short-input",
+        "title": "Category",
+        "placeholder": "Enter category name"
+      },
+      {
+        "id": "replyParentId",
+        "type": "short-input",
+        "title": "Parent Post/Comment ID",
+        "placeholder": "Enter thing ID to reply to (e.g., t3_xxxxx for post, t1_xxxxx for comment)"
+      },
+      {
+        "id": "replyText",
+        "type": "long-input",
+        "title": "Reply Text (Markdown)",
+        "placeholder": "Enter reply text in markdown format"
+      },
+      {
+        "id": "editThingId",
+        "type": "short-input",
+        "title": "Post/Comment ID",
+        "placeholder": "Enter thing ID to edit (e.g., t3_xxxxx for post, t1_xxxxx for comment)"
+      },
+      {
+        "id": "editText",
+        "type": "long-input",
+        "title": "New Text (Markdown)",
+        "placeholder": "Enter new text in markdown format"
+      },
+      {
+        "id": "deleteId",
+        "type": "short-input",
+        "title": "Post/Comment ID",
+        "placeholder": "Enter thing ID to delete (e.g., t3_xxxxx for post, t1_xxxxx for comment)"
+      },
+      {
+        "id": "subscribeSubreddit",
+        "type": "short-input",
+        "title": "Subreddit",
+        "placeholder": "Enter subreddit name (without r/)"
+      },
+      {
+        "id": "subscribeAction",
+        "type": "dropdown",
+        "title": "Action",
+        "options": [
+          {
+            "label": "Subscribe",
+            "value": "sub"
+          },
+          {
+            "label": "Unsubscribe",
+            "value": "unsub"
+          }
+        ]
+      }
+    ],
+    "tools": {
+      "access": [
+        "reddit_get_posts",
+        "reddit_get_comments",
+        "reddit_get_controversial",
+        "reddit_search",
+        "reddit_submit_post",
+        "reddit_vote",
+        "reddit_save",
+        "reddit_unsave",
+        "reddit_reply",
+        "reddit_edit",
+        "reddit_delete",
+        "reddit_subscribe"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "subreddit": {
+        "type": "string"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "reddit_delete",
+      "name": "Delete Reddit Post/Comment",
+      "description": "Delete your own Reddit post or comment",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "reddit",
+        "operation": "reddit_delete"
+      }
+    },
+    {
+      "id": "reddit_edit",
+      "name": "Edit Reddit Post/Comment",
+      "description": "Edit the text of your own Reddit post or comment",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "reddit",
+        "operation": "reddit_edit"
+      }
+    },
+    {
+      "id": "reddit_get_comments",
+      "name": "Get Reddit Comments",
+      "description": "Fetch comments from a specific Reddit post",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "reddit",
+        "operation": "reddit_get_comments"
+      }
+    },
+    {
+      "id": "reddit_get_controversial",
+      "name": "Get Reddit Controversial Posts",
+      "description": "Fetch controversial posts from a subreddit",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "reddit",
+        "operation": "reddit_get_controversial"
+      }
+    },
+    {
+      "id": "reddit_get_posts",
+      "name": "Get Reddit Posts",
+      "description": "Fetch posts from a subreddit with different sorting options",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "reddit",
+        "operation": "reddit_get_posts"
+      }
+    },
+    {
+      "id": "reddit_reply",
+      "name": "Reply to Reddit Post/Comment",
+      "description": "Add a comment reply to a Reddit post or comment",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "reddit",
+        "operation": "reddit_reply"
+      }
+    },
+    {
+      "id": "reddit_save",
+      "name": "Save Reddit Post/Comment",
+      "description": "Save a Reddit post or comment to your saved items",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "reddit",
+        "operation": "reddit_save"
+      }
+    },
+    {
+      "id": "reddit_search",
+      "name": "Search Reddit",
+      "description": "Search for posts within a subreddit",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "reddit",
+        "operation": "reddit_search"
+      }
+    },
+    {
+      "id": "reddit_submit_post",
+      "name": "Submit Reddit Post",
+      "description": "Submit a new post to a subreddit (text or link)",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "reddit",
+        "operation": "reddit_submit_post"
+      }
+    },
+    {
+      "id": "reddit_subscribe",
+      "name": "Subscribe/Unsubscribe from Subreddit",
+      "description": "Subscribe or unsubscribe from a subreddit",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "reddit",
+        "operation": "reddit_subscribe"
+      }
+    },
+    {
+      "id": "reddit_vote",
+      "name": "Vote on Reddit Post/Comment",
+      "description": "Upvote, downvote, or unvote a Reddit post or comment",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "reddit",
+        "operation": "reddit_vote"
+      }
+    }
+  ]
+}

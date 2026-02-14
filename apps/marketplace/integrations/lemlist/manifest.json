@@ -1,0 +1,225 @@
+{
+  "id": "lemlist",
+  "name": "Lemlist",
+  "version": "1.0.0",
+  "description": "Manage outreach activities, leads, and send emails via Lemlist",
+  "icon": "LemlistIcon",
+  "block": {
+    "type": "lemlist",
+    "name": "Lemlist",
+    "description": "Manage outreach activities, leads, and send emails via Lemlist",
+    "longDescription": "Integrate Lemlist into your workflow. Retrieve campaign activities and replies, get lead information, and send emails through the Lemlist inbox.",
+    "docsLink": "https://docs.sim.ai/tools/lemlist",
+    "category": "tools",
+    "bgColor": "#316BFF",
+    "icon": "LemlistIcon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Get Activities",
+            "value": "get_activities"
+          },
+          {
+            "label": "Get Lead",
+            "value": "get_lead"
+          },
+          {
+            "label": "Send Email",
+            "value": "send_email"
+          }
+        ]
+      },
+      {
+        "id": "type",
+        "type": "dropdown",
+        "title": "Activity Type",
+        "options": [
+          {
+            "label": "Email Opened",
+            "value": "emailOpened"
+          },
+          {
+            "label": "Email Clicked",
+            "value": "emailClicked"
+          },
+          {
+            "label": "Email Replied",
+            "value": "emailReplied"
+          },
+          {
+            "label": "Email Sent",
+            "value": "emailsSent"
+          },
+          {
+            "label": "Email Bounced",
+            "value": "emailsBounced"
+          },
+          {
+            "label": "Paused",
+            "value": "paused"
+          },
+          {
+            "label": "Interested",
+            "value": "interested"
+          },
+          {
+            "label": "Not Interested",
+            "value": "notInterested"
+          }
+        ]
+      },
+      {
+        "id": "campaignId",
+        "type": "short-input",
+        "title": "Campaign ID",
+        "placeholder": "Filter by campaign ID (optional)"
+      },
+      {
+        "id": "filterLeadId",
+        "type": "short-input",
+        "title": "Lead ID",
+        "placeholder": "Filter by lead ID (optional)"
+      },
+      {
+        "id": "limit",
+        "type": "short-input",
+        "title": "Limit",
+        "placeholder": "100 (max)"
+      },
+      {
+        "id": "offset",
+        "type": "short-input",
+        "title": "Offset",
+        "placeholder": "0"
+      },
+      {
+        "id": "email",
+        "type": "short-input",
+        "title": "Email Address",
+        "placeholder": "Enter lead email address",
+        "mode": "basic",
+        "canonicalParamId": "leadIdentifier"
+      },
+      {
+        "id": "leadIdLookup",
+        "type": "short-input",
+        "title": "Lead ID",
+        "placeholder": "Enter lead ID",
+        "mode": "advanced",
+        "canonicalParamId": "leadIdentifier"
+      },
+      {
+        "id": "sendUserId",
+        "type": "short-input",
+        "title": "Sender User ID",
+        "placeholder": "Your Lemlist user ID"
+      },
+      {
+        "id": "sendUserEmail",
+        "type": "short-input",
+        "title": "Sender Email",
+        "placeholder": "Your email address"
+      },
+      {
+        "id": "sendUserMailboxId",
+        "type": "short-input",
+        "title": "Mailbox ID",
+        "placeholder": "Your mailbox ID"
+      },
+      {
+        "id": "contactId",
+        "type": "short-input",
+        "title": "Contact ID",
+        "placeholder": "Recipient contact ID"
+      },
+      {
+        "id": "leadId",
+        "type": "short-input",
+        "title": "Lead ID",
+        "placeholder": "Associated lead ID"
+      },
+      {
+        "id": "subject",
+        "type": "short-input",
+        "title": "Subject",
+        "placeholder": "Email subject"
+      },
+      {
+        "id": "message",
+        "type": "long-input",
+        "title": "Message",
+        "placeholder": "Email message body (HTML supported)"
+      },
+      {
+        "id": "apiKey",
+        "type": "short-input",
+        "title": "API Key",
+        "placeholder": "Enter your Lemlist API key",
+        "password": true
+      }
+    ],
+    "tools": {
+      "access": [
+        "lemlist_get_activities",
+        "lemlist_get_lead",
+        "lemlist_send_email"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "activities": {
+        "type": "json"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "lemlist_get_activities",
+      "name": "Lemlist Get Activities",
+      "description": "Retrieves campaign activities and steps performed, including email opens, clicks, replies, and other events.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "lemlist",
+        "operation": "lemlist_get_activities"
+      }
+    },
+    {
+      "id": "lemlist_get_lead",
+      "name": "Lemlist Get Lead",
+      "description": "Retrieves lead information by email address or lead ID.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "lemlist",
+        "operation": "lemlist_get_lead"
+      }
+    },
+    {
+      "id": "lemlist_send_email",
+      "name": "Lemlist Send Email",
+      "description": "Sends an email to a contact through the Lemlist inbox.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "lemlist",
+        "operation": "lemlist_send_email"
+      }
+    }
+  ]
+}

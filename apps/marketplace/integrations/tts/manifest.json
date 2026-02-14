@@ -1,0 +1,590 @@
+{
+  "id": "tts",
+  "name": "Text-to-Speech",
+  "version": "1.0.0",
+  "description": "Convert text to speech using AI voices",
+  "icon": "TTSIcon",
+  "block": {
+    "type": "tts",
+    "name": "Text-to-Speech",
+    "description": "Convert text to speech using AI voices",
+    "longDescription": "Generate natural-sounding speech from text using state-of-the-art AI voices from OpenAI, Deepgram, ElevenLabs, Cartesia, Google Cloud, Azure, and PlayHT. Supports multiple voices, languages, and audio formats.",
+    "docsLink": "https://docs.sim.ai/tools/tts",
+    "category": "tools",
+    "bgColor": "#181C1E",
+    "icon": "TTSIcon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "provider",
+        "type": "dropdown",
+        "title": "Provider",
+        "options": [
+          {
+            "label": "OpenAI TTS",
+            "value": "openai"
+          },
+          {
+            "label": "Deepgram Aura",
+            "value": "deepgram"
+          },
+          {
+            "label": "ElevenLabs",
+            "value": "elevenlabs"
+          },
+          {
+            "label": "Cartesia Sonic",
+            "value": "cartesia"
+          },
+          {
+            "label": "Google Cloud TTS",
+            "value": "google"
+          },
+          {
+            "label": "Azure TTS",
+            "value": "azure"
+          },
+          {
+            "label": "PlayHT",
+            "value": "playht"
+          }
+        ]
+      },
+      {
+        "id": "text",
+        "type": "long-input",
+        "title": "Text",
+        "placeholder": "Enter the text to convert to speech..."
+      },
+      {
+        "id": "model",
+        "type": "dropdown",
+        "title": "Model",
+        "options": [
+          {
+            "label": "TTS-1",
+            "value": "tts-1"
+          },
+          {
+            "label": "TTS-1-HD",
+            "value": "tts-1-hd"
+          },
+          {
+            "label": "GPT-4o Mini TTS",
+            "value": "gpt-4o-mini-tts"
+          }
+        ]
+      },
+      {
+        "id": "voice",
+        "type": "dropdown",
+        "title": "Voice",
+        "options": [
+          {
+            "label": "Alloy",
+            "value": "alloy"
+          },
+          {
+            "label": "Ash",
+            "value": "ash"
+          },
+          {
+            "label": "Ballad",
+            "value": "ballad"
+          },
+          {
+            "label": "Cedar",
+            "value": "cedar"
+          },
+          {
+            "label": "Coral",
+            "value": "coral"
+          },
+          {
+            "label": "Echo",
+            "value": "echo"
+          },
+          {
+            "label": "Marin",
+            "value": "marin"
+          },
+          {
+            "label": "Sage",
+            "value": "sage"
+          },
+          {
+            "label": "Shimmer",
+            "value": "shimmer"
+          },
+          {
+            "label": "Verse",
+            "value": "verse"
+          }
+        ]
+      },
+      {
+        "id": "responseFormat",
+        "type": "dropdown",
+        "title": "Audio Format",
+        "options": [
+          {
+            "label": "MP3",
+            "value": "mp3"
+          },
+          {
+            "label": "Opus",
+            "value": "opus"
+          },
+          {
+            "label": "AAC",
+            "value": "aac"
+          },
+          {
+            "label": "FLAC",
+            "value": "flac"
+          },
+          {
+            "label": "WAV",
+            "value": "wav"
+          }
+        ]
+      },
+      {
+        "id": "speed",
+        "type": "slider",
+        "title": "Speed",
+        "min": 0.25,
+        "max": 4,
+        "step": 0.25
+      },
+      {
+        "id": "voice",
+        "type": "dropdown",
+        "title": "Voice",
+        "options": [
+          {
+            "label": "Asteria",
+            "value": "aura-asteria-en"
+          },
+          {
+            "label": "Luna",
+            "value": "aura-luna-en"
+          },
+          {
+            "label": "Stella",
+            "value": "aura-stella-en"
+          },
+          {
+            "label": "Athena",
+            "value": "aura-athena-en"
+          },
+          {
+            "label": "Hera",
+            "value": "aura-hera-en"
+          },
+          {
+            "label": "Orion",
+            "value": "aura-orion-en"
+          },
+          {
+            "label": "Arcas",
+            "value": "aura-arcas-en"
+          },
+          {
+            "label": "Perseus",
+            "value": "aura-perseus-en"
+          },
+          {
+            "label": "Angus",
+            "value": "aura-angus-en"
+          },
+          {
+            "label": "Orpheus",
+            "value": "aura-orpheus-en"
+          },
+          {
+            "label": "Helios",
+            "value": "aura-helios-en"
+          },
+          {
+            "label": "Zeus",
+            "value": "aura-zeus-en"
+          }
+        ]
+      },
+      {
+        "id": "encoding",
+        "type": "dropdown",
+        "title": "Audio Format",
+        "options": [
+          {
+            "label": "MP3",
+            "value": "mp3"
+          },
+          {
+            "label": "Opus",
+            "value": "opus"
+          },
+          {
+            "label": "AAC",
+            "value": "aac"
+          },
+          {
+            "label": "FLAC",
+            "value": "flac"
+          },
+          {
+            "label": "Linear16",
+            "value": "linear16"
+          }
+        ]
+      },
+      {
+        "id": "sampleRate",
+        "type": "dropdown",
+        "title": "Sample Rate",
+        "options": [
+          {
+            "label": "8000 Hz",
+            "value": "8000"
+          },
+          {
+            "label": "16000 Hz",
+            "value": "16000"
+          },
+          {
+            "label": "24000 Hz",
+            "value": "24000"
+          },
+          {
+            "label": "48000 Hz",
+            "value": "48000"
+          }
+        ]
+      },
+      {
+        "id": "voiceId",
+        "type": "short-input",
+        "title": "Voice ID",
+        "placeholder": "Enter ElevenLabs voice ID"
+      },
+      {
+        "id": "modelId",
+        "type": "dropdown",
+        "title": "Model",
+        "options": [
+          {
+            "label": "Turbo v2.5",
+            "value": "eleven_turbo_v2_5"
+          },
+          {
+            "label": "Flash v2.5",
+            "value": "eleven_flash_v2_5"
+          },
+          {
+            "label": "Multilingual v2",
+            "value": "eleven_multilingual_v2"
+          },
+          {
+            "label": "Turbo v2",
+            "value": "eleven_turbo_v2"
+          },
+          {
+            "label": "Monolingual v1",
+            "value": "eleven_monolingual_v1"
+          },
+          {
+            "label": "Multilingual v1",
+            "value": "eleven_multilingual_v1"
+          }
+        ]
+      },
+      {
+        "id": "stability",
+        "type": "slider",
+        "title": "Stability",
+        "min": 0,
+        "max": 1,
+        "step": 0.05
+      },
+      {
+        "id": "similarityBoost",
+        "type": "slider",
+        "title": "Similarity Boost",
+        "min": 0,
+        "max": 1,
+        "step": 0.05
+      },
+      {
+        "id": "style",
+        "type": "slider",
+        "title": "Style",
+        "min": 0,
+        "max": 1,
+        "step": 0.05
+      },
+      {
+        "id": "modelId",
+        "type": "dropdown",
+        "title": "Model",
+        "options": [
+          {
+            "label": "Sonic",
+            "value": "sonic"
+          },
+          {
+            "label": "Sonic 2",
+            "value": "sonic-2"
+          },
+          {
+            "label": "Sonic Turbo",
+            "value": "sonic-turbo"
+          },
+          {
+            "label": "Sonic 3",
+            "value": "sonic-3"
+          },
+          {
+            "label": "Sonic Multilingual",
+            "value": "sonic-multilingual"
+          }
+        ]
+      },
+      {
+        "id": "voice",
+        "type": "short-input",
+        "title": "Voice ID",
+        "placeholder": "Enter Cartesia voice ID"
+      },
+      {
+        "id": "speed",
+        "type": "slider",
+        "title": "Speed",
+        "min": 0.5,
+        "max": 2,
+        "step": 0.1
+      },
+      {
+        "id": "voiceId",
+        "type": "short-input",
+        "title": "Voice ID",
+        "placeholder": "e.g., en-US-Neural2-A"
+      },
+      {
+        "id": "languageCode",
+        "type": "short-input",
+        "title": "Language Code",
+        "placeholder": "e.g., en-US, es-ES"
+      },
+      {
+        "id": "speakingRate",
+        "type": "slider",
+        "title": "Speaking Rate",
+        "min": 0.25,
+        "max": 2,
+        "step": 0.25
+      },
+      {
+        "id": "pitch",
+        "type": "slider",
+        "title": "Pitch",
+        "max": 20,
+        "step": 1
+      },
+      {
+        "id": "voiceId",
+        "type": "short-input",
+        "title": "Voice ID",
+        "placeholder": "e.g., en-US-JennyNeural"
+      },
+      {
+        "id": "region",
+        "type": "short-input",
+        "title": "Region",
+        "placeholder": "e.g., eastus, westus"
+      },
+      {
+        "id": "outputFormat",
+        "type": "dropdown",
+        "title": "Output Format",
+        "options": [
+          {
+            "label": "MP3 24kHz 48kbps",
+            "value": "audio-24khz-48kbitrate-mono-mp3"
+          },
+          {
+            "label": "MP3 24kHz 96kbps",
+            "value": "audio-24khz-96kbitrate-mono-mp3"
+          },
+          {
+            "label": "MP3 48kHz 96kbps",
+            "value": "audio-48khz-96kbitrate-mono-mp3"
+          }
+        ]
+      },
+      {
+        "id": "style",
+        "type": "short-input",
+        "title": "Speaking Style",
+        "placeholder": "e.g., cheerful, sad, angry"
+      },
+      {
+        "id": "userId",
+        "type": "short-input",
+        "title": "User ID",
+        "placeholder": "Enter your PlayHT user ID",
+        "password": true
+      },
+      {
+        "id": "voice",
+        "type": "short-input",
+        "title": "Voice",
+        "placeholder": "Voice ID or manifest URL"
+      },
+      {
+        "id": "quality",
+        "type": "dropdown",
+        "title": "Quality",
+        "options": [
+          {
+            "label": "Draft",
+            "value": "draft"
+          },
+          {
+            "label": "Standard",
+            "value": "standard"
+          },
+          {
+            "label": "Premium",
+            "value": "premium"
+          }
+        ]
+      },
+      {
+        "id": "speed",
+        "type": "slider",
+        "title": "Speed",
+        "min": 0.5,
+        "max": 2,
+        "step": 0.1
+      },
+      {
+        "id": "apiKey",
+        "type": "short-input",
+        "title": "API Key",
+        "placeholder": "Enter your API key",
+        "password": true
+      }
+    ],
+    "tools": {
+      "access": [
+        "tts_openai",
+        "tts_deepgram",
+        "tts_elevenlabs",
+        "tts_cartesia",
+        "tts_google",
+        "tts_azure",
+        "tts_playht"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "provider": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "audioUrl": {
+        "type": "string"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "tts_azure",
+      "name": "Azure TTS",
+      "description": "Convert text to speech using Azure Cognitive Services",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "tts",
+        "operation": "tts_azure"
+      }
+    },
+    {
+      "id": "tts_cartesia",
+      "name": "Cartesia TTS",
+      "description": "Convert text to speech using Cartesia Sonic (ultra-low latency)",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "tts",
+        "operation": "tts_cartesia"
+      }
+    },
+    {
+      "id": "tts_deepgram",
+      "name": "Deepgram TTS",
+      "description": "Convert text to speech using Deepgram Aura",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "tts",
+        "operation": "tts_deepgram"
+      }
+    },
+    {
+      "id": "tts_elevenlabs",
+      "name": "ElevenLabs TTS",
+      "description": "Convert text to speech using ElevenLabs voices",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "tts",
+        "operation": "tts_elevenlabs"
+      }
+    },
+    {
+      "id": "tts_google",
+      "name": "Google Cloud TTS",
+      "description": "Convert text to speech using Google Cloud Text-to-Speech",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "tts",
+        "operation": "tts_google"
+      }
+    },
+    {
+      "id": "tts_openai",
+      "name": "OpenAI TTS",
+      "description": "Convert text to speech using OpenAI TTS models",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "tts",
+        "operation": "tts_openai"
+      }
+    },
+    {
+      "id": "tts_playht",
+      "name": "PlayHT TTS",
+      "description": "Convert text to speech using PlayHT (voice cloning)",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "tts",
+        "operation": "tts_playht"
+      }
+    }
+  ]
+}

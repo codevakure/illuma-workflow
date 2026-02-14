@@ -1,0 +1,137 @@
+{
+  "id": "wikipedia",
+  "name": "Wikipedia",
+  "version": "1.0.0",
+  "description": "Search and retrieve content from Wikipedia",
+  "icon": "WikipediaIcon",
+  "block": {
+    "type": "wikipedia",
+    "name": "Wikipedia",
+    "description": "Search and retrieve content from Wikipedia",
+    "longDescription": "Integrate Wikipedia into the workflow. Can get page summary, search pages, get page content, and get random page.",
+    "docsLink": "https://docs.sim.ai/tools/wikipedia",
+    "category": "tools",
+    "bgColor": "#000000",
+    "icon": "WikipediaIcon",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Get Page Summary",
+            "value": "wikipedia_summary"
+          },
+          {
+            "label": "Search Pages",
+            "value": "wikipedia_search"
+          },
+          {
+            "label": "Get Page Content",
+            "value": "wikipedia_content"
+          },
+          {
+            "label": "Random Page",
+            "value": "wikipedia_random"
+          }
+        ]
+      },
+      {
+        "id": "pageTitle",
+        "type": "long-input",
+        "title": "Page Title",
+        "placeholder": "Enter Wikipedia page title (e.g., "
+      },
+      {
+        "id": "query",
+        "type": "long-input",
+        "title": "Search Query",
+        "placeholder": "Enter search terms..."
+      },
+      {
+        "id": "searchLimit",
+        "type": "short-input",
+        "title": "Max Results",
+        "placeholder": "10"
+      },
+      {
+        "id": "pageTitle",
+        "type": "long-input",
+        "title": "Page Title",
+        "placeholder": "Enter Wikipedia page title..."
+      }
+    ],
+    "tools": {
+      "access": [
+        "wikipedia_summary",
+        "wikipedia_search",
+        "wikipedia_content",
+        "wikipedia_random"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "summary": {
+        "type": "json"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "wikipedia_content",
+      "name": "Wikipedia Page Content",
+      "description": "Get the full HTML content of a Wikipedia page.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "wikipedia",
+        "operation": "wikipedia_content"
+      }
+    },
+    {
+      "id": "wikipedia_random",
+      "name": "Wikipedia Random Page",
+      "description": "Get a random Wikipedia page.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "wikipedia",
+        "operation": "wikipedia_random"
+      }
+    },
+    {
+      "id": "wikipedia_search",
+      "name": "Wikipedia Search",
+      "description": "Search for Wikipedia pages by title or content.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "wikipedia",
+        "operation": "wikipedia_search"
+      }
+    },
+    {
+      "id": "wikipedia_summary",
+      "name": "Wikipedia Page Summary",
+      "description": "Get a summary and metadata for a specific Wikipedia page.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "wikipedia",
+        "operation": "wikipedia_summary"
+      }
+    }
+  ]
+}

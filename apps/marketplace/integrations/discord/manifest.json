@@ -1,0 +1,977 @@
+{
+  "id": "discord",
+  "name": "Discord",
+  "version": "1.0.0",
+  "description": "Interact with Discord",
+  "icon": "DiscordIcon",
+  "block": {
+    "type": "discord",
+    "name": "Discord",
+    "description": "Interact with Discord",
+    "longDescription": "Comprehensive Discord integration: messages, threads, channels, roles, members, invites, and webhooks.",
+    "docsLink": "https://docs.sim.ai/tools/discord",
+    "category": "tools",
+    "bgColor": "#5865F2",
+    "icon": "DiscordIcon",
+    "authMode": "bot_token",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Send Message",
+            "value": "discord_send_message"
+          },
+          {
+            "label": "Get Channel Messages",
+            "value": "discord_get_messages"
+          },
+          {
+            "label": "Get Server Information",
+            "value": "discord_get_server"
+          },
+          {
+            "label": "Get User Information",
+            "value": "discord_get_user"
+          },
+          {
+            "label": "Edit Message",
+            "value": "discord_edit_message"
+          },
+          {
+            "label": "Delete Message",
+            "value": "discord_delete_message"
+          },
+          {
+            "label": "Add Reaction",
+            "value": "discord_add_reaction"
+          },
+          {
+            "label": "Remove Reaction",
+            "value": "discord_remove_reaction"
+          },
+          {
+            "label": "Pin Message",
+            "value": "discord_pin_message"
+          },
+          {
+            "label": "Unpin Message",
+            "value": "discord_unpin_message"
+          },
+          {
+            "label": "Create Thread",
+            "value": "discord_create_thread"
+          },
+          {
+            "label": "Join Thread",
+            "value": "discord_join_thread"
+          },
+          {
+            "label": "Leave Thread",
+            "value": "discord_leave_thread"
+          },
+          {
+            "label": "Archive Thread",
+            "value": "discord_archive_thread"
+          },
+          {
+            "label": "Create Channel",
+            "value": "discord_create_channel"
+          },
+          {
+            "label": "Update Channel",
+            "value": "discord_update_channel"
+          },
+          {
+            "label": "Delete Channel",
+            "value": "discord_delete_channel"
+          },
+          {
+            "label": "Get Channel",
+            "value": "discord_get_channel"
+          },
+          {
+            "label": "Create Role",
+            "value": "discord_create_role"
+          },
+          {
+            "label": "Update Role",
+            "value": "discord_update_role"
+          },
+          {
+            "label": "Delete Role",
+            "value": "discord_delete_role"
+          },
+          {
+            "label": "Assign Role",
+            "value": "discord_assign_role"
+          },
+          {
+            "label": "Remove Role",
+            "value": "discord_remove_role"
+          },
+          {
+            "label": "Kick Member",
+            "value": "discord_kick_member"
+          },
+          {
+            "label": "Ban Member",
+            "value": "discord_ban_member"
+          },
+          {
+            "label": "Unban Member",
+            "value": "discord_unban_member"
+          },
+          {
+            "label": "Get Member",
+            "value": "discord_get_member"
+          },
+          {
+            "label": "Update Member",
+            "value": "discord_update_member"
+          },
+          {
+            "label": "Create Invite",
+            "value": "discord_create_invite"
+          },
+          {
+            "label": "Get Invite",
+            "value": "discord_get_invite"
+          },
+          {
+            "label": "Delete Invite",
+            "value": "discord_delete_invite"
+          },
+          {
+            "label": "Create Webhook",
+            "value": "discord_create_webhook"
+          },
+          {
+            "label": "Execute Webhook",
+            "value": "discord_execute_webhook"
+          },
+          {
+            "label": "Get Webhook",
+            "value": "discord_get_webhook"
+          },
+          {
+            "label": "Delete Webhook",
+            "value": "discord_delete_webhook"
+          }
+        ]
+      },
+      {
+        "id": "botToken",
+        "type": "short-input",
+        "title": "Bot Token",
+        "placeholder": "Enter Discord bot token",
+        "password": true
+      },
+      {
+        "id": "serverId",
+        "type": "short-input",
+        "title": "Server ID",
+        "placeholder": "Enter Discord server ID"
+      },
+      {
+        "id": "channelId",
+        "type": "short-input",
+        "title": "Channel ID",
+        "placeholder": "Enter Discord channel ID"
+      },
+      {
+        "id": "messageId",
+        "type": "short-input",
+        "title": "Message ID",
+        "placeholder": "Enter message ID"
+      },
+      {
+        "id": "content",
+        "type": "long-input",
+        "title": "Message Content",
+        "placeholder": "Enter message content..."
+      },
+      {
+        "id": "emoji",
+        "type": "short-input",
+        "title": "Emoji",
+        "placeholder": "Enter emoji (e.g., 👍 or custom:123456789)"
+      },
+      {
+        "id": "userId",
+        "type": "short-input",
+        "title": "User ID",
+        "placeholder": "Enter Discord user ID"
+      },
+      {
+        "id": "threadId",
+        "type": "short-input",
+        "title": "Thread ID",
+        "placeholder": "Enter thread ID"
+      },
+      {
+        "id": "name",
+        "type": "short-input",
+        "title": "Name",
+        "placeholder": "Enter name"
+      },
+      {
+        "id": "name",
+        "type": "short-input",
+        "title": "Name",
+        "placeholder": "Enter new name (optional)"
+      },
+      {
+        "id": "roleId",
+        "type": "short-input",
+        "title": "Role ID",
+        "placeholder": "Enter role ID"
+      },
+      {
+        "id": "webhookId",
+        "type": "short-input",
+        "title": "Webhook ID",
+        "placeholder": "Enter webhook ID"
+      },
+      {
+        "id": "webhookToken",
+        "type": "short-input",
+        "title": "Webhook Token",
+        "placeholder": "Enter webhook token"
+      },
+      {
+        "id": "inviteCode",
+        "type": "short-input",
+        "title": "Invite Code",
+        "placeholder": "Enter invite code"
+      },
+      {
+        "id": "archived",
+        "type": "dropdown",
+        "title": "Archived",
+        "options": [
+          {
+            "label": "Archive",
+            "value": "true"
+          },
+          {
+            "label": "Unarchive",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "id": "topic",
+        "type": "long-input",
+        "title": "Topic",
+        "placeholder": "Enter channel topic (optional)"
+      },
+      {
+        "id": "color",
+        "type": "short-input",
+        "title": "Color",
+        "placeholder": "Enter color as integer (e.g., 16711680 for red)"
+      },
+      {
+        "id": "nick",
+        "type": "short-input",
+        "title": "Nickname",
+        "placeholder": "Enter new nickname"
+      },
+      {
+        "id": "reason",
+        "type": "short-input",
+        "title": "Reason",
+        "placeholder": "Enter reason for this action"
+      },
+      {
+        "id": "limit",
+        "type": "short-input",
+        "title": "Message Limit",
+        "placeholder": "Number of messages (default: 10, max: 100)",
+        "max": 100
+      },
+      {
+        "id": "autoArchiveDuration",
+        "type": "dropdown",
+        "title": "Auto Archive Duration (minutes)",
+        "options": [
+          {
+            "label": "1 hour (60 minutes)",
+            "value": "60"
+          },
+          {
+            "label": "24 hours (1440 minutes)",
+            "value": "1440"
+          },
+          {
+            "label": "3 days (4320 minutes)",
+            "value": "4320"
+          },
+          {
+            "label": "1 week (10080 minutes)",
+            "value": "10080"
+          }
+        ]
+      },
+      {
+        "id": "channelType",
+        "type": "dropdown",
+        "title": "Channel Type",
+        "options": [
+          {
+            "label": "Text Channel",
+            "value": "0"
+          },
+          {
+            "label": "Voice Channel",
+            "value": "2"
+          },
+          {
+            "label": "Announcement Channel",
+            "value": "5"
+          },
+          {
+            "label": "Stage Channel",
+            "value": "13"
+          },
+          {
+            "label": "Forum Channel",
+            "value": "15"
+          }
+        ]
+      },
+      {
+        "id": "parentId",
+        "type": "short-input",
+        "title": "Parent Category ID",
+        "placeholder": "Enter parent category ID (optional)"
+      },
+      {
+        "id": "hoist",
+        "type": "dropdown",
+        "title": "Display Separately",
+        "options": [
+          {
+            "label": "Yes - Display role members separately",
+            "value": "true"
+          }
+        ]
+      },
+      {
+        "id": "mentionable",
+        "type": "dropdown",
+        "title": "Mentionable",
+        "options": [
+          {
+            "label": "Yes - Role can be mentioned",
+            "value": "true"
+          },
+          {
+            "label": "No - Role cannot be mentioned",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "id": "deleteMessageDays",
+        "type": "dropdown",
+        "title": "Delete Message History",
+        "options": [
+          {
+            "label": "Delete messages from last 1 day",
+            "value": "1"
+          },
+          {
+            "label": "Delete messages from last 7 days",
+            "value": "7"
+          }
+        ]
+      },
+      {
+        "id": "mute",
+        "type": "dropdown",
+        "title": "Server Mute",
+        "options": [
+          {
+            "label": "Mute member",
+            "value": "true"
+          },
+          {
+            "label": "Unmute member",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "id": "deaf",
+        "type": "dropdown",
+        "title": "Server Deafen",
+        "options": [
+          {
+            "label": "Deafen member",
+            "value": "true"
+          },
+          {
+            "label": "Undeafen member",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "id": "maxAge",
+        "type": "dropdown",
+        "title": "Invite Expiration",
+        "options": [
+          {
+            "label": "Never expire",
+            "value": "0"
+          },
+          {
+            "label": "30 minutes",
+            "value": "1800"
+          },
+          {
+            "label": "1 hour",
+            "value": "3600"
+          },
+          {
+            "label": "6 hours",
+            "value": "21600"
+          },
+          {
+            "label": "12 hours",
+            "value": "43200"
+          },
+          {
+            "label": "1 day",
+            "value": "86400"
+          },
+          {
+            "label": "7 days",
+            "value": "604800"
+          }
+        ]
+      },
+      {
+        "id": "maxUses",
+        "type": "short-input",
+        "title": "Max Uses",
+        "placeholder": "Maximum number of uses (0 = unlimited)"
+      },
+      {
+        "id": "temporary",
+        "type": "dropdown",
+        "title": "Temporary Membership",
+        "options": [
+          {
+            "label": "No - Grant permanent membership",
+            "value": "false"
+          },
+          {
+            "label": "Yes - Kick on disconnect if no role",
+            "value": "true"
+          }
+        ]
+      },
+      {
+        "id": "username",
+        "type": "short-input",
+        "title": "Override Username",
+        "placeholder": "Custom username to display (optional)"
+      },
+      {
+        "id": "attachmentFiles",
+        "type": "file-upload",
+        "title": "Attachments",
+        "placeholder": "Upload files to attach",
+        "mode": "basic",
+        "canonicalParamId": "files"
+      },
+      {
+        "id": "files",
+        "type": "short-input",
+        "title": "File Attachments",
+        "placeholder": "Reference files from previous blocks",
+        "mode": "advanced",
+        "canonicalParamId": "files"
+      }
+    ],
+    "tools": {
+      "access": [
+        "discord_send_message",
+        "discord_get_messages",
+        "discord_get_server",
+        "discord_get_user",
+        "discord_edit_message",
+        "discord_delete_message",
+        "discord_add_reaction",
+        "discord_remove_reaction",
+        "discord_pin_message",
+        "discord_unpin_message",
+        "discord_create_thread",
+        "discord_join_thread",
+        "discord_leave_thread",
+        "discord_archive_thread",
+        "discord_create_channel",
+        "discord_update_channel",
+        "discord_delete_channel",
+        "discord_get_channel",
+        "discord_create_role",
+        "discord_update_role",
+        "discord_delete_role",
+        "discord_assign_role",
+        "discord_remove_role",
+        "discord_kick_member",
+        "discord_ban_member",
+        "discord_unban_member",
+        "discord_get_member",
+        "discord_update_member",
+        "discord_create_invite",
+        "discord_get_invite",
+        "discord_delete_invite",
+        "discord_create_webhook",
+        "discord_execute_webhook",
+        "discord_get_webhook",
+        "discord_delete_webhook"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "message": {
+        "type": "string"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "discord_add_reaction",
+      "name": "Discord Add Reaction",
+      "description": "Add a reaction emoji to a Discord message",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "discord",
+        "operation": "discord_add_reaction"
+      }
+    },
+    {
+      "id": "discord_archive_thread",
+      "name": "Discord Archive Thread",
+      "description": "Archive or unarchive a thread in Discord",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "discord",
+        "operation": "discord_archive_thread"
+      }
+    },
+    {
+      "id": "discord_assign_role",
+      "name": "Discord Assign Role",
+      "description": "Assign a role to a member in a Discord server",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "discord",
+        "operation": "discord_assign_role"
+      }
+    },
+    {
+      "id": "discord_ban_member",
+      "name": "Discord Ban Member",
+      "description": "Ban a member from a Discord server",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "discord",
+        "operation": "discord_ban_member"
+      }
+    },
+    {
+      "id": "discord_create_channel",
+      "name": "Discord Create Channel",
+      "description": "Create a new channel in a Discord server",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "discord",
+        "operation": "discord_create_channel"
+      }
+    },
+    {
+      "id": "discord_create_invite",
+      "name": "Discord Create Invite",
+      "description": "Create an invite link for a Discord channel",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "discord",
+        "operation": "discord_create_invite"
+      }
+    },
+    {
+      "id": "discord_create_role",
+      "name": "Discord Create Role",
+      "description": "Create a new role in a Discord server",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "discord",
+        "operation": "discord_create_role"
+      }
+    },
+    {
+      "id": "discord_create_thread",
+      "name": "Discord Create Thread",
+      "description": "Create a thread in a Discord channel",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "discord",
+        "operation": "discord_create_thread"
+      }
+    },
+    {
+      "id": "discord_create_webhook",
+      "name": "Discord Create Webhook",
+      "description": "Create a webhook in a Discord channel",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "discord",
+        "operation": "discord_create_webhook"
+      }
+    },
+    {
+      "id": "discord_delete_channel",
+      "name": "Discord Delete Channel",
+      "description": "Delete a Discord channel",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "discord",
+        "operation": "discord_delete_channel"
+      }
+    },
+    {
+      "id": "discord_delete_invite",
+      "name": "Discord Delete Invite",
+      "description": "Delete a Discord invite",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "discord",
+        "operation": "discord_delete_invite"
+      }
+    },
+    {
+      "id": "discord_delete_message",
+      "name": "Discord Delete Message",
+      "description": "Delete a message from a Discord channel",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "discord",
+        "operation": "discord_delete_message"
+      }
+    },
+    {
+      "id": "discord_delete_role",
+      "name": "Discord Delete Role",
+      "description": "Delete a role from a Discord server",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "discord",
+        "operation": "discord_delete_role"
+      }
+    },
+    {
+      "id": "discord_delete_webhook",
+      "name": "Discord Delete Webhook",
+      "description": "Delete a Discord webhook",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "discord",
+        "operation": "discord_delete_webhook"
+      }
+    },
+    {
+      "id": "discord_edit_message",
+      "name": "Discord Edit Message",
+      "description": "Edit an existing message in a Discord channel",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "discord",
+        "operation": "discord_edit_message"
+      }
+    },
+    {
+      "id": "discord_execute_webhook",
+      "name": "Discord Execute Webhook",
+      "description": "Execute a Discord webhook to send a message",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "discord",
+        "operation": "discord_execute_webhook"
+      }
+    },
+    {
+      "id": "discord_get_channel",
+      "name": "Discord Get Channel",
+      "description": "Get information about a Discord channel",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "discord",
+        "operation": "discord_get_channel"
+      }
+    },
+    {
+      "id": "discord_get_invite",
+      "name": "Discord Get Invite",
+      "description": "Get information about a Discord invite",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "discord",
+        "operation": "discord_get_invite"
+      }
+    },
+    {
+      "id": "discord_get_member",
+      "name": "Discord Get Member",
+      "description": "Get information about a member in a Discord server",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "discord",
+        "operation": "discord_get_member"
+      }
+    },
+    {
+      "id": "discord_get_messages",
+      "name": "Discord Get Messages",
+      "description": "Retrieve messages from a Discord channel",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "discord",
+        "operation": "discord_get_messages"
+      }
+    },
+    {
+      "id": "discord_get_server",
+      "name": "Discord Get Server",
+      "description": "Retrieve information about a Discord server (guild)",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "discord",
+        "operation": "discord_get_server"
+      }
+    },
+    {
+      "id": "discord_get_user",
+      "name": "Discord Get User",
+      "description": "Retrieve information about a Discord user",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "discord",
+        "operation": "discord_get_user"
+      }
+    },
+    {
+      "id": "discord_get_webhook",
+      "name": "Discord Get Webhook",
+      "description": "Get information about a Discord webhook",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "discord",
+        "operation": "discord_get_webhook"
+      }
+    },
+    {
+      "id": "discord_join_thread",
+      "name": "Discord Join Thread",
+      "description": "Join a thread in Discord",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "discord",
+        "operation": "discord_join_thread"
+      }
+    },
+    {
+      "id": "discord_kick_member",
+      "name": "Discord Kick Member",
+      "description": "Kick a member from a Discord server",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "discord",
+        "operation": "discord_kick_member"
+      }
+    },
+    {
+      "id": "discord_leave_thread",
+      "name": "Discord Leave Thread",
+      "description": "Leave a thread in Discord",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "discord",
+        "operation": "discord_leave_thread"
+      }
+    },
+    {
+      "id": "discord_pin_message",
+      "name": "Discord Pin Message",
+      "description": "Pin a message in a Discord channel",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "discord",
+        "operation": "discord_pin_message"
+      }
+    },
+    {
+      "id": "discord_remove_reaction",
+      "name": "Discord Remove Reaction",
+      "description": "Remove a reaction from a Discord message",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "discord",
+        "operation": "discord_remove_reaction"
+      }
+    },
+    {
+      "id": "discord_remove_role",
+      "name": "Discord Remove Role",
+      "description": "Remove a role from a member in a Discord server",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "discord",
+        "operation": "discord_remove_role"
+      }
+    },
+    {
+      "id": "discord_send_message",
+      "name": "Discord Send Message",
+      "description": "Send a message to a Discord channel",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "discord",
+        "operation": "discord_send_message"
+      }
+    },
+    {
+      "id": "discord_unban_member",
+      "name": "Discord Unban Member",
+      "description": "Unban a member from a Discord server",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "discord",
+        "operation": "discord_unban_member"
+      }
+    },
+    {
+      "id": "discord_unpin_message",
+      "name": "Discord Unpin Message",
+      "description": "Unpin a message in a Discord channel",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "discord",
+        "operation": "discord_unpin_message"
+      }
+    },
+    {
+      "id": "discord_update_channel",
+      "name": "Discord Update Channel",
+      "description": "Update a Discord channel",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "discord",
+        "operation": "discord_update_channel"
+      }
+    },
+    {
+      "id": "discord_update_member",
+      "name": "Discord Update Member",
+      "description": "Update a member in a Discord server (e.g., change nickname)",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "discord",
+        "operation": "discord_update_member"
+      }
+    },
+    {
+      "id": "discord_update_role",
+      "name": "Discord Update Role",
+      "description": "Update a role in a Discord server",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "discord",
+        "operation": "discord_update_role"
+      }
+    }
+  ]
+}

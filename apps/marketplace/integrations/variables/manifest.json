@@ -1,0 +1,52 @@
+{
+  "id": "variables",
+  "name": "Variables",
+  "version": "1.0.0",
+  "description": "Set workflow-scoped variables",
+  "icon": "VariableIcon",
+  "block": {
+    "type": "variables",
+    "name": "Variables",
+    "description": "Set workflow-scoped variables",
+    "longDescription": "Set workflow-scoped variables that can be accessed throughout the workflow using <variable.variableName> syntax. All Variables blocks share the same namespace, so later blocks can update previously set variables.",
+    "docsLink": "https://docs.sim.ai/blocks/variables",
+    "category": "blocks",
+    "bgColor": "#8B5CF6",
+    "icon": "VariableIcon",
+    "subBlocks": [
+      {
+        "id": "variables",
+        "title": "Variable Assignments",
+        "type": "variables-input",
+        "required": false
+      }
+    ],
+    "tools": {
+      "access": [],
+      "config": {
+        "tool": ""
+      }
+    },
+    "inputs": {
+      "variables": {
+        "type": "json",
+        "description": "Array of variable objects with name and value properties"
+      }
+    },
+    "outputs": {}
+  },
+  "tools": [
+    {
+      "id": "variables_execute",
+      "name": "variables execute",
+      "description": "",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "variables",
+        "operation": "execute"
+      }
+    }
+  ]
+}

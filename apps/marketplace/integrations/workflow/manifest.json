@@ -1,0 +1,62 @@
+{
+  "id": "workflow",
+  "name": "Workflow",
+  "version": "1.0.0",
+  "description": "This is a core workflow block. Execute another workflow as a block in your workflow. Enter the input variable to pass to the child workflow.",
+  "icon": "WorkflowIcon",
+  "block": {
+    "type": "workflow",
+    "name": "Workflow",
+    "description": "This is a core workflow block. Execute another workflow as a block in your workflow. Enter the input variable to pass to the child workflow.",
+    "category": "blocks",
+    "bgColor": "#6366F1",
+    "icon": "WorkflowIcon",
+    "hideFromToolbar": true,
+    "subBlocks": [
+      {
+        "id": "workflowId",
+        "type": "workflow-selector",
+        "title": "Select Workflow",
+        "placeholder": "Search workflows..."
+      },
+      {
+        "id": "input",
+        "type": "short-input",
+        "title": "Input Variable",
+        "placeholder": "Select a variable to pass to the child workflow"
+      }
+    ],
+    "tools": {
+      "access": [
+        "workflow_executor"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "workflowId": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "boolean"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "workflow_executor",
+      "name": "Workflow Executor",
+      "description": "Execute another workflow as a sub-workflow. Pass inputs as a JSON object with field names matching the child workflow\\",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "workflow",
+        "operation": "workflow_executor"
+      }
+    }
+  ]
+}

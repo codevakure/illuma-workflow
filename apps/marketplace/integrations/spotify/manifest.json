@@ -1,0 +1,1984 @@
+{
+  "id": "spotify",
+  "name": "Spotify",
+  "version": "1.0.0",
+  "description": "Search music, manage playlists, control playback, and access your library",
+  "icon": "SpotifyIcon",
+  "block": {
+    "type": "spotify",
+    "name": "Spotify",
+    "description": "Search music, manage playlists, control playback, and access your library",
+    "longDescription": "Integrate Spotify into your workflow. Search for tracks, albums, artists, and playlists. Manage playlists, access your library, control playback, browse podcasts and audiobooks.",
+    "docsLink": "https://docs.sim.ai/tools/spotify",
+    "category": "tools",
+    "bgColor": "#000000",
+    "icon": "SpotifyIcon",
+    "authMode": "oauth",
+    "hideFromToolbar": true,
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Search",
+            "value": "Search"
+          },
+          {
+            "label": "spotify_search",
+            "value": "spotify_search"
+          },
+          {
+            "label": "spotify_get_track",
+            "value": "spotify_get_track"
+          },
+          {
+            "label": "Tracks",
+            "value": "Tracks"
+          },
+          {
+            "label": "spotify_get_tracks",
+            "value": "spotify_get_tracks"
+          },
+          {
+            "label": "Tracks",
+            "value": "Tracks"
+          },
+          {
+            "label": "spotify_get_album",
+            "value": "spotify_get_album"
+          },
+          {
+            "label": "Albums",
+            "value": "Albums"
+          },
+          {
+            "label": "spotify_get_albums",
+            "value": "spotify_get_albums"
+          },
+          {
+            "label": "Albums",
+            "value": "Albums"
+          },
+          {
+            "label": "spotify_get_album_tracks",
+            "value": "spotify_get_album_tracks"
+          },
+          {
+            "label": "Albums",
+            "value": "Albums"
+          },
+          {
+            "label": "spotify_get_saved_albums",
+            "value": "spotify_get_saved_albums"
+          },
+          {
+            "label": "Albums",
+            "value": "Albums"
+          },
+          {
+            "label": "spotify_save_albums",
+            "value": "spotify_save_albums"
+          },
+          {
+            "label": "Albums",
+            "value": "Albums"
+          },
+          {
+            "label": "spotify_remove_saved_albums",
+            "value": "spotify_remove_saved_albums"
+          },
+          {
+            "label": "Albums",
+            "value": "Albums"
+          },
+          {
+            "label": "spotify_check_saved_albums",
+            "value": "spotify_check_saved_albums"
+          },
+          {
+            "label": "Albums",
+            "value": "Albums"
+          },
+          {
+            "label": "spotify_get_artist",
+            "value": "spotify_get_artist"
+          },
+          {
+            "label": "Artists",
+            "value": "Artists"
+          },
+          {
+            "label": "spotify_get_artists",
+            "value": "spotify_get_artists"
+          },
+          {
+            "label": "Artists",
+            "value": "Artists"
+          },
+          {
+            "label": "spotify_get_artist_albums",
+            "value": "spotify_get_artist_albums"
+          },
+          {
+            "label": "Artists",
+            "value": "Artists"
+          },
+          {
+            "label": "spotify_get_artist_top_tracks",
+            "value": "spotify_get_artist_top_tracks"
+          },
+          {
+            "label": "Artists",
+            "value": "Artists"
+          },
+          {
+            "label": "spotify_follow_artists",
+            "value": "spotify_follow_artists"
+          },
+          {
+            "label": "Artists",
+            "value": "Artists"
+          },
+          {
+            "label": "spotify_unfollow_artists",
+            "value": "spotify_unfollow_artists"
+          },
+          {
+            "label": "Artists",
+            "value": "Artists"
+          },
+          {
+            "label": "spotify_get_followed_artists",
+            "value": "spotify_get_followed_artists"
+          },
+          {
+            "label": "Artists",
+            "value": "Artists"
+          },
+          {
+            "label": "spotify_check_following",
+            "value": "spotify_check_following"
+          },
+          {
+            "label": "Artists",
+            "value": "Artists"
+          },
+          {
+            "label": "spotify_get_show",
+            "value": "spotify_get_show"
+          },
+          {
+            "label": "Podcasts",
+            "value": "Podcasts"
+          },
+          {
+            "label": "spotify_get_shows",
+            "value": "spotify_get_shows"
+          },
+          {
+            "label": "Podcasts",
+            "value": "Podcasts"
+          },
+          {
+            "label": "spotify_get_show_episodes",
+            "value": "spotify_get_show_episodes"
+          },
+          {
+            "label": "Podcasts",
+            "value": "Podcasts"
+          },
+          {
+            "label": "spotify_get_saved_shows",
+            "value": "spotify_get_saved_shows"
+          },
+          {
+            "label": "Podcasts",
+            "value": "Podcasts"
+          },
+          {
+            "label": "spotify_save_shows",
+            "value": "spotify_save_shows"
+          },
+          {
+            "label": "Podcasts",
+            "value": "Podcasts"
+          },
+          {
+            "label": "spotify_remove_saved_shows",
+            "value": "spotify_remove_saved_shows"
+          },
+          {
+            "label": "Podcasts",
+            "value": "Podcasts"
+          },
+          {
+            "label": "spotify_check_saved_shows",
+            "value": "spotify_check_saved_shows"
+          },
+          {
+            "label": "Podcasts",
+            "value": "Podcasts"
+          },
+          {
+            "label": "spotify_get_episode",
+            "value": "spotify_get_episode"
+          },
+          {
+            "label": "Episodes",
+            "value": "Episodes"
+          },
+          {
+            "label": "spotify_get_episodes",
+            "value": "spotify_get_episodes"
+          },
+          {
+            "label": "Episodes",
+            "value": "Episodes"
+          },
+          {
+            "label": "spotify_get_saved_episodes",
+            "value": "spotify_get_saved_episodes"
+          },
+          {
+            "label": "Episodes",
+            "value": "Episodes"
+          },
+          {
+            "label": "spotify_save_episodes",
+            "value": "spotify_save_episodes"
+          },
+          {
+            "label": "Episodes",
+            "value": "Episodes"
+          },
+          {
+            "label": "spotify_remove_saved_episodes",
+            "value": "spotify_remove_saved_episodes"
+          },
+          {
+            "label": "Episodes",
+            "value": "Episodes"
+          },
+          {
+            "label": "spotify_check_saved_episodes",
+            "value": "spotify_check_saved_episodes"
+          },
+          {
+            "label": "Episodes",
+            "value": "Episodes"
+          },
+          {
+            "label": "spotify_get_audiobook",
+            "value": "spotify_get_audiobook"
+          },
+          {
+            "label": "Audiobooks",
+            "value": "Audiobooks"
+          },
+          {
+            "label": "spotify_get_audiobooks",
+            "value": "spotify_get_audiobooks"
+          },
+          {
+            "label": "Audiobooks",
+            "value": "Audiobooks"
+          },
+          {
+            "label": "spotify_get_audiobook_chapters",
+            "value": "spotify_get_audiobook_chapters"
+          },
+          {
+            "label": "Audiobooks",
+            "value": "Audiobooks"
+          },
+          {
+            "label": "spotify_get_saved_audiobooks",
+            "value": "spotify_get_saved_audiobooks"
+          },
+          {
+            "label": "Audiobooks",
+            "value": "Audiobooks"
+          },
+          {
+            "label": "spotify_save_audiobooks",
+            "value": "spotify_save_audiobooks"
+          },
+          {
+            "label": "Audiobooks",
+            "value": "Audiobooks"
+          },
+          {
+            "label": "spotify_remove_saved_audiobooks",
+            "value": "spotify_remove_saved_audiobooks"
+          },
+          {
+            "label": "Audiobooks",
+            "value": "Audiobooks"
+          },
+          {
+            "label": "spotify_check_saved_audiobooks",
+            "value": "spotify_check_saved_audiobooks"
+          },
+          {
+            "label": "Audiobooks",
+            "value": "Audiobooks"
+          },
+          {
+            "label": "spotify_get_playlist",
+            "value": "spotify_get_playlist"
+          },
+          {
+            "label": "Playlists",
+            "value": "Playlists"
+          },
+          {
+            "label": "spotify_get_playlist_tracks",
+            "value": "spotify_get_playlist_tracks"
+          },
+          {
+            "label": "Playlists",
+            "value": "Playlists"
+          },
+          {
+            "label": "spotify_get_playlist_cover",
+            "value": "spotify_get_playlist_cover"
+          },
+          {
+            "label": "Playlists",
+            "value": "Playlists"
+          },
+          {
+            "label": "spotify_get_user_playlists",
+            "value": "spotify_get_user_playlists"
+          },
+          {
+            "label": "Playlists",
+            "value": "Playlists"
+          },
+          {
+            "label": "spotify_create_playlist",
+            "value": "spotify_create_playlist"
+          },
+          {
+            "label": "Playlists",
+            "value": "Playlists"
+          },
+          {
+            "label": "spotify_update_playlist",
+            "value": "spotify_update_playlist"
+          },
+          {
+            "label": "Playlists",
+            "value": "Playlists"
+          },
+          {
+            "label": "spotify_add_playlist_cover",
+            "value": "spotify_add_playlist_cover"
+          },
+          {
+            "label": "Playlists",
+            "value": "Playlists"
+          },
+          {
+            "label": "spotify_add_tracks_to_playlist",
+            "value": "spotify_add_tracks_to_playlist"
+          },
+          {
+            "label": "Playlists",
+            "value": "Playlists"
+          },
+          {
+            "label": "spotify_remove_tracks_from_playlist",
+            "value": "spotify_remove_tracks_from_playlist"
+          },
+          {
+            "label": "Playlists",
+            "value": "Playlists"
+          },
+          {
+            "label": "spotify_reorder_playlist_items",
+            "value": "spotify_reorder_playlist_items"
+          },
+          {
+            "label": "Playlists",
+            "value": "Playlists"
+          },
+          {
+            "label": "spotify_replace_playlist_items",
+            "value": "spotify_replace_playlist_items"
+          },
+          {
+            "label": "Playlists",
+            "value": "Playlists"
+          },
+          {
+            "label": "spotify_follow_playlist",
+            "value": "spotify_follow_playlist"
+          },
+          {
+            "label": "Playlists",
+            "value": "Playlists"
+          },
+          {
+            "label": "spotify_unfollow_playlist",
+            "value": "spotify_unfollow_playlist"
+          },
+          {
+            "label": "Playlists",
+            "value": "Playlists"
+          },
+          {
+            "label": "spotify_check_playlist_followers",
+            "value": "spotify_check_playlist_followers"
+          },
+          {
+            "label": "Playlists",
+            "value": "Playlists"
+          },
+          {
+            "label": "spotify_get_current_user",
+            "value": "spotify_get_current_user"
+          },
+          {
+            "label": "spotify_get_user_profile",
+            "value": "spotify_get_user_profile"
+          },
+          {
+            "label": "spotify_get_top_tracks",
+            "value": "spotify_get_top_tracks"
+          },
+          {
+            "label": "spotify_get_top_artists",
+            "value": "spotify_get_top_artists"
+          },
+          {
+            "label": "spotify_get_saved_tracks",
+            "value": "spotify_get_saved_tracks"
+          },
+          {
+            "label": "spotify_save_tracks",
+            "value": "spotify_save_tracks"
+          },
+          {
+            "label": "spotify_remove_saved_tracks",
+            "value": "spotify_remove_saved_tracks"
+          },
+          {
+            "label": "spotify_check_saved_tracks",
+            "value": "spotify_check_saved_tracks"
+          },
+          {
+            "label": "spotify_get_recently_played",
+            "value": "spotify_get_recently_played"
+          },
+          {
+            "label": "spotify_get_new_releases",
+            "value": "spotify_get_new_releases"
+          },
+          {
+            "label": "Browse",
+            "value": "Browse"
+          },
+          {
+            "label": "spotify_get_categories",
+            "value": "spotify_get_categories"
+          },
+          {
+            "label": "Browse",
+            "value": "Browse"
+          },
+          {
+            "label": "spotify_get_markets",
+            "value": "spotify_get_markets"
+          },
+          {
+            "label": "Browse",
+            "value": "Browse"
+          },
+          {
+            "label": "spotify_get_playback_state",
+            "value": "spotify_get_playback_state"
+          },
+          {
+            "label": "Player",
+            "value": "Player"
+          },
+          {
+            "label": "spotify_get_currently_playing",
+            "value": "spotify_get_currently_playing"
+          },
+          {
+            "label": "Player",
+            "value": "Player"
+          },
+          {
+            "label": "spotify_get_devices",
+            "value": "spotify_get_devices"
+          },
+          {
+            "label": "Player",
+            "value": "Player"
+          },
+          {
+            "label": "spotify_get_queue",
+            "value": "spotify_get_queue"
+          },
+          {
+            "label": "Player",
+            "value": "Player"
+          },
+          {
+            "label": "Play",
+            "value": "Play"
+          },
+          {
+            "label": "spotify_play",
+            "value": "spotify_play"
+          },
+          {
+            "label": "Player",
+            "value": "Player"
+          },
+          {
+            "label": "Pause",
+            "value": "Pause"
+          },
+          {
+            "label": "spotify_pause",
+            "value": "spotify_pause"
+          },
+          {
+            "label": "Player",
+            "value": "Player"
+          },
+          {
+            "label": "spotify_skip_next",
+            "value": "spotify_skip_next"
+          },
+          {
+            "label": "Player",
+            "value": "Player"
+          },
+          {
+            "label": "spotify_skip_previous",
+            "value": "spotify_skip_previous"
+          },
+          {
+            "label": "Player",
+            "value": "Player"
+          },
+          {
+            "label": "Seek",
+            "value": "Seek"
+          },
+          {
+            "label": "spotify_seek",
+            "value": "spotify_seek"
+          },
+          {
+            "label": "Player",
+            "value": "Player"
+          },
+          {
+            "label": "spotify_add_to_queue",
+            "value": "spotify_add_to_queue"
+          },
+          {
+            "label": "Player",
+            "value": "Player"
+          },
+          {
+            "label": "spotify_set_volume",
+            "value": "spotify_set_volume"
+          },
+          {
+            "label": "Player",
+            "value": "Player"
+          },
+          {
+            "label": "spotify_set_repeat",
+            "value": "spotify_set_repeat"
+          },
+          {
+            "label": "Player",
+            "value": "Player"
+          },
+          {
+            "label": "spotify_set_shuffle",
+            "value": "spotify_set_shuffle"
+          },
+          {
+            "label": "Player",
+            "value": "Player"
+          },
+          {
+            "label": "spotify_transfer_playback",
+            "value": "spotify_transfer_playback"
+          },
+          {
+            "label": "Player",
+            "value": "Player"
+          }
+        ]
+      },
+      {
+        "id": "credential",
+        "type": "oauth-input",
+        "title": "Spotify Account"
+      },
+      {
+        "id": "query",
+        "type": "short-input",
+        "title": "Search Query",
+        "placeholder": "e.g., "
+      },
+      {
+        "id": "type",
+        "type": "dropdown",
+        "title": "Search Type",
+        "options": [
+          {
+            "label": "Tracks",
+            "value": "track"
+          },
+          {
+            "label": "Albums",
+            "value": "album"
+          },
+          {
+            "label": "Artists",
+            "value": "artist"
+          },
+          {
+            "label": "Playlists",
+            "value": "playlist"
+          },
+          {
+            "label": "Shows",
+            "value": "show"
+          },
+          {
+            "label": "Episodes",
+            "value": "episode"
+          },
+          {
+            "label": "Audiobooks",
+            "value": "audiobook"
+          },
+          {
+            "label": "All",
+            "value": "track,album,artist,playlist"
+          }
+        ]
+      },
+      {
+        "id": "trackId",
+        "type": "short-input",
+        "title": "Track ID",
+        "placeholder": "Spotify track ID"
+      },
+      {
+        "id": "trackIds",
+        "type": "short-input",
+        "title": "Track IDs",
+        "placeholder": "Comma-separated track IDs"
+      },
+      {
+        "id": "albumId",
+        "type": "short-input",
+        "title": "Album ID",
+        "placeholder": "Spotify album ID"
+      },
+      {
+        "id": "albumIds",
+        "type": "short-input",
+        "title": "Album IDs",
+        "placeholder": "Comma-separated album IDs"
+      },
+      {
+        "id": "artistId",
+        "type": "short-input",
+        "title": "Artist ID",
+        "placeholder": "Spotify artist ID"
+      },
+      {
+        "id": "artistIds",
+        "type": "short-input",
+        "title": "Artist IDs",
+        "placeholder": "Comma-separated artist IDs"
+      },
+      {
+        "id": "showId",
+        "type": "short-input",
+        "title": "Show ID",
+        "placeholder": "Spotify show/podcast ID"
+      },
+      {
+        "id": "showIds",
+        "type": "short-input",
+        "title": "Show IDs",
+        "placeholder": "Comma-separated show IDs"
+      },
+      {
+        "id": "episodeId",
+        "type": "short-input",
+        "title": "Episode ID",
+        "placeholder": "Spotify episode ID"
+      },
+      {
+        "id": "episodeIds",
+        "type": "short-input",
+        "title": "Episode IDs",
+        "placeholder": "Comma-separated episode IDs"
+      },
+      {
+        "id": "audiobookId",
+        "type": "short-input",
+        "title": "Audiobook ID",
+        "placeholder": "Spotify audiobook ID"
+      },
+      {
+        "id": "audiobookIds",
+        "type": "short-input",
+        "title": "Audiobook IDs",
+        "placeholder": "Comma-separated audiobook IDs"
+      },
+      {
+        "id": "followType",
+        "type": "dropdown",
+        "title": "Type",
+        "options": [
+          {
+            "label": "Artist",
+            "value": "artist"
+          },
+          {
+            "label": "User",
+            "value": "user"
+          }
+        ]
+      },
+      {
+        "id": "ids",
+        "type": "short-input",
+        "title": "IDs to Check",
+        "placeholder": "Comma-separated artist or user IDs"
+      },
+      {
+        "id": "userId",
+        "type": "short-input",
+        "title": "User ID",
+        "placeholder": "Spotify user ID"
+      },
+      {
+        "id": "playlistId",
+        "type": "short-input",
+        "title": "Playlist ID",
+        "placeholder": "Spotify playlist ID"
+      },
+      {
+        "id": "name",
+        "type": "short-input",
+        "title": "Playlist Name",
+        "placeholder": "My Awesome Playlist"
+      },
+      {
+        "id": "newName",
+        "type": "short-input",
+        "title": "New Name",
+        "placeholder": "New playlist name (optional)"
+      },
+      {
+        "id": "description",
+        "type": "long-input",
+        "title": "Playlist Description",
+        "placeholder": "Optional description for the playlist"
+      },
+      {
+        "id": "public",
+        "type": "switch",
+        "title": "Public"
+      },
+      {
+        "id": "userIds",
+        "type": "short-input",
+        "title": "User IDs",
+        "placeholder": "Comma-separated user IDs to check (max 5)"
+      },
+      {
+        "id": "coverImageFile",
+        "type": "file-upload",
+        "title": "Cover Image",
+        "placeholder": "Upload cover image (JPEG, max 256KB)",
+        "mode": "basic",
+        "canonicalParamId": "coverImage"
+      },
+      {
+        "id": "coverImageRef",
+        "type": "short-input",
+        "title": "Cover Image",
+        "placeholder": "Reference image from previous blocks",
+        "mode": "advanced",
+        "canonicalParamId": "coverImage"
+      },
+      {
+        "id": "range_start",
+        "type": "short-input",
+        "title": "Range Start",
+        "placeholder": "Start index of items to move"
+      },
+      {
+        "id": "insert_before",
+        "type": "short-input",
+        "title": "Insert Before",
+        "placeholder": "Index to insert before"
+      },
+      {
+        "id": "range_length",
+        "type": "short-input",
+        "title": "Range Length",
+        "placeholder": "Number of items to move (default: 1)"
+      },
+      {
+        "id": "uris",
+        "type": "short-input",
+        "title": "Track URIs",
+        "placeholder": "spotify:track:xxx,spotify:track:yyy"
+      },
+      {
+        "id": "country",
+        "type": "short-input",
+        "title": "Country",
+        "placeholder": "ISO country code (e.g., US, GB)"
+      },
+      {
+        "id": "time_range",
+        "type": "dropdown",
+        "title": "Time Range",
+        "options": [
+          {
+            "label": "Last 4 Weeks",
+            "value": "short_term"
+          },
+          {
+            "label": "Last 6 Months",
+            "value": "medium_term"
+          },
+          {
+            "label": "All Time",
+            "value": "long_term"
+          }
+        ]
+      },
+      {
+        "id": "device_id",
+        "type": "short-input",
+        "title": "Device ID",
+        "placeholder": "Optional - uses active device if not specified"
+      },
+      {
+        "id": "context_uri",
+        "type": "short-input",
+        "title": "Context URI",
+        "placeholder": "spotify:album:xxx or spotify:playlist:yyy"
+      },
+      {
+        "id": "playUris",
+        "type": "short-input",
+        "title": "Track URIs",
+        "placeholder": "spotify:track:xxx (comma-separated for multiple)"
+      },
+      {
+        "id": "uri",
+        "type": "short-input",
+        "title": "Track URI",
+        "placeholder": "spotify:track:xxx"
+      },
+      {
+        "id": "volume_percent",
+        "type": "slider",
+        "title": "Volume",
+        "min": 0,
+        "max": 100,
+        "step": 1
+      },
+      {
+        "id": "position_ms",
+        "type": "short-input",
+        "title": "Position (ms)",
+        "placeholder": "Position in milliseconds"
+      },
+      {
+        "id": "state",
+        "type": "dropdown",
+        "title": "Repeat Mode",
+        "options": [
+          {
+            "label": "Off",
+            "value": "off"
+          },
+          {
+            "label": "Track",
+            "value": "track"
+          },
+          {
+            "label": "Context (Album/Playlist)",
+            "value": "context"
+          }
+        ]
+      },
+      {
+        "id": "shuffle_state",
+        "type": "switch",
+        "title": "Shuffle"
+      },
+      {
+        "id": "target_device_id",
+        "type": "short-input",
+        "title": "Target Device ID",
+        "placeholder": "Device ID to transfer to"
+      },
+      {
+        "id": "limit",
+        "type": "short-input",
+        "title": "Limit",
+        "placeholder": "Number of results (1-50, default: 20)"
+      }
+    ],
+    "tools": {
+      "access": [
+        "spotify_search",
+        "spotify_get_track",
+        "spotify_get_tracks",
+        "spotify_get_album",
+        "spotify_get_albums",
+        "spotify_get_album_tracks",
+        "spotify_get_saved_albums",
+        "spotify_save_albums",
+        "spotify_remove_saved_albums",
+        "spotify_check_saved_albums",
+        "spotify_get_artist",
+        "spotify_get_artists",
+        "spotify_get_artist_albums",
+        "spotify_get_artist_top_tracks",
+        "spotify_follow_artists",
+        "spotify_unfollow_artists",
+        "spotify_get_followed_artists",
+        "spotify_check_following",
+        "spotify_get_show",
+        "spotify_get_shows",
+        "spotify_get_show_episodes",
+        "spotify_get_saved_shows",
+        "spotify_save_shows",
+        "spotify_remove_saved_shows",
+        "spotify_check_saved_shows",
+        "spotify_get_episode",
+        "spotify_get_episodes",
+        "spotify_get_saved_episodes",
+        "spotify_save_episodes",
+        "spotify_remove_saved_episodes",
+        "spotify_check_saved_episodes",
+        "spotify_get_audiobook",
+        "spotify_get_audiobooks",
+        "spotify_get_audiobook_chapters",
+        "spotify_get_saved_audiobooks",
+        "spotify_save_audiobooks",
+        "spotify_remove_saved_audiobooks",
+        "spotify_check_saved_audiobooks",
+        "spotify_get_playlist",
+        "spotify_get_playlist_tracks",
+        "spotify_get_playlist_cover",
+        "spotify_get_user_playlists",
+        "spotify_create_playlist",
+        "spotify_update_playlist",
+        "spotify_add_playlist_cover",
+        "spotify_add_tracks_to_playlist",
+        "spotify_remove_tracks_from_playlist",
+        "spotify_reorder_playlist_items",
+        "spotify_replace_playlist_items",
+        "spotify_follow_playlist",
+        "spotify_unfollow_playlist",
+        "spotify_check_playlist_followers",
+        "spotify_get_current_user",
+        "spotify_get_user_profile",
+        "spotify_get_top_tracks",
+        "spotify_get_top_artists",
+        "spotify_get_saved_tracks",
+        "spotify_save_tracks",
+        "spotify_remove_saved_tracks",
+        "spotify_check_saved_tracks",
+        "spotify_get_recently_played",
+        "spotify_get_new_releases",
+        "spotify_get_categories",
+        "spotify_get_markets",
+        "spotify_get_playback_state",
+        "spotify_get_currently_playing",
+        "spotify_get_devices",
+        "spotify_get_queue",
+        "spotify_play",
+        "spotify_pause",
+        "spotify_skip_next",
+        "spotify_skip_previous",
+        "spotify_seek",
+        "spotify_add_to_queue",
+        "spotify_set_volume",
+        "spotify_set_repeat",
+        "spotify_set_shuffle",
+        "spotify_transfer_playback"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "tracks": {
+        "type": "json"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "spotify_add_playlist_cover",
+      "name": "Spotify Add Playlist Cover",
+      "description": "Upload a custom cover image for a playlist. Image must be JPEG and under 256KB.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_add_playlist_cover"
+      }
+    },
+    {
+      "id": "spotify_add_to_queue",
+      "name": "Spotify Add to Queue",
+      "description": "Add a track to the user",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_add_to_queue"
+      }
+    },
+    {
+      "id": "spotify_add_tracks_to_playlist",
+      "name": "Spotify Add Tracks to Playlist",
+      "description": "Add one or more tracks to a Spotify playlist.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_add_tracks_to_playlist"
+      }
+    },
+    {
+      "id": "spotify_check_following",
+      "name": "Spotify Check Following",
+      "description": "Check if the user follows artists or users.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_check_following"
+      }
+    },
+    {
+      "id": "spotify_check_playlist_followers",
+      "name": "Spotify Check Playlist Followers",
+      "description": "Check if users follow a playlist.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_check_playlist_followers"
+      }
+    },
+    {
+      "id": "spotify_check_saved_albums",
+      "name": "Spotify Check Saved Albums",
+      "description": "Check if albums are saved in library.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_check_saved_albums"
+      }
+    },
+    {
+      "id": "spotify_check_saved_audiobooks",
+      "name": "Spotify Check Saved Audiobooks",
+      "description": "Check if audiobooks are saved in library.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_check_saved_audiobooks"
+      }
+    },
+    {
+      "id": "spotify_check_saved_episodes",
+      "name": "Spotify Check Saved Episodes",
+      "description": "Check if episodes are saved in library.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_check_saved_episodes"
+      }
+    },
+    {
+      "id": "spotify_check_saved_shows",
+      "name": "Spotify Check Saved Shows",
+      "description": "Check if shows are saved in library.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_check_saved_shows"
+      }
+    },
+    {
+      "id": "spotify_check_saved_tracks",
+      "name": "Spotify Check Saved Tracks",
+      "description": "Check if one or more tracks are saved in the user",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_check_saved_tracks"
+      }
+    },
+    {
+      "id": "spotify_create_playlist",
+      "name": "Spotify Create Playlist",
+      "description": "Create a new playlist for the current user on Spotify.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_create_playlist"
+      }
+    },
+    {
+      "id": "spotify_follow_artists",
+      "name": "Spotify Follow Artists",
+      "description": "Follow one or more artists.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_follow_artists"
+      }
+    },
+    {
+      "id": "spotify_follow_playlist",
+      "name": "Spotify Follow Playlist",
+      "description": "Follow (save) a playlist.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_follow_playlist"
+      }
+    },
+    {
+      "id": "spotify_get_album",
+      "name": "Spotify Get Album",
+      "description": "Get detailed information about an album on Spotify by its ID, including track listing.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_get_album"
+      }
+    },
+    {
+      "id": "spotify_get_albums",
+      "name": "Spotify Get Multiple Albums",
+      "description": "Get details for multiple albums by their IDs.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_get_albums"
+      }
+    },
+    {
+      "id": "spotify_get_album_tracks",
+      "name": "Spotify Get Album Tracks",
+      "description": "Get the tracks from an album.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_get_album_tracks"
+      }
+    },
+    {
+      "id": "spotify_get_artist",
+      "name": "Spotify Get Artist",
+      "description": "Get detailed information about an artist on Spotify by their ID.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_get_artist"
+      }
+    },
+    {
+      "id": "spotify_get_artists",
+      "name": "Spotify Get Multiple Artists",
+      "description": "Get details for multiple artists by their IDs.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_get_artists"
+      }
+    },
+    {
+      "id": "spotify_get_artist_albums",
+      "name": "Spotify Get Artist Albums",
+      "description": "Get albums by an artist on Spotify. Can filter by album type.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_get_artist_albums"
+      }
+    },
+    {
+      "id": "spotify_get_artist_top_tracks",
+      "name": "Spotify Get Artist Top Tracks",
+      "description": "Get the top 10 most popular tracks by an artist on Spotify.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_get_artist_top_tracks"
+      }
+    },
+    {
+      "id": "spotify_get_audiobook",
+      "name": "Spotify Get Audiobook",
+      "description": "Get details for an audiobook.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_get_audiobook"
+      }
+    },
+    {
+      "id": "spotify_get_audiobooks",
+      "name": "Spotify Get Multiple Audiobooks",
+      "description": "Get details for multiple audiobooks.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_get_audiobooks"
+      }
+    },
+    {
+      "id": "spotify_get_audiobook_chapters",
+      "name": "Spotify Get Audiobook Chapters",
+      "description": "Get chapters from an audiobook.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_get_audiobook_chapters"
+      }
+    },
+    {
+      "id": "spotify_get_categories",
+      "name": "Spotify Get Categories",
+      "description": "Get a list of browse categories used to tag items in Spotify.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_get_categories"
+      }
+    },
+    {
+      "id": "spotify_get_currently_playing",
+      "name": "Spotify Get Currently Playing",
+      "description": "Get the user",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_get_currently_playing"
+      }
+    },
+    {
+      "id": "spotify_get_current_user",
+      "name": "Spotify Get Current User",
+      "description": "Get the current user",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_get_current_user"
+      }
+    },
+    {
+      "id": "spotify_get_devices",
+      "name": "Spotify Get Devices",
+      "description": "Get the user",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_get_devices"
+      }
+    },
+    {
+      "id": "spotify_get_episode",
+      "name": "Spotify Get Episode",
+      "description": "Get details for a podcast episode.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_get_episode"
+      }
+    },
+    {
+      "id": "spotify_get_episodes",
+      "name": "Spotify Get Multiple Episodes",
+      "description": "Get details for multiple podcast episodes.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_get_episodes"
+      }
+    },
+    {
+      "id": "spotify_get_followed_artists",
+      "name": "Spotify Get Followed Artists",
+      "description": "Get the user",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_get_followed_artists"
+      }
+    },
+    {
+      "id": "spotify_get_markets",
+      "name": "Spotify Get Available Markets",
+      "description": "Get the list of markets where Spotify is available.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_get_markets"
+      }
+    },
+    {
+      "id": "spotify_get_new_releases",
+      "name": "Spotify Get New Releases",
+      "description": "Get a list of new album releases featured in Spotify.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_get_new_releases"
+      }
+    },
+    {
+      "id": "spotify_get_playback_state",
+      "name": "Spotify Get Playback State",
+      "description": "Get the current playback state including device, track, and progress.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_get_playback_state"
+      }
+    },
+    {
+      "id": "spotify_get_playlist",
+      "name": "Spotify Get Playlist",
+      "description": "Get detailed information about a playlist on Spotify by its ID.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_get_playlist"
+      }
+    },
+    {
+      "id": "spotify_get_playlist_cover",
+      "name": "Spotify Get Playlist Cover",
+      "description": "Get a playlist",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_get_playlist_cover"
+      }
+    },
+    {
+      "id": "spotify_get_playlist_tracks",
+      "name": "Spotify Get Playlist Tracks",
+      "description": "Get the tracks in a Spotify playlist.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_get_playlist_tracks"
+      }
+    },
+    {
+      "id": "spotify_get_queue",
+      "name": "Spotify Get Queue",
+      "description": "Get the user",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_get_queue"
+      }
+    },
+    {
+      "id": "spotify_get_recently_played",
+      "name": "Spotify Get Recently Played",
+      "description": "Get the user",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_get_recently_played"
+      }
+    },
+    {
+      "id": "spotify_get_saved_albums",
+      "name": "Spotify Get Saved Albums",
+      "description": "Get the user",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_get_saved_albums"
+      }
+    },
+    {
+      "id": "spotify_get_saved_audiobooks",
+      "name": "Spotify Get Saved Audiobooks",
+      "description": "Get the user",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_get_saved_audiobooks"
+      }
+    },
+    {
+      "id": "spotify_get_saved_episodes",
+      "name": "Spotify Get Saved Episodes",
+      "description": "Get the user",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_get_saved_episodes"
+      }
+    },
+    {
+      "id": "spotify_get_saved_shows",
+      "name": "Spotify Get Saved Shows",
+      "description": "Get the user",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_get_saved_shows"
+      }
+    },
+    {
+      "id": "spotify_get_saved_tracks",
+      "name": "Spotify Get Saved Tracks",
+      "description": "Get the current user",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_get_saved_tracks"
+      }
+    },
+    {
+      "id": "spotify_get_show",
+      "name": "Spotify Get Show",
+      "description": "Get details for a podcast show.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_get_show"
+      }
+    },
+    {
+      "id": "spotify_get_shows",
+      "name": "Spotify Get Multiple Shows",
+      "description": "Get details for multiple podcast shows.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_get_shows"
+      }
+    },
+    {
+      "id": "spotify_get_show_episodes",
+      "name": "Spotify Get Show Episodes",
+      "description": "Get episodes from a podcast show.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_get_show_episodes"
+      }
+    },
+    {
+      "id": "spotify_get_top_artists",
+      "name": "Spotify Get Top Artists",
+      "description": "Get the current user",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_get_top_artists"
+      }
+    },
+    {
+      "id": "spotify_get_top_tracks",
+      "name": "Spotify Get Top Tracks",
+      "description": "Get the current user",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_get_top_tracks"
+      }
+    },
+    {
+      "id": "spotify_get_track",
+      "name": "Spotify Get Track",
+      "description": "Get detailed information about a specific track on Spotify by its ID.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_get_track"
+      }
+    },
+    {
+      "id": "spotify_get_tracks",
+      "name": "Spotify Get Multiple Tracks",
+      "description": "Get detailed information about multiple tracks on Spotify by their IDs (up to 50).",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_get_tracks"
+      }
+    },
+    {
+      "id": "spotify_get_user_playlists",
+      "name": "Spotify Get User Playlists",
+      "description": "Get the current user",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_get_user_playlists"
+      }
+    },
+    {
+      "id": "spotify_get_user_profile",
+      "name": "Spotify Get User Profile",
+      "description": "Get a user",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_get_user_profile"
+      }
+    },
+    {
+      "id": "spotify_pause",
+      "name": "Spotify Pause",
+      "description": "Pause playback on Spotify.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_pause"
+      }
+    },
+    {
+      "id": "spotify_play",
+      "name": "Spotify Play",
+      "description": "Start or resume playback on Spotify. Can play specific tracks, albums, or playlists.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_play"
+      }
+    },
+    {
+      "id": "spotify_remove_saved_albums",
+      "name": "Spotify Remove Saved Albums",
+      "description": "Remove albums from the user",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_remove_saved_albums"
+      }
+    },
+    {
+      "id": "spotify_remove_saved_audiobooks",
+      "name": "Spotify Remove Saved Audiobooks",
+      "description": "Remove audiobooks from the user",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_remove_saved_audiobooks"
+      }
+    },
+    {
+      "id": "spotify_remove_saved_episodes",
+      "name": "Spotify Remove Saved Episodes",
+      "description": "Remove podcast episodes from the user",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_remove_saved_episodes"
+      }
+    },
+    {
+      "id": "spotify_remove_saved_shows",
+      "name": "Spotify Remove Saved Shows",
+      "description": "Remove podcast shows from the user",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_remove_saved_shows"
+      }
+    },
+    {
+      "id": "spotify_remove_saved_tracks",
+      "name": "Spotify Remove Saved Tracks",
+      "description": "Remove tracks from the user",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_remove_saved_tracks"
+      }
+    },
+    {
+      "id": "spotify_remove_tracks_from_playlist",
+      "name": "Spotify Remove Tracks from Playlist",
+      "description": "Remove one or more tracks from a Spotify playlist.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_remove_tracks_from_playlist"
+      }
+    },
+    {
+      "id": "spotify_reorder_playlist_items",
+      "name": "Spotify Reorder Playlist Items",
+      "description": "Move tracks to a different position in a playlist.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_reorder_playlist_items"
+      }
+    },
+    {
+      "id": "spotify_replace_playlist_items",
+      "name": "Spotify Replace Playlist Items",
+      "description": "Replace all items in a playlist with new tracks.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_replace_playlist_items"
+      }
+    },
+    {
+      "id": "spotify_save_albums",
+      "name": "Spotify Save Albums",
+      "description": "Save albums to the user",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_save_albums"
+      }
+    },
+    {
+      "id": "spotify_save_audiobooks",
+      "name": "Spotify Save Audiobooks",
+      "description": "Save audiobooks to the user",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_save_audiobooks"
+      }
+    },
+    {
+      "id": "spotify_save_episodes",
+      "name": "Spotify Save Episodes",
+      "description": "Save podcast episodes to the user",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_save_episodes"
+      }
+    },
+    {
+      "id": "spotify_save_shows",
+      "name": "Spotify Save Shows",
+      "description": "Save podcast shows to the user",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_save_shows"
+      }
+    },
+    {
+      "id": "spotify_save_tracks",
+      "name": "Spotify Save Tracks",
+      "description": "Save tracks to the current user",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_save_tracks"
+      }
+    },
+    {
+      "id": "spotify_search",
+      "name": "Spotify Search",
+      "description": "Search for tracks, albums, artists, or playlists on Spotify. Returns matching results based on the query.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_search"
+      }
+    },
+    {
+      "id": "spotify_seek",
+      "name": "Spotify Seek",
+      "description": "Seek to a position in the currently playing track.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_seek"
+      }
+    },
+    {
+      "id": "spotify_set_repeat",
+      "name": "Spotify Set Repeat",
+      "description": "Set the repeat mode for playback.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_set_repeat"
+      }
+    },
+    {
+      "id": "spotify_set_shuffle",
+      "name": "Spotify Set Shuffle",
+      "description": "Turn shuffle on or off.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_set_shuffle"
+      }
+    },
+    {
+      "id": "spotify_set_volume",
+      "name": "Spotify Set Volume",
+      "description": "Set the playback volume on Spotify.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_set_volume"
+      }
+    },
+    {
+      "id": "spotify_skip_next",
+      "name": "Spotify Skip to Next",
+      "description": "Skip to the next track on Spotify.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_skip_next"
+      }
+    },
+    {
+      "id": "spotify_skip_previous",
+      "name": "Spotify Skip to Previous",
+      "description": "Skip to the previous track on Spotify.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_skip_previous"
+      }
+    },
+    {
+      "id": "spotify_transfer_playback",
+      "name": "Spotify Transfer Playback",
+      "description": "Transfer playback to a different device.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_transfer_playback"
+      }
+    },
+    {
+      "id": "spotify_unfollow_artists",
+      "name": "Spotify Unfollow Artists",
+      "description": "Unfollow one or more artists.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_unfollow_artists"
+      }
+    },
+    {
+      "id": "spotify_unfollow_playlist",
+      "name": "Spotify Unfollow Playlist",
+      "description": "Unfollow (unsave) a playlist.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_unfollow_playlist"
+      }
+    },
+    {
+      "id": "spotify_update_playlist",
+      "name": "Spotify Update Playlist",
+      "description": "Update a playlist",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "spotify",
+        "operation": "spotify_update_playlist"
+      }
+    }
+  ]
+}

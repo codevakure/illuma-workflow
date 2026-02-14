@@ -1,0 +1,678 @@
+{
+  "id": "kalshi",
+  "name": "Kalshi (Legacy)",
+  "version": "1.0.0",
+  "description": "Access prediction markets and trade on Kalshi",
+  "icon": "KalshiIcon",
+  "block": {
+    "type": "kalshi",
+    "name": "Kalshi (Legacy)",
+    "description": "Access prediction markets and trade on Kalshi",
+    "longDescription": "Integrate Kalshi prediction markets into the workflow. Can get markets, market, events, event, balance, positions, orders, orderbook, trades, candlesticks, fills, series, exchange status, and place/cancel/amend trades.",
+    "docsLink": "https://docs.sim.ai/tools/kalshi",
+    "category": "tools",
+    "bgColor": "#09C285",
+    "icon": "KalshiIcon",
+    "authMode": "api_key",
+    "hideFromToolbar": true,
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Get Markets",
+            "value": "get_markets"
+          },
+          {
+            "label": "Get Market",
+            "value": "get_market"
+          },
+          {
+            "label": "Get Events",
+            "value": "get_events"
+          },
+          {
+            "label": "Get Event",
+            "value": "get_event"
+          },
+          {
+            "label": "Get Balance",
+            "value": "get_balance"
+          },
+          {
+            "label": "Get Positions",
+            "value": "get_positions"
+          },
+          {
+            "label": "Get Orders",
+            "value": "get_orders"
+          },
+          {
+            "label": "Get Order",
+            "value": "get_order"
+          },
+          {
+            "label": "Get Orderbook",
+            "value": "get_orderbook"
+          },
+          {
+            "label": "Get Trades",
+            "value": "get_trades"
+          },
+          {
+            "label": "Get Candlesticks",
+            "value": "get_candlesticks"
+          },
+          {
+            "label": "Get Fills",
+            "value": "get_fills"
+          },
+          {
+            "label": "Get Series by Ticker",
+            "value": "get_series_by_ticker"
+          },
+          {
+            "label": "Get Exchange Status",
+            "value": "get_exchange_status"
+          },
+          {
+            "label": "Create Order",
+            "value": "create_order"
+          },
+          {
+            "label": "Cancel Order",
+            "value": "cancel_order"
+          },
+          {
+            "label": "Amend Order",
+            "value": "amend_order"
+          }
+        ]
+      },
+      {
+        "id": "keyId",
+        "type": "short-input",
+        "title": "API Key ID",
+        "placeholder": "Your Kalshi API Key ID"
+      },
+      {
+        "id": "privateKey",
+        "type": "long-input",
+        "title": "Private Key",
+        "placeholder": "Your RSA Private Key (PEM format)",
+        "password": true
+      },
+      {
+        "id": "status",
+        "type": "dropdown",
+        "title": "Status",
+        "options": [
+          {
+            "label": "Unopened",
+            "value": "unopened"
+          },
+          {
+            "label": "Open",
+            "value": "open"
+          },
+          {
+            "label": "Closed",
+            "value": "closed"
+          },
+          {
+            "label": "Settled",
+            "value": "settled"
+          }
+        ]
+      },
+      {
+        "id": "seriesTicker",
+        "type": "short-input",
+        "title": "Series Ticker",
+        "placeholder": "Filter by series ticker"
+      },
+      {
+        "id": "eventTicker",
+        "type": "short-input",
+        "title": "Event Ticker",
+        "placeholder": "Event ticker"
+      },
+      {
+        "id": "ticker",
+        "type": "short-input",
+        "title": "Market Ticker",
+        "placeholder": "Market ticker (e.g., KXBTC-24DEC31)"
+      },
+      {
+        "id": "tickerFilter",
+        "type": "short-input",
+        "title": "Market Ticker",
+        "placeholder": "Filter by market ticker (optional)"
+      },
+      {
+        "id": "withNestedMarkets",
+        "type": "dropdown",
+        "title": "Include Markets",
+        "options": [
+          {
+            "label": "Yes",
+            "value": "true"
+          }
+        ]
+      },
+      {
+        "id": "settlementStatus",
+        "type": "dropdown",
+        "title": "Settlement Status",
+        "options": [
+          {
+            "label": "Unsettled",
+            "value": "unsettled"
+          },
+          {
+            "label": "Settled",
+            "value": "settled"
+          }
+        ]
+      },
+      {
+        "id": "orderStatus",
+        "type": "dropdown",
+        "title": "Order Status",
+        "options": [
+          {
+            "label": "Resting",
+            "value": "resting"
+          },
+          {
+            "label": "Canceled",
+            "value": "canceled"
+          },
+          {
+            "label": "Executed",
+            "value": "executed"
+          }
+        ]
+      },
+      {
+        "id": "minTs",
+        "type": "short-input",
+        "title": "Min Timestamp",
+        "placeholder": "Minimum timestamp (Unix milliseconds)"
+      },
+      {
+        "id": "maxTs",
+        "type": "short-input",
+        "title": "Max Timestamp",
+        "placeholder": "Maximum timestamp (Unix milliseconds)"
+      },
+      {
+        "id": "seriesTickerCandlesticks",
+        "type": "short-input",
+        "title": "Series Ticker",
+        "placeholder": "Series ticker"
+      },
+      {
+        "id": "tickerCandlesticks",
+        "type": "short-input",
+        "title": "Market Ticker",
+        "placeholder": "Market ticker (e.g., KXBTC-24DEC31)"
+      },
+      {
+        "id": "startTs",
+        "type": "short-input",
+        "title": "Start Timestamp",
+        "placeholder": "Start timestamp (Unix seconds)"
+      },
+      {
+        "id": "endTs",
+        "type": "short-input",
+        "title": "End Timestamp",
+        "placeholder": "End timestamp (Unix seconds)"
+      },
+      {
+        "id": "periodInterval",
+        "type": "dropdown",
+        "title": "Period Interval",
+        "options": [
+          {
+            "label": "1 minute",
+            "value": "1"
+          },
+          {
+            "label": "1 hour",
+            "value": "60"
+          },
+          {
+            "label": "1 day",
+            "value": "1440"
+          }
+        ]
+      },
+      {
+        "id": "tickerFills",
+        "type": "short-input",
+        "title": "Market Ticker",
+        "placeholder": "Filter by market ticker (optional)"
+      },
+      {
+        "id": "orderId",
+        "type": "short-input",
+        "title": "Order ID",
+        "placeholder": "Filter by order ID (optional)"
+      },
+      {
+        "id": "seriesTickerGet",
+        "type": "short-input",
+        "title": "Series Ticker",
+        "placeholder": "Series ticker"
+      },
+      {
+        "id": "orderIdParam",
+        "type": "short-input",
+        "title": "Order ID",
+        "placeholder": "Order ID"
+      },
+      {
+        "id": "tickerOrder",
+        "type": "short-input",
+        "title": "Market Ticker",
+        "placeholder": "Market ticker (e.g., KXBTC-24DEC31)"
+      },
+      {
+        "id": "side",
+        "type": "dropdown",
+        "title": "Side",
+        "options": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          }
+        ]
+      },
+      {
+        "id": "action",
+        "type": "dropdown",
+        "title": "Action",
+        "options": [
+          {
+            "label": "Buy",
+            "value": "buy"
+          },
+          {
+            "label": "Sell",
+            "value": "sell"
+          }
+        ]
+      },
+      {
+        "id": "count",
+        "type": "short-input",
+        "title": "Contracts",
+        "placeholder": "Number of contracts (or use countFp)"
+      },
+      {
+        "id": "countFp",
+        "type": "short-input",
+        "title": "Contracts (Fixed-Point)",
+        "placeholder": "Fixed-point count (e.g., "
+      },
+      {
+        "id": "countAmend",
+        "type": "short-input",
+        "title": "Contracts",
+        "placeholder": "Updated number of contracts (optional)"
+      },
+      {
+        "id": "orderType",
+        "type": "dropdown",
+        "title": "Order Type",
+        "options": [
+          {
+            "label": "Limit",
+            "value": "limit"
+          },
+          {
+            "label": "Market",
+            "value": "market"
+          }
+        ]
+      },
+      {
+        "id": "yesPrice",
+        "type": "short-input",
+        "title": "Yes Price (cents)",
+        "placeholder": "Yes price in cents (1-99)"
+      },
+      {
+        "id": "noPrice",
+        "type": "short-input",
+        "title": "No Price (cents)",
+        "placeholder": "No price in cents (1-99)"
+      },
+      {
+        "id": "clientOrderId",
+        "type": "short-input",
+        "title": "Client Order ID",
+        "placeholder": "Custom order identifier (optional)"
+      },
+      {
+        "id": "clientOrderIdAmend",
+        "type": "short-input",
+        "title": "Client Order ID",
+        "placeholder": "Original client order ID"
+      },
+      {
+        "id": "updatedClientOrderId",
+        "type": "short-input",
+        "title": "New Client Order ID",
+        "placeholder": "New client order ID after amendment"
+      },
+      {
+        "id": "timeInForce",
+        "type": "dropdown",
+        "title": "Time in Force",
+        "options": [
+          {
+            "label": "Good Till Canceled",
+            "value": "good_till_canceled"
+          },
+          {
+            "label": "Fill or Kill",
+            "value": "fill_or_kill"
+          },
+          {
+            "label": "Immediate or Cancel",
+            "value": "immediate_or_cancel"
+          }
+        ]
+      },
+      {
+        "id": "expirationTs",
+        "type": "short-input",
+        "title": "Expiration",
+        "placeholder": "Unix timestamp for order expiration"
+      },
+      {
+        "id": "postOnly",
+        "type": "dropdown",
+        "title": "Post Only",
+        "options": [
+          {
+            "label": "Yes",
+            "value": "true"
+          }
+        ]
+      },
+      {
+        "id": "reduceOnly",
+        "type": "dropdown",
+        "title": "Reduce Only",
+        "options": [
+          {
+            "label": "Yes",
+            "value": "true"
+          }
+        ]
+      },
+      {
+        "id": "limit",
+        "type": "short-input",
+        "title": "Limit",
+        "placeholder": "Number of results (1-1000, default: 100)"
+      },
+      {
+        "id": "cursor",
+        "type": "short-input",
+        "title": "Cursor",
+        "placeholder": "Pagination cursor"
+      }
+    ],
+    "tools": {
+      "access": [
+        "kalshi_get_markets",
+        "kalshi_get_market",
+        "kalshi_get_events",
+        "kalshi_get_event",
+        "kalshi_get_balance",
+        "kalshi_get_positions",
+        "kalshi_get_orders",
+        "kalshi_get_order",
+        "kalshi_get_orderbook",
+        "kalshi_get_trades",
+        "kalshi_get_candlesticks",
+        "kalshi_get_fills",
+        "kalshi_get_series_by_ticker",
+        "kalshi_get_exchange_status",
+        "kalshi_create_order",
+        "kalshi_cancel_order",
+        "kalshi_amend_order"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "markets": {
+        "type": "json"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "kalshi_amend_order",
+      "name": "Amend Order on Kalshi",
+      "description": "Modify the price or quantity of an existing order on Kalshi",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "kalshi",
+        "operation": "kalshi_amend_order"
+      }
+    },
+    {
+      "id": "kalshi_cancel_order",
+      "name": "Cancel Order on Kalshi",
+      "description": "Cancel an existing order on Kalshi",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "kalshi",
+        "operation": "kalshi_cancel_order"
+      }
+    },
+    {
+      "id": "kalshi_create_order",
+      "name": "Create Order on Kalshi",
+      "description": "Create a new order on a Kalshi prediction market",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "kalshi",
+        "operation": "kalshi_create_order"
+      }
+    },
+    {
+      "id": "kalshi_get_balance",
+      "name": "Get Balance from Kalshi",
+      "description": "Retrieve your account balance and portfolio value from Kalshi",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "kalshi",
+        "operation": "kalshi_get_balance"
+      }
+    },
+    {
+      "id": "kalshi_get_candlesticks",
+      "name": "Get Market Candlesticks from Kalshi",
+      "description": "Retrieve OHLC candlestick data for a specific market",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "kalshi",
+        "operation": "kalshi_get_candlesticks"
+      }
+    },
+    {
+      "id": "kalshi_get_event",
+      "name": "Get Event from Kalshi",
+      "description": "Retrieve details of a specific event by ticker",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "kalshi",
+        "operation": "kalshi_get_event"
+      }
+    },
+    {
+      "id": "kalshi_get_events",
+      "name": "Get Events from Kalshi",
+      "description": "Retrieve a list of events from Kalshi with optional filtering",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "kalshi",
+        "operation": "kalshi_get_events"
+      }
+    },
+    {
+      "id": "kalshi_get_exchange_status",
+      "name": "Get Exchange Status from Kalshi",
+      "description": "Retrieve the current status of the Kalshi exchange (trading and exchange activity)",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "kalshi",
+        "operation": "kalshi_get_exchange_status"
+      }
+    },
+    {
+      "id": "kalshi_get_fills",
+      "name": "Get Fills from Kalshi",
+      "description": "Retrieve your portfolio",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "kalshi",
+        "operation": "kalshi_get_fills"
+      }
+    },
+    {
+      "id": "kalshi_get_market",
+      "name": "Get Market from Kalshi",
+      "description": "Retrieve details of a specific prediction market by ticker",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "kalshi",
+        "operation": "kalshi_get_market"
+      }
+    },
+    {
+      "id": "kalshi_get_markets",
+      "name": "Get Markets from Kalshi",
+      "description": "Retrieve a list of prediction markets from Kalshi with optional filtering",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "kalshi",
+        "operation": "kalshi_get_markets"
+      }
+    },
+    {
+      "id": "kalshi_get_order",
+      "name": "Get Order from Kalshi",
+      "description": "Retrieve details of a specific order by ID from Kalshi",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "kalshi",
+        "operation": "kalshi_get_order"
+      }
+    },
+    {
+      "id": "kalshi_get_orderbook",
+      "name": "Get Market Orderbook from Kalshi",
+      "description": "Retrieve the orderbook (yes and no bids) for a specific market",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "kalshi",
+        "operation": "kalshi_get_orderbook"
+      }
+    },
+    {
+      "id": "kalshi_get_orders",
+      "name": "Get Orders from Kalshi",
+      "description": "Retrieve your orders from Kalshi with optional filtering",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "kalshi",
+        "operation": "kalshi_get_orders"
+      }
+    },
+    {
+      "id": "kalshi_get_positions",
+      "name": "Get Positions from Kalshi",
+      "description": "Retrieve your open positions from Kalshi",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "kalshi",
+        "operation": "kalshi_get_positions"
+      }
+    },
+    {
+      "id": "kalshi_get_series_by_ticker",
+      "name": "Get Series by Ticker from Kalshi",
+      "description": "Retrieve details of a specific market series by ticker",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "kalshi",
+        "operation": "kalshi_get_series_by_ticker"
+      }
+    },
+    {
+      "id": "kalshi_get_trades",
+      "name": "Get Trades from Kalshi",
+      "description": "Retrieve recent trades across all markets",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "kalshi",
+        "operation": "kalshi_get_trades"
+      }
+    }
+  ]
+}

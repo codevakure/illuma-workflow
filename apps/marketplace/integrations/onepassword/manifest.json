@@ -1,0 +1,343 @@
+{
+  "id": "onepassword",
+  "name": "1Password",
+  "version": "1.0.0",
+  "description": "Manage secrets and items in 1Password vaults",
+  "icon": "OnePasswordIcon",
+  "block": {
+    "type": "onepassword",
+    "name": "1Password",
+    "description": "Manage secrets and items in 1Password vaults",
+    "longDescription": "Access and manage secrets stored in 1Password vaults using the Connect API or Service Account SDK. List vaults, retrieve items with their fields and secrets, create new items, update existing ones, delete items, and resolve secret references.",
+    "docsLink": "https://docs.sim.ai/tools/onepassword",
+    "category": "tools",
+    "bgColor": "#E0E0E0",
+    "icon": "OnePasswordIcon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "title": "Operation",
+        "type": "dropdown",
+        "default": "get_item",
+        "options": [
+          { "label": "List Vaults", "value": "list_vaults" },
+          { "label": "Get Vault", "value": "get_vault" },
+          { "label": "List Items", "value": "list_items" },
+          { "label": "Get Item", "value": "get_item" },
+          { "label": "Create Item", "value": "create_item" },
+          { "label": "Replace Item", "value": "replace_item" },
+          { "label": "Update Item", "value": "update_item" },
+          { "label": "Delete Item", "value": "delete_item" },
+          { "label": "Resolve Secret", "value": "resolve_secret" }
+        ]
+      },
+      {
+        "id": "connectionMode",
+        "title": "Connection Mode",
+        "type": "dropdown",
+        "default": "service_account",
+        "options": [
+          { "label": "Service Account", "value": "service_account" },
+          { "label": "Connect Server", "value": "connect" }
+        ]
+      },
+      {
+        "id": "serviceAccountToken",
+        "title": "Service Account Token",
+        "type": "short-input",
+        "password": true,
+        "placeholder": "Enter your 1Password Service Account token",
+        "required": { "field": "connectionMode", "value": "service_account" },
+        "condition": { "field": "connectionMode", "value": "service_account" }
+      },
+      {
+        "id": "serverUrl",
+        "title": "Connect Server URL",
+        "type": "short-input",
+        "placeholder": "http://localhost:8080",
+        "required": { "field": "connectionMode", "value": "connect" },
+        "condition": { "field": "connectionMode", "value": "connect" }
+      },
+      {
+        "id": "apiKey",
+        "title": "Connect Token",
+        "type": "short-input",
+        "password": true,
+        "placeholder": "Enter your 1Password Connect token",
+        "required": { "field": "connectionMode", "value": "connect" },
+        "condition": { "field": "connectionMode", "value": "connect" }
+      },
+      {
+        "id": "secretReference",
+        "title": "Secret Reference",
+        "type": "short-input",
+        "placeholder": "op://vault-name-or-id/item-name-or-id/field-name",
+        "required": { "field": "operation", "value": "resolve_secret" },
+        "condition": { "field": "operation", "value": "resolve_secret" }
+      },
+      {
+        "id": "vaultId",
+        "title": "Vault ID",
+        "type": "short-input",
+        "password": true,
+        "placeholder": "Enter vault UUID",
+        "required": { "field": "operation", "value": ["get_vault", "list_items", "get_item", "create_item", "replace_item", "update_item", "delete_item"] },
+        "condition": { "field": "operation", "value": ["list_vaults", "resolve_secret"], "not": true }
+      },
+      {
+        "id": "itemId",
+        "title": "Item ID",
+        "type": "short-input",
+        "placeholder": "Enter item UUID",
+        "required": { "field": "operation", "value": ["get_item", "replace_item", "update_item", "delete_item"] },
+        "condition": { "field": "operation", "value": ["get_item", "replace_item", "update_item", "delete_item"] }
+      },
+      {
+        "id": "filter",
+        "title": "Filter",
+        "type": "short-input",
+        "placeholder": "SCIM filter (e.g., name eq \"My Vault\")",
+        "condition": { "field": "operation", "value": ["list_vaults", "list_items"] }
+      },
+      {
+        "id": "category",
+        "title": "Category",
+        "type": "dropdown",
+        "default": "LOGIN",
+        "options": [
+          { "label": "Login", "value": "LOGIN" },
+          { "label": "Password", "value": "PASSWORD" },
+          { "label": "API Credential", "value": "API_CREDENTIAL" },
+          { "label": "Secure Note", "value": "SECURE_NOTE" },
+          { "label": "Server", "value": "SERVER" },
+          { "label": "Database", "value": "DATABASE" },
+          { "label": "Credit Card", "value": "CREDIT_CARD" },
+          { "label": "Identity", "value": "IDENTITY" },
+          { "label": "SSH Key", "value": "SSH_KEY" }
+        ],
+        "required": { "field": "operation", "value": "create_item" },
+        "condition": { "field": "operation", "value": "create_item" }
+      },
+      {
+        "id": "title",
+        "title": "Title",
+        "type": "short-input",
+        "placeholder": "Item title",
+        "condition": { "field": "operation", "value": "create_item" }
+      },
+      {
+        "id": "tags",
+        "title": "Tags",
+        "type": "short-input",
+        "placeholder": "Comma-separated tags (e.g., production, api)",
+        "condition": { "field": "operation", "value": "create_item" }
+      },
+      {
+        "id": "fields",
+        "title": "Fields",
+        "type": "code",
+        "language": "json",
+        "condition": { "field": "operation", "value": "create_item" }
+      },
+      {
+        "id": "item",
+        "title": "Item JSON",
+        "type": "code",
+        "language": "json",
+        "required": { "field": "operation", "value": "replace_item" },
+        "condition": { "field": "operation", "value": "replace_item" }
+      },
+      {
+        "id": "operations",
+        "title": "Patch Operations",
+        "type": "code",
+        "language": "json",
+        "required": { "field": "operation", "value": "update_item" },
+        "condition": { "field": "operation", "value": "update_item" }
+      }
+    ],
+    "tools": {
+      "access": [
+        "onepassword_list_vaults",
+        "onepassword_get_vault",
+        "onepassword_list_items",
+        "onepassword_get_item",
+        "onepassword_create_item",
+        "onepassword_replace_item",
+        "onepassword_update_item",
+        "onepassword_delete_item",
+        "onepassword_resolve_secret"
+      ],
+      "config": {
+        "tool": "onepassword_{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": { "type": "string", "description": "Operation to perform" },
+      "connectionMode": { "type": "string", "description": "Connection mode (service_account or connect)" },
+      "serviceAccountToken": { "type": "string", "description": "1Password Service Account token" },
+      "serverUrl": { "type": "string", "description": "1Password Connect server URL" },
+      "apiKey": { "type": "string", "description": "1Password Connect API token" },
+      "secretReference": { "type": "string", "description": "Secret reference URI (op://vault/item/field)" },
+      "vaultId": { "type": "string", "description": "Vault UUID" },
+      "itemId": { "type": "string", "description": "Item UUID" },
+      "filter": { "type": "string", "description": "SCIM filter expression" },
+      "category": { "type": "string", "description": "Item category" },
+      "title": { "type": "string", "description": "Item title" },
+      "tags": { "type": "string", "description": "Comma-separated tags" },
+      "fields": { "type": "json", "description": "JSON array of field objects" },
+      "item": { "type": "json", "description": "Full item JSON for replacement" },
+      "operations": { "type": "json", "description": "RFC6902 JSON Patch operations" }
+    },
+    "outputs": {
+      "response": { "type": "json", "description": "Operation response data" }
+    }
+  },
+  "tools": [
+    {
+      "id": "onepassword_list_vaults",
+      "name": "1Password List Vaults",
+      "description": "List all vaults accessible by the token",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {
+        "connectionMode": { "type": "string", "required": false, "description": "Connection mode: service_account or connect" },
+        "serviceAccountToken": { "type": "string", "required": false, "visibility": "user-only", "description": "1Password Service Account token" },
+        "apiKey": { "type": "string", "required": false, "visibility": "user-only", "description": "1Password Connect API token" },
+        "serverUrl": { "type": "string", "required": false, "visibility": "user-only", "description": "1Password Connect server URL" },
+        "filter": { "type": "string", "required": false, "description": "SCIM filter expression" }
+      },
+      "proxy": { "handler": "onepassword", "operation": "list_vaults" }
+    },
+    {
+      "id": "onepassword_get_vault",
+      "name": "1Password Get Vault",
+      "description": "Get details of a specific vault by ID",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {
+        "connectionMode": { "type": "string", "required": false, "description": "Connection mode" },
+        "serviceAccountToken": { "type": "string", "required": false, "visibility": "user-only", "description": "Service Account token" },
+        "apiKey": { "type": "string", "required": false, "visibility": "user-only", "description": "Connect API token" },
+        "serverUrl": { "type": "string", "required": false, "visibility": "user-only", "description": "Connect server URL" },
+        "vaultId": { "type": "string", "required": true, "description": "The vault UUID" }
+      },
+      "proxy": { "handler": "onepassword", "operation": "get_vault" }
+    },
+    {
+      "id": "onepassword_list_items",
+      "name": "1Password List Items",
+      "description": "List items in a vault",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {
+        "connectionMode": { "type": "string", "required": false, "description": "Connection mode" },
+        "serviceAccountToken": { "type": "string", "required": false, "visibility": "user-only", "description": "Service Account token" },
+        "apiKey": { "type": "string", "required": false, "visibility": "user-only", "description": "Connect API token" },
+        "serverUrl": { "type": "string", "required": false, "visibility": "user-only", "description": "Connect server URL" },
+        "vaultId": { "type": "string", "required": true, "description": "The vault UUID to list items from" },
+        "filter": { "type": "string", "required": false, "description": "SCIM filter expression" }
+      },
+      "proxy": { "handler": "onepassword", "operation": "list_items" }
+    },
+    {
+      "id": "onepassword_get_item",
+      "name": "1Password Get Item",
+      "description": "Get full details of an item including all fields and secrets",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {
+        "connectionMode": { "type": "string", "required": false, "description": "Connection mode" },
+        "serviceAccountToken": { "type": "string", "required": false, "visibility": "user-only", "description": "Service Account token" },
+        "apiKey": { "type": "string", "required": false, "visibility": "user-only", "description": "Connect API token" },
+        "serverUrl": { "type": "string", "required": false, "visibility": "user-only", "description": "Connect server URL" },
+        "vaultId": { "type": "string", "required": true, "description": "The vault UUID" },
+        "itemId": { "type": "string", "required": true, "description": "The item UUID to retrieve" }
+      },
+      "proxy": { "handler": "onepassword", "operation": "get_item" }
+    },
+    {
+      "id": "onepassword_create_item",
+      "name": "1Password Create Item",
+      "description": "Create a new item in a vault",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {
+        "connectionMode": { "type": "string", "required": false, "description": "Connection mode" },
+        "serviceAccountToken": { "type": "string", "required": false, "visibility": "user-only", "description": "Service Account token" },
+        "apiKey": { "type": "string", "required": false, "visibility": "user-only", "description": "Connect API token" },
+        "serverUrl": { "type": "string", "required": false, "visibility": "user-only", "description": "Connect server URL" },
+        "vaultId": { "type": "string", "required": true, "description": "The vault UUID" },
+        "category": { "type": "string", "required": true, "description": "Item category (LOGIN, PASSWORD, API_CREDENTIAL, etc.)" },
+        "title": { "type": "string", "required": false, "description": "Item title" },
+        "tags": { "type": "string", "required": false, "description": "Comma-separated list of tags" },
+        "fields": { "type": "string", "required": false, "description": "JSON array of field objects" }
+      },
+      "proxy": { "handler": "onepassword", "operation": "create_item" }
+    },
+    {
+      "id": "onepassword_replace_item",
+      "name": "1Password Replace Item",
+      "description": "Replace an entire item with new data",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {
+        "connectionMode": { "type": "string", "required": false, "description": "Connection mode" },
+        "serviceAccountToken": { "type": "string", "required": false, "visibility": "user-only", "description": "Service Account token" },
+        "apiKey": { "type": "string", "required": false, "visibility": "user-only", "description": "Connect API token" },
+        "serverUrl": { "type": "string", "required": false, "visibility": "user-only", "description": "Connect server URL" },
+        "vaultId": { "type": "string", "required": true, "description": "The vault UUID" },
+        "itemId": { "type": "string", "required": true, "description": "The item UUID" },
+        "item": { "type": "string", "required": true, "description": "JSON object representing the full item" }
+      },
+      "proxy": { "handler": "onepassword", "operation": "replace_item" }
+    },
+    {
+      "id": "onepassword_update_item",
+      "name": "1Password Update Item",
+      "description": "Update an item using JSON Patch operations (RFC6902)",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {
+        "connectionMode": { "type": "string", "required": false, "description": "Connection mode" },
+        "serviceAccountToken": { "type": "string", "required": false, "visibility": "user-only", "description": "Service Account token" },
+        "apiKey": { "type": "string", "required": false, "visibility": "user-only", "description": "Connect API token" },
+        "serverUrl": { "type": "string", "required": false, "visibility": "user-only", "description": "Connect server URL" },
+        "vaultId": { "type": "string", "required": true, "description": "The vault UUID" },
+        "itemId": { "type": "string", "required": true, "description": "The item UUID" },
+        "operations": { "type": "string", "required": true, "description": "JSON array of RFC6902 patch operations" }
+      },
+      "proxy": { "handler": "onepassword", "operation": "update_item" }
+    },
+    {
+      "id": "onepassword_delete_item",
+      "name": "1Password Delete Item",
+      "description": "Delete an item from a vault",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {
+        "connectionMode": { "type": "string", "required": false, "description": "Connection mode" },
+        "serviceAccountToken": { "type": "string", "required": false, "visibility": "user-only", "description": "Service Account token" },
+        "apiKey": { "type": "string", "required": false, "visibility": "user-only", "description": "Connect API token" },
+        "serverUrl": { "type": "string", "required": false, "visibility": "user-only", "description": "Connect server URL" },
+        "vaultId": { "type": "string", "required": true, "description": "The vault UUID" },
+        "itemId": { "type": "string", "required": true, "description": "The item UUID" }
+      },
+      "proxy": { "handler": "onepassword", "operation": "delete_item" }
+    },
+    {
+      "id": "onepassword_resolve_secret",
+      "name": "1Password Resolve Secret",
+      "description": "Resolve a secret reference (op://vault/item/field) to its value. Service Account mode only.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {
+        "connectionMode": { "type": "string", "required": false, "description": "Must be service_account for this operation" },
+        "serviceAccountToken": { "type": "string", "required": true, "visibility": "user-only", "description": "1Password Service Account token" },
+        "secretReference": { "type": "string", "required": true, "description": "Secret reference URI (e.g., op://vault-name/item-name/field-name)" }
+      },
+      "proxy": { "handler": "onepassword", "operation": "resolve_secret" }
+    }
+  ]
+}

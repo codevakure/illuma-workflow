@@ -1,0 +1,105 @@
+{
+  "id": "reducto",
+  "name": "Reducto",
+  "version": "1.0.0",
+  "description": "Extract text from PDF documents",
+  "icon": "ReductoIcon",
+  "block": {
+    "type": "reducto",
+    "name": "Reducto",
+    "description": "Extract text from PDF documents",
+    "longDescription": "Integrate Reducto Parse into the workflow. Can extract text from uploaded PDF documents, or from a URL.",
+    "docsLink": "https://docs.sim.ai/tools/reducto",
+    "category": "tools",
+    "bgColor": "#5c0c5c",
+    "icon": "ReductoIcon",
+    "authMode": "api_key",
+    "hideFromToolbar": true,
+    "subBlocks": [
+      {
+        "id": "fileUpload",
+        "type": "file-upload",
+        "title": "PDF Document",
+        "placeholder": "Upload a PDF document",
+        "mode": "basic",
+        "canonicalParamId": "document"
+      },
+      {
+        "id": "filePath",
+        "type": "short-input",
+        "title": "PDF Document",
+        "placeholder": "Document URL",
+        "mode": "advanced",
+        "canonicalParamId": "document"
+      },
+      {
+        "id": "pages",
+        "type": "short-input",
+        "title": "Specific Pages",
+        "placeholder": "e.g. 1,2,3 (1-indexed, leave empty for all)"
+      },
+      {
+        "id": "tableOutputFormat",
+        "type": "dropdown",
+        "title": "Table Format",
+        "options": [
+          {
+            "label": "md",
+            "value": "md"
+          },
+          {
+            "label": "Markdown",
+            "value": "Markdown"
+          },
+          {
+            "label": "html",
+            "value": "html"
+          },
+          {
+            "label": "HTML",
+            "value": "HTML"
+          }
+        ]
+      },
+      {
+        "id": "apiKey",
+        "type": "short-input",
+        "title": "API Key",
+        "placeholder": "Enter your Reducto API key",
+        "password": true
+      }
+    ],
+    "tools": {
+      "access": [
+        "reducto_parser"
+      ],
+      "config": {
+        "tool": "reducto_parser"
+      }
+    },
+    "inputs": {
+      "document": {
+        "type": "json"
+      }
+    },
+    "outputs": {
+      "job_id": {
+        "type": "string"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "reducto_parser",
+      "name": "Reducto PDF Parser",
+      "description": "Parse PDF documents using Reducto OCR API",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "reducto",
+        "operation": "reducto_parser"
+      }
+    }
+  ]
+}

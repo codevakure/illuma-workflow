@@ -1,0 +1,78 @@
+{
+  "id": "whatsapp",
+  "name": "WhatsApp",
+  "version": "1.0.0",
+  "description": "Send WhatsApp messages",
+  "icon": "WhatsAppIcon",
+  "block": {
+    "type": "whatsapp",
+    "name": "WhatsApp",
+    "description": "Send WhatsApp messages",
+    "longDescription": "Integrate WhatsApp into the workflow. Can send messages.",
+    "docsLink": "https://docs.sim.ai/tools/whatsapp",
+    "category": "tools",
+    "bgColor": "#25D366",
+    "icon": "WhatsAppIcon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "phoneNumber",
+        "type": "short-input",
+        "title": "Recipient Phone Number",
+        "placeholder": "Enter phone number with country code (e.g., +1234567890)"
+      },
+      {
+        "id": "message",
+        "type": "long-input",
+        "title": "Message",
+        "placeholder": "Enter your message"
+      },
+      {
+        "id": "phoneNumberId",
+        "type": "short-input",
+        "title": "WhatsApp Phone Number ID",
+        "placeholder": "Your WhatsApp Business Phone Number ID"
+      },
+      {
+        "id": "accessToken",
+        "type": "short-input",
+        "title": "Access Token",
+        "placeholder": "Your WhatsApp Business API Access Token",
+        "password": true
+      }
+    ],
+    "tools": {
+      "access": [
+        "whatsapp_send_message"
+      ],
+      "config": {
+        "tool": "whatsapp_send_message"
+      }
+    },
+    "inputs": {
+      "phoneNumber": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "boolean"
+      }
+    },
+    "triggerAllowed": true
+  },
+  "tools": [
+    {
+      "id": "whatsapp_send_message",
+      "name": "WhatsApp",
+      "description": "Send WhatsApp messages",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "whatsapp",
+        "operation": "whatsapp_send_message"
+      }
+    }
+  ]
+}

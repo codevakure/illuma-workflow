@@ -1,0 +1,71 @@
+{
+  "id": "clay",
+  "name": "Clay",
+  "version": "1.0.0",
+  "description": "Populate Clay workbook",
+  "icon": "ClayIcon",
+  "block": {
+    "type": "clay",
+    "name": "Clay",
+    "description": "Populate Clay workbook",
+    "longDescription": "Integrate Clay into the workflow. Can populate a table with data.",
+    "docsLink": "https://docs.sim.ai/tools/clay",
+    "category": "tools",
+    "bgColor": "#E0E0E0",
+    "icon": "ClayIcon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "webhookURL",
+        "type": "short-input",
+        "title": "Webhook URL",
+        "placeholder": "Enter Clay webhook URL"
+      },
+      {
+        "id": "data",
+        "type": "long-input",
+        "title": "Data (JSON or Plain Text)",
+        "placeholder": "Enter your JSON data to populate your Clay table"
+      },
+      {
+        "id": "authToken",
+        "type": "short-input",
+        "title": "Auth Token",
+        "placeholder": "Enter your Clay webhook auth token",
+        "password": true
+      }
+    ],
+    "tools": {
+      "access": [
+        "clay_populate"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "authToken": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "data": {
+        "type": "json"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "clay_populate",
+      "name": "Clay Populate",
+      "description": "Populate Clay with data from a JSON file. Enables direct communication and notifications with timestamp tracking and channel confirmation.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "clay",
+        "operation": "clay_populate"
+      }
+    }
+  ]
+}

@@ -1,0 +1,209 @@
+{
+  "id": "google_sheets",
+  "name": "Google Sheets (Legacy)",
+  "version": "1.0.0",
+  "description": "Read, write, and update data",
+  "icon": "GoogleSheetsIcon",
+  "block": {
+    "type": "google_sheets",
+    "name": "Google Sheets (Legacy)",
+    "description": "Read, write, and update data",
+    "longDescription": "Integrate Google Sheets into the workflow. Can read, write, append, and update data.",
+    "docsLink": "https://docs.sim.ai/tools/google_sheets",
+    "category": "tools",
+    "bgColor": "#E0E0E0",
+    "icon": "GoogleSheetsIcon",
+    "authMode": "oauth",
+    "hideFromToolbar": true,
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Read Data",
+            "value": "read"
+          },
+          {
+            "label": "Write Data",
+            "value": "write"
+          },
+          {
+            "label": "Update Data",
+            "value": "update"
+          },
+          {
+            "label": "Append Data",
+            "value": "append"
+          }
+        ]
+      },
+      {
+        "id": "credential",
+        "type": "oauth-input",
+        "title": "Google Account",
+        "placeholder": "Select Google account"
+      },
+      {
+        "id": "spreadsheetId",
+        "type": "file-selector",
+        "title": "Select Sheet",
+        "placeholder": "Select a spreadsheet",
+        "mode": "basic",
+        "canonicalParamId": "spreadsheetId"
+      },
+      {
+        "id": "manualSpreadsheetId",
+        "type": "short-input",
+        "title": "Spreadsheet ID",
+        "placeholder": "ID of the spreadsheet (from URL)",
+        "mode": "advanced",
+        "canonicalParamId": "spreadsheetId"
+      },
+      {
+        "id": "range",
+        "type": "short-input",
+        "title": "Range",
+        "placeholder": "Sheet name and cell range (e.g., Sheet1!A1:D10)"
+      },
+      {
+        "id": "values",
+        "type": "long-input",
+        "title": "Values",
+        "placeholder": "Enter values as JSON array of arrays (e.g., [["
+      },
+      {
+        "id": "valueInputOption",
+        "type": "dropdown",
+        "title": "Value Input Option",
+        "options": [
+          {
+            "label": "User Entered (Parse formulas)",
+            "value": "USER_ENTERED"
+          }
+        ]
+      },
+      {
+        "id": "values",
+        "type": "long-input",
+        "title": "Values",
+        "placeholder": "Enter values as JSON array of arrays (e.g., [["
+      },
+      {
+        "id": "valueInputOption",
+        "type": "dropdown",
+        "title": "Value Input Option",
+        "options": [
+          {
+            "label": "User Entered (Parse formulas)",
+            "value": "USER_ENTERED"
+          }
+        ]
+      },
+      {
+        "id": "values",
+        "type": "long-input",
+        "title": "Values",
+        "placeholder": "Enter values as JSON array of arrays (e.g., [["
+      },
+      {
+        "id": "valueInputOption",
+        "type": "dropdown",
+        "title": "Value Input Option",
+        "options": [
+          {
+            "label": "User Entered (Parse formulas)",
+            "value": "USER_ENTERED"
+          }
+        ]
+      },
+      {
+        "id": "insertDataOption",
+        "type": "dropdown",
+        "title": "Insert Data Option",
+        "options": [
+          {
+            "label": "Insert Rows (Add new rows)",
+            "value": "INSERT_ROWS"
+          },
+          {
+            "label": "Overwrite (Add to existing data)",
+            "value": "OVERWRITE"
+          }
+        ]
+      }
+    ],
+    "tools": {
+      "access": [
+        "google_sheets_read",
+        "google_sheets_write",
+        "google_sheets_update",
+        "google_sheets_append"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "data": {
+        "type": "json"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "google_sheets_append",
+      "name": "Append to Google Sheets",
+      "description": "Append data to the end of a Google Sheets spreadsheet",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_sheets",
+        "operation": "google_sheets_append"
+      }
+    },
+    {
+      "id": "google_sheets_read",
+      "name": "Read from Google Sheets",
+      "description": "Read data from a Google Sheets spreadsheet",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_sheets",
+        "operation": "google_sheets_read"
+      }
+    },
+    {
+      "id": "google_sheets_update",
+      "name": "Update Google Sheets",
+      "description": "Update data in a Google Sheets spreadsheet",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_sheets",
+        "operation": "google_sheets_update"
+      }
+    },
+    {
+      "id": "google_sheets_write",
+      "name": "Write to Google Sheets",
+      "description": "Write data to a Google Sheets spreadsheet",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_sheets",
+        "operation": "google_sheets_write"
+      }
+    }
+  ]
+}

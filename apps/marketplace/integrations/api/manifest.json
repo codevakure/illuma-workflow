@@ -1,0 +1,108 @@
+{
+  "id": "api",
+  "name": "API",
+  "version": "1.0.0",
+  "description": "Use any API",
+  "icon": "ApiIcon",
+  "block": {
+    "type": "api",
+    "name": "API",
+    "description": "Use any API",
+    "longDescription": "This is a core workflow block. Connect to any external API with support for all standard HTTP methods and customizable request parameters. Configure headers, query parameters, and request bodies. Standard headers (User-Agent, Accept, Cache-Control, etc.) are automatically included.",
+    "docsLink": "https://docs.sim.ai/blocks/api",
+    "category": "blocks",
+    "bgColor": "#2F55FF",
+    "icon": "ApiIcon",
+    "subBlocks": [
+      {
+        "id": "url",
+        "type": "short-input",
+        "title": "URL",
+        "placeholder": "Enter URL"
+      },
+      {
+        "id": "method",
+        "type": "dropdown",
+        "title": "Method",
+        "options": [
+          {
+            "label": "GET",
+            "value": "GET"
+          },
+          {
+            "label": "POST",
+            "value": "POST"
+          },
+          {
+            "label": "PUT",
+            "value": "PUT"
+          },
+          {
+            "label": "DELETE",
+            "value": "DELETE"
+          },
+          {
+            "label": "PATCH",
+            "value": "PATCH"
+          }
+        ]
+      },
+      {
+        "id": "params",
+        "type": "table",
+        "title": "Query Params"
+      },
+      {
+        "id": "headers",
+        "type": "table",
+        "title": "Headers"
+      },
+      {
+        "id": "body",
+        "type": "code",
+        "title": "Body",
+        "placeholder": "Enter JSON..."
+      },
+      {
+        "id": "timeout",
+        "type": "short-input",
+        "title": "Timeout (ms)",
+        "placeholder": "300000",
+        "mode": "advanced",
+        "max": 600000
+      }
+    ],
+    "tools": {
+      "access": [
+        "http_request"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "url": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "data": {
+        "type": "json"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "http_request",
+      "name": "Http Request",
+      "description": "API request operation",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "api",
+        "operation": "http_request"
+      }
+    }
+  ]
+}

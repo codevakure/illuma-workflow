@@ -1,0 +1,143 @@
+{
+  "id": "stagehand",
+  "name": "Stagehand",
+  "version": "1.0.0",
+  "description": "Web automation and data extraction",
+  "icon": "StagehandIcon",
+  "block": {
+    "type": "stagehand",
+    "name": "Stagehand",
+    "description": "Web automation and data extraction",
+    "longDescription": "Integrate Stagehand into the workflow. Can extract structured data from webpages or run an autonomous agent to perform tasks.",
+    "docsLink": "https://docs.sim.ai/tools/stagehand",
+    "category": "tools",
+    "bgColor": "#FFC83C",
+    "icon": "StagehandIcon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Extract Data",
+            "value": "extract"
+          },
+          {
+            "label": "Run Agent",
+            "value": "agent"
+          }
+        ]
+      },
+      {
+        "id": "provider",
+        "type": "dropdown",
+        "title": "AI Provider",
+        "options": [
+          {
+            "label": "OpenAI",
+            "value": "openai"
+          },
+          {
+            "label": "Anthropic",
+            "value": "anthropic"
+          }
+        ]
+      },
+      {
+        "id": "url",
+        "type": "short-input",
+        "title": "URL",
+        "placeholder": "Enter the URL of the website to extract data from"
+      },
+      {
+        "id": "instruction",
+        "type": "long-input",
+        "title": "Instructions",
+        "placeholder": "Enter detailed instructions for what data to extract from the page..."
+      },
+      {
+        "id": "schema",
+        "type": "code",
+        "title": "Schema",
+        "placeholder": "Enter JSON Schema..."
+      },
+      {
+        "id": "startUrl",
+        "type": "short-input",
+        "title": "Starting URL",
+        "placeholder": "Enter the starting URL for the agent"
+      },
+      {
+        "id": "task",
+        "type": "long-input",
+        "title": "Task",
+        "placeholder": "Enter the task or goal for the agent to achieve. Reference variables using %key% syntax."
+      },
+      {
+        "id": "variables",
+        "type": "table",
+        "title": "Variables"
+      },
+      {
+        "id": "outputSchema",
+        "type": "code",
+        "title": "Output Schema",
+        "placeholder": "Enter JSON Schema..."
+      },
+      {
+        "id": "apiKey",
+        "type": "short-input",
+        "title": "API Key",
+        "placeholder": "Enter your API key for the selected provider",
+        "password": true
+      }
+    ],
+    "tools": {
+      "access": [
+        "stagehand_extract",
+        "stagehand_agent"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "data": {
+        "type": "json"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "stagehand_agent",
+      "name": "Stagehand Agent",
+      "description": "Run an autonomous web agent to complete tasks and extract structured data",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stagehand",
+        "operation": "stagehand_agent"
+      }
+    },
+    {
+      "id": "stagehand_extract",
+      "name": "Stagehand Extract",
+      "description": "Extract structured data from a webpage using Stagehand",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stagehand",
+        "operation": "stagehand_extract"
+      }
+    }
+  ]
+}

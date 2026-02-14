@@ -1,0 +1,339 @@
+{
+  "id": "hubspot",
+  "name": "HubSpot",
+  "version": "1.0.0",
+  "description": "Interact with HubSpot CRM or trigger workflows from HubSpot events",
+  "icon": "HubspotIcon",
+  "block": {
+    "type": "hubspot",
+    "name": "HubSpot",
+    "description": "Interact with HubSpot CRM or trigger workflows from HubSpot events",
+    "longDescription": "Integrate HubSpot into your workflow. Manage contacts, companies, deals, tickets, and other CRM objects with powerful automation capabilities. Can be used in trigger mode to start workflows when contacts are created, deleted, or updated.",
+    "docsLink": "https://docs.sim.ai/tools/hubspot",
+    "category": "tools",
+    "bgColor": "#FF7A59",
+    "icon": "HubspotIcon",
+    "authMode": "oauth",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Get Users",
+            "value": "get_users"
+          },
+          {
+            "label": "Get Contacts",
+            "value": "get_contacts"
+          },
+          {
+            "label": "Create Contact",
+            "value": "create_contact"
+          },
+          {
+            "label": "Update Contact",
+            "value": "update_contact"
+          },
+          {
+            "label": "Search Contacts",
+            "value": "search_contacts"
+          },
+          {
+            "label": "Get Companies",
+            "value": "get_companies"
+          },
+          {
+            "label": "Create Company",
+            "value": "create_company"
+          },
+          {
+            "label": "Update Company",
+            "value": "update_company"
+          },
+          {
+            "label": "Search Companies",
+            "value": "search_companies"
+          },
+          {
+            "label": "Get Deals",
+            "value": "get_deals"
+          }
+        ]
+      },
+      {
+        "id": "credential",
+        "type": "oauth-input",
+        "title": "HubSpot Account",
+        "placeholder": "Select HubSpot account"
+      },
+      {
+        "id": "contactId",
+        "type": "short-input",
+        "title": "Contact ID or Email",
+        "placeholder": "Leave empty to list all contacts"
+      },
+      {
+        "id": "contactId",
+        "type": "short-input",
+        "title": "Contact ID or Email",
+        "placeholder": "Numeric ID, or email (requires ID Property below)"
+      },
+      {
+        "id": "companyId",
+        "type": "short-input",
+        "title": "Company ID or Domain",
+        "placeholder": "Leave empty to list all companies"
+      },
+      {
+        "id": "companyId",
+        "type": "short-input",
+        "title": "Company ID or Domain",
+        "placeholder": "Numeric ID, or domain (requires ID Property below)"
+      },
+      {
+        "id": "idProperty",
+        "type": "short-input",
+        "title": "ID Property",
+        "placeholder": "Required if using email/domain (e.g., "
+      },
+      {
+        "id": "propertiesToSet",
+        "type": "long-input",
+        "title": "Properties",
+        "placeholder": "JSON object with properties (e.g., {"
+      },
+      {
+        "id": "properties",
+        "type": "short-input",
+        "title": "Properties to Return",
+        "placeholder": "Comma-separated list (e.g., "
+      },
+      {
+        "id": "associations",
+        "type": "short-input",
+        "title": "Associations",
+        "placeholder": "Comma-separated object types (e.g., "
+      },
+      {
+        "id": "limit",
+        "type": "short-input",
+        "title": "Limit",
+        "placeholder": "Max results (list: 100, search: 200)"
+      },
+      {
+        "id": "after",
+        "type": "short-input",
+        "title": "After (Pagination)",
+        "placeholder": "Pagination cursor from previous response"
+      },
+      {
+        "id": "query",
+        "type": "short-input",
+        "title": "Search Query",
+        "placeholder": "Search term (e.g., company name, contact email)"
+      },
+      {
+        "id": "filterGroups",
+        "type": "long-input",
+        "title": "Filter Groups",
+        "placeholder": "JSON array of filter groups (e.g., [{"
+      },
+      {
+        "id": "sorts",
+        "type": "long-input",
+        "title": "Sort Order",
+        "placeholder": "JSON array of sort objects (e.g., [{"
+      },
+      {
+        "id": "searchProperties",
+        "type": "long-input",
+        "title": "Properties to Return",
+        "placeholder": "JSON array of properties (e.g., ["
+      },
+      {
+        "id": "selectedTriggerId",
+        "type": "dropdown",
+        "title": "Trigger Type",
+        "mode": "trigger"
+      }
+    ],
+    "tools": {
+      "access": [
+        "hubspot_get_users",
+        "hubspot_list_contacts",
+        "hubspot_get_contact",
+        "hubspot_create_contact",
+        "hubspot_update_contact",
+        "hubspot_search_contacts",
+        "hubspot_list_companies",
+        "hubspot_get_company",
+        "hubspot_create_company",
+        "hubspot_update_company",
+        "hubspot_search_companies",
+        "hubspot_list_deals"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "users": {
+        "type": "json"
+      }
+    },
+    "triggerAllowed": true
+  },
+  "tools": [
+    {
+      "id": "hubspot_create_company",
+      "name": "Create Company in HubSpot",
+      "description": "Create a new company in HubSpot",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "hubspot",
+        "operation": "hubspot_create_company"
+      }
+    },
+    {
+      "id": "hubspot_create_contact",
+      "name": "Create Contact in HubSpot",
+      "description": "Create a new contact in HubSpot. Requires at least one of: email, firstname, or lastname",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "hubspot",
+        "operation": "hubspot_create_contact"
+      }
+    },
+    {
+      "id": "hubspot_get_company",
+      "name": "Get Company from HubSpot",
+      "description": "Retrieve a single company by ID or domain from HubSpot",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "hubspot",
+        "operation": "hubspot_get_company"
+      }
+    },
+    {
+      "id": "hubspot_get_contact",
+      "name": "Get Contact from HubSpot",
+      "description": "Retrieve a single contact by ID or email from HubSpot",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "hubspot",
+        "operation": "hubspot_get_contact"
+      }
+    },
+    {
+      "id": "hubspot_get_users",
+      "name": "Get Users from HubSpot",
+      "description": "Retrieve all users from HubSpot account",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "hubspot",
+        "operation": "hubspot_get_users"
+      }
+    },
+    {
+      "id": "hubspot_list_companies",
+      "name": "List Companies from HubSpot",
+      "description": "Retrieve all companies from HubSpot account with pagination support",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "hubspot",
+        "operation": "hubspot_list_companies"
+      }
+    },
+    {
+      "id": "hubspot_list_contacts",
+      "name": "List Contacts from HubSpot",
+      "description": "Retrieve all contacts from HubSpot account with pagination support",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "hubspot",
+        "operation": "hubspot_list_contacts"
+      }
+    },
+    {
+      "id": "hubspot_list_deals",
+      "name": "List Deals from HubSpot",
+      "description": "Retrieve all deals from HubSpot account with pagination support",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "hubspot",
+        "operation": "hubspot_list_deals"
+      }
+    },
+    {
+      "id": "hubspot_search_companies",
+      "name": "Search Companies in HubSpot",
+      "description": "Search for companies in HubSpot using filters, sorting, and queries",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "hubspot",
+        "operation": "hubspot_search_companies"
+      }
+    },
+    {
+      "id": "hubspot_search_contacts",
+      "name": "Search Contacts in HubSpot",
+      "description": "Search for contacts in HubSpot using filters, sorting, and queries",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "hubspot",
+        "operation": "hubspot_search_contacts"
+      }
+    },
+    {
+      "id": "hubspot_update_company",
+      "name": "Update Company in HubSpot",
+      "description": "Update an existing company in HubSpot by ID or domain",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "hubspot",
+        "operation": "hubspot_update_company"
+      }
+    },
+    {
+      "id": "hubspot_update_contact",
+      "name": "Update Contact in HubSpot",
+      "description": "Update an existing contact in HubSpot by ID or email",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "hubspot",
+        "operation": "hubspot_update_contact"
+      }
+    }
+  ]
+}

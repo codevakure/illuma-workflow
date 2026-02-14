@@ -1,0 +1,712 @@
+{
+  "id": "jira",
+  "name": "Jira",
+  "version": "1.0.0",
+  "description": "Interact with Jira",
+  "icon": "JiraIcon",
+  "block": {
+    "type": "jira",
+    "name": "Jira",
+    "description": "Interact with Jira",
+    "longDescription": "Integrate Jira into the workflow. Can read, write, and update issues. Can also trigger workflows based on Jira webhook events.",
+    "docsLink": "https://docs.sim.ai/tools/jira",
+    "category": "tools",
+    "bgColor": "#E0E0E0",
+    "icon": "JiraIcon",
+    "authMode": "oauth",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Read Issue",
+            "value": "read"
+          },
+          {
+            "label": "Update Issue",
+            "value": "update"
+          },
+          {
+            "label": "Write Issue",
+            "value": "write"
+          },
+          {
+            "label": "Delete Issue",
+            "value": "delete"
+          },
+          {
+            "label": "Assign Issue",
+            "value": "assign"
+          },
+          {
+            "label": "Transition Issue",
+            "value": "transition"
+          },
+          {
+            "label": "Search Issues",
+            "value": "search"
+          },
+          {
+            "label": "Add Comment",
+            "value": "add_comment"
+          },
+          {
+            "label": "Get Comments",
+            "value": "get_comments"
+          },
+          {
+            "label": "Update Comment",
+            "value": "update_comment"
+          },
+          {
+            "label": "Delete Comment",
+            "value": "delete_comment"
+          },
+          {
+            "label": "Get Attachments",
+            "value": "get_attachments"
+          },
+          {
+            "label": "Add Attachment",
+            "value": "add_attachment"
+          },
+          {
+            "label": "Delete Attachment",
+            "value": "delete_attachment"
+          },
+          {
+            "label": "Add Worklog",
+            "value": "add_worklog"
+          },
+          {
+            "label": "Get Worklogs",
+            "value": "get_worklogs"
+          },
+          {
+            "label": "Update Worklog",
+            "value": "update_worklog"
+          },
+          {
+            "label": "Delete Worklog",
+            "value": "delete_worklog"
+          },
+          {
+            "label": "Create Issue Link",
+            "value": "create_link"
+          },
+          {
+            "label": "Delete Issue Link",
+            "value": "delete_link"
+          },
+          {
+            "label": "Add Watcher",
+            "value": "add_watcher"
+          },
+          {
+            "label": "Remove Watcher",
+            "value": "remove_watcher"
+          },
+          {
+            "label": "Get Users",
+            "value": "get_users"
+          }
+        ]
+      },
+      {
+        "id": "domain",
+        "type": "short-input",
+        "title": "Domain",
+        "placeholder": "Enter Jira domain (e.g., simstudio.atlassian.net)"
+      },
+      {
+        "id": "credential",
+        "type": "oauth-input",
+        "title": "Jira Account",
+        "placeholder": "Select Jira account"
+      },
+      {
+        "id": "projectId",
+        "type": "project-selector",
+        "title": "Select Project",
+        "placeholder": "Select Jira project",
+        "mode": "basic",
+        "canonicalParamId": "projectId"
+      },
+      {
+        "id": "manualProjectId",
+        "type": "short-input",
+        "title": "Project ID",
+        "placeholder": "Enter Jira project ID",
+        "mode": "advanced",
+        "canonicalParamId": "projectId"
+      },
+      {
+        "id": "issueKey",
+        "type": "file-selector",
+        "title": "Select Issue",
+        "placeholder": "Select Jira issue",
+        "mode": "basic",
+        "canonicalParamId": "issueKey"
+      },
+      {
+        "id": "manualIssueKey",
+        "type": "short-input",
+        "title": "Issue Key",
+        "placeholder": "Enter Jira issue key",
+        "mode": "advanced",
+        "canonicalParamId": "issueKey"
+      },
+      {
+        "id": "summary",
+        "type": "short-input",
+        "title": "New Summary",
+        "placeholder": "Enter new summary for the issue"
+      },
+      {
+        "id": "description",
+        "type": "long-input",
+        "title": "New Description",
+        "placeholder": "Enter new description for the issue"
+      },
+      {
+        "id": "assignee",
+        "type": "short-input",
+        "title": "Assignee Account ID",
+        "placeholder": "Assignee account ID (e.g., 5b109f2e9729b51b54dc274d)"
+      },
+      {
+        "id": "priority",
+        "type": "short-input",
+        "title": "Priority",
+        "placeholder": "Priority ID or name (e.g., "
+      },
+      {
+        "id": "labels",
+        "type": "short-input",
+        "title": "Labels",
+        "placeholder": "Comma-separated labels (e.g., bug, urgent)"
+      },
+      {
+        "id": "duedate",
+        "type": "short-input",
+        "title": "Due Date",
+        "placeholder": "YYYY-MM-DD (e.g., 2024-12-31)"
+      },
+      {
+        "id": "reporter",
+        "type": "short-input",
+        "title": "Reporter Account ID",
+        "placeholder": "Reporter account ID"
+      },
+      {
+        "id": "environment",
+        "type": "long-input",
+        "title": "Environment",
+        "placeholder": "Environment information (e.g., Production, Staging)"
+      },
+      {
+        "id": "customFieldId",
+        "type": "short-input",
+        "title": "Custom Field ID",
+        "placeholder": "e.g., customfield_10001 or 10001"
+      },
+      {
+        "id": "customFieldValue",
+        "type": "short-input",
+        "title": "Custom Field Value",
+        "placeholder": "Value for the custom field"
+      },
+      {
+        "id": "deleteSubtasks",
+        "type": "dropdown",
+        "title": "Delete Subtasks",
+        "options": [
+          {
+            "label": "No",
+            "value": "false"
+          },
+          {
+            "label": "Yes",
+            "value": "true"
+          }
+        ]
+      },
+      {
+        "id": "accountId",
+        "type": "short-input",
+        "title": "Account ID",
+        "placeholder": "Enter user account ID to assign"
+      },
+      {
+        "id": "transitionId",
+        "type": "short-input",
+        "title": "Transition ID",
+        "placeholder": "Enter transition ID (e.g., 21)"
+      },
+      {
+        "id": "transitionComment",
+        "type": "long-input",
+        "title": "Comment",
+        "placeholder": "Add optional comment for transition"
+      },
+      {
+        "id": "jql",
+        "type": "long-input",
+        "title": "JQL Query",
+        "placeholder": "Enter JQL query (e.g., project = PROJ AND status = "
+      },
+      {
+        "id": "maxResults",
+        "type": "short-input",
+        "title": "Max Results",
+        "placeholder": "Maximum results to return (default: 50)"
+      },
+      {
+        "id": "commentBody",
+        "type": "long-input",
+        "title": "Comment Text",
+        "placeholder": "Enter comment text"
+      },
+      {
+        "id": "commentId",
+        "type": "short-input",
+        "title": "Comment ID",
+        "placeholder": "Enter comment ID"
+      },
+      {
+        "id": "attachmentFiles",
+        "type": "file-upload",
+        "title": "Attachments",
+        "placeholder": "Upload files",
+        "mode": "basic",
+        "canonicalParamId": "files"
+      },
+      {
+        "id": "files",
+        "type": "short-input",
+        "title": "File References",
+        "placeholder": "File reference from previous block",
+        "mode": "advanced",
+        "canonicalParamId": "files"
+      },
+      {
+        "id": "attachmentId",
+        "type": "short-input",
+        "title": "Attachment ID",
+        "placeholder": "Enter attachment ID"
+      },
+      {
+        "id": "timeSpentSeconds",
+        "type": "short-input",
+        "title": "Time Spent (seconds)",
+        "placeholder": "Enter time in seconds (e.g., 3600 for 1 hour)"
+      },
+      {
+        "id": "timeSpentSecondsUpdate",
+        "type": "short-input",
+        "title": "Time Spent (seconds) - Optional",
+        "placeholder": "Enter time in seconds (leave empty to keep unchanged)"
+      },
+      {
+        "id": "worklogComment",
+        "type": "long-input",
+        "title": "Worklog Comment",
+        "placeholder": "Enter optional worklog comment"
+      },
+      {
+        "id": "started",
+        "type": "short-input",
+        "title": "Started At",
+        "placeholder": "ISO timestamp (defaults to now)"
+      },
+      {
+        "id": "worklogId",
+        "type": "short-input",
+        "title": "Worklog ID",
+        "placeholder": "Enter worklog ID"
+      },
+      {
+        "id": "inwardIssueKey",
+        "type": "short-input",
+        "title": "Inward Issue Key",
+        "placeholder": "Enter inward issue key (e.g., PROJ-123)"
+      },
+      {
+        "id": "outwardIssueKey",
+        "type": "short-input",
+        "title": "Outward Issue Key",
+        "placeholder": "Enter outward issue key (e.g., PROJ-456)"
+      },
+      {
+        "id": "linkType",
+        "type": "short-input",
+        "title": "Link Type",
+        "placeholder": "Enter link type (e.g., "
+      },
+      {
+        "id": "linkComment",
+        "type": "long-input",
+        "title": "Link Comment",
+        "placeholder": "Add optional comment for the link"
+      },
+      {
+        "id": "linkId",
+        "type": "short-input",
+        "title": "Link ID",
+        "placeholder": "Enter link ID to delete"
+      },
+      {
+        "id": "userAccountId",
+        "type": "short-input",
+        "title": "Account ID",
+        "placeholder": "Enter account ID for specific user"
+      },
+      {
+        "id": "usersStartAt",
+        "type": "short-input",
+        "title": "Start At",
+        "placeholder": "Pagination start index (default: 0)"
+      },
+      {
+        "id": "usersMaxResults",
+        "type": "short-input",
+        "title": "Max Results",
+        "placeholder": "Maximum users to return (default: 50)"
+      }
+    ],
+    "tools": {
+      "access": [
+        "jira_retrieve",
+        "jira_update",
+        "jira_write",
+        "jira_bulk_read",
+        "jira_delete_issue",
+        "jira_assign_issue",
+        "jira_transition_issue",
+        "jira_search_issues",
+        "jira_add_comment",
+        "jira_get_comments",
+        "jira_update_comment",
+        "jira_delete_comment",
+        "jira_get_attachments",
+        "jira_add_attachment",
+        "jira_delete_attachment",
+        "jira_add_worklog",
+        "jira_get_worklogs",
+        "jira_update_worklog",
+        "jira_delete_worklog",
+        "jira_create_issue_link",
+        "jira_delete_issue_link",
+        "jira_add_watcher",
+        "jira_remove_watcher",
+        "jira_get_users"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "ts": {
+        "type": "string"
+      }
+    },
+    "triggerAllowed": true
+  },
+  "tools": [
+    {
+      "id": "jira_add_attachment",
+      "name": "Jira Add Attachment",
+      "description": "Add attachments to a Jira issue",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "jira",
+        "operation": "jira_add_attachment"
+      }
+    },
+    {
+      "id": "jira_add_comment",
+      "name": "Jira Add Comment",
+      "description": "Add a comment to a Jira issue",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "jira",
+        "operation": "jira_add_comment"
+      }
+    },
+    {
+      "id": "jira_add_watcher",
+      "name": "Jira Add Watcher",
+      "description": "Add a watcher to a Jira issue to receive notifications about updates",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "jira",
+        "operation": "jira_add_watcher"
+      }
+    },
+    {
+      "id": "jira_add_worklog",
+      "name": "Jira Add Worklog",
+      "description": "Add a time tracking worklog entry to a Jira issue",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "jira",
+        "operation": "jira_add_worklog"
+      }
+    },
+    {
+      "id": "jira_assign_issue",
+      "name": "Jira Assign Issue",
+      "description": "Assign a Jira issue to a user",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "jira",
+        "operation": "jira_assign_issue"
+      }
+    },
+    {
+      "id": "jira_bulk_read",
+      "name": "Jira Bulk Read",
+      "description": "Retrieve multiple Jira issues in bulk",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "jira",
+        "operation": "jira_bulk_read"
+      }
+    },
+    {
+      "id": "jira_create_issue_link",
+      "name": "Jira Create Issue Link",
+      "description": "Create a link relationship between two Jira issues",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "jira",
+        "operation": "jira_create_issue_link"
+      }
+    },
+    {
+      "id": "jira_delete_attachment",
+      "name": "Jira Delete Attachment",
+      "description": "Delete an attachment from a Jira issue",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "jira",
+        "operation": "jira_delete_attachment"
+      }
+    },
+    {
+      "id": "jira_delete_comment",
+      "name": "Jira Delete Comment",
+      "description": "Delete a comment from a Jira issue",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "jira",
+        "operation": "jira_delete_comment"
+      }
+    },
+    {
+      "id": "jira_delete_issue",
+      "name": "Jira Delete Issue",
+      "description": "Delete a Jira issue",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "jira",
+        "operation": "jira_delete_issue"
+      }
+    },
+    {
+      "id": "jira_delete_issue_link",
+      "name": "Jira Delete Issue Link",
+      "description": "Delete a link between two Jira issues",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "jira",
+        "operation": "jira_delete_issue_link"
+      }
+    },
+    {
+      "id": "jira_delete_worklog",
+      "name": "Jira Delete Worklog",
+      "description": "Delete a worklog entry from a Jira issue",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "jira",
+        "operation": "jira_delete_worklog"
+      }
+    },
+    {
+      "id": "jira_get_attachments",
+      "name": "Jira Get Attachments",
+      "description": "Get all attachments from a Jira issue",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "jira",
+        "operation": "jira_get_attachments"
+      }
+    },
+    {
+      "id": "jira_get_comments",
+      "name": "Jira Get Comments",
+      "description": "Get all comments from a Jira issue",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "jira",
+        "operation": "jira_get_comments"
+      }
+    },
+    {
+      "id": "jira_get_users",
+      "name": "Jira Get Users",
+      "description": "Get Jira users. If an account ID is provided, returns a single user. Otherwise, returns a list of all users.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "jira",
+        "operation": "jira_get_users"
+      }
+    },
+    {
+      "id": "jira_get_worklogs",
+      "name": "Jira Get Worklogs",
+      "description": "Get all worklog entries from a Jira issue",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "jira",
+        "operation": "jira_get_worklogs"
+      }
+    },
+    {
+      "id": "jira_remove_watcher",
+      "name": "Jira Remove Watcher",
+      "description": "Remove a watcher from a Jira issue",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "jira",
+        "operation": "jira_remove_watcher"
+      }
+    },
+    {
+      "id": "jira_retrieve",
+      "name": "Jira Retrieve",
+      "description": "Retrieve detailed information about a specific Jira issue",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "jira",
+        "operation": "jira_retrieve"
+      }
+    },
+    {
+      "id": "jira_search_issues",
+      "name": "Jira Search Issues",
+      "description": "Search for Jira issues using JQL (Jira Query Language)",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "jira",
+        "operation": "jira_search_issues"
+      }
+    },
+    {
+      "id": "jira_transition_issue",
+      "name": "Jira Transition Issue",
+      "description": "Move a Jira issue between workflow statuses (e.g., To Do -> In Progress)",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "jira",
+        "operation": "jira_transition_issue"
+      }
+    },
+    {
+      "id": "jira_update",
+      "name": "Jira Update",
+      "description": "Update a Jira issue",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "jira",
+        "operation": "jira_update"
+      }
+    },
+    {
+      "id": "jira_update_comment",
+      "name": "Jira Update Comment",
+      "description": "Update an existing comment on a Jira issue",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "jira",
+        "operation": "jira_update_comment"
+      }
+    },
+    {
+      "id": "jira_update_worklog",
+      "name": "Jira Update Worklog",
+      "description": "Update an existing worklog entry on a Jira issue",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "jira",
+        "operation": "jira_update_worklog"
+      }
+    },
+    {
+      "id": "jira_write",
+      "name": "Jira Write",
+      "description": "Write a Jira issue",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "jira",
+        "operation": "jira_write"
+      }
+    }
+  ]
+}

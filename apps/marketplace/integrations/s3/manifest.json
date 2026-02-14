@@ -1,0 +1,298 @@
+{
+  "id": "s3",
+  "name": "S3",
+  "version": "1.0.0",
+  "description": "Upload, download, list, and manage S3 files",
+  "icon": "S3Icon",
+  "block": {
+    "type": "s3",
+    "name": "S3",
+    "description": "Upload, download, list, and manage S3 files",
+    "longDescription": "Integrate S3 into the workflow. Upload files, download objects, list bucket contents, delete objects, and copy objects between buckets. Requires AWS access key and secret access key.",
+    "docsLink": "https://docs.sim.ai/tools/s3",
+    "category": "tools",
+    "bgColor": "linear-gradient(45deg, #1B660F 0%, #6CAE3E 100%)",
+    "icon": "S3Icon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Download File",
+            "value": "get_object"
+          },
+          {
+            "label": "Upload File",
+            "value": "put_object"
+          },
+          {
+            "label": "List Objects",
+            "value": "list_objects"
+          },
+          {
+            "label": "Delete Object",
+            "value": "delete_object"
+          },
+          {
+            "label": "Copy Object",
+            "value": "copy_object"
+          }
+        ]
+      },
+      {
+        "id": "accessKeyId",
+        "type": "short-input",
+        "title": "Access Key ID",
+        "placeholder": "Enter your AWS Access Key ID",
+        "password": true
+      },
+      {
+        "id": "secretAccessKey",
+        "type": "short-input",
+        "title": "Secret Access Key",
+        "placeholder": "Enter your AWS Secret Access Key",
+        "password": true
+      },
+      {
+        "id": "region",
+        "type": "short-input",
+        "title": "AWS Region",
+        "placeholder": "e.g., us-east-1, us-west-2"
+      },
+      {
+        "id": "bucketName",
+        "type": "short-input",
+        "title": "Bucket Name",
+        "placeholder": "Enter S3 bucket name"
+      },
+      {
+        "id": "objectKey",
+        "type": "short-input",
+        "title": "Object Key/Path",
+        "placeholder": "e.g., myfile.pdf or documents/report.pdf"
+      },
+      {
+        "id": "uploadFile",
+        "type": "file-upload",
+        "title": "File to Upload",
+        "placeholder": "Upload a file",
+        "mode": "basic",
+        "canonicalParamId": "file"
+      },
+      {
+        "id": "fileReference",
+        "type": "short-input",
+        "title": "File Reference",
+        "placeholder": "Reference a file from previous blocks",
+        "mode": "advanced",
+        "canonicalParamId": "file"
+      },
+      {
+        "id": "content",
+        "type": "long-input",
+        "title": "Text Content",
+        "placeholder": "Or enter text content to upload"
+      },
+      {
+        "id": "contentType",
+        "type": "short-input",
+        "title": "Content Type",
+        "placeholder": "e.g., text/plain, application/json (auto-detected if not provided)",
+        "mode": "advanced"
+      },
+      {
+        "id": "acl",
+        "type": "dropdown",
+        "title": "Access Control",
+        "placeholder": "Select ACL (default: private)",
+        "mode": "advanced",
+        "options": [
+          {
+            "label": "Private",
+            "value": "private"
+          },
+          {
+            "label": "Public Read",
+            "value": "public-read"
+          },
+          {
+            "label": "Public Read/Write",
+            "value": "public-read-write"
+          },
+          {
+            "label": "Authenticated Read",
+            "value": "authenticated-read"
+          }
+        ]
+      },
+      {
+        "id": "s3Uri",
+        "type": "short-input",
+        "title": "S3 Object URL",
+        "placeholder": "e.g., https://bucket-name.s3.region.amazonaws.com/path/to/file"
+      },
+      {
+        "id": "prefix",
+        "type": "short-input",
+        "title": "Prefix/Folder",
+        "placeholder": "Filter by prefix (e.g., folder/ or leave empty for all)"
+      },
+      {
+        "id": "maxKeys",
+        "type": "short-input",
+        "title": "Max Results",
+        "placeholder": "Maximum number of objects to return (default: 1000)",
+        "mode": "advanced"
+      },
+      {
+        "id": "continuationToken",
+        "type": "short-input",
+        "title": "Continuation Token",
+        "placeholder": "Token for pagination (from previous response)",
+        "mode": "advanced"
+      },
+      {
+        "id": "objectKey",
+        "type": "short-input",
+        "title": "Object Key/Path",
+        "placeholder": "e.g., myfile.pdf or documents/report.pdf"
+      },
+      {
+        "id": "sourceBucket",
+        "type": "short-input",
+        "title": "Source Bucket",
+        "placeholder": "Source bucket name"
+      },
+      {
+        "id": "sourceKey",
+        "type": "short-input",
+        "title": "Source Object Key",
+        "placeholder": "e.g., oldfile.pdf or folder/file.pdf"
+      },
+      {
+        "id": "destinationBucket",
+        "type": "short-input",
+        "title": "Destination Bucket",
+        "placeholder": "Destination bucket name (can be same as source)"
+      },
+      {
+        "id": "destinationKey",
+        "type": "short-input",
+        "title": "Destination Object Key",
+        "placeholder": "e.g., newfile.pdf or backup/file.pdf"
+      },
+      {
+        "id": "copyAcl",
+        "type": "dropdown",
+        "title": "Access Control",
+        "placeholder": "Select ACL for copied object (default: private)",
+        "mode": "advanced",
+        "options": [
+          {
+            "label": "Private",
+            "value": "private"
+          },
+          {
+            "label": "Public Read",
+            "value": "public-read"
+          },
+          {
+            "label": "Public Read/Write",
+            "value": "public-read-write"
+          },
+          {
+            "label": "Authenticated Read",
+            "value": "authenticated-read"
+          }
+        ]
+      }
+    ],
+    "tools": {
+      "access": [
+        "s3_put_object",
+        "s3_get_object",
+        "s3_list_objects",
+        "s3_delete_object",
+        "s3_copy_object"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "url": {
+        "type": "string"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "s3_copy_object",
+      "name": "S3 Copy Object",
+      "description": "Copy an object within or between AWS S3 buckets",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "s3",
+        "operation": "s3_copy_object"
+      }
+    },
+    {
+      "id": "s3_delete_object",
+      "name": "S3 Delete Object",
+      "description": "Delete an object from an AWS S3 bucket",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "s3",
+        "operation": "s3_delete_object"
+      }
+    },
+    {
+      "id": "s3_get_object",
+      "name": "S3 Get Object",
+      "description": "Retrieve an object from an AWS S3 bucket",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "s3",
+        "operation": "s3_get_object"
+      }
+    },
+    {
+      "id": "s3_list_objects",
+      "name": "S3 List Objects",
+      "description": "List objects in an AWS S3 bucket",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "s3",
+        "operation": "s3_list_objects"
+      }
+    },
+    {
+      "id": "s3_put_object",
+      "name": "S3 Put Object",
+      "description": "Upload a file to an AWS S3 bucket",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "s3",
+        "operation": "s3_put_object"
+      }
+    }
+  ]
+}

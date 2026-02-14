@@ -1,0 +1,846 @@
+{
+  "id": "supabase",
+  "name": "Supabase",
+  "version": "1.0.0",
+  "description": "Use Supabase database",
+  "icon": "SupabaseIcon",
+  "block": {
+    "type": "supabase",
+    "name": "Supabase",
+    "description": "Use Supabase database",
+    "longDescription": "Integrate Supabase into the workflow. Supports database operations (query, insert, update, delete, upsert), full-text search, RPC functions, row counting, vector search, and complete storage management (upload, download, list, move, copy, delete files and buckets).",
+    "docsLink": "https://docs.sim.ai/tools/supabase",
+    "category": "tools",
+    "bgColor": "#1C1C1C",
+    "icon": "SupabaseIcon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Get Many Rows",
+            "value": "query"
+          },
+          {
+            "label": "Get a Row",
+            "value": "get_row"
+          },
+          {
+            "label": "Create a Row",
+            "value": "insert"
+          },
+          {
+            "label": "Update a Row",
+            "value": "update"
+          },
+          {
+            "label": "Delete a Row",
+            "value": "delete"
+          },
+          {
+            "label": "Upsert a Row",
+            "value": "upsert"
+          },
+          {
+            "label": "Count Rows",
+            "value": "count"
+          },
+          {
+            "label": "Full-Text Search",
+            "value": "text_search"
+          },
+          {
+            "label": "Vector Search",
+            "value": "vector_search"
+          },
+          {
+            "label": "Call RPC Function",
+            "value": "rpc"
+          },
+          {
+            "label": "Introspect Schema",
+            "value": "introspect"
+          },
+          {
+            "label": "Storage: Upload File",
+            "value": "storage_upload"
+          },
+          {
+            "label": "Storage: Download File",
+            "value": "storage_download"
+          },
+          {
+            "label": "Storage: List Files",
+            "value": "storage_list"
+          },
+          {
+            "label": "Storage: Delete Files",
+            "value": "storage_delete"
+          },
+          {
+            "label": "Storage: Move File",
+            "value": "storage_move"
+          },
+          {
+            "label": "Storage: Copy File",
+            "value": "storage_copy"
+          },
+          {
+            "label": "Storage: Get Public URL",
+            "value": "storage_get_public_url"
+          },
+          {
+            "label": "Storage: Create Signed URL",
+            "value": "storage_create_signed_url"
+          },
+          {
+            "label": "Storage: Create Bucket",
+            "value": "storage_create_bucket"
+          },
+          {
+            "label": "Storage: List Buckets",
+            "value": "storage_list_buckets"
+          },
+          {
+            "label": "Storage: Delete Bucket",
+            "value": "storage_delete_bucket"
+          }
+        ]
+      },
+      {
+        "id": "projectId",
+        "type": "short-input",
+        "title": "Project ID",
+        "placeholder": "Your Supabase project ID (e.g., jdrkgepadsdopsntdlom)",
+        "password": true
+      },
+      {
+        "id": "table",
+        "type": "short-input",
+        "title": "Table",
+        "placeholder": "Name of the table"
+      },
+      {
+        "id": "schema",
+        "type": "short-input",
+        "title": "Schema",
+        "placeholder": "public (default)"
+      },
+      {
+        "id": "select",
+        "type": "short-input",
+        "title": "Select Columns",
+        "placeholder": "* (all columns) or id,name,email"
+      },
+      {
+        "id": "apiKey",
+        "type": "short-input",
+        "title": "Service Role Secret",
+        "placeholder": "Your Supabase service role secret key",
+        "password": true
+      },
+      {
+        "id": "data",
+        "type": "code",
+        "title": "Data",
+        "placeholder": "{\\n  "
+      },
+      {
+        "id": "data",
+        "type": "code",
+        "title": "Data",
+        "placeholder": "{\\n  "
+      },
+      {
+        "id": "data",
+        "type": "code",
+        "title": "Data",
+        "placeholder": "{\\n  "
+      },
+      {
+        "id": "filter",
+        "type": "short-input",
+        "title": "Filter (PostgREST syntax)",
+        "placeholder": "id=eq.123"
+      },
+      {
+        "id": "filter",
+        "type": "short-input",
+        "title": "Filter (PostgREST syntax)",
+        "placeholder": "id=eq.123"
+      },
+      {
+        "id": "filter",
+        "type": "short-input",
+        "title": "Filter (PostgREST syntax)",
+        "placeholder": "id=eq.123"
+      },
+      {
+        "id": "filter",
+        "type": "short-input",
+        "title": "Filter (PostgREST syntax)",
+        "placeholder": "status=eq.active"
+      },
+      {
+        "id": "orderBy",
+        "type": "short-input",
+        "title": "Order By",
+        "placeholder": "column_name (add DESC for descending)"
+      },
+      {
+        "id": "limit",
+        "type": "short-input",
+        "title": "Limit",
+        "placeholder": "100"
+      },
+      {
+        "id": "functionName",
+        "type": "short-input",
+        "title": "Function Name",
+        "placeholder": "match_documents"
+      },
+      {
+        "id": "queryEmbedding",
+        "type": "code",
+        "title": "Query Embedding",
+        "placeholder": "[0.1, 0.2, 0.3, ...]"
+      },
+      {
+        "id": "matchThreshold",
+        "type": "short-input",
+        "title": "Match Threshold",
+        "placeholder": "0.78"
+      },
+      {
+        "id": "matchCount",
+        "type": "short-input",
+        "title": "Match Count",
+        "placeholder": "10"
+      },
+      {
+        "id": "functionName",
+        "type": "short-input",
+        "title": "Function Name",
+        "placeholder": "my_function_name"
+      },
+      {
+        "id": "params",
+        "type": "code",
+        "title": "Parameters (JSON)",
+        "placeholder": "{\\n  "
+      },
+      {
+        "id": "schema",
+        "type": "short-input",
+        "title": "Schema",
+        "placeholder": "public (leave empty for all user schemas)"
+      },
+      {
+        "id": "column",
+        "type": "short-input",
+        "title": "Column to Search",
+        "placeholder": "content"
+      },
+      {
+        "id": "query",
+        "type": "short-input",
+        "title": "Search Query",
+        "placeholder": "search terms"
+      },
+      {
+        "id": "searchType",
+        "type": "dropdown",
+        "title": "Search Type",
+        "options": [
+          {
+            "label": "Websearch (natural language)",
+            "value": "websearch"
+          },
+          {
+            "label": "Plain",
+            "value": "plain"
+          },
+          {
+            "label": "Phrase",
+            "value": "phrase"
+          }
+        ]
+      },
+      {
+        "id": "language",
+        "type": "short-input",
+        "title": "Language",
+        "placeholder": "english"
+      },
+      {
+        "id": "limit",
+        "type": "short-input",
+        "title": "Limit",
+        "placeholder": "100"
+      },
+      {
+        "id": "filter",
+        "type": "short-input",
+        "title": "Filter (PostgREST syntax)",
+        "placeholder": "status=eq.active"
+      },
+      {
+        "id": "countType",
+        "type": "dropdown",
+        "title": "Count Type",
+        "options": [
+          {
+            "label": "Exact",
+            "value": "exact"
+          },
+          {
+            "label": "Planned",
+            "value": "planned"
+          },
+          {
+            "label": "Estimated",
+            "value": "estimated"
+          }
+        ]
+      },
+      {
+        "id": "bucket",
+        "type": "short-input",
+        "title": "Bucket Name",
+        "placeholder": "my-bucket"
+      },
+      {
+        "id": "fileName",
+        "type": "short-input",
+        "title": "File Name",
+        "placeholder": "myfile.pdf"
+      },
+      {
+        "id": "path",
+        "type": "short-input",
+        "title": "Folder Path (optional)",
+        "placeholder": "folder/subfolder/"
+      },
+      {
+        "id": "file",
+        "type": "file-upload",
+        "title": "File",
+        "placeholder": "Upload file to storage",
+        "mode": "basic",
+        "canonicalParamId": "fileData"
+      },
+      {
+        "id": "fileContent",
+        "type": "short-input",
+        "title": "File Content",
+        "placeholder": "File reference from previous block",
+        "mode": "advanced",
+        "canonicalParamId": "fileData"
+      },
+      {
+        "id": "contentType",
+        "type": "short-input",
+        "title": "Content Type (MIME)",
+        "placeholder": "image/jpeg"
+      },
+      {
+        "id": "upsert",
+        "type": "dropdown",
+        "title": "Upsert (overwrite if exists)",
+        "options": [
+          {
+            "label": "False",
+            "value": "false"
+          },
+          {
+            "label": "True",
+            "value": "true"
+          }
+        ]
+      },
+      {
+        "id": "path",
+        "type": "short-input",
+        "title": "File Path",
+        "placeholder": "folder/file.jpg"
+      },
+      {
+        "id": "fileName",
+        "type": "short-input",
+        "title": "File Name Override",
+        "placeholder": "my-file.jpg"
+      },
+      {
+        "id": "path",
+        "type": "short-input",
+        "title": "Folder Path",
+        "placeholder": "folder/"
+      },
+      {
+        "id": "limit",
+        "type": "short-input",
+        "title": "Limit",
+        "placeholder": "100"
+      },
+      {
+        "id": "offset",
+        "type": "short-input",
+        "title": "Offset",
+        "placeholder": "0"
+      },
+      {
+        "id": "sortBy",
+        "type": "dropdown",
+        "title": "Sort By",
+        "options": [
+          {
+            "label": "Name",
+            "value": "name"
+          },
+          {
+            "label": "Created At",
+            "value": "created_at"
+          },
+          {
+            "label": "Updated At",
+            "value": "updated_at"
+          }
+        ]
+      },
+      {
+        "id": "sortOrder",
+        "type": "dropdown",
+        "title": "Sort Order",
+        "options": [
+          {
+            "label": "Ascending",
+            "value": "asc"
+          },
+          {
+            "label": "Descending",
+            "value": "desc"
+          }
+        ]
+      },
+      {
+        "id": "search",
+        "type": "short-input",
+        "title": "Search",
+        "placeholder": "search term"
+      },
+      {
+        "id": "paths",
+        "type": "code",
+        "title": "File Paths (JSON array)",
+        "placeholder": "["
+      },
+      {
+        "id": "fromPath",
+        "type": "short-input",
+        "title": "From Path",
+        "placeholder": "folder/old.jpg"
+      },
+      {
+        "id": "toPath",
+        "type": "short-input",
+        "title": "To Path",
+        "placeholder": "newfolder/new.jpg"
+      },
+      {
+        "id": "fromPath",
+        "type": "short-input",
+        "title": "From Path",
+        "placeholder": "folder/source.jpg"
+      },
+      {
+        "id": "toPath",
+        "type": "short-input",
+        "title": "To Path",
+        "placeholder": "folder/copy.jpg"
+      },
+      {
+        "id": "path",
+        "type": "short-input",
+        "title": "File Path",
+        "placeholder": "folder/file.jpg"
+      },
+      {
+        "id": "download",
+        "type": "dropdown",
+        "title": "Force Download",
+        "options": [
+          {
+            "label": "False",
+            "value": "false"
+          },
+          {
+            "label": "True",
+            "value": "true"
+          }
+        ]
+      },
+      {
+        "id": "path",
+        "type": "short-input",
+        "title": "File Path",
+        "placeholder": "folder/file.jpg"
+      },
+      {
+        "id": "expiresIn",
+        "type": "short-input",
+        "title": "Expires In (seconds)",
+        "placeholder": "3600"
+      },
+      {
+        "id": "download",
+        "type": "dropdown",
+        "title": "Force Download",
+        "options": [
+          {
+            "label": "False",
+            "value": "false"
+          },
+          {
+            "label": "True",
+            "value": "true"
+          }
+        ]
+      },
+      {
+        "id": "isPublic",
+        "type": "dropdown",
+        "title": "Public Bucket",
+        "options": [
+          {
+            "label": "False (Private)",
+            "value": "false"
+          },
+          {
+            "label": "True (Public)",
+            "value": "true"
+          }
+        ]
+      },
+      {
+        "id": "fileSizeLimit",
+        "type": "short-input",
+        "title": "File Size Limit (bytes)",
+        "placeholder": "52428800"
+      },
+      {
+        "id": "allowedMimeTypes",
+        "type": "code",
+        "title": "Allowed MIME Types (JSON array)",
+        "placeholder": "["
+      }
+    ],
+    "tools": {
+      "access": [
+        "supabase_query",
+        "supabase_insert",
+        "supabase_get_row",
+        "supabase_update",
+        "supabase_delete",
+        "supabase_upsert",
+        "supabase_count",
+        "supabase_text_search",
+        "supabase_vector_search",
+        "supabase_rpc",
+        "supabase_introspect",
+        "supabase_storage_upload",
+        "supabase_storage_download",
+        "supabase_storage_list",
+        "supabase_storage_delete",
+        "supabase_storage_move",
+        "supabase_storage_copy",
+        "supabase_storage_create_bucket",
+        "supabase_storage_list_buckets",
+        "supabase_storage_delete_bucket",
+        "supabase_storage_get_public_url",
+        "supabase_storage_create_signed_url"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "message": {
+        "type": "string"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "supabase_count",
+      "name": "Supabase Count",
+      "description": "Count rows in a Supabase table",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "supabase",
+        "operation": "supabase_count"
+      }
+    },
+    {
+      "id": "supabase_delete",
+      "name": "Supabase Delete Row",
+      "description": "Delete rows from a Supabase table based on filter criteria",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "supabase",
+        "operation": "supabase_delete"
+      }
+    },
+    {
+      "id": "supabase_get_row",
+      "name": "Supabase Get Row",
+      "description": "Get a single row from a Supabase table based on filter criteria",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "supabase",
+        "operation": "supabase_get_row"
+      }
+    },
+    {
+      "id": "supabase_insert",
+      "name": "Supabase Insert",
+      "description": "Insert data into a Supabase table",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "supabase",
+        "operation": "supabase_insert"
+      }
+    },
+    {
+      "id": "supabase_introspect",
+      "name": "Supabase Introspect",
+      "description": "Introspect Supabase database schema to get table structures, columns, and relationships",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "supabase",
+        "operation": "supabase_introspect"
+      }
+    },
+    {
+      "id": "supabase_query",
+      "name": "Supabase Query",
+      "description": "Query data from a Supabase table",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "supabase",
+        "operation": "supabase_query"
+      }
+    },
+    {
+      "id": "supabase_rpc",
+      "name": "Supabase RPC",
+      "description": "Call a PostgreSQL function in Supabase",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "supabase",
+        "operation": "supabase_rpc"
+      }
+    },
+    {
+      "id": "supabase_storage_copy",
+      "name": "Supabase Storage Copy",
+      "description": "Copy a file within a Supabase storage bucket",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "supabase",
+        "operation": "supabase_storage_copy"
+      }
+    },
+    {
+      "id": "supabase_storage_create_bucket",
+      "name": "Supabase Storage Create Bucket",
+      "description": "Create a new storage bucket in Supabase",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "supabase",
+        "operation": "supabase_storage_create_bucket"
+      }
+    },
+    {
+      "id": "supabase_storage_create_signed_url",
+      "name": "Supabase Storage Create Signed URL",
+      "description": "Create a temporary signed URL for a file in a Supabase storage bucket",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "supabase",
+        "operation": "supabase_storage_create_signed_url"
+      }
+    },
+    {
+      "id": "supabase_storage_delete",
+      "name": "Supabase Storage Delete",
+      "description": "Delete files from a Supabase storage bucket",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "supabase",
+        "operation": "supabase_storage_delete"
+      }
+    },
+    {
+      "id": "supabase_storage_delete_bucket",
+      "name": "Supabase Storage Delete Bucket",
+      "description": "Delete a storage bucket in Supabase",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "supabase",
+        "operation": "supabase_storage_delete_bucket"
+      }
+    },
+    {
+      "id": "supabase_storage_download",
+      "name": "Supabase Storage Download",
+      "description": "Download a file from a Supabase storage bucket",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "supabase",
+        "operation": "supabase_storage_download"
+      }
+    },
+    {
+      "id": "supabase_storage_get_public_url",
+      "name": "Supabase Storage Get Public URL",
+      "description": "Get the public URL for a file in a Supabase storage bucket",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "supabase",
+        "operation": "supabase_storage_get_public_url"
+      }
+    },
+    {
+      "id": "supabase_storage_list",
+      "name": "Supabase Storage List",
+      "description": "List files in a Supabase storage bucket",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "supabase",
+        "operation": "supabase_storage_list"
+      }
+    },
+    {
+      "id": "supabase_storage_list_buckets",
+      "name": "Supabase Storage List Buckets",
+      "description": "List all storage buckets in Supabase",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "supabase",
+        "operation": "supabase_storage_list_buckets"
+      }
+    },
+    {
+      "id": "supabase_storage_move",
+      "name": "Supabase Storage Move",
+      "description": "Move a file within a Supabase storage bucket",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "supabase",
+        "operation": "supabase_storage_move"
+      }
+    },
+    {
+      "id": "supabase_storage_upload",
+      "name": "Supabase Storage Upload",
+      "description": "Upload a file to a Supabase storage bucket",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "supabase",
+        "operation": "supabase_storage_upload"
+      }
+    },
+    {
+      "id": "supabase_text_search",
+      "name": "Supabase Text Search",
+      "description": "Perform full-text search on a Supabase table",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "supabase",
+        "operation": "supabase_text_search"
+      }
+    },
+    {
+      "id": "supabase_update",
+      "name": "Supabase Update Row",
+      "description": "Update rows in a Supabase table based on filter criteria",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "supabase",
+        "operation": "supabase_update"
+      }
+    },
+    {
+      "id": "supabase_upsert",
+      "name": "Supabase Upsert",
+      "description": "Insert or update data in a Supabase table (upsert operation)",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "supabase",
+        "operation": "supabase_upsert"
+      }
+    },
+    {
+      "id": "supabase_vector_search",
+      "name": "Supabase Vector Search",
+      "description": "Perform similarity search using pgvector in a Supabase table",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "supabase",
+        "operation": "supabase_vector_search"
+      }
+    }
+  ]
+}

@@ -1,0 +1,674 @@
+{
+  "id": "ahrefs",
+  "name": "Ahrefs",
+  "version": "1.0.0",
+  "description": "SEO analysis with Ahrefs",
+  "icon": "AhrefsIcon",
+  "block": {
+    "type": "ahrefs",
+    "name": "Ahrefs",
+    "description": "SEO analysis with Ahrefs",
+    "longDescription": "Integrate Ahrefs SEO tools into your workflow. Analyze domain ratings, backlinks, organic keywords, top pages, and more. Requires an Ahrefs Enterprise plan with API access.",
+    "docsLink": "https://docs.ahrefs.com/docs/api/reference/introduction",
+    "category": "tools",
+    "bgColor": "#E0E0E0",
+    "icon": "AhrefsIcon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Domain Rating",
+            "value": "ahrefs_domain_rating"
+          },
+          {
+            "label": "Backlinks",
+            "value": "ahrefs_backlinks"
+          },
+          {
+            "label": "Backlinks Stats",
+            "value": "ahrefs_backlinks_stats"
+          },
+          {
+            "label": "Referring Domains",
+            "value": "ahrefs_referring_domains"
+          },
+          {
+            "label": "Organic Keywords",
+            "value": "ahrefs_organic_keywords"
+          },
+          {
+            "label": "Top Pages",
+            "value": "ahrefs_top_pages"
+          },
+          {
+            "label": "Keyword Overview",
+            "value": "ahrefs_keyword_overview"
+          },
+          {
+            "label": "Broken Backlinks",
+            "value": "ahrefs_broken_backlinks"
+          }
+        ]
+      },
+      {
+        "id": "target",
+        "type": "short-input",
+        "title": "Target Domain",
+        "placeholder": "example.com"
+      },
+      {
+        "id": "date",
+        "type": "short-input",
+        "title": "Date",
+        "placeholder": "YYYY-MM-DD (defaults to today)"
+      },
+      {
+        "id": "target",
+        "type": "short-input",
+        "title": "Target Domain/URL",
+        "placeholder": "example.com or https://example.com/page"
+      },
+      {
+        "id": "mode",
+        "type": "dropdown",
+        "title": "Analysis Mode",
+        "options": [
+          {
+            "label": "Domain (entire domain)",
+            "value": "domain"
+          },
+          {
+            "label": "Prefix (URL prefix)",
+            "value": "prefix"
+          },
+          {
+            "label": "Subdomains (include all)",
+            "value": "subdomains"
+          },
+          {
+            "label": "Exact (exact URL)",
+            "value": "exact"
+          }
+        ]
+      },
+      {
+        "id": "limit",
+        "type": "short-input",
+        "title": "Limit",
+        "placeholder": "100"
+      },
+      {
+        "id": "offset",
+        "type": "short-input",
+        "title": "Offset",
+        "placeholder": "0"
+      },
+      {
+        "id": "date",
+        "type": "short-input",
+        "title": "Date",
+        "placeholder": "YYYY-MM-DD (defaults to today)"
+      },
+      {
+        "id": "target",
+        "type": "short-input",
+        "title": "Target Domain/URL",
+        "placeholder": "example.com"
+      },
+      {
+        "id": "mode",
+        "type": "dropdown",
+        "title": "Analysis Mode",
+        "options": [
+          {
+            "label": "Domain (entire domain)",
+            "value": "domain"
+          },
+          {
+            "label": "Prefix (URL prefix)",
+            "value": "prefix"
+          },
+          {
+            "label": "Subdomains (include all)",
+            "value": "subdomains"
+          },
+          {
+            "label": "Exact (exact URL)",
+            "value": "exact"
+          }
+        ]
+      },
+      {
+        "id": "date",
+        "type": "short-input",
+        "title": "Date",
+        "placeholder": "YYYY-MM-DD (defaults to today)"
+      },
+      {
+        "id": "target",
+        "type": "short-input",
+        "title": "Target Domain/URL",
+        "placeholder": "example.com"
+      },
+      {
+        "id": "mode",
+        "type": "dropdown",
+        "title": "Analysis Mode",
+        "options": [
+          {
+            "label": "Domain (entire domain)",
+            "value": "domain"
+          },
+          {
+            "label": "Prefix (URL prefix)",
+            "value": "prefix"
+          },
+          {
+            "label": "Subdomains (include all)",
+            "value": "subdomains"
+          },
+          {
+            "label": "Exact (exact URL)",
+            "value": "exact"
+          }
+        ]
+      },
+      {
+        "id": "limit",
+        "type": "short-input",
+        "title": "Limit",
+        "placeholder": "100"
+      },
+      {
+        "id": "offset",
+        "type": "short-input",
+        "title": "Offset",
+        "placeholder": "0"
+      },
+      {
+        "id": "date",
+        "type": "short-input",
+        "title": "Date",
+        "placeholder": "YYYY-MM-DD (defaults to today)"
+      },
+      {
+        "id": "target",
+        "type": "short-input",
+        "title": "Target Domain/URL",
+        "placeholder": "example.com"
+      },
+      {
+        "id": "country",
+        "type": "dropdown",
+        "title": "Country",
+        "options": [
+          {
+            "label": "United States",
+            "value": "us"
+          },
+          {
+            "label": "United Kingdom",
+            "value": "gb"
+          },
+          {
+            "label": "Germany",
+            "value": "de"
+          },
+          {
+            "label": "France",
+            "value": "fr"
+          },
+          {
+            "label": "Spain",
+            "value": "es"
+          },
+          {
+            "label": "Italy",
+            "value": "it"
+          },
+          {
+            "label": "Canada",
+            "value": "ca"
+          },
+          {
+            "label": "Australia",
+            "value": "au"
+          },
+          {
+            "label": "Japan",
+            "value": "jp"
+          },
+          {
+            "label": "Brazil",
+            "value": "br"
+          },
+          {
+            "label": "India",
+            "value": "in"
+          },
+          {
+            "label": "Netherlands",
+            "value": "nl"
+          },
+          {
+            "label": "Poland",
+            "value": "pl"
+          },
+          {
+            "label": "Russia",
+            "value": "ru"
+          },
+          {
+            "label": "Mexico",
+            "value": "mx"
+          }
+        ]
+      },
+      {
+        "id": "mode",
+        "type": "dropdown",
+        "title": "Analysis Mode",
+        "options": [
+          {
+            "label": "Domain (entire domain)",
+            "value": "domain"
+          },
+          {
+            "label": "Prefix (URL prefix)",
+            "value": "prefix"
+          },
+          {
+            "label": "Subdomains (include all)",
+            "value": "subdomains"
+          },
+          {
+            "label": "Exact (exact URL)",
+            "value": "exact"
+          }
+        ]
+      },
+      {
+        "id": "limit",
+        "type": "short-input",
+        "title": "Limit",
+        "placeholder": "100"
+      },
+      {
+        "id": "offset",
+        "type": "short-input",
+        "title": "Offset",
+        "placeholder": "0"
+      },
+      {
+        "id": "date",
+        "type": "short-input",
+        "title": "Date",
+        "placeholder": "YYYY-MM-DD (defaults to today)"
+      },
+      {
+        "id": "target",
+        "type": "short-input",
+        "title": "Target Domain",
+        "placeholder": "example.com"
+      },
+      {
+        "id": "country",
+        "type": "dropdown",
+        "title": "Country",
+        "options": [
+          {
+            "label": "United States",
+            "value": "us"
+          },
+          {
+            "label": "United Kingdom",
+            "value": "gb"
+          },
+          {
+            "label": "Germany",
+            "value": "de"
+          },
+          {
+            "label": "France",
+            "value": "fr"
+          },
+          {
+            "label": "Spain",
+            "value": "es"
+          },
+          {
+            "label": "Italy",
+            "value": "it"
+          },
+          {
+            "label": "Canada",
+            "value": "ca"
+          },
+          {
+            "label": "Australia",
+            "value": "au"
+          },
+          {
+            "label": "Japan",
+            "value": "jp"
+          },
+          {
+            "label": "Brazil",
+            "value": "br"
+          },
+          {
+            "label": "India",
+            "value": "in"
+          },
+          {
+            "label": "Netherlands",
+            "value": "nl"
+          },
+          {
+            "label": "Poland",
+            "value": "pl"
+          },
+          {
+            "label": "Russia",
+            "value": "ru"
+          },
+          {
+            "label": "Mexico",
+            "value": "mx"
+          }
+        ]
+      },
+      {
+        "id": "mode",
+        "type": "dropdown",
+        "title": "Analysis Mode",
+        "options": [
+          {
+            "label": "Domain (entire domain)",
+            "value": "domain"
+          },
+          {
+            "label": "Prefix (URL prefix)",
+            "value": "prefix"
+          },
+          {
+            "label": "Subdomains (include all)",
+            "value": "subdomains"
+          }
+        ]
+      },
+      {
+        "id": "limit",
+        "type": "short-input",
+        "title": "Limit",
+        "placeholder": "100"
+      },
+      {
+        "id": "offset",
+        "type": "short-input",
+        "title": "Offset",
+        "placeholder": "0"
+      },
+      {
+        "id": "date",
+        "type": "short-input",
+        "title": "Date",
+        "placeholder": "YYYY-MM-DD (defaults to today)"
+      },
+      {
+        "id": "keyword",
+        "type": "short-input",
+        "title": "Keyword",
+        "placeholder": "Enter keyword to analyze"
+      },
+      {
+        "id": "country",
+        "type": "dropdown",
+        "title": "Country",
+        "options": [
+          {
+            "label": "United States",
+            "value": "us"
+          },
+          {
+            "label": "United Kingdom",
+            "value": "gb"
+          },
+          {
+            "label": "Germany",
+            "value": "de"
+          },
+          {
+            "label": "France",
+            "value": "fr"
+          },
+          {
+            "label": "Spain",
+            "value": "es"
+          },
+          {
+            "label": "Italy",
+            "value": "it"
+          },
+          {
+            "label": "Canada",
+            "value": "ca"
+          },
+          {
+            "label": "Australia",
+            "value": "au"
+          },
+          {
+            "label": "Japan",
+            "value": "jp"
+          },
+          {
+            "label": "Brazil",
+            "value": "br"
+          },
+          {
+            "label": "India",
+            "value": "in"
+          },
+          {
+            "label": "Netherlands",
+            "value": "nl"
+          },
+          {
+            "label": "Poland",
+            "value": "pl"
+          },
+          {
+            "label": "Russia",
+            "value": "ru"
+          },
+          {
+            "label": "Mexico",
+            "value": "mx"
+          }
+        ]
+      },
+      {
+        "id": "target",
+        "type": "short-input",
+        "title": "Target Domain/URL",
+        "placeholder": "example.com"
+      },
+      {
+        "id": "mode",
+        "type": "dropdown",
+        "title": "Analysis Mode",
+        "options": [
+          {
+            "label": "Domain (entire domain)",
+            "value": "domain"
+          },
+          {
+            "label": "Prefix (URL prefix)",
+            "value": "prefix"
+          },
+          {
+            "label": "Subdomains (include all)",
+            "value": "subdomains"
+          },
+          {
+            "label": "Exact (exact URL)",
+            "value": "exact"
+          }
+        ]
+      },
+      {
+        "id": "limit",
+        "type": "short-input",
+        "title": "Limit",
+        "placeholder": "100"
+      },
+      {
+        "id": "offset",
+        "type": "short-input",
+        "title": "Offset",
+        "placeholder": "0"
+      },
+      {
+        "id": "date",
+        "type": "short-input",
+        "title": "Date",
+        "placeholder": "YYYY-MM-DD (defaults to today)"
+      },
+      {
+        "id": "apiKey",
+        "type": "short-input",
+        "title": "API Key",
+        "placeholder": "Enter your Ahrefs API key",
+        "password": true
+      }
+    ],
+    "tools": {
+      "access": [
+        "ahrefs_domain_rating",
+        "ahrefs_backlinks",
+        "ahrefs_backlinks_stats",
+        "ahrefs_referring_domains",
+        "ahrefs_organic_keywords",
+        "ahrefs_top_pages",
+        "ahrefs_keyword_overview",
+        "ahrefs_broken_backlinks"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "domainRating": {
+        "type": "number"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "ahrefs_backlinks",
+      "name": "Ahrefs Backlinks",
+      "description": "Get a list of backlinks pointing to a target domain or URL. Returns details about each backlink including source URL, anchor text, and domain rating.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "ahrefs",
+        "operation": "ahrefs_backlinks"
+      }
+    },
+    {
+      "id": "ahrefs_backlinks_stats",
+      "name": "Ahrefs Backlinks Stats",
+      "description": "Get backlink statistics for a target domain or URL. Returns totals for different backlink types including dofollow, nofollow, text, image, and redirect links.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "ahrefs",
+        "operation": "ahrefs_backlinks_stats"
+      }
+    },
+    {
+      "id": "ahrefs_broken_backlinks",
+      "name": "Ahrefs Broken Backlinks",
+      "description": "Get a list of broken backlinks pointing to a target domain or URL. Useful for identifying link reclamation opportunities.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "ahrefs",
+        "operation": "ahrefs_broken_backlinks"
+      }
+    },
+    {
+      "id": "ahrefs_domain_rating",
+      "name": "Ahrefs Domain Rating",
+      "description": "Get the Domain Rating (DR) and Ahrefs Rank for a target domain. Domain Rating shows the strength of a website",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "ahrefs",
+        "operation": "ahrefs_domain_rating"
+      }
+    },
+    {
+      "id": "ahrefs_keyword_overview",
+      "name": "Ahrefs Keyword Overview",
+      "description": "Get detailed metrics for a keyword including search volume, keyword difficulty, CPC, clicks, and traffic potential.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "ahrefs",
+        "operation": "ahrefs_keyword_overview"
+      }
+    },
+    {
+      "id": "ahrefs_organic_keywords",
+      "name": "Ahrefs Organic Keywords",
+      "description": "Get organic keywords that a target domain or URL ranks for in Google search results. Returns keyword details including search volume, ranking position, and estimated traffic.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "ahrefs",
+        "operation": "ahrefs_organic_keywords"
+      }
+    },
+    {
+      "id": "ahrefs_referring_domains",
+      "name": "Ahrefs Referring Domains",
+      "description": "Get a list of domains that link to a target domain or URL. Returns unique referring domains with their domain rating, backlink counts, and discovery dates.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "ahrefs",
+        "operation": "ahrefs_referring_domains"
+      }
+    },
+    {
+      "id": "ahrefs_top_pages",
+      "name": "Ahrefs Top Pages",
+      "description": "Get the top pages of a target domain sorted by organic traffic. Returns page URLs with their traffic, keyword counts, and estimated traffic value.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "ahrefs",
+        "operation": "ahrefs_top_pages"
+      }
+    }
+  ]
+}

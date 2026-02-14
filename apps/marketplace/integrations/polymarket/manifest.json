@@ -1,0 +1,1001 @@
+{
+  "id": "polymarket",
+  "name": "Polymarket",
+  "version": "1.0.0",
+  "description": "Access prediction markets data from Polymarket",
+  "icon": "PolymarketIcon",
+  "block": {
+    "type": "polymarket",
+    "name": "Polymarket",
+    "description": "Access prediction markets data from Polymarket",
+    "longDescription": "Integrate Polymarket prediction markets into the workflow. Can get markets, market, events, event, tags, series, orderbook, price, midpoint, price history, last trade price, spread, tick size, positions, trades, activity, leaderboard, holders, and search.",
+    "docsLink": "https://docs.sim.ai/tools/polymarket",
+    "category": "tools",
+    "bgColor": "#4C82FB",
+    "icon": "PolymarketIcon",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Get Markets",
+            "value": "get_markets"
+          },
+          {
+            "label": "Get Market",
+            "value": "get_market"
+          },
+          {
+            "label": "Get Events",
+            "value": "get_events"
+          },
+          {
+            "label": "Get Event",
+            "value": "get_event"
+          },
+          {
+            "label": "Get Tags",
+            "value": "get_tags"
+          },
+          {
+            "label": "Search",
+            "value": "search"
+          },
+          {
+            "label": "Get Series",
+            "value": "get_series"
+          },
+          {
+            "label": "Get Series by ID",
+            "value": "get_series_by_id"
+          },
+          {
+            "label": "Get Orderbook",
+            "value": "get_orderbook"
+          },
+          {
+            "label": "Get Price",
+            "value": "get_price"
+          },
+          {
+            "label": "Get Midpoint",
+            "value": "get_midpoint"
+          },
+          {
+            "label": "Get Price History",
+            "value": "get_price_history"
+          },
+          {
+            "label": "Get Last Trade Price",
+            "value": "get_last_trade_price"
+          },
+          {
+            "label": "Get Spread",
+            "value": "get_spread"
+          },
+          {
+            "label": "Get Tick Size",
+            "value": "get_tick_size"
+          },
+          {
+            "label": "Get Positions",
+            "value": "get_positions"
+          },
+          {
+            "label": "Get Trades",
+            "value": "get_trades"
+          },
+          {
+            "label": "Get Activity",
+            "value": "get_activity"
+          },
+          {
+            "label": "Get Leaderboard",
+            "value": "get_leaderboard"
+          },
+          {
+            "label": "Get Market Holders",
+            "value": "get_holders"
+          }
+        ]
+      },
+      {
+        "id": "marketId",
+        "type": "short-input",
+        "title": "Market ID",
+        "placeholder": "Market ID (required if no slug)"
+      },
+      {
+        "id": "marketSlug",
+        "type": "short-input",
+        "title": "Market Slug",
+        "placeholder": "Market slug (required if no ID)"
+      },
+      {
+        "id": "eventId",
+        "type": "short-input",
+        "title": "Event ID",
+        "placeholder": "Event ID (required if no slug)"
+      },
+      {
+        "id": "eventSlug",
+        "type": "short-input",
+        "title": "Event Slug",
+        "placeholder": "Event slug (required if no ID)"
+      },
+      {
+        "id": "seriesId",
+        "type": "short-input",
+        "title": "Series ID",
+        "placeholder": "Series ID"
+      },
+      {
+        "id": "query",
+        "type": "short-input",
+        "title": "Search Query",
+        "placeholder": "Search term"
+      },
+      {
+        "id": "user",
+        "type": "short-input",
+        "title": "User Wallet Address",
+        "placeholder": "Wallet address"
+      },
+      {
+        "id": "user",
+        "type": "short-input",
+        "title": "User Wallet Address",
+        "placeholder": "Wallet address (optional filter)"
+      },
+      {
+        "id": "market",
+        "type": "short-input",
+        "title": "Condition ID",
+        "placeholder": "Condition ID filter (comma-separated)"
+      },
+      {
+        "id": "positionEventId",
+        "type": "short-input",
+        "title": "Event ID",
+        "placeholder": "Event ID filter (alternative to Condition ID)"
+      },
+      {
+        "id": "sizeThreshold",
+        "type": "short-input",
+        "title": "Size Threshold",
+        "placeholder": "Minimum position size (default: 1)"
+      },
+      {
+        "id": "redeemable",
+        "type": "dropdown",
+        "title": "Redeemable",
+        "options": [
+          {
+            "label": "Redeemable Only",
+            "value": "true"
+          },
+          {
+            "label": "Non-Redeemable Only",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "id": "mergeable",
+        "type": "dropdown",
+        "title": "Mergeable",
+        "options": [
+          {
+            "label": "Mergeable Only",
+            "value": "true"
+          },
+          {
+            "label": "Non-Mergeable Only",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "id": "positionSortBy",
+        "type": "dropdown",
+        "title": "Sort By",
+        "options": [
+          {
+            "label": "Tokens",
+            "value": "TOKENS"
+          },
+          {
+            "label": "Current Value",
+            "value": "CURRENT"
+          },
+          {
+            "label": "Initial Value",
+            "value": "INITIAL"
+          },
+          {
+            "label": "Cash P&L",
+            "value": "CASHPNL"
+          },
+          {
+            "label": "Percent P&L",
+            "value": "PERCENTPNL"
+          },
+          {
+            "label": "Title",
+            "value": "TITLE"
+          },
+          {
+            "label": "Price",
+            "value": "PRICE"
+          },
+          {
+            "label": "Avg Price",
+            "value": "AVGPRICE"
+          }
+        ]
+      },
+      {
+        "id": "positionSortDirection",
+        "type": "dropdown",
+        "title": "Sort Direction",
+        "options": [
+          {
+            "label": "Descending",
+            "value": "DESC"
+          },
+          {
+            "label": "Ascending",
+            "value": "ASC"
+          }
+        ]
+      },
+      {
+        "id": "positionTitle",
+        "type": "short-input",
+        "title": "Title Filter",
+        "placeholder": "Search by title"
+      },
+      {
+        "id": "tradeSide",
+        "type": "dropdown",
+        "title": "Trade Side",
+        "options": [
+          {
+            "label": "Buy",
+            "value": "BUY"
+          },
+          {
+            "label": "Sell",
+            "value": "SELL"
+          }
+        ]
+      },
+      {
+        "id": "takerOnly",
+        "type": "dropdown",
+        "title": "Taker Only",
+        "options": [
+          {
+            "label": "Yes (default)",
+            "value": "true"
+          },
+          {
+            "label": "No",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "id": "filterType",
+        "type": "dropdown",
+        "title": "Filter Type",
+        "options": [
+          {
+            "label": "Cash",
+            "value": "CASH"
+          },
+          {
+            "label": "Tokens",
+            "value": "TOKENS"
+          }
+        ]
+      },
+      {
+        "id": "filterAmount",
+        "type": "short-input",
+        "title": "Filter Amount",
+        "placeholder": "Minimum amount threshold"
+      },
+      {
+        "id": "activityUser",
+        "type": "short-input",
+        "title": "User Wallet Address",
+        "placeholder": "Wallet address (0x-prefixed)"
+      },
+      {
+        "id": "activityType",
+        "type": "dropdown",
+        "title": "Activity Type",
+        "options": [
+          {
+            "label": "Trade",
+            "value": "TRADE"
+          },
+          {
+            "label": "Split",
+            "value": "SPLIT"
+          },
+          {
+            "label": "Merge",
+            "value": "MERGE"
+          },
+          {
+            "label": "Redeem",
+            "value": "REDEEM"
+          },
+          {
+            "label": "Reward",
+            "value": "REWARD"
+          },
+          {
+            "label": "Conversion",
+            "value": "CONVERSION"
+          },
+          {
+            "label": "Maker Rebate",
+            "value": "MAKER_REBATE"
+          }
+        ]
+      },
+      {
+        "id": "activityMarket",
+        "type": "short-input",
+        "title": "Condition ID",
+        "placeholder": "Condition ID filter (comma-separated)"
+      },
+      {
+        "id": "activityEventId",
+        "type": "short-input",
+        "title": "Event ID",
+        "placeholder": "Event ID filter (comma-separated)"
+      },
+      {
+        "id": "activitySide",
+        "type": "dropdown",
+        "title": "Trade Side",
+        "options": [
+          {
+            "label": "Buy",
+            "value": "BUY"
+          },
+          {
+            "label": "Sell",
+            "value": "SELL"
+          }
+        ]
+      },
+      {
+        "id": "activitySortBy",
+        "type": "dropdown",
+        "title": "Sort By",
+        "options": [
+          {
+            "label": "Timestamp",
+            "value": "TIMESTAMP"
+          },
+          {
+            "label": "Tokens",
+            "value": "TOKENS"
+          },
+          {
+            "label": "Cash",
+            "value": "CASH"
+          }
+        ]
+      },
+      {
+        "id": "activitySortDirection",
+        "type": "dropdown",
+        "title": "Sort Direction",
+        "options": [
+          {
+            "label": "Descending",
+            "value": "DESC"
+          },
+          {
+            "label": "Ascending",
+            "value": "ASC"
+          }
+        ]
+      },
+      {
+        "id": "activityStart",
+        "type": "short-input",
+        "title": "Start Timestamp",
+        "placeholder": "Unix timestamp (seconds)"
+      },
+      {
+        "id": "activityEnd",
+        "type": "short-input",
+        "title": "End Timestamp",
+        "placeholder": "Unix timestamp (seconds)"
+      },
+      {
+        "id": "leaderboardCategory",
+        "type": "dropdown",
+        "title": "Category",
+        "options": [
+          {
+            "label": "Overall",
+            "value": "OVERALL"
+          },
+          {
+            "label": "Politics",
+            "value": "POLITICS"
+          },
+          {
+            "label": "Sports",
+            "value": "SPORTS"
+          },
+          {
+            "label": "Crypto",
+            "value": "CRYPTO"
+          },
+          {
+            "label": "Culture",
+            "value": "CULTURE"
+          },
+          {
+            "label": "Mentions",
+            "value": "MENTIONS"
+          },
+          {
+            "label": "Weather",
+            "value": "WEATHER"
+          },
+          {
+            "label": "Economics",
+            "value": "ECONOMICS"
+          },
+          {
+            "label": "Tech",
+            "value": "TECH"
+          },
+          {
+            "label": "Finance",
+            "value": "FINANCE"
+          }
+        ]
+      },
+      {
+        "id": "leaderboardTimePeriod",
+        "type": "dropdown",
+        "title": "Time Period",
+        "options": [
+          {
+            "label": "Day",
+            "value": "DAY"
+          },
+          {
+            "label": "Week",
+            "value": "WEEK"
+          },
+          {
+            "label": "Month",
+            "value": "MONTH"
+          },
+          {
+            "label": "All Time",
+            "value": "ALL"
+          }
+        ]
+      },
+      {
+        "id": "leaderboardOrderBy",
+        "type": "dropdown",
+        "title": "Order By",
+        "options": [
+          {
+            "label": "Profit/Loss",
+            "value": "PNL"
+          },
+          {
+            "label": "Volume",
+            "value": "VOL"
+          }
+        ]
+      },
+      {
+        "id": "leaderboardUser",
+        "type": "short-input",
+        "title": "User Address",
+        "placeholder": "Filter by specific user wallet"
+      },
+      {
+        "id": "leaderboardUserName",
+        "type": "short-input",
+        "title": "Username",
+        "placeholder": "Filter by username"
+      },
+      {
+        "id": "holdersMarket",
+        "type": "short-input",
+        "title": "Condition ID",
+        "placeholder": "Condition ID (comma-separated)"
+      },
+      {
+        "id": "holdersMinBalance",
+        "type": "short-input",
+        "title": "Min Balance",
+        "placeholder": "Minimum balance threshold (default: 1)"
+      },
+      {
+        "id": "tokenId",
+        "type": "short-input",
+        "title": "Token ID",
+        "placeholder": "CLOB Token ID from market"
+      },
+      {
+        "id": "side",
+        "type": "dropdown",
+        "title": "Side",
+        "options": [
+          {
+            "label": "Buy",
+            "value": "buy"
+          },
+          {
+            "label": "Sell",
+            "value": "sell"
+          }
+        ]
+      },
+      {
+        "id": "interval",
+        "type": "dropdown",
+        "title": "Interval",
+        "options": [
+          {
+            "label": "1 Minute",
+            "value": "1m"
+          },
+          {
+            "label": "1 Hour",
+            "value": "1h"
+          },
+          {
+            "label": "6 Hours",
+            "value": "6h"
+          },
+          {
+            "label": "1 Day",
+            "value": "1d"
+          },
+          {
+            "label": "1 Week",
+            "value": "1w"
+          },
+          {
+            "label": "Max",
+            "value": "max"
+          }
+        ]
+      },
+      {
+        "id": "fidelity",
+        "type": "short-input",
+        "title": "Fidelity (minutes)",
+        "placeholder": "Data resolution in minutes (e.g., 60)"
+      },
+      {
+        "id": "startTs",
+        "type": "short-input",
+        "title": "Start Timestamp",
+        "placeholder": "Unix timestamp UTC (if no interval)"
+      },
+      {
+        "id": "endTs",
+        "type": "short-input",
+        "title": "End Timestamp",
+        "placeholder": "Unix timestamp UTC (if no interval)"
+      },
+      {
+        "id": "closed",
+        "type": "dropdown",
+        "title": "Closed Status",
+        "options": [
+          {
+            "label": "Open Only",
+            "value": "false"
+          },
+          {
+            "label": "Closed Only",
+            "value": "true"
+          }
+        ]
+      },
+      {
+        "id": "order",
+        "type": "dropdown",
+        "title": "Sort By",
+        "options": [
+          {
+            "label": "Volume",
+            "value": "volumeNum"
+          },
+          {
+            "label": "Liquidity",
+            "value": "liquidityNum"
+          },
+          {
+            "label": "Start Date",
+            "value": "startDate"
+          },
+          {
+            "label": "End Date",
+            "value": "endDate"
+          },
+          {
+            "label": "Created At",
+            "value": "createdAt"
+          },
+          {
+            "label": "Updated At",
+            "value": "updatedAt"
+          }
+        ]
+      },
+      {
+        "id": "orderEvents",
+        "type": "dropdown",
+        "title": "Sort By",
+        "options": [
+          {
+            "label": "Volume",
+            "value": "volume"
+          },
+          {
+            "label": "Liquidity",
+            "value": "liquidity"
+          },
+          {
+            "label": "Start Date",
+            "value": "startDate"
+          },
+          {
+            "label": "End Date",
+            "value": "endDate"
+          },
+          {
+            "label": "Created At",
+            "value": "createdAt"
+          },
+          {
+            "label": "Updated At",
+            "value": "updatedAt"
+          }
+        ]
+      },
+      {
+        "id": "ascending",
+        "type": "dropdown",
+        "title": "Sort Order",
+        "options": [
+          {
+            "label": "Descending",
+            "value": "false"
+          },
+          {
+            "label": "Ascending",
+            "value": "true"
+          }
+        ]
+      },
+      {
+        "id": "tagId",
+        "type": "short-input",
+        "title": "Tag ID",
+        "placeholder": "Filter by tag ID"
+      },
+      {
+        "id": "limit",
+        "type": "short-input",
+        "title": "Limit",
+        "placeholder": "Number of results (max 50)"
+      },
+      {
+        "id": "offset",
+        "type": "short-input",
+        "title": "Offset",
+        "placeholder": "Pagination offset"
+      },
+      {
+        "id": "page",
+        "type": "short-input",
+        "title": "Page",
+        "placeholder": "Page number (1-indexed)"
+      }
+    ],
+    "tools": {
+      "access": [
+        "polymarket_get_markets",
+        "polymarket_get_market",
+        "polymarket_get_events",
+        "polymarket_get_event",
+        "polymarket_get_tags",
+        "polymarket_search",
+        "polymarket_get_series",
+        "polymarket_get_series_by_id",
+        "polymarket_get_orderbook",
+        "polymarket_get_price",
+        "polymarket_get_midpoint",
+        "polymarket_get_price_history",
+        "polymarket_get_last_trade_price",
+        "polymarket_get_spread",
+        "polymarket_get_tick_size",
+        "polymarket_get_positions",
+        "polymarket_get_trades",
+        "polymarket_get_activity",
+        "polymarket_get_leaderboard",
+        "polymarket_get_holders"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "markets": {
+        "type": "json"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "polymarket_get_activity",
+      "name": "Get Activity from Polymarket",
+      "description": "Retrieve on-chain activity for a user including trades, splits, merges, redemptions, rewards, and conversions",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "polymarket",
+        "operation": "polymarket_get_activity"
+      }
+    },
+    {
+      "id": "polymarket_get_event",
+      "name": "Get Event from Polymarket",
+      "description": "Retrieve details of a specific event by ID or slug",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "polymarket",
+        "operation": "polymarket_get_event"
+      }
+    },
+    {
+      "id": "polymarket_get_events",
+      "name": "Get Events from Polymarket",
+      "description": "Retrieve a list of events from Polymarket with optional filtering",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "polymarket",
+        "operation": "polymarket_get_events"
+      }
+    },
+    {
+      "id": "polymarket_get_holders",
+      "name": "Get Market Holders from Polymarket",
+      "description": "Retrieve top holders of a specific market token",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "polymarket",
+        "operation": "polymarket_get_holders"
+      }
+    },
+    {
+      "id": "polymarket_get_last_trade_price",
+      "name": "Get Last Trade Price from Polymarket",
+      "description": "Retrieve the last trade price for a specific token",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "polymarket",
+        "operation": "polymarket_get_last_trade_price"
+      }
+    },
+    {
+      "id": "polymarket_get_leaderboard",
+      "name": "Get Leaderboard from Polymarket",
+      "description": "Retrieve trader leaderboard rankings by profit/loss or volume",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "polymarket",
+        "operation": "polymarket_get_leaderboard"
+      }
+    },
+    {
+      "id": "polymarket_get_market",
+      "name": "Get Market from Polymarket",
+      "description": "Retrieve details of a specific prediction market by ID or slug",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "polymarket",
+        "operation": "polymarket_get_market"
+      }
+    },
+    {
+      "id": "polymarket_get_markets",
+      "name": "Get Markets from Polymarket",
+      "description": "Retrieve a list of prediction markets from Polymarket with optional filtering",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "polymarket",
+        "operation": "polymarket_get_markets"
+      }
+    },
+    {
+      "id": "polymarket_get_midpoint",
+      "name": "Get Midpoint Price from Polymarket",
+      "description": "Retrieve the midpoint price for a specific token",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "polymarket",
+        "operation": "polymarket_get_midpoint"
+      }
+    },
+    {
+      "id": "polymarket_get_orderbook",
+      "name": "Get Orderbook from Polymarket",
+      "description": "Retrieve the order book summary for a specific token",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "polymarket",
+        "operation": "polymarket_get_orderbook"
+      }
+    },
+    {
+      "id": "polymarket_get_positions",
+      "name": "Get Positions from Polymarket",
+      "description": "Retrieve user positions from Polymarket",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "polymarket",
+        "operation": "polymarket_get_positions"
+      }
+    },
+    {
+      "id": "polymarket_get_price",
+      "name": "Get Price from Polymarket",
+      "description": "Retrieve the market price for a specific token and side",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "polymarket",
+        "operation": "polymarket_get_price"
+      }
+    },
+    {
+      "id": "polymarket_get_price_history",
+      "name": "Get Price History from Polymarket",
+      "description": "Retrieve historical price data for a specific market token",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "polymarket",
+        "operation": "polymarket_get_price_history"
+      }
+    },
+    {
+      "id": "polymarket_get_series",
+      "name": "Get Series from Polymarket",
+      "description": "Retrieve series (related market groups) from Polymarket",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "polymarket",
+        "operation": "polymarket_get_series"
+      }
+    },
+    {
+      "id": "polymarket_get_series_by_id",
+      "name": "Get Series by ID from Polymarket",
+      "description": "Retrieve a specific series (related market group) by ID from Polymarket",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "polymarket",
+        "operation": "polymarket_get_series_by_id"
+      }
+    },
+    {
+      "id": "polymarket_get_spread",
+      "name": "Get Spread from Polymarket",
+      "description": "Retrieve the bid-ask spread for a specific token",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "polymarket",
+        "operation": "polymarket_get_spread"
+      }
+    },
+    {
+      "id": "polymarket_get_tags",
+      "name": "Get Tags from Polymarket",
+      "description": "Retrieve available tags for filtering markets from Polymarket",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "polymarket",
+        "operation": "polymarket_get_tags"
+      }
+    },
+    {
+      "id": "polymarket_get_tick_size",
+      "name": "Get Tick Size from Polymarket",
+      "description": "Retrieve the minimum tick size for a specific token",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "polymarket",
+        "operation": "polymarket_get_tick_size"
+      }
+    },
+    {
+      "id": "polymarket_get_trades",
+      "name": "Get Trades from Polymarket",
+      "description": "Retrieve trade history from Polymarket",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "polymarket",
+        "operation": "polymarket_get_trades"
+      }
+    },
+    {
+      "id": "polymarket_search",
+      "name": "Search Polymarket",
+      "description": "Search for markets, events, and profiles on Polymarket",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "polymarket",
+        "operation": "polymarket_search"
+      }
+    }
+  ]
+}

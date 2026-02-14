@@ -1,0 +1,408 @@
+{
+  "id": "confluence",
+  "name": "Confluence (Legacy)",
+  "version": "1.0.0",
+  "description": "Interact with Confluence",
+  "icon": "ConfluenceIcon",
+  "block": {
+    "type": "confluence",
+    "name": "Confluence (Legacy)",
+    "description": "Interact with Confluence",
+    "longDescription": "Integrate Confluence into the workflow. Can read, create, update, delete pages, manage comments, attachments, labels, and search content.",
+    "docsLink": "https://docs.sim.ai/tools/confluence",
+    "category": "tools",
+    "bgColor": "#E0E0E0",
+    "icon": "ConfluenceIcon",
+    "authMode": "oauth",
+    "hideFromToolbar": true,
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Read Page",
+            "value": "read"
+          },
+          {
+            "label": "Create Page",
+            "value": "create"
+          },
+          {
+            "label": "Update Page",
+            "value": "update"
+          },
+          {
+            "label": "Delete Page",
+            "value": "delete"
+          },
+          {
+            "label": "Search Content",
+            "value": "search"
+          },
+          {
+            "label": "Create Comment",
+            "value": "create_comment"
+          },
+          {
+            "label": "List Comments",
+            "value": "list_comments"
+          },
+          {
+            "label": "Update Comment",
+            "value": "update_comment"
+          },
+          {
+            "label": "Delete Comment",
+            "value": "delete_comment"
+          },
+          {
+            "label": "Upload Attachment",
+            "value": "upload_attachment"
+          },
+          {
+            "label": "List Attachments",
+            "value": "list_attachments"
+          },
+          {
+            "label": "Delete Attachment",
+            "value": "delete_attachment"
+          },
+          {
+            "label": "List Labels",
+            "value": "list_labels"
+          },
+          {
+            "label": "Get Space",
+            "value": "get_space"
+          },
+          {
+            "label": "List Spaces",
+            "value": "list_spaces"
+          }
+        ]
+      },
+      {
+        "id": "domain",
+        "type": "short-input",
+        "title": "Domain",
+        "placeholder": "Enter Confluence domain (e.g., simstudio.atlassian.net)"
+      },
+      {
+        "id": "credential",
+        "type": "oauth-input",
+        "title": "Confluence Account",
+        "placeholder": "Select Confluence account"
+      },
+      {
+        "id": "pageId",
+        "type": "file-selector",
+        "title": "Select Page",
+        "placeholder": "Select Confluence page",
+        "mode": "basic",
+        "canonicalParamId": "pageId"
+      },
+      {
+        "id": "manualPageId",
+        "type": "short-input",
+        "title": "Page ID",
+        "placeholder": "Enter Confluence page ID",
+        "mode": "advanced",
+        "canonicalParamId": "pageId"
+      },
+      {
+        "id": "spaceId",
+        "type": "short-input",
+        "title": "Space ID",
+        "placeholder": "Enter Confluence space ID"
+      },
+      {
+        "id": "title",
+        "type": "short-input",
+        "title": "Title",
+        "placeholder": "Enter title for the page"
+      },
+      {
+        "id": "content",
+        "type": "long-input",
+        "title": "Content",
+        "placeholder": "Enter content for the page"
+      },
+      {
+        "id": "parentId",
+        "type": "short-input",
+        "title": "Parent Page ID",
+        "placeholder": "Enter parent page ID (optional)"
+      },
+      {
+        "id": "query",
+        "type": "short-input",
+        "title": "Search Query",
+        "placeholder": "Enter search query"
+      },
+      {
+        "id": "comment",
+        "type": "long-input",
+        "title": "Comment Text",
+        "placeholder": "Enter comment text"
+      },
+      {
+        "id": "commentId",
+        "type": "short-input",
+        "title": "Comment ID",
+        "placeholder": "Enter comment ID"
+      },
+      {
+        "id": "attachmentId",
+        "type": "short-input",
+        "title": "Attachment ID",
+        "placeholder": "Enter attachment ID"
+      },
+      {
+        "id": "attachmentFile",
+        "type": "file-upload",
+        "title": "File",
+        "placeholder": "Select file to upload"
+      },
+      {
+        "id": "attachmentFileName",
+        "type": "short-input",
+        "title": "File Name",
+        "placeholder": "Optional custom file name"
+      },
+      {
+        "id": "attachmentComment",
+        "type": "short-input",
+        "title": "Comment",
+        "placeholder": "Optional comment for the attachment"
+      },
+      {
+        "id": "labelName",
+        "type": "short-input",
+        "title": "Label Name",
+        "placeholder": "Enter label name"
+      },
+      {
+        "id": "limit",
+        "type": "short-input",
+        "title": "Limit",
+        "placeholder": "Enter maximum number of results (default: 25)"
+      }
+    ],
+    "tools": {
+      "access": [
+        "confluence_retrieve",
+        "confluence_update",
+        "confluence_create_page",
+        "confluence_delete_page",
+        "confluence_search",
+        "confluence_create_comment",
+        "confluence_list_comments",
+        "confluence_update_comment",
+        "confluence_delete_comment",
+        "confluence_upload_attachment",
+        "confluence_list_attachments",
+        "confluence_delete_attachment",
+        "confluence_list_labels",
+        "confluence_get_space",
+        "confluence_list_spaces"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "ts": {
+        "type": "string"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "confluence_create_comment",
+      "name": "Confluence Create Comment",
+      "description": "Add a comment to a Confluence page.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "confluence",
+        "operation": "confluence_create_comment"
+      }
+    },
+    {
+      "id": "confluence_create_page",
+      "name": "Confluence Create Page",
+      "description": "Create a new page in a Confluence space.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "confluence",
+        "operation": "confluence_create_page"
+      }
+    },
+    {
+      "id": "confluence_delete_attachment",
+      "name": "Confluence Delete Attachment",
+      "description": "Delete an attachment from a Confluence page (moves to trash).",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "confluence",
+        "operation": "confluence_delete_attachment"
+      }
+    },
+    {
+      "id": "confluence_delete_comment",
+      "name": "Confluence Delete Comment",
+      "description": "Delete a comment from a Confluence page.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "confluence",
+        "operation": "confluence_delete_comment"
+      }
+    },
+    {
+      "id": "confluence_delete_page",
+      "name": "Confluence Delete Page",
+      "description": "Delete a Confluence page. By default moves to trash; use purge=true to permanently delete.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "confluence",
+        "operation": "confluence_delete_page"
+      }
+    },
+    {
+      "id": "confluence_get_space",
+      "name": "Confluence Get Space",
+      "description": "Get details about a specific Confluence space.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "confluence",
+        "operation": "confluence_get_space"
+      }
+    },
+    {
+      "id": "confluence_list_attachments",
+      "name": "Confluence List Attachments",
+      "description": "List all attachments on a Confluence page.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "confluence",
+        "operation": "confluence_list_attachments"
+      }
+    },
+    {
+      "id": "confluence_list_comments",
+      "name": "Confluence List Comments",
+      "description": "List all comments on a Confluence page.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "confluence",
+        "operation": "confluence_list_comments"
+      }
+    },
+    {
+      "id": "confluence_list_labels",
+      "name": "Confluence List Labels",
+      "description": "List all labels on a Confluence page.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "confluence",
+        "operation": "confluence_list_labels"
+      }
+    },
+    {
+      "id": "confluence_list_spaces",
+      "name": "Confluence List Spaces",
+      "description": "List all Confluence spaces accessible to the user.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "confluence",
+        "operation": "confluence_list_spaces"
+      }
+    },
+    {
+      "id": "confluence_retrieve",
+      "name": "Confluence Retrieve",
+      "description": "Retrieve content from Confluence pages using the Confluence API.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "confluence",
+        "operation": "confluence_retrieve"
+      }
+    },
+    {
+      "id": "confluence_search",
+      "name": "Confluence Search",
+      "description": "Search for content across Confluence pages, blog posts, and other content.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "confluence",
+        "operation": "confluence_search"
+      }
+    },
+    {
+      "id": "confluence_update",
+      "name": "Confluence Update",
+      "description": "Update a Confluence page using the Confluence API.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "confluence",
+        "operation": "confluence_update"
+      }
+    },
+    {
+      "id": "confluence_update_comment",
+      "name": "Confluence Update Comment",
+      "description": "Update an existing comment on a Confluence page.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "confluence",
+        "operation": "confluence_update_comment"
+      }
+    },
+    {
+      "id": "confluence_upload_attachment",
+      "name": "Confluence Upload Attachment",
+      "description": "Upload a file as an attachment to a Confluence page.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "confluence",
+        "operation": "confluence_upload_attachment"
+      }
+    }
+  ]
+}

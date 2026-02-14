@@ -1,0 +1,226 @@
+{
+  "id": "asana",
+  "name": "Asana",
+  "version": "1.0.0",
+  "description": "Interact with Asana",
+  "icon": "AsanaIcon",
+  "block": {
+    "type": "asana",
+    "name": "Asana",
+    "description": "Interact with Asana",
+    "longDescription": "Integrate Asana into the workflow. Can read, write, and update tasks.",
+    "docsLink": "https://docs.sim.ai/tools/asana",
+    "category": "tools",
+    "bgColor": "#E0E0E0",
+    "icon": "AsanaIcon",
+    "authMode": "oauth",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Get Task",
+            "value": "get_task"
+          },
+          {
+            "label": "Create Task",
+            "value": "create_task"
+          },
+          {
+            "label": "Update Task",
+            "value": "update_task"
+          },
+          {
+            "label": "Get Projects",
+            "value": "get_projects"
+          },
+          {
+            "label": "Search Tasks",
+            "value": "search_tasks"
+          },
+          {
+            "label": "Add Comment",
+            "value": "add_comment"
+          }
+        ]
+      },
+      {
+        "id": "credential",
+        "type": "oauth-input",
+        "title": "Asana Account",
+        "placeholder": "Select Asana account"
+      },
+      {
+        "id": "workspace",
+        "type": "short-input",
+        "title": "Workspace GID",
+        "placeholder": "Enter Asana workspace GID"
+      },
+      {
+        "id": "taskGid",
+        "type": "short-input",
+        "title": "Task GID",
+        "placeholder": "Leave empty to get all tasks with filters below"
+      },
+      {
+        "id": "taskGid",
+        "type": "short-input",
+        "title": "Task GID",
+        "placeholder": "Enter Asana task GID"
+      },
+      {
+        "id": "getTasks_workspace",
+        "type": "short-input",
+        "title": "Workspace GID",
+        "placeholder": "Enter workspace GID"
+      },
+      {
+        "id": "getTasks_project",
+        "type": "short-input",
+        "title": "Project GID",
+        "placeholder": "Enter project GID"
+      },
+      {
+        "id": "getTasks_limit",
+        "type": "short-input",
+        "title": "Limit",
+        "placeholder": "Max tasks to return (default: 50)"
+      },
+      {
+        "id": "name",
+        "type": "short-input",
+        "title": "Task Name",
+        "placeholder": "Enter task name"
+      },
+      {
+        "id": "notes",
+        "type": "long-input",
+        "title": "Task Notes",
+        "placeholder": "Enter task notes or description"
+      },
+      {
+        "id": "assignee",
+        "type": "short-input",
+        "title": "Assignee GID",
+        "placeholder": "Enter assignee user GID"
+      },
+      {
+        "id": "due_on",
+        "type": "short-input",
+        "title": "Due Date",
+        "placeholder": "YYYY-MM-DD"
+      },
+      {
+        "id": "searchText",
+        "type": "short-input",
+        "title": "Search Text",
+        "placeholder": "Enter search text"
+      },
+      {
+        "id": "commentText",
+        "type": "long-input",
+        "title": "Comment Text",
+        "placeholder": "Enter comment text"
+      }
+    ],
+    "tools": {
+      "access": [
+        "asana_get_task",
+        "asana_create_task",
+        "asana_update_task",
+        "asana_get_projects",
+        "asana_search_tasks",
+        "asana_add_comment"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "boolean"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "asana_add_comment",
+      "name": "Asana Add Comment",
+      "description": "Add a comment (story) to an Asana task",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "asana",
+        "operation": "asana_add_comment"
+      }
+    },
+    {
+      "id": "asana_create_task",
+      "name": "Asana Create Task",
+      "description": "Create a new task in Asana",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "asana",
+        "operation": "asana_create_task"
+      }
+    },
+    {
+      "id": "asana_get_projects",
+      "name": "Asana Get Projects",
+      "description": "Retrieve all projects from an Asana workspace",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "asana",
+        "operation": "asana_get_projects"
+      }
+    },
+    {
+      "id": "asana_get_task",
+      "name": "Asana Get Task",
+      "description": "Retrieve a single task by GID or get multiple tasks with filters",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "asana",
+        "operation": "asana_get_task"
+      }
+    },
+    {
+      "id": "asana_search_tasks",
+      "name": "Asana Search Tasks",
+      "description": "Search for tasks in an Asana workspace",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "asana",
+        "operation": "asana_search_tasks"
+      }
+    },
+    {
+      "id": "asana_update_task",
+      "name": "Asana Update Task",
+      "description": "Update an existing task in Asana",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "asana",
+        "operation": "asana_update_task"
+      }
+    }
+  ]
+}

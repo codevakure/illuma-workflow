@@ -1,0 +1,238 @@
+{
+  "id": "greptile",
+  "name": "Greptile",
+  "version": "1.0.0",
+  "description": "AI-powered codebase search and Q&A",
+  "icon": "GreptileIcon",
+  "block": {
+    "type": "greptile",
+    "name": "Greptile",
+    "description": "AI-powered codebase search and Q&A",
+    "longDescription": "Query and search codebases using natural language with Greptile. Get AI-generated answers about your code, find relevant files, and understand complex codebases.",
+    "docsLink": "https://docs.sim.ai/tools/greptile",
+    "category": "tools",
+    "bgColor": "#e5e5e5",
+    "icon": "GreptileIcon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Query",
+            "value": "greptile_query"
+          },
+          {
+            "label": "Search",
+            "value": "greptile_search"
+          },
+          {
+            "label": "Index Repository",
+            "value": "greptile_index_repo"
+          },
+          {
+            "label": "Check Status",
+            "value": "greptile_status"
+          }
+        ]
+      },
+      {
+        "id": "query",
+        "type": "long-input",
+        "title": "Query",
+        "placeholder": "Ask a question about the codebase..."
+      },
+      {
+        "id": "repositories",
+        "type": "long-input",
+        "title": "Repositories",
+        "placeholder": "owner/repo, github:main:owner/repo (comma-separated)"
+      },
+      {
+        "id": "sessionId",
+        "type": "short-input",
+        "title": "Session ID",
+        "placeholder": "Optional session ID for conversation continuity"
+      },
+      {
+        "id": "genius",
+        "type": "switch",
+        "title": "Genius Mode"
+      },
+      {
+        "id": "query",
+        "type": "long-input",
+        "title": "Search Query",
+        "placeholder": "Search for code patterns, functions, or concepts..."
+      },
+      {
+        "id": "repositories",
+        "type": "long-input",
+        "title": "Repositories",
+        "placeholder": "owner/repo, github:main:owner/repo (comma-separated)"
+      },
+      {
+        "id": "sessionId",
+        "type": "short-input",
+        "title": "Session ID",
+        "placeholder": "Optional session ID for conversation continuity"
+      },
+      {
+        "id": "genius",
+        "type": "switch",
+        "title": "Genius Mode"
+      },
+      {
+        "id": "remote",
+        "type": "dropdown",
+        "title": "Git Remote",
+        "options": [
+          {
+            "label": "GitHub",
+            "value": "github"
+          },
+          {
+            "label": "GitLab",
+            "value": "gitlab"
+          }
+        ]
+      },
+      {
+        "id": "repository",
+        "type": "short-input",
+        "title": "Repository",
+        "placeholder": "owner/repo"
+      },
+      {
+        "id": "branch",
+        "type": "short-input",
+        "title": "Branch",
+        "placeholder": "main"
+      },
+      {
+        "id": "reload",
+        "type": "switch",
+        "title": "Force Re-index"
+      },
+      {
+        "id": "notify",
+        "type": "switch",
+        "title": "Email Notification"
+      },
+      {
+        "id": "remote",
+        "type": "dropdown",
+        "title": "Git Remote",
+        "options": [
+          {
+            "label": "GitHub",
+            "value": "github"
+          },
+          {
+            "label": "GitLab",
+            "value": "gitlab"
+          }
+        ]
+      },
+      {
+        "id": "repository",
+        "type": "short-input",
+        "title": "Repository",
+        "placeholder": "owner/repo"
+      },
+      {
+        "id": "branch",
+        "type": "short-input",
+        "title": "Branch",
+        "placeholder": "main"
+      },
+      {
+        "id": "apiKey",
+        "type": "short-input",
+        "title": "Greptile API Key",
+        "placeholder": "Enter your Greptile API key",
+        "password": true
+      },
+      {
+        "id": "githubToken",
+        "type": "short-input",
+        "title": "GitHub Token",
+        "placeholder": "Enter your GitHub Personal Access Token",
+        "password": true
+      }
+    ],
+    "tools": {
+      "access": [
+        "greptile_query",
+        "greptile_search",
+        "greptile_index_repo",
+        "greptile_status"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "message": {
+        "type": "string"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "greptile_index_repo",
+      "name": "Greptile Index Repository",
+      "description": "Submit a repository to be indexed by Greptile. Indexing must complete before the repository can be queried. Small repos take 3-5 minutes, larger ones can take over an hour.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "greptile",
+        "operation": "greptile_index_repo"
+      }
+    },
+    {
+      "id": "greptile_query",
+      "name": "Greptile Query",
+      "description": "Query repositories in natural language and get answers with relevant code references. Greptile uses AI to understand your codebase and answer questions.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "greptile",
+        "operation": "greptile_query"
+      }
+    },
+    {
+      "id": "greptile_search",
+      "name": "Greptile Search",
+      "description": "Search repositories in natural language and get relevant code references without generating an answer. Useful for finding specific code locations.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "greptile",
+        "operation": "greptile_search"
+      }
+    },
+    {
+      "id": "greptile_status",
+      "name": "Greptile Repository Status",
+      "description": "Check the indexing status of a repository. Use this to verify if a repository is ready to be queried or to monitor indexing progress.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "greptile",
+        "operation": "greptile_status"
+      }
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "id": "file",
+  "name": "File (Legacy)",
+  "version": "1.0.0",
+  "description": "Read and parse multiple files",
+  "icon": "DocumentIcon",
+  "block": {
+    "type": "file",
+    "name": "File (Legacy)",
+    "description": "Read and parse multiple files",
+    "longDescription": "Integrate File into the workflow. Can upload a file manually or insert a file url.",
+    "docsLink": "https://docs.sim.ai/tools/file",
+    "category": "tools",
+    "bgColor": "#40916C",
+    "icon": "DocumentIcon",
+    "hideFromToolbar": true,
+    "subBlocks": [
+      {
+        "id": "inputMethod",
+        "type": "dropdown",
+        "title": "Select Input Method",
+        "options": [
+          {
+            "label": "url",
+            "value": "url"
+          },
+          {
+            "label": "upload",
+            "value": "upload"
+          }
+        ]
+      },
+      {
+        "id": "filePath",
+        "type": "short-input",
+        "title": "File URL",
+        "placeholder": "Enter URL to a file (https://example.com/document.pdf)"
+      },
+      {
+        "id": "file",
+        "type": "file-upload",
+        "title": "Process Files"
+      }
+    ],
+    "tools": {
+      "access": [
+        "file_parser"
+      ],
+      "config": {
+        "tool": "file_parser"
+      }
+    },
+    "inputs": {
+      "inputMethod": {
+        "type": "string"
+      }
+    },
+    "outputs": {}
+  },
+  "tools": [
+    {
+      "id": "file_parser",
+      "name": "File Parser",
+      "description": "Parse one or more uploaded files or files from URLs (text, PDF, CSV, images, etc.)",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "file",
+        "operation": "file_parser"
+      }
+    }
+  ]
+}

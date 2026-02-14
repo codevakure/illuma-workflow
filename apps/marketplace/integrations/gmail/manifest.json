@@ -1,0 +1,446 @@
+{
+  "id": "gmail",
+  "name": "Gmail (Legacy)",
+  "version": "1.0.0",
+  "description": "Send, read, search, and move Gmail messages or trigger workflows from Gmail events",
+  "icon": "GmailIcon",
+  "block": {
+    "type": "gmail",
+    "name": "Gmail (Legacy)",
+    "description": "Send, read, search, and move Gmail messages or trigger workflows from Gmail events",
+    "longDescription": "Integrate Gmail into the workflow. Can send, read, search, and move emails. Can be used in trigger mode to trigger a workflow when a new email is received.",
+    "docsLink": "https://docs.sim.ai/tools/gmail",
+    "category": "tools",
+    "bgColor": "#E0E0E0",
+    "icon": "GmailIcon",
+    "authMode": "oauth",
+    "hideFromToolbar": true,
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Send Email",
+            "value": "send_gmail"
+          },
+          {
+            "label": "Read Email",
+            "value": "read_gmail"
+          },
+          {
+            "label": "Draft Email",
+            "value": "draft_gmail"
+          },
+          {
+            "label": "Search Email",
+            "value": "search_gmail"
+          },
+          {
+            "label": "Move Email",
+            "value": "move_gmail"
+          },
+          {
+            "label": "Mark as Read",
+            "value": "mark_read_gmail"
+          },
+          {
+            "label": "Mark as Unread",
+            "value": "mark_unread_gmail"
+          },
+          {
+            "label": "Archive Email",
+            "value": "archive_gmail"
+          },
+          {
+            "label": "Unarchive Email",
+            "value": "unarchive_gmail"
+          },
+          {
+            "label": "Delete Email",
+            "value": "delete_gmail"
+          },
+          {
+            "label": "Add Label",
+            "value": "add_label_gmail"
+          },
+          {
+            "label": "Remove Label",
+            "value": "remove_label_gmail"
+          }
+        ]
+      },
+      {
+        "id": "credential",
+        "type": "oauth-input",
+        "title": "Gmail Account",
+        "placeholder": "Select Gmail account"
+      },
+      {
+        "id": "to",
+        "type": "short-input",
+        "title": "To",
+        "placeholder": "Recipient email address"
+      },
+      {
+        "id": "subject",
+        "type": "short-input",
+        "title": "Subject",
+        "placeholder": "Email subject"
+      },
+      {
+        "id": "body",
+        "type": "long-input",
+        "title": "Body",
+        "placeholder": "Email content"
+      },
+      {
+        "id": "contentType",
+        "type": "dropdown",
+        "title": "Content Type",
+        "options": [
+          {
+            "label": "Plain Text",
+            "value": "text"
+          },
+          {
+            "label": "HTML",
+            "value": "html"
+          }
+        ]
+      },
+      {
+        "id": "attachmentFiles",
+        "type": "file-upload",
+        "title": "Attachments",
+        "placeholder": "Upload files to attach",
+        "mode": "basic",
+        "canonicalParamId": "attachments"
+      },
+      {
+        "id": "attachments",
+        "type": "short-input",
+        "title": "Attachments",
+        "placeholder": "Reference files from previous blocks",
+        "mode": "advanced",
+        "canonicalParamId": "attachments"
+      },
+      {
+        "id": "threadId",
+        "type": "short-input",
+        "title": "Thread ID",
+        "placeholder": "Thread ID to reply to (for threading)",
+        "mode": "advanced"
+      },
+      {
+        "id": "replyToMessageId",
+        "type": "short-input",
+        "title": "Reply to Message ID",
+        "placeholder": "Gmail message ID (not RFC Message-ID) - use the ",
+        "mode": "advanced"
+      },
+      {
+        "id": "cc",
+        "type": "short-input",
+        "title": "CC",
+        "placeholder": "CC recipients (comma-separated)",
+        "mode": "advanced"
+      },
+      {
+        "id": "bcc",
+        "type": "short-input",
+        "title": "BCC",
+        "placeholder": "BCC recipients (comma-separated)",
+        "mode": "advanced"
+      },
+      {
+        "id": "folder",
+        "type": "folder-selector",
+        "title": "Label",
+        "placeholder": "Select Gmail label/folder",
+        "mode": "basic",
+        "canonicalParamId": "folder"
+      },
+      {
+        "id": "manualFolder",
+        "type": "short-input",
+        "title": "Label/Folder",
+        "placeholder": "Enter Gmail label name (e.g., INBOX, SENT, or custom label)",
+        "mode": "advanced",
+        "canonicalParamId": "folder"
+      },
+      {
+        "id": "unreadOnly",
+        "type": "switch",
+        "title": "Unread Only"
+      },
+      {
+        "id": "includeAttachments",
+        "type": "switch",
+        "title": "Include Attachments"
+      },
+      {
+        "id": "messageId",
+        "type": "short-input",
+        "title": "Message ID",
+        "placeholder": "Read specific email by ID (overrides label/folder)",
+        "mode": "advanced"
+      },
+      {
+        "id": "query",
+        "type": "short-input",
+        "title": "Search Query",
+        "placeholder": "Enter search terms"
+      },
+      {
+        "id": "maxResults",
+        "type": "short-input",
+        "title": "Max Results",
+        "placeholder": "Maximum number of results (default: 10)"
+      },
+      {
+        "id": "moveMessageId",
+        "type": "short-input",
+        "title": "Message ID",
+        "placeholder": "ID of the email to move"
+      },
+      {
+        "id": "destinationLabel",
+        "type": "folder-selector",
+        "title": "Move To Label",
+        "placeholder": "Select destination label",
+        "mode": "basic",
+        "canonicalParamId": "addLabelIds"
+      },
+      {
+        "id": "manualDestinationLabel",
+        "type": "short-input",
+        "title": "Move To Label",
+        "placeholder": "Enter label ID (e.g., INBOX, Label_123)",
+        "mode": "advanced",
+        "canonicalParamId": "addLabelIds"
+      },
+      {
+        "id": "sourceLabel",
+        "type": "folder-selector",
+        "title": "Remove From Label",
+        "placeholder": "Select label to remove",
+        "mode": "basic",
+        "canonicalParamId": "removeLabelIds"
+      },
+      {
+        "id": "manualSourceLabel",
+        "type": "short-input",
+        "title": "Remove From Label",
+        "placeholder": "Enter label ID to remove (e.g., INBOX)",
+        "mode": "advanced",
+        "canonicalParamId": "removeLabelIds"
+      },
+      {
+        "id": "actionMessageId",
+        "type": "short-input",
+        "title": "Message ID",
+        "placeholder": "ID of the email"
+      },
+      {
+        "id": "labelActionMessageId",
+        "type": "short-input",
+        "title": "Message ID",
+        "placeholder": "ID of the email"
+      },
+      {
+        "id": "labelSelector",
+        "type": "folder-selector",
+        "title": "Label",
+        "placeholder": "Select label",
+        "mode": "basic",
+        "canonicalParamId": "manageLabelId"
+      },
+      {
+        "id": "manualLabelId",
+        "type": "short-input",
+        "title": "Label",
+        "placeholder": "Enter label ID (e.g., INBOX, Label_123)",
+        "mode": "advanced",
+        "canonicalParamId": "manageLabelId"
+      }
+    ],
+    "tools": {
+      "access": [
+        "gmail_send",
+        "gmail_draft",
+        "gmail_read",
+        "gmail_search",
+        "gmail_move",
+        "gmail_mark_read",
+        "gmail_mark_unread",
+        "gmail_archive",
+        "gmail_unarchive",
+        "gmail_delete",
+        "gmail_add_label",
+        "gmail_remove_label"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "content": {
+        "type": "string"
+      }
+    },
+    "triggerAllowed": true
+  },
+  "tools": [
+    {
+      "id": "gmail_add_label",
+      "name": "Gmail Add Label",
+      "description": "Add label(s) to a Gmail message",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "gmail",
+        "operation": "gmail_add_label"
+      }
+    },
+    {
+      "id": "gmail_archive",
+      "name": "Gmail Archive",
+      "description": "Archive a Gmail message (remove from inbox)",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "gmail",
+        "operation": "gmail_archive"
+      }
+    },
+    {
+      "id": "gmail_delete",
+      "name": "Gmail Delete",
+      "description": "Delete a Gmail message (move to trash)",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "gmail",
+        "operation": "gmail_delete"
+      }
+    },
+    {
+      "id": "gmail_draft",
+      "name": "Gmail Draft",
+      "description": "Draft emails using Gmail",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "gmail",
+        "operation": "gmail_draft"
+      }
+    },
+    {
+      "id": "gmail_mark_read",
+      "name": "Gmail Mark as Read",
+      "description": "Mark a Gmail message as read",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "gmail",
+        "operation": "gmail_mark_read"
+      }
+    },
+    {
+      "id": "gmail_mark_unread",
+      "name": "Gmail Mark as Unread",
+      "description": "Mark a Gmail message as unread",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "gmail",
+        "operation": "gmail_mark_unread"
+      }
+    },
+    {
+      "id": "gmail_move",
+      "name": "Gmail Move",
+      "description": "Move emails between Gmail labels/folders",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "gmail",
+        "operation": "gmail_move"
+      }
+    },
+    {
+      "id": "gmail_read",
+      "name": "Gmail Read",
+      "description": "Read emails from Gmail",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "gmail",
+        "operation": "gmail_read"
+      }
+    },
+    {
+      "id": "gmail_remove_label",
+      "name": "Gmail Remove Label",
+      "description": "Remove label(s) from a Gmail message",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "gmail",
+        "operation": "gmail_remove_label"
+      }
+    },
+    {
+      "id": "gmail_search",
+      "name": "Gmail Search",
+      "description": "Search emails in Gmail",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "gmail",
+        "operation": "gmail_search"
+      }
+    },
+    {
+      "id": "gmail_send",
+      "name": "Gmail Send",
+      "description": "Send emails using Gmail",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "gmail",
+        "operation": "gmail_send"
+      }
+    },
+    {
+      "id": "gmail_unarchive",
+      "name": "Gmail Unarchive",
+      "description": "Unarchive a Gmail message (move back to inbox)",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "gmail",
+        "operation": "gmail_unarchive"
+      }
+    }
+  ]
+}

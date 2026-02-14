@@ -1,0 +1,251 @@
+{
+  "id": "mysql",
+  "name": "MySQL",
+  "version": "1.0.0",
+  "description": "Connect to MySQL database",
+  "icon": "MySQLIcon",
+  "block": {
+    "type": "mysql",
+    "name": "MySQL",
+    "description": "Connect to MySQL database",
+    "longDescription": "Integrate MySQL into the workflow. Can query, insert, update, delete, and execute raw SQL.",
+    "docsLink": "https://docs.sim.ai/tools/mysql",
+    "category": "tools",
+    "bgColor": "#E0E0E0",
+    "icon": "MySQLIcon",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Query (SELECT)",
+            "value": "query"
+          },
+          {
+            "label": "Insert Data",
+            "value": "insert"
+          },
+          {
+            "label": "Update Data",
+            "value": "update"
+          },
+          {
+            "label": "Delete Data",
+            "value": "delete"
+          },
+          {
+            "label": "Execute Raw SQL",
+            "value": "execute"
+          },
+          {
+            "label": "Introspect Schema",
+            "value": "introspect"
+          }
+        ]
+      },
+      {
+        "id": "host",
+        "type": "short-input",
+        "title": "Host",
+        "placeholder": "localhost or your.database.host"
+      },
+      {
+        "id": "port",
+        "type": "short-input",
+        "title": "Port",
+        "placeholder": "3306"
+      },
+      {
+        "id": "database",
+        "type": "short-input",
+        "title": "Database Name",
+        "placeholder": "your_database"
+      },
+      {
+        "id": "username",
+        "type": "short-input",
+        "title": "Username",
+        "placeholder": "root"
+      },
+      {
+        "id": "password",
+        "type": "short-input",
+        "title": "Password",
+        "placeholder": "Your database password",
+        "password": true
+      },
+      {
+        "id": "ssl",
+        "type": "dropdown",
+        "title": "SSL Mode",
+        "options": [
+          {
+            "label": "Disabled",
+            "value": "disabled"
+          },
+          {
+            "label": "Required",
+            "value": "required"
+          },
+          {
+            "label": "Preferred",
+            "value": "preferred"
+          }
+        ]
+      },
+      {
+        "id": "table",
+        "type": "short-input",
+        "title": "Table Name",
+        "placeholder": "users"
+      },
+      {
+        "id": "table",
+        "type": "short-input",
+        "title": "Table Name",
+        "placeholder": "users"
+      },
+      {
+        "id": "table",
+        "type": "short-input",
+        "title": "Table Name",
+        "placeholder": "users"
+      },
+      {
+        "id": "query",
+        "type": "code",
+        "title": "SQL Query",
+        "placeholder": "SELECT * FROM users WHERE active = true"
+      },
+      {
+        "id": "query",
+        "type": "code",
+        "title": "SQL Query",
+        "placeholder": "SELECT * FROM table_name"
+      },
+      {
+        "id": "data",
+        "type": "code",
+        "title": "Data (JSON)",
+        "placeholder": "{\\n  "
+      },
+      {
+        "id": "data",
+        "type": "code",
+        "title": "Update Data (JSON)",
+        "placeholder": "{\\n  "
+      },
+      {
+        "id": "where",
+        "type": "short-input",
+        "title": "WHERE Condition",
+        "placeholder": "id = 1"
+      },
+      {
+        "id": "where",
+        "type": "short-input",
+        "title": "WHERE Condition",
+        "placeholder": "id = 1"
+      }
+    ],
+    "tools": {
+      "access": [
+        "mysql_query",
+        "mysql_insert",
+        "mysql_update",
+        "mysql_delete",
+        "mysql_execute",
+        "mysql_introspect"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "message": {
+        "type": "string"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "mysql_delete",
+      "name": "MySQL Delete",
+      "description": "Delete records from MySQL database",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "mysql",
+        "operation": "mysql_delete"
+      }
+    },
+    {
+      "id": "mysql_execute",
+      "name": "MySQL Execute",
+      "description": "Execute raw SQL query on MySQL database",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "mysql",
+        "operation": "mysql_execute"
+      }
+    },
+    {
+      "id": "mysql_insert",
+      "name": "MySQL Insert",
+      "description": "Insert new record into MySQL database",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "mysql",
+        "operation": "mysql_insert"
+      }
+    },
+    {
+      "id": "mysql_introspect",
+      "name": "MySQL Introspect",
+      "description": "Introspect MySQL database schema to retrieve table structures, columns, and relationships",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "mysql",
+        "operation": "mysql_introspect"
+      }
+    },
+    {
+      "id": "mysql_query",
+      "name": "MySQL Query",
+      "description": "Execute SELECT query on MySQL database",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "mysql",
+        "operation": "mysql_query"
+      }
+    },
+    {
+      "id": "mysql_update",
+      "name": "MySQL Update",
+      "description": "Update existing records in MySQL database",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "mysql",
+        "operation": "mysql_update"
+      }
+    }
+  ]
+}

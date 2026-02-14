@@ -1,0 +1,266 @@
+{
+  "id": "calendly",
+  "name": "Calendly",
+  "version": "1.0.0",
+  "description": "Manage Calendly scheduling and events",
+  "icon": "CalendlyIcon",
+  "block": {
+    "type": "calendly",
+    "name": "Calendly",
+    "description": "Manage Calendly scheduling and events",
+    "longDescription": "Integrate Calendly into your workflow. Manage event types, scheduled events, invitees, and webhooks. Can also trigger workflows based on Calendly webhook events (invitee scheduled, invitee canceled, routing form submitted). Requires Personal Access Token.",
+    "docsLink": "https://docs.sim.ai/tools/calendly",
+    "category": "tools",
+    "bgColor": "#FFFFFF",
+    "icon": "CalendlyIcon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Get Current User",
+            "value": "calendly_get_current_user"
+          },
+          {
+            "label": "List Event Types",
+            "value": "calendly_list_event_types"
+          },
+          {
+            "label": "Get Event Type",
+            "value": "calendly_get_event_type"
+          },
+          {
+            "label": "List Scheduled Events",
+            "value": "calendly_list_scheduled_events"
+          },
+          {
+            "label": "Get Scheduled Event",
+            "value": "calendly_get_scheduled_event"
+          },
+          {
+            "label": "List Event Invitees",
+            "value": "calendly_list_event_invitees"
+          },
+          {
+            "label": "Cancel Event",
+            "value": "calendly_cancel_event"
+          }
+        ]
+      },
+      {
+        "id": "apiKey",
+        "type": "short-input",
+        "title": "Personal Access Token",
+        "placeholder": "Enter your Calendly personal access token",
+        "password": true
+      },
+      {
+        "id": "eventTypeUuid",
+        "type": "short-input",
+        "title": "Event Type UUID",
+        "placeholder": "Enter event type UUID or URI"
+      },
+      {
+        "id": "user",
+        "type": "short-input",
+        "title": "User URI",
+        "placeholder": "Filter by user URI"
+      },
+      {
+        "id": "organization",
+        "type": "short-input",
+        "title": "Organization URI",
+        "placeholder": "Filter by organization URI (optional)"
+      },
+      {
+        "id": "active",
+        "type": "switch",
+        "title": "Active Only"
+      },
+      {
+        "id": "invitee_email",
+        "type": "short-input",
+        "title": "Invitee Email",
+        "placeholder": "Filter by invitee email"
+      },
+      {
+        "id": "min_start_time",
+        "type": "short-input",
+        "title": "Min Start Time",
+        "placeholder": "ISO 8601 format (e.g., 2024-01-01T00:00:00Z)"
+      },
+      {
+        "id": "max_start_time",
+        "type": "short-input",
+        "title": "Max Start Time",
+        "placeholder": "ISO 8601 format (e.g., 2024-12-31T23:59:59Z)"
+      },
+      {
+        "id": "status",
+        "type": "dropdown",
+        "title": "Status",
+        "options": [
+          {
+            "label": "Active",
+            "value": "active"
+          },
+          {
+            "label": "Canceled",
+            "value": "canceled"
+          }
+        ]
+      },
+      {
+        "id": "eventUuid",
+        "type": "short-input",
+        "title": "Event UUID",
+        "placeholder": "Enter scheduled event UUID or URI"
+      },
+      {
+        "id": "reason",
+        "type": "long-input",
+        "title": "Cancellation Reason",
+        "placeholder": "Reason for cancellation (optional)"
+      },
+      {
+        "id": "email",
+        "type": "short-input",
+        "title": "Email",
+        "placeholder": "Filter by invitee email"
+      },
+      {
+        "id": "count",
+        "type": "short-input",
+        "title": "Results Per Page",
+        "placeholder": "Number of results (default: 20, max: 100)",
+        "max": 100
+      },
+      {
+        "id": "pageToken",
+        "type": "short-input",
+        "title": "Page Token",
+        "placeholder": "Token for pagination"
+      },
+      {
+        "id": "sort",
+        "type": "short-input",
+        "title": "Sort Order",
+        "placeholder": "e.g., "
+      }
+    ],
+    "tools": {
+      "access": [
+        "calendly_get_current_user",
+        "calendly_list_event_types",
+        "calendly_get_event_type",
+        "calendly_list_scheduled_events",
+        "calendly_get_scheduled_event",
+        "calendly_list_event_invitees",
+        "calendly_cancel_event"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "boolean"
+      }
+    },
+    "triggerAllowed": true
+  },
+  "tools": [
+    {
+      "id": "calendly_cancel_event",
+      "name": "Calendly Cancel Event",
+      "description": "Cancel a scheduled event",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "calendly",
+        "operation": "calendly_cancel_event"
+      }
+    },
+    {
+      "id": "calendly_get_current_user",
+      "name": "Calendly Get Current User",
+      "description": "Get information about the currently authenticated Calendly user",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "calendly",
+        "operation": "calendly_get_current_user"
+      }
+    },
+    {
+      "id": "calendly_get_event_type",
+      "name": "Calendly Get Event Type",
+      "description": "Get detailed information about a specific event type",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "calendly",
+        "operation": "calendly_get_event_type"
+      }
+    },
+    {
+      "id": "calendly_get_scheduled_event",
+      "name": "Calendly Get Scheduled Event",
+      "description": "Get detailed information about a specific scheduled event",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "calendly",
+        "operation": "calendly_get_scheduled_event"
+      }
+    },
+    {
+      "id": "calendly_list_event_invitees",
+      "name": "Calendly List Event Invitees",
+      "description": "Retrieve a list of invitees for a scheduled event",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "calendly",
+        "operation": "calendly_list_event_invitees"
+      }
+    },
+    {
+      "id": "calendly_list_event_types",
+      "name": "Calendly List Event Types",
+      "description": "Retrieve a list of all event types for a user or organization",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "calendly",
+        "operation": "calendly_list_event_types"
+      }
+    },
+    {
+      "id": "calendly_list_scheduled_events",
+      "name": "Calendly List Scheduled Events",
+      "description": "Retrieve a list of scheduled events for a user or organization",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "calendly",
+        "operation": "calendly_list_scheduled_events"
+      }
+    }
+  ]
+}

@@ -1,0 +1,157 @@
+{
+  "id": "browser_use",
+  "name": "Browser Use",
+  "version": "1.0.0",
+  "description": "Run browser automation tasks",
+  "icon": "BrowserUseIcon",
+  "block": {
+    "type": "browser_use",
+    "name": "Browser Use",
+    "description": "Run browser automation tasks",
+    "longDescription": "Integrate Browser Use into the workflow. Can navigate the web and perform actions as if a real user was interacting with the browser.",
+    "docsLink": "https://docs.sim.ai/tools/browser_use",
+    "category": "tools",
+    "bgColor": "#181C1E",
+    "icon": "BrowserUseIcon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "task",
+        "type": "long-input",
+        "title": "Task",
+        "placeholder": "Describe what the browser agent should do..."
+      },
+      {
+        "id": "variables",
+        "type": "table",
+        "title": "Variables (Secrets)"
+      },
+      {
+        "id": "model",
+        "type": "dropdown",
+        "title": "Model",
+        "options": [
+          {
+            "label": "Browser Use LLM",
+            "value": "browser-use-llm"
+          },
+          {
+            "label": "GPT-4o",
+            "value": "gpt-4o"
+          },
+          {
+            "label": "GPT-4o Mini",
+            "value": "gpt-4o-mini"
+          },
+          {
+            "label": "GPT-4.1",
+            "value": "gpt-4.1"
+          },
+          {
+            "label": "GPT-4.1 Mini",
+            "value": "gpt-4.1-mini"
+          },
+          {
+            "label": "O3",
+            "value": "o3"
+          },
+          {
+            "label": "O4 Mini",
+            "value": "o4-mini"
+          },
+          {
+            "label": "Gemini 2.5 Flash",
+            "value": "gemini-2.5-flash"
+          },
+          {
+            "label": "Gemini 2.5 Pro",
+            "value": "gemini-2.5-pro"
+          },
+          {
+            "label": "Gemini 3 Pro Preview",
+            "value": "gemini-3-pro-preview"
+          },
+          {
+            "label": "Gemini Flash Latest",
+            "value": "gemini-flash-latest"
+          },
+          {
+            "label": "Gemini Flash Lite Latest",
+            "value": "gemini-flash-lite-latest"
+          },
+          {
+            "label": "Claude 3.7 Sonnet",
+            "value": "claude-3-7-sonnet-20250219"
+          },
+          {
+            "label": "Claude Sonnet 4",
+            "value": "claude-sonnet-4-20250514"
+          },
+          {
+            "label": "Claude Sonnet 4.5",
+            "value": "claude-sonnet-4-5-20250929"
+          },
+          {
+            "label": "Claude Opus 4.5",
+            "value": "claude-opus-4-5-20251101"
+          },
+          {
+            "label": "Llama 4 Maverick",
+            "value": "llama-4-maverick-17b-128e-instruct"
+          }
+        ]
+      },
+      {
+        "id": "save_browser_data",
+        "type": "switch",
+        "title": "Save Browser Data",
+        "placeholder": "Save browser data"
+      },
+      {
+        "id": "profile_id",
+        "type": "short-input",
+        "title": "Profile ID",
+        "placeholder": "Enter browser profile ID (optional)"
+      },
+      {
+        "id": "apiKey",
+        "type": "short-input",
+        "title": "API Key",
+        "placeholder": "Enter your BrowserUse API key",
+        "password": true
+      }
+    ],
+    "tools": {
+      "access": [
+        "browser_use_run_task"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "task": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "id": {
+        "type": "string"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "browser_use_run_task",
+      "name": "Browser Use",
+      "description": "Runs a browser automation task using BrowserUse",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "browser_use",
+        "operation": "browser_use_run_task"
+      }
+    }
+  ]
+}

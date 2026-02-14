@@ -1,0 +1,111 @@
+{
+  "id": "mistral_parse",
+  "name": "Mistral Parser (Legacy)",
+  "version": "1.0.0",
+  "description": "Extract text from PDF documents",
+  "icon": "MistralIcon",
+  "block": {
+    "type": "mistral_parse",
+    "name": "Mistral Parser (Legacy)",
+    "description": "Extract text from PDF documents",
+    "longDescription": "Integrate Mistral Parse into the workflow. Can extract text from uploaded PDF documents, or from a URL.",
+    "docsLink": "https://docs.sim.ai/tools/mistral_parse",
+    "category": "tools",
+    "bgColor": "#000000",
+    "icon": "MistralIcon",
+    "authMode": "api_key",
+    "hideFromToolbar": true,
+    "subBlocks": [
+      {
+        "id": "inputMethod",
+        "type": "dropdown",
+        "title": "Select Input Method",
+        "options": [
+          {
+            "label": "url",
+            "value": "url"
+          },
+          {
+            "label": "upload",
+            "value": "upload"
+          }
+        ]
+      },
+      {
+        "id": "filePath",
+        "type": "short-input",
+        "title": "PDF Document URL",
+        "placeholder": "Enter full URL to a PDF document (https://example.com/document.pdf)"
+      },
+      {
+        "id": "fileUpload",
+        "type": "file-upload",
+        "title": "Upload PDF"
+      },
+      {
+        "id": "resultType",
+        "type": "dropdown",
+        "title": "Output Format",
+        "options": [
+          {
+            "label": "markdown",
+            "value": "markdown"
+          },
+          {
+            "label": "text",
+            "value": "text"
+          },
+          {
+            "label": "json",
+            "value": "json"
+          }
+        ]
+      },
+      {
+        "id": "pages",
+        "type": "short-input",
+        "title": "Specific Pages",
+        "placeholder": "e.g. 0,1,2 (leave empty for all pages)"
+      },
+      {
+        "id": "apiKey",
+        "type": "short-input",
+        "title": "API Key",
+        "placeholder": "Enter your Mistral API key",
+        "password": true
+      }
+    ],
+    "tools": {
+      "access": [
+        "mistral_parser"
+      ],
+      "config": {
+        "tool": "mistral_parser"
+      }
+    },
+    "inputs": {
+      "inputMethod": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "content": {
+        "type": "string"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "mistral_parser",
+      "name": "Mistral Parser",
+      "description": "Mistral Parser (Legacy) parser operation",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "mistral_parse",
+        "operation": "mistral_parser"
+      }
+    }
+  ]
+}

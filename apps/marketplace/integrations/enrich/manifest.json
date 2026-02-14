@@ -1,0 +1,867 @@
+{
+  "id": "enrich",
+  "name": "Enrich",
+  "version": "1.0.0",
+  "description": "B2B data enrichment and LinkedIn intelligence with Enrich.so",
+  "icon": "EnrichSoIcon",
+  "block": {
+    "type": "enrich",
+    "name": "Enrich",
+    "description": "B2B data enrichment and LinkedIn intelligence with Enrich.so",
+    "longDescription": "Access real-time B2B data intelligence with Enrich.so. Enrich profiles from email addresses, find work emails from LinkedIn, verify email deliverability, search for people and companies, and analyze LinkedIn post engagement.",
+    "docsLink": "https://docs.enrich.so/",
+    "category": "tools",
+    "bgColor": "#E5E5E6",
+    "icon": "EnrichSoIcon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Email to Profile",
+            "value": "email_to_profile"
+          },
+          {
+            "label": "Email to Person (Lite)",
+            "value": "email_to_person_lite"
+          },
+          {
+            "label": "LinkedIn Profile Enrichment",
+            "value": "linkedin_profile"
+          },
+          {
+            "label": "Find Email",
+            "value": "find_email"
+          },
+          {
+            "label": "LinkedIn to Work Email",
+            "value": "linkedin_to_work_email"
+          },
+          {
+            "label": "LinkedIn to Personal Email",
+            "value": "linkedin_to_personal_email"
+          },
+          {
+            "label": "Phone Finder (LinkedIn)",
+            "value": "phone_finder"
+          },
+          {
+            "label": "Email to Phone",
+            "value": "email_to_phone"
+          },
+          {
+            "label": "Verify Email",
+            "value": "verify_email"
+          },
+          {
+            "label": "Disposable Email Check",
+            "value": "disposable_email_check"
+          },
+          {
+            "label": "Email to IP",
+            "value": "email_to_ip"
+          },
+          {
+            "label": "IP to Company",
+            "value": "ip_to_company"
+          },
+          {
+            "label": "Company Lookup",
+            "value": "company_lookup"
+          },
+          {
+            "label": "Company Funding & Traffic",
+            "value": "company_funding"
+          },
+          {
+            "label": "Company Revenue",
+            "value": "company_revenue"
+          },
+          {
+            "label": "Search People",
+            "value": "search_people"
+          },
+          {
+            "label": "Search Company",
+            "value": "search_company"
+          },
+          {
+            "label": "Search Company Employees",
+            "value": "search_company_employees"
+          },
+          {
+            "label": "Search Similar Companies",
+            "value": "search_similar_companies"
+          },
+          {
+            "label": "Sales Pointer (People)",
+            "value": "sales_pointer_people"
+          },
+          {
+            "label": "Search Posts",
+            "value": "search_posts"
+          },
+          {
+            "label": "Get Post Details",
+            "value": "get_post_details"
+          },
+          {
+            "label": "Search Post Reactions",
+            "value": "search_post_reactions"
+          },
+          {
+            "label": "Search Post Comments",
+            "value": "search_post_comments"
+          },
+          {
+            "label": "Search People Activities",
+            "value": "search_people_activities"
+          },
+          {
+            "label": "Search Company Activities",
+            "value": "search_company_activities"
+          },
+          {
+            "label": "Reverse Hash Lookup",
+            "value": "reverse_hash_lookup"
+          },
+          {
+            "label": "Search Logo",
+            "value": "search_logo"
+          },
+          {
+            "label": "Check Credits",
+            "value": "check_credits"
+          }
+        ]
+      },
+      {
+        "id": "apiKey",
+        "type": "short-input",
+        "title": "Enrich API Key",
+        "placeholder": "Enter your Enrich.so API key",
+        "password": true
+      },
+      {
+        "id": "email",
+        "type": "short-input",
+        "title": "Email Address",
+        "placeholder": "john.doe@company.com"
+      },
+      {
+        "id": "inRealtime",
+        "type": "switch",
+        "title": "Fetch Fresh Data",
+        "mode": "advanced"
+      },
+      {
+        "id": "linkedinUrl",
+        "type": "short-input",
+        "title": "LinkedIn Profile URL",
+        "placeholder": "linkedin.com/in/williamhgates"
+      },
+      {
+        "id": "fullName",
+        "type": "short-input",
+        "title": "Full Name",
+        "placeholder": "John Doe"
+      },
+      {
+        "id": "companyDomain",
+        "type": "short-input",
+        "title": "Company Domain",
+        "placeholder": "example.com"
+      },
+      {
+        "id": "ip",
+        "type": "short-input",
+        "title": "IP Address",
+        "placeholder": "86.92.60.221"
+      },
+      {
+        "id": "companyName",
+        "type": "short-input",
+        "title": "Company Name",
+        "placeholder": "Google"
+      },
+      {
+        "id": "domain",
+        "type": "short-input",
+        "title": "Domain",
+        "placeholder": "google.com"
+      },
+      {
+        "id": "firstName",
+        "type": "short-input",
+        "title": "First Name",
+        "placeholder": "John"
+      },
+      {
+        "id": "lastName",
+        "type": "short-input",
+        "title": "Last Name",
+        "placeholder": "Doe"
+      },
+      {
+        "id": "subTitle",
+        "type": "short-input",
+        "title": "Job Title",
+        "placeholder": "Software Engineer"
+      },
+      {
+        "id": "locationCountry",
+        "type": "short-input",
+        "title": "Country",
+        "placeholder": "United States"
+      },
+      {
+        "id": "locationCity",
+        "type": "short-input",
+        "title": "City",
+        "placeholder": "San Francisco"
+      },
+      {
+        "id": "industry",
+        "type": "short-input",
+        "title": "Industry",
+        "placeholder": "Technology"
+      },
+      {
+        "id": "currentJobTitles",
+        "type": "code",
+        "title": "Current Job Titles (JSON)",
+        "placeholder": "["
+      },
+      {
+        "id": "skills",
+        "type": "code",
+        "title": "Skills (JSON)",
+        "placeholder": "["
+      },
+      {
+        "id": "searchCompanyName",
+        "type": "short-input",
+        "title": "Company Name",
+        "placeholder": "Google"
+      },
+      {
+        "id": "industries",
+        "type": "code",
+        "title": "Industries (JSON)",
+        "placeholder": "["
+      },
+      {
+        "id": "staffCountMin",
+        "type": "short-input",
+        "title": "Min Employees",
+        "placeholder": "50"
+      },
+      {
+        "id": "staffCountMax",
+        "type": "short-input",
+        "title": "Max Employees",
+        "placeholder": "500"
+      },
+      {
+        "id": "companyIds",
+        "type": "code",
+        "title": "Company IDs (JSON)",
+        "placeholder": "[12345, 67890]"
+      },
+      {
+        "id": "country",
+        "type": "short-input",
+        "title": "Country",
+        "placeholder": "United States"
+      },
+      {
+        "id": "city",
+        "type": "short-input",
+        "title": "City",
+        "placeholder": "San Francisco"
+      },
+      {
+        "id": "jobTitles",
+        "type": "code",
+        "title": "Job Titles (JSON)",
+        "placeholder": "["
+      },
+      {
+        "id": "linkedinCompanyUrl",
+        "type": "short-input",
+        "title": "LinkedIn Company URL",
+        "placeholder": "linkedin.com/company/google"
+      },
+      {
+        "id": "accountLocation",
+        "type": "code",
+        "title": "Locations (JSON)",
+        "placeholder": "["
+      },
+      {
+        "id": "employeeSizeType",
+        "type": "dropdown",
+        "title": "Employee Size Filter Type",
+        "mode": "advanced",
+        "options": [
+          {
+            "label": "Range",
+            "value": "RANGE"
+          },
+          {
+            "label": "Exact",
+            "value": "EXACT"
+          }
+        ]
+      },
+      {
+        "id": "employeeSizeRange",
+        "type": "code",
+        "title": "Employee Size Range (JSON)",
+        "placeholder": "[{"
+      },
+      {
+        "id": "num",
+        "type": "short-input",
+        "title": "Results Per Page",
+        "placeholder": "10"
+      },
+      {
+        "id": "filters",
+        "type": "code",
+        "title": "Filters (JSON)",
+        "placeholder": "[{"
+      },
+      {
+        "id": "keywords",
+        "type": "short-input",
+        "title": "Keywords",
+        "placeholder": "AI automation"
+      },
+      {
+        "id": "datePosted",
+        "type": "dropdown",
+        "title": "Date Posted",
+        "options": [
+          {
+            "label": "Past 24 hours",
+            "value": "past_24_hours"
+          },
+          {
+            "label": "Past week",
+            "value": "past_week"
+          },
+          {
+            "label": "Past month",
+            "value": "past_month"
+          }
+        ]
+      },
+      {
+        "id": "postUrl",
+        "type": "short-input",
+        "title": "LinkedIn Post URL",
+        "placeholder": "https://www.linkedin.com/posts/..."
+      },
+      {
+        "id": "postUrn",
+        "type": "short-input",
+        "title": "Post URN",
+        "placeholder": "urn:li:activity:7231931952839196672"
+      },
+      {
+        "id": "reactionType",
+        "type": "dropdown",
+        "title": "Reaction Type",
+        "options": [
+          {
+            "label": "All",
+            "value": "all"
+          },
+          {
+            "label": "Like",
+            "value": "like"
+          },
+          {
+            "label": "Love",
+            "value": "love"
+          },
+          {
+            "label": "Celebrate",
+            "value": "celebrate"
+          },
+          {
+            "label": "Insightful",
+            "value": "insightful"
+          },
+          {
+            "label": "Funny",
+            "value": "funny"
+          }
+        ]
+      },
+      {
+        "id": "profileId",
+        "type": "short-input",
+        "title": "Profile ID",
+        "placeholder": "ACoAAC1wha0BhoDIRAHrP5rgzVDyzmSdnl-KuEk"
+      },
+      {
+        "id": "activityType",
+        "type": "dropdown",
+        "title": "Activity Type",
+        "options": [
+          {
+            "label": "Posts",
+            "value": "posts"
+          },
+          {
+            "label": "Comments",
+            "value": "comments"
+          },
+          {
+            "label": "Articles",
+            "value": "articles"
+          }
+        ]
+      },
+      {
+        "id": "companyId",
+        "type": "short-input",
+        "title": "Company ID",
+        "placeholder": "100746430"
+      },
+      {
+        "id": "offset",
+        "type": "short-input",
+        "title": "Offset",
+        "placeholder": "0",
+        "mode": "advanced"
+      },
+      {
+        "id": "hash",
+        "type": "short-input",
+        "title": "MD5 Hash",
+        "placeholder": "5f0efb20de5ecfedbe0bf5e7c12353fe"
+      },
+      {
+        "id": "page",
+        "type": "short-input",
+        "title": "Page Number",
+        "placeholder": "1"
+      },
+      {
+        "id": "pageSize",
+        "type": "short-input",
+        "title": "Results Per Page",
+        "placeholder": "20"
+      },
+      {
+        "id": "paginationToken",
+        "type": "short-input",
+        "title": "Pagination Token",
+        "placeholder": "Token from previous response",
+        "mode": "advanced"
+      }
+    ],
+    "tools": {
+      "access": [
+        "enrich_check_credits",
+        "enrich_email_to_profile",
+        "enrich_email_to_person_lite",
+        "enrich_linkedin_profile",
+        "enrich_find_email",
+        "enrich_linkedin_to_work_email",
+        "enrich_linkedin_to_personal_email",
+        "enrich_phone_finder",
+        "enrich_email_to_phone",
+        "enrich_verify_email",
+        "enrich_disposable_email_check",
+        "enrich_email_to_ip",
+        "enrich_ip_to_company",
+        "enrich_company_lookup",
+        "enrich_company_funding",
+        "enrich_company_revenue",
+        "enrich_search_people",
+        "enrich_search_company",
+        "enrich_search_company_employees",
+        "enrich_search_similar_companies",
+        "enrich_sales_pointer_people",
+        "enrich_search_posts",
+        "enrich_get_post_details",
+        "enrich_search_post_reactions",
+        "enrich_search_post_comments",
+        "enrich_search_people_activities",
+        "enrich_search_company_activities",
+        "enrich_reverse_hash_lookup",
+        "enrich_search_logo"
+      ],
+      "config": {
+        "tool": "enrich__{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "boolean"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "enrich_check_credits",
+      "name": "Enrich Check Credits",
+      "description": "Check your Enrich API credit usage and remaining balance.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "enrich",
+        "operation": "enrich_check_credits"
+      }
+    },
+    {
+      "id": "enrich_company_funding",
+      "name": "Enrich Company Funding",
+      "description": "Retrieve company funding history, traffic metrics, and executive information by domain.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "enrich",
+        "operation": "enrich_company_funding"
+      }
+    },
+    {
+      "id": "enrich_company_lookup",
+      "name": "Enrich Company Lookup",
+      "description": "Look up comprehensive company information by name or domain including funding, location, and social profiles.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "enrich",
+        "operation": "enrich_company_lookup"
+      }
+    },
+    {
+      "id": "enrich_company_revenue",
+      "name": "Enrich Company Revenue",
+      "description": "Retrieve company revenue data, CEO information, and competitive analysis by domain.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "enrich",
+        "operation": "enrich_company_revenue"
+      }
+    },
+    {
+      "id": "enrich_disposable_email_check",
+      "name": "Enrich Disposable Email Check",
+      "description": "Check if an email address is from a disposable or temporary email provider. Returns a score and validation details.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "enrich",
+        "operation": "enrich_disposable_email_check"
+      }
+    },
+    {
+      "id": "enrich_email_to_ip",
+      "name": "Enrich Email to IP",
+      "description": "Discover an IP address associated with an email address.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "enrich",
+        "operation": "enrich_email_to_ip"
+      }
+    },
+    {
+      "id": "enrich_email_to_person_lite",
+      "name": "Enrich Email to Person Lite",
+      "description": "Retrieve basic LinkedIn profile information from an email address. A lighter version with essential data only.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "enrich",
+        "operation": "enrich_email_to_person_lite"
+      }
+    },
+    {
+      "id": "enrich_email_to_phone",
+      "name": "Enrich Email to Phone",
+      "description": "Find a phone number associated with an email address.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "enrich",
+        "operation": "enrich_email_to_phone"
+      }
+    },
+    {
+      "id": "enrich_email_to_profile",
+      "name": "Enrich Email to Profile",
+      "description": "Retrieve detailed LinkedIn profile information using an email address including work history, education, and skills.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "enrich",
+        "operation": "enrich_email_to_profile"
+      }
+    },
+    {
+      "id": "enrich_find_email",
+      "name": "Enrich Find Email",
+      "description": "Find a person",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "enrich",
+        "operation": "enrich_find_email"
+      }
+    },
+    {
+      "id": "enrich_get_post_details",
+      "name": "Enrich Get Post Details",
+      "description": "Get detailed information about a LinkedIn post by URL.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "enrich",
+        "operation": "enrich_get_post_details"
+      }
+    },
+    {
+      "id": "enrich_ip_to_company",
+      "name": "Enrich IP to Company",
+      "description": "Identify a company from an IP address with detailed firmographic information.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "enrich",
+        "operation": "enrich_ip_to_company"
+      }
+    },
+    {
+      "id": "enrich_linkedin_profile",
+      "name": "Enrich LinkedIn Profile",
+      "description": "Enrich a LinkedIn profile URL with detailed information including positions, education, and social metrics.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "enrich",
+        "operation": "enrich_linkedin_profile"
+      }
+    },
+    {
+      "id": "enrich_linkedin_to_personal_email",
+      "name": "Enrich LinkedIn to Personal Email",
+      "description": "Find personal email address from a LinkedIn profile URL.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "enrich",
+        "operation": "enrich_linkedin_to_personal_email"
+      }
+    },
+    {
+      "id": "enrich_linkedin_to_work_email",
+      "name": "Enrich LinkedIn to Work Email",
+      "description": "Find a work email address from a LinkedIn profile URL.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "enrich",
+        "operation": "enrich_linkedin_to_work_email"
+      }
+    },
+    {
+      "id": "enrich_phone_finder",
+      "name": "Enrich Phone Finder",
+      "description": "Find a phone number from a LinkedIn profile URL.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "enrich",
+        "operation": "enrich_phone_finder"
+      }
+    },
+    {
+      "id": "enrich_reverse_hash_lookup",
+      "name": "Enrich Reverse Hash Lookup",
+      "description": "Convert an MD5 email hash back to the original email address and display name.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "enrich",
+        "operation": "enrich_reverse_hash_lookup"
+      }
+    },
+    {
+      "id": "enrich_sales_pointer_people",
+      "name": "Enrich Sales Pointer People",
+      "description": "Advanced people search with complex filters for location, company size, seniority, experience, and more.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "enrich",
+        "operation": "enrich_sales_pointer_people"
+      }
+    },
+    {
+      "id": "enrich_search_company",
+      "name": "Enrich Search Company",
+      "description": "Search for companies by various criteria including name, industry, location, and size.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "enrich",
+        "operation": "enrich_search_company"
+      }
+    },
+    {
+      "id": "enrich_search_company_activities",
+      "name": "Enrich Search Company Activities",
+      "description": "Get a company",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "enrich",
+        "operation": "enrich_search_company_activities"
+      }
+    },
+    {
+      "id": "enrich_search_company_employees",
+      "name": "Enrich Search Company Employees",
+      "description": "Search for employees within specific companies by location and job title.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "enrich",
+        "operation": "enrich_search_company_employees"
+      }
+    },
+    {
+      "id": "enrich_search_logo",
+      "name": "Enrich Search Logo",
+      "description": "Get a company logo image URL by domain.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "enrich",
+        "operation": "enrich_search_logo"
+      }
+    },
+    {
+      "id": "enrich_search_people",
+      "name": "Enrich Search People",
+      "description": "Search for professionals by various criteria including name, title, skills, education, and company.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "enrich",
+        "operation": "enrich_search_people"
+      }
+    },
+    {
+      "id": "enrich_search_people_activities",
+      "name": "Enrich Search People Activities",
+      "description": "Get a person",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "enrich",
+        "operation": "enrich_search_people_activities"
+      }
+    },
+    {
+      "id": "enrich_search_posts",
+      "name": "Enrich Search Posts",
+      "description": "Search LinkedIn posts by keywords with date filtering.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "enrich",
+        "operation": "enrich_search_posts"
+      }
+    },
+    {
+      "id": "enrich_search_post_comments",
+      "name": "Enrich Search Post Comments",
+      "description": "Get comments on a LinkedIn post.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "enrich",
+        "operation": "enrich_search_post_comments"
+      }
+    },
+    {
+      "id": "enrich_search_post_reactions",
+      "name": "Enrich Search Post Reactions",
+      "description": "Get reactions on a LinkedIn post with filtering by reaction type.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "enrich",
+        "operation": "enrich_search_post_reactions"
+      }
+    },
+    {
+      "id": "enrich_search_similar_companies",
+      "name": "Enrich Search Similar Companies",
+      "description": "Find companies similar to a given company by LinkedIn URL with filters for location and size.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "enrich",
+        "operation": "enrich_search_similar_companies"
+      }
+    },
+    {
+      "id": "enrich_verify_email",
+      "name": "Enrich Verify Email",
+      "description": "Verify an email address for deliverability, including catch-all detection and provider identification.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "enrich",
+        "operation": "enrich_verify_email"
+      }
+    }
+  ]
+}

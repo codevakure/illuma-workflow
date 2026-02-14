@@ -1,0 +1,159 @@
+{
+  "id": "airweave",
+  "name": "Airweave",
+  "version": "1.0.0",
+  "description": "Search your synced data collections",
+  "icon": "AirweaveIcon",
+  "block": {
+    "type": "airweave",
+    "name": "Airweave",
+    "description": "Search your synced data collections",
+    "longDescription": "Search across your synced data sources using Airweave. Supports semantic search with hybrid, neural, or keyword retrieval strategies. Optionally generate AI-powered answers from search results.",
+    "docsLink": "https://docs.airweave.ai",
+    "category": "tools",
+    "bgColor": "#6366F1",
+    "icon": "AirweaveIcon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "collectionId",
+        "title": "Collection ID",
+        "type": "short-input",
+        "placeholder": "Enter your collection readable ID...",
+        "required": true
+      },
+      {
+        "id": "query",
+        "title": "Search Query",
+        "type": "long-input",
+        "placeholder": "Enter your search query...",
+        "required": true
+      },
+      {
+        "id": "limit",
+        "title": "Max Results",
+        "type": "dropdown",
+        "default": "25",
+        "options": [
+          { "label": "10", "value": "10" },
+          { "label": "25", "value": "25" },
+          { "label": "50", "value": "50" },
+          { "label": "100", "value": "100" }
+        ]
+      },
+      {
+        "id": "retrievalStrategy",
+        "title": "Retrieval Strategy",
+        "type": "dropdown",
+        "default": "hybrid",
+        "options": [
+          { "label": "Hybrid", "value": "hybrid" },
+          { "label": "Neural", "value": "neural" },
+          { "label": "Keyword", "value": "keyword" }
+        ]
+      },
+      {
+        "id": "expandQuery",
+        "title": "Expand Query",
+        "type": "switch",
+        "default": false
+      },
+      {
+        "id": "rerank",
+        "title": "Rerank Results",
+        "type": "switch",
+        "default": false
+      },
+      {
+        "id": "generateAnswer",
+        "title": "Generate Answer",
+        "type": "switch",
+        "default": false
+      },
+      {
+        "id": "apiKey",
+        "title": "API Key",
+        "type": "short-input",
+        "password": true,
+        "placeholder": "Enter your Airweave API key",
+        "required": true
+      }
+    ],
+    "tools": {
+      "access": ["airweave_search"],
+      "config": {
+        "tool": "airweave_search"
+      }
+    },
+    "inputs": {
+      "collectionId": { "type": "string", "description": "Airweave collection readable ID" },
+      "query": { "type": "string", "description": "Search query text" },
+      "apiKey": { "type": "string", "description": "Airweave API key" },
+      "limit": { "type": "number", "description": "Maximum number of results" },
+      "retrievalStrategy": { "type": "string", "description": "Retrieval strategy (hybrid/neural/keyword)" },
+      "expandQuery": { "type": "boolean", "description": "Generate query variations to improve recall" },
+      "rerank": { "type": "boolean", "description": "Rerank results with LLM for improved relevance" },
+      "generateAnswer": { "type": "boolean", "description": "Generate AI-powered answer from results" }
+    },
+    "outputs": {
+      "results": { "type": "json", "description": "Search results with content and metadata" },
+      "completion": { "type": "string", "description": "AI-generated answer (when generateAnswer is enabled)" }
+    }
+  },
+  "tools": [
+    {
+      "id": "airweave_search",
+      "name": "Airweave Search",
+      "description": "Search your synced data collections using Airweave. Supports semantic search with hybrid, neural, or keyword retrieval strategies.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {
+        "apiKey": {
+          "type": "string",
+          "required": true,
+          "visibility": "user-only",
+          "description": "Airweave API Key for authentication"
+        },
+        "collectionId": {
+          "type": "string",
+          "required": true,
+          "description": "The readable ID of the collection to search"
+        },
+        "query": {
+          "type": "string",
+          "required": true,
+          "description": "The search query text"
+        },
+        "limit": {
+          "type": "number",
+          "required": false,
+          "description": "Maximum number of results to return"
+        },
+        "retrievalStrategy": {
+          "type": "string",
+          "required": false,
+          "description": "Retrieval strategy: hybrid, neural, or keyword"
+        },
+        "expandQuery": {
+          "type": "boolean",
+          "required": false,
+          "description": "Generate query variations to improve recall"
+        },
+        "rerank": {
+          "type": "boolean",
+          "required": false,
+          "description": "Reorder results for improved relevance using LLM"
+        },
+        "generateAnswer": {
+          "type": "boolean",
+          "required": false,
+          "description": "Generate a natural-language answer from results"
+        }
+      },
+      "proxy": {
+        "handler": "airweave",
+        "operation": "search"
+      }
+    }
+  ]
+}

@@ -1,0 +1,192 @@
+{
+  "id": "servicenow",
+  "name": "ServiceNow",
+  "version": "1.0.0",
+  "description": "Create, read, update, and delete ServiceNow records",
+  "icon": "ServiceNowIcon",
+  "block": {
+    "type": "servicenow",
+    "name": "ServiceNow",
+    "description": "Create, read, update, and delete ServiceNow records",
+    "longDescription": "Integrate ServiceNow into your workflow. Create, read, update, and delete records in any ServiceNow table including incidents, tasks, change requests, users, and more.",
+    "docsLink": "https://docs.sim.ai/tools/servicenow",
+    "category": "tools",
+    "bgColor": "#032D42",
+    "icon": "ServiceNowIcon",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Create Record",
+            "value": "servicenow_create_record"
+          },
+          {
+            "label": "Read Records",
+            "value": "servicenow_read_record"
+          },
+          {
+            "label": "Update Record",
+            "value": "servicenow_update_record"
+          },
+          {
+            "label": "Delete Record",
+            "value": "servicenow_delete_record"
+          }
+        ]
+      },
+      {
+        "id": "instanceUrl",
+        "type": "short-input",
+        "title": "Instance URL",
+        "placeholder": "https://instance.service-now.com"
+      },
+      {
+        "id": "username",
+        "type": "short-input",
+        "title": "Username",
+        "placeholder": "Enter your ServiceNow username"
+      },
+      {
+        "id": "password",
+        "type": "short-input",
+        "title": "Password",
+        "placeholder": "Enter your ServiceNow password",
+        "password": true
+      },
+      {
+        "id": "tableName",
+        "type": "short-input",
+        "title": "Table Name",
+        "placeholder": "incident, task, sys_user, etc."
+      },
+      {
+        "id": "fields",
+        "type": "code",
+        "title": "Fields (JSON)",
+        "placeholder": "{\\n  "
+      },
+      {
+        "id": "sysId",
+        "type": "short-input",
+        "title": "Record sys_id",
+        "placeholder": "Specific record sys_id (optional)"
+      },
+      {
+        "id": "number",
+        "type": "short-input",
+        "title": "Record Number",
+        "placeholder": "e.g., INC0010001 (optional)"
+      },
+      {
+        "id": "query",
+        "type": "short-input",
+        "title": "Query String",
+        "placeholder": "active=true^priority=1"
+      },
+      {
+        "id": "limit",
+        "type": "short-input",
+        "title": "Limit",
+        "placeholder": "10"
+      },
+      {
+        "id": "fields",
+        "type": "short-input",
+        "title": "Fields to Return",
+        "placeholder": "number,short_description,priority"
+      },
+      {
+        "id": "sysId",
+        "type": "short-input",
+        "title": "Record sys_id",
+        "placeholder": "Record sys_id to update"
+      },
+      {
+        "id": "fields",
+        "type": "code",
+        "title": "Fields to Update (JSON)",
+        "placeholder": "{\\n  "
+      },
+      {
+        "id": "sysId",
+        "type": "short-input",
+        "title": "Record sys_id",
+        "placeholder": "Record sys_id to delete"
+      }
+    ],
+    "tools": {
+      "access": [
+        "servicenow_create_record",
+        "servicenow_read_record",
+        "servicenow_update_record",
+        "servicenow_delete_record"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "record": {
+        "type": "json"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "servicenow_create_record",
+      "name": "Create ServiceNow Record",
+      "description": "Create a new record in a ServiceNow table",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "servicenow",
+        "operation": "servicenow_create_record"
+      }
+    },
+    {
+      "id": "servicenow_delete_record",
+      "name": "Delete ServiceNow Record",
+      "description": "Delete a record from a ServiceNow table",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "servicenow",
+        "operation": "servicenow_delete_record"
+      }
+    },
+    {
+      "id": "servicenow_read_record",
+      "name": "Read ServiceNow Records",
+      "description": "Read records from a ServiceNow table",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "servicenow",
+        "operation": "servicenow_read_record"
+      }
+    },
+    {
+      "id": "servicenow_update_record",
+      "name": "Update ServiceNow Record",
+      "description": "Update an existing record in a ServiceNow table",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "servicenow",
+        "operation": "servicenow_update_record"
+      }
+    }
+  ]
+}

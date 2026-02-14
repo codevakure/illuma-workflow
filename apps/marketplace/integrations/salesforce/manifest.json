@@ -1,0 +1,893 @@
+{
+  "id": "salesforce",
+  "name": "Salesforce",
+  "version": "1.0.0",
+  "description": "Interact with Salesforce CRM",
+  "icon": "SalesforceIcon",
+  "block": {
+    "type": "salesforce",
+    "name": "Salesforce",
+    "description": "Interact with Salesforce CRM",
+    "longDescription": "Integrate Salesforce into your workflow. Manage accounts, contacts, leads, opportunities, cases, and tasks with powerful automation capabilities.",
+    "docsLink": "https://docs.sim.ai/tools/salesforce",
+    "category": "tools",
+    "bgColor": "#E0E0E0",
+    "icon": "SalesforceIcon",
+    "authMode": "oauth",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Get Accounts",
+            "value": "get_accounts"
+          },
+          {
+            "label": "Create Account",
+            "value": "create_account"
+          },
+          {
+            "label": "Update Account",
+            "value": "update_account"
+          },
+          {
+            "label": "Delete Account",
+            "value": "delete_account"
+          },
+          {
+            "label": "Get Contacts",
+            "value": "get_contacts"
+          },
+          {
+            "label": "Create Contact",
+            "value": "create_contact"
+          },
+          {
+            "label": "Update Contact",
+            "value": "update_contact"
+          },
+          {
+            "label": "Delete Contact",
+            "value": "delete_contact"
+          },
+          {
+            "label": "Get Leads",
+            "value": "get_leads"
+          },
+          {
+            "label": "Create Lead",
+            "value": "create_lead"
+          },
+          {
+            "label": "Update Lead",
+            "value": "update_lead"
+          },
+          {
+            "label": "Delete Lead",
+            "value": "delete_lead"
+          },
+          {
+            "label": "Get Opportunities",
+            "value": "get_opportunities"
+          },
+          {
+            "label": "Create Opportunity",
+            "value": "create_opportunity"
+          },
+          {
+            "label": "Update Opportunity",
+            "value": "update_opportunity"
+          },
+          {
+            "label": "Delete Opportunity",
+            "value": "delete_opportunity"
+          },
+          {
+            "label": "Get Cases",
+            "value": "get_cases"
+          },
+          {
+            "label": "Create Case",
+            "value": "create_case"
+          },
+          {
+            "label": "Update Case",
+            "value": "update_case"
+          },
+          {
+            "label": "Delete Case",
+            "value": "delete_case"
+          },
+          {
+            "label": "Get Tasks",
+            "value": "get_tasks"
+          },
+          {
+            "label": "Create Task",
+            "value": "create_task"
+          },
+          {
+            "label": "Update Task",
+            "value": "update_task"
+          },
+          {
+            "label": "Delete Task",
+            "value": "delete_task"
+          },
+          {
+            "label": "List Reports",
+            "value": "list_reports"
+          },
+          {
+            "label": "Get Report",
+            "value": "get_report"
+          },
+          {
+            "label": "Run Report",
+            "value": "run_report"
+          },
+          {
+            "label": "List Report Types",
+            "value": "list_report_types"
+          },
+          {
+            "label": "List Dashboards",
+            "value": "list_dashboards"
+          },
+          {
+            "label": "Get Dashboard",
+            "value": "get_dashboard"
+          },
+          {
+            "label": "Refresh Dashboard",
+            "value": "refresh_dashboard"
+          },
+          {
+            "label": "Run SOQL Query",
+            "value": "query"
+          },
+          {
+            "label": "Get More Query Results",
+            "value": "query_more"
+          },
+          {
+            "label": "Describe Object",
+            "value": "describe_object"
+          },
+          {
+            "label": "List Objects",
+            "value": "list_objects"
+          }
+        ]
+      },
+      {
+        "id": "credential",
+        "type": "oauth-input",
+        "title": "Salesforce Account",
+        "placeholder": "Select Salesforce account"
+      },
+      {
+        "id": "fields",
+        "type": "short-input",
+        "title": "Fields to Return",
+        "placeholder": "Comma-separated fields"
+      },
+      {
+        "id": "limit",
+        "type": "short-input",
+        "title": "Limit",
+        "placeholder": "Max results (default: 100)"
+      },
+      {
+        "id": "orderBy",
+        "type": "short-input",
+        "title": "Order By",
+        "placeholder": "Field and direction (e.g., "
+      },
+      {
+        "id": "accountId",
+        "type": "short-input",
+        "title": "Account ID",
+        "placeholder": "Salesforce Account ID"
+      },
+      {
+        "id": "name",
+        "type": "short-input",
+        "title": "Name",
+        "placeholder": "Name"
+      },
+      {
+        "id": "type",
+        "type": "short-input",
+        "title": "Type",
+        "placeholder": "Type"
+      },
+      {
+        "id": "industry",
+        "type": "short-input",
+        "title": "Industry",
+        "placeholder": "Industry"
+      },
+      {
+        "id": "phone",
+        "type": "short-input",
+        "title": "Phone",
+        "placeholder": "Phone"
+      },
+      {
+        "id": "website",
+        "type": "short-input",
+        "title": "Website",
+        "placeholder": "Website"
+      },
+      {
+        "id": "contactId",
+        "type": "short-input",
+        "title": "Contact ID",
+        "placeholder": "Contact ID"
+      },
+      {
+        "id": "lastName",
+        "type": "short-input",
+        "title": "Last Name",
+        "placeholder": "Last name"
+      },
+      {
+        "id": "firstName",
+        "type": "short-input",
+        "title": "First Name",
+        "placeholder": "First name"
+      },
+      {
+        "id": "email",
+        "type": "short-input",
+        "title": "Email",
+        "placeholder": "Email"
+      },
+      {
+        "id": "title",
+        "type": "short-input",
+        "title": "Job Title",
+        "placeholder": "Job title"
+      },
+      {
+        "id": "leadId",
+        "type": "short-input",
+        "title": "Lead ID",
+        "placeholder": "Lead ID"
+      },
+      {
+        "id": "company",
+        "type": "short-input",
+        "title": "Company",
+        "placeholder": "Company name"
+      },
+      {
+        "id": "status",
+        "type": "short-input",
+        "title": "Status",
+        "placeholder": "Status"
+      },
+      {
+        "id": "leadSource",
+        "type": "short-input",
+        "title": "Lead Source",
+        "placeholder": "Lead source"
+      },
+      {
+        "id": "opportunityId",
+        "type": "short-input",
+        "title": "Opportunity ID",
+        "placeholder": "Opportunity ID"
+      },
+      {
+        "id": "stageName",
+        "type": "short-input",
+        "title": "Stage Name",
+        "placeholder": "Stage name"
+      },
+      {
+        "id": "closeDate",
+        "type": "short-input",
+        "title": "Close Date",
+        "placeholder": "YYYY-MM-DD (required for create)"
+      },
+      {
+        "id": "amount",
+        "type": "short-input",
+        "title": "Amount",
+        "placeholder": "Deal amount"
+      },
+      {
+        "id": "probability",
+        "type": "short-input",
+        "title": "Probability",
+        "placeholder": "Win probability (0-100)"
+      },
+      {
+        "id": "caseId",
+        "type": "short-input",
+        "title": "Case ID",
+        "placeholder": "Case ID"
+      },
+      {
+        "id": "subject",
+        "type": "short-input",
+        "title": "Subject",
+        "placeholder": "Subject"
+      },
+      {
+        "id": "priority",
+        "type": "short-input",
+        "title": "Priority",
+        "placeholder": "Priority"
+      },
+      {
+        "id": "origin",
+        "type": "short-input",
+        "title": "Origin",
+        "placeholder": "Origin (e.g., Phone, Email, Web)"
+      },
+      {
+        "id": "taskId",
+        "type": "short-input",
+        "title": "Task ID",
+        "placeholder": "Task ID"
+      },
+      {
+        "id": "activityDate",
+        "type": "short-input",
+        "title": "Due Date",
+        "placeholder": "YYYY-MM-DD"
+      },
+      {
+        "id": "whoId",
+        "type": "short-input",
+        "title": "Related Contact/Lead ID",
+        "placeholder": "Contact or Lead ID"
+      },
+      {
+        "id": "whatId",
+        "type": "short-input",
+        "title": "Related Account/Opportunity ID",
+        "placeholder": "Account or Opportunity ID"
+      },
+      {
+        "id": "reportId",
+        "type": "short-input",
+        "title": "Report ID",
+        "placeholder": "Report ID"
+      },
+      {
+        "id": "folderName",
+        "type": "short-input",
+        "title": "Folder Name",
+        "placeholder": "Filter by folder name"
+      },
+      {
+        "id": "searchTerm",
+        "type": "short-input",
+        "title": "Search Term",
+        "placeholder": "Search reports by name"
+      },
+      {
+        "id": "includeDetails",
+        "type": "short-input",
+        "title": "Include Details",
+        "placeholder": "Include detail rows (true/false)"
+      },
+      {
+        "id": "filters",
+        "type": "long-input",
+        "title": "Report Filters",
+        "placeholder": "JSON array of report filters"
+      },
+      {
+        "id": "dashboardId",
+        "type": "short-input",
+        "title": "Dashboard ID",
+        "placeholder": "Dashboard ID"
+      },
+      {
+        "id": "query",
+        "type": "long-input",
+        "title": "SOQL Query",
+        "placeholder": "SELECT Id, Name FROM Account LIMIT 10"
+      },
+      {
+        "id": "nextRecordsUrl",
+        "type": "short-input",
+        "title": "Next Records URL",
+        "placeholder": "URL from previous query response"
+      },
+      {
+        "id": "objectName",
+        "type": "short-input",
+        "title": "Object Name",
+        "placeholder": "API name (e.g., Account, Lead, Custom_Object__c)"
+      },
+      {
+        "id": "description",
+        "type": "long-input",
+        "title": "Description",
+        "placeholder": "Description"
+      }
+    ],
+    "tools": {
+      "access": [
+        "salesforce_get_accounts",
+        "salesforce_create_account",
+        "salesforce_update_account",
+        "salesforce_delete_account",
+        "salesforce_get_contacts",
+        "salesforce_create_contact",
+        "salesforce_update_contact",
+        "salesforce_delete_contact",
+        "salesforce_get_leads",
+        "salesforce_create_lead",
+        "salesforce_update_lead",
+        "salesforce_delete_lead",
+        "salesforce_get_opportunities",
+        "salesforce_create_opportunity",
+        "salesforce_update_opportunity",
+        "salesforce_delete_opportunity",
+        "salesforce_get_cases",
+        "salesforce_create_case",
+        "salesforce_update_case",
+        "salesforce_delete_case",
+        "salesforce_get_tasks",
+        "salesforce_create_task",
+        "salesforce_update_task",
+        "salesforce_delete_task",
+        "salesforce_list_reports",
+        "salesforce_get_report",
+        "salesforce_run_report",
+        "salesforce_list_report_types",
+        "salesforce_list_dashboards",
+        "salesforce_get_dashboard",
+        "salesforce_refresh_dashboard",
+        "salesforce_query",
+        "salesforce_query_more",
+        "salesforce_describe_object",
+        "salesforce_list_objects"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "boolean"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "salesforce_create_account",
+      "name": "Create Account in Salesforce",
+      "description": "Create a new account in Salesforce CRM",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "salesforce",
+        "operation": "salesforce_create_account"
+      }
+    },
+    {
+      "id": "salesforce_create_case",
+      "name": "Create Case in Salesforce",
+      "description": "Create a new case",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "salesforce",
+        "operation": "salesforce_create_case"
+      }
+    },
+    {
+      "id": "salesforce_create_contact",
+      "name": "Create Contact in Salesforce",
+      "description": "Create a new contact in Salesforce CRM",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "salesforce",
+        "operation": "salesforce_create_contact"
+      }
+    },
+    {
+      "id": "salesforce_create_lead",
+      "name": "Create Lead in Salesforce",
+      "description": "Create a new lead",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "salesforce",
+        "operation": "salesforce_create_lead"
+      }
+    },
+    {
+      "id": "salesforce_create_opportunity",
+      "name": "Create Opportunity in Salesforce",
+      "description": "Create a new opportunity",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "salesforce",
+        "operation": "salesforce_create_opportunity"
+      }
+    },
+    {
+      "id": "salesforce_create_task",
+      "name": "Create Task in Salesforce",
+      "description": "Create a new task",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "salesforce",
+        "operation": "salesforce_create_task"
+      }
+    },
+    {
+      "id": "salesforce_delete_account",
+      "name": "Delete Account from Salesforce",
+      "description": "Delete an account from Salesforce CRM",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "salesforce",
+        "operation": "salesforce_delete_account"
+      }
+    },
+    {
+      "id": "salesforce_delete_case",
+      "name": "Delete Case from Salesforce",
+      "description": "Delete a case",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "salesforce",
+        "operation": "salesforce_delete_case"
+      }
+    },
+    {
+      "id": "salesforce_delete_contact",
+      "name": "Delete Contact from Salesforce",
+      "description": "Delete a contact from Salesforce CRM",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "salesforce",
+        "operation": "salesforce_delete_contact"
+      }
+    },
+    {
+      "id": "salesforce_delete_lead",
+      "name": "Delete Lead from Salesforce",
+      "description": "Delete a lead",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "salesforce",
+        "operation": "salesforce_delete_lead"
+      }
+    },
+    {
+      "id": "salesforce_delete_opportunity",
+      "name": "Delete Opportunity from Salesforce",
+      "description": "Delete an opportunity",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "salesforce",
+        "operation": "salesforce_delete_opportunity"
+      }
+    },
+    {
+      "id": "salesforce_delete_task",
+      "name": "Delete Task from Salesforce",
+      "description": "Delete a task",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "salesforce",
+        "operation": "salesforce_delete_task"
+      }
+    },
+    {
+      "id": "salesforce_describe_object",
+      "name": "Describe Salesforce Object",
+      "description": "Get metadata and field information for a Salesforce object",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "salesforce",
+        "operation": "salesforce_describe_object"
+      }
+    },
+    {
+      "id": "salesforce_get_accounts",
+      "name": "Get Accounts from Salesforce",
+      "description": "Retrieve accounts from Salesforce CRM",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "salesforce",
+        "operation": "salesforce_get_accounts"
+      }
+    },
+    {
+      "id": "salesforce_get_cases",
+      "name": "Get Cases from Salesforce",
+      "description": "Get case(s) from Salesforce",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "salesforce",
+        "operation": "salesforce_get_cases"
+      }
+    },
+    {
+      "id": "salesforce_get_contacts",
+      "name": "Get Contacts from Salesforce",
+      "description": "Get contact(s) from Salesforce - single contact if ID provided, or list if not",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "salesforce",
+        "operation": "salesforce_get_contacts"
+      }
+    },
+    {
+      "id": "salesforce_get_dashboard",
+      "name": "Get Dashboard from Salesforce",
+      "description": "Get details and results for a specific dashboard",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "salesforce",
+        "operation": "salesforce_get_dashboard"
+      }
+    },
+    {
+      "id": "salesforce_get_leads",
+      "name": "Get Leads from Salesforce",
+      "description": "Get lead(s) from Salesforce",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "salesforce",
+        "operation": "salesforce_get_leads"
+      }
+    },
+    {
+      "id": "salesforce_get_opportunities",
+      "name": "Get Opportunities from Salesforce",
+      "description": "Get opportunity(ies) from Salesforce",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "salesforce",
+        "operation": "salesforce_get_opportunities"
+      }
+    },
+    {
+      "id": "salesforce_get_report",
+      "name": "Get Report Metadata from Salesforce",
+      "description": "Get metadata and describe information for a specific report",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "salesforce",
+        "operation": "salesforce_get_report"
+      }
+    },
+    {
+      "id": "salesforce_get_tasks",
+      "name": "Get Tasks from Salesforce",
+      "description": "Get task(s) from Salesforce",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "salesforce",
+        "operation": "salesforce_get_tasks"
+      }
+    },
+    {
+      "id": "salesforce_list_dashboards",
+      "name": "List Dashboards from Salesforce",
+      "description": "Get a list of dashboards accessible by the current user",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "salesforce",
+        "operation": "salesforce_list_dashboards"
+      }
+    },
+    {
+      "id": "salesforce_list_objects",
+      "name": "List Salesforce Objects",
+      "description": "Get a list of all available Salesforce objects",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "salesforce",
+        "operation": "salesforce_list_objects"
+      }
+    },
+    {
+      "id": "salesforce_list_reports",
+      "name": "List Reports from Salesforce",
+      "description": "Get a list of reports accessible by the current user",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "salesforce",
+        "operation": "salesforce_list_reports"
+      }
+    },
+    {
+      "id": "salesforce_list_report_types",
+      "name": "List Report Types from Salesforce",
+      "description": "Get a list of available report types",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "salesforce",
+        "operation": "salesforce_list_report_types"
+      }
+    },
+    {
+      "id": "salesforce_query",
+      "name": "Run SOQL Query in Salesforce",
+      "description": "Execute a custom SOQL query to retrieve data from Salesforce",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "salesforce",
+        "operation": "salesforce_query"
+      }
+    },
+    {
+      "id": "salesforce_query_more",
+      "name": "Get More Query Results from Salesforce",
+      "description": "Retrieve additional query results using the nextRecordsUrl from a previous query",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "salesforce",
+        "operation": "salesforce_query_more"
+      }
+    },
+    {
+      "id": "salesforce_refresh_dashboard",
+      "name": "Refresh Dashboard in Salesforce",
+      "description": "Refresh a dashboard to get the latest data",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "salesforce",
+        "operation": "salesforce_refresh_dashboard"
+      }
+    },
+    {
+      "id": "salesforce_run_report",
+      "name": "Run Report in Salesforce",
+      "description": "Execute a report and retrieve the results",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "salesforce",
+        "operation": "salesforce_run_report"
+      }
+    },
+    {
+      "id": "salesforce_update_account",
+      "name": "Update Account in Salesforce",
+      "description": "Update an existing account in Salesforce CRM",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "salesforce",
+        "operation": "salesforce_update_account"
+      }
+    },
+    {
+      "id": "salesforce_update_case",
+      "name": "Update Case in Salesforce",
+      "description": "Update an existing case",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "salesforce",
+        "operation": "salesforce_update_case"
+      }
+    },
+    {
+      "id": "salesforce_update_contact",
+      "name": "Update Contact in Salesforce",
+      "description": "Update an existing contact in Salesforce CRM",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "salesforce",
+        "operation": "salesforce_update_contact"
+      }
+    },
+    {
+      "id": "salesforce_update_lead",
+      "name": "Update Lead in Salesforce",
+      "description": "Update an existing lead",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "salesforce",
+        "operation": "salesforce_update_lead"
+      }
+    },
+    {
+      "id": "salesforce_update_opportunity",
+      "name": "Update Opportunity in Salesforce",
+      "description": "Update an existing opportunity",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "salesforce",
+        "operation": "salesforce_update_opportunity"
+      }
+    },
+    {
+      "id": "salesforce_update_task",
+      "name": "Update Task in Salesforce",
+      "description": "Update an existing task",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "salesforce",
+        "operation": "salesforce_update_task"
+      }
+    }
+  ]
+}

@@ -1,0 +1,242 @@
+{
+  "id": "firecrawl",
+  "name": "Firecrawl",
+  "version": "1.0.0",
+  "description": "Scrape, search, crawl, map, and extract web data",
+  "icon": "FirecrawlIcon",
+  "block": {
+    "type": "firecrawl",
+    "name": "Firecrawl",
+    "description": "Scrape, search, crawl, map, and extract web data",
+    "longDescription": "Integrate Firecrawl into the workflow. Scrape pages, search the web, crawl entire sites, map URL structures, and extract structured data with AI.",
+    "docsLink": "https://docs.sim.ai/tools/firecrawl",
+    "category": "tools",
+    "bgColor": "#181C1E",
+    "icon": "FirecrawlIcon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Scrape",
+            "value": "scrape"
+          },
+          {
+            "label": "Search",
+            "value": "search"
+          },
+          {
+            "label": "Crawl",
+            "value": "crawl"
+          },
+          {
+            "label": "Map",
+            "value": "map"
+          },
+          {
+            "label": "Extract",
+            "value": "extract"
+          },
+          {
+            "label": "Agent",
+            "value": "agent"
+          }
+        ]
+      },
+      {
+        "id": "url",
+        "type": "short-input",
+        "title": "Website URL",
+        "placeholder": "Enter the website URL"
+      },
+      {
+        "id": "urls",
+        "type": "long-input",
+        "title": "URLs",
+        "placeholder": "["
+      },
+      {
+        "id": "prompt",
+        "type": "long-input",
+        "title": "Extraction Prompt",
+        "placeholder": "Describe what data to extract (e.g., "
+      },
+      {
+        "id": "agentPrompt",
+        "type": "long-input",
+        "title": "Agent Prompt",
+        "placeholder": "Describe what data to find and extract (e.g., "
+      },
+      {
+        "id": "agentUrls",
+        "type": "long-input",
+        "title": "Focus URLs",
+        "placeholder": "["
+      },
+      {
+        "id": "schema",
+        "type": "code",
+        "title": "Output Schema",
+        "placeholder": "Enter JSON schema..."
+      },
+      {
+        "id": "maxCredits",
+        "type": "short-input",
+        "title": "Max Credits",
+        "placeholder": "Maximum credits to spend"
+      },
+      {
+        "id": "strictConstrainToURLs",
+        "type": "switch",
+        "title": "Strict URL Constraint"
+      },
+      {
+        "id": "onlyMainContent",
+        "type": "switch",
+        "title": "Only Main Content"
+      },
+      {
+        "id": "formats",
+        "type": "long-input",
+        "title": "Output Formats",
+        "placeholder": "["
+      },
+      {
+        "id": "waitFor",
+        "type": "short-input",
+        "title": "Wait For (ms)",
+        "placeholder": "0"
+      },
+      {
+        "id": "mobile",
+        "type": "switch",
+        "title": "Mobile Mode"
+      },
+      {
+        "id": "timeout",
+        "type": "short-input",
+        "title": "Timeout (ms)",
+        "placeholder": "60000"
+      },
+      {
+        "id": "limit",
+        "type": "short-input",
+        "title": "Limit",
+        "placeholder": "100"
+      },
+      {
+        "id": "query",
+        "type": "short-input",
+        "title": "Search Query",
+        "placeholder": "Enter the search query"
+      },
+      {
+        "id": "apiKey",
+        "type": "short-input",
+        "title": "API Key",
+        "placeholder": "Enter your Firecrawl API key",
+        "password": true
+      }
+    ],
+    "tools": {
+      "access": [
+        "firecrawl_scrape",
+        "firecrawl_search",
+        "firecrawl_crawl",
+        "firecrawl_map",
+        "firecrawl_extract",
+        "firecrawl_agent"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "apiKey": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "markdown": {
+        "type": "string"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "firecrawl_agent",
+      "name": "Firecrawl Agent",
+      "description": "Autonomous web data extraction agent. Searches and gathers information based on natural language prompts without requiring specific URLs.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "firecrawl",
+        "operation": "firecrawl_agent"
+      }
+    },
+    {
+      "id": "firecrawl_crawl",
+      "name": "Firecrawl Crawl",
+      "description": "Crawl entire websites and extract structured content from all accessible pages",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "firecrawl",
+        "operation": "firecrawl_crawl"
+      }
+    },
+    {
+      "id": "firecrawl_extract",
+      "name": "Firecrawl Extract",
+      "description": "Extract structured data from entire webpages using natural language prompts and JSON schema. Powerful agentic feature for intelligent data extraction.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "firecrawl",
+        "operation": "firecrawl_extract"
+      }
+    },
+    {
+      "id": "firecrawl_map",
+      "name": "Firecrawl Map",
+      "description": "Get a complete list of URLs from any website quickly and reliably. Useful for discovering all pages on a site without crawling them.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "firecrawl",
+        "operation": "firecrawl_map"
+      }
+    },
+    {
+      "id": "firecrawl_scrape",
+      "name": "Firecrawl Website Scraper",
+      "description": "Extract structured content from web pages with comprehensive metadata support. Converts content to markdown or HTML while capturing SEO metadata, Open Graph tags, and page information.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "firecrawl",
+        "operation": "firecrawl_scrape"
+      }
+    },
+    {
+      "id": "firecrawl_search",
+      "name": "Firecrawl Search",
+      "description": "Search for information on the web using Firecrawl",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "firecrawl",
+        "operation": "firecrawl_search"
+      }
+    }
+  ]
+}

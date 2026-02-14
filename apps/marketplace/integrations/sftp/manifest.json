@@ -1,0 +1,264 @@
+{
+  "id": "sftp",
+  "name": "SFTP",
+  "version": "1.0.0",
+  "description": "Transfer files via SFTP (SSH File Transfer Protocol)",
+  "icon": "SftpIcon",
+  "block": {
+    "type": "sftp",
+    "name": "SFTP",
+    "description": "Transfer files via SFTP (SSH File Transfer Protocol)",
+    "longDescription": "Upload, download, list, and manage files on remote servers via SFTP. Supports both password and private key authentication for secure file transfers.",
+    "docsLink": "https://docs.sim.ai/tools/sftp",
+    "category": "tools",
+    "bgColor": "#2D3748",
+    "icon": "SftpIcon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Upload Files",
+            "value": "sftp_upload"
+          },
+          {
+            "label": "Create File",
+            "value": "sftp_create"
+          },
+          {
+            "label": "Download File",
+            "value": "sftp_download"
+          },
+          {
+            "label": "List Directory",
+            "value": "sftp_list"
+          },
+          {
+            "label": "Delete File/Directory",
+            "value": "sftp_delete"
+          },
+          {
+            "label": "Create Directory",
+            "value": "sftp_mkdir"
+          }
+        ]
+      },
+      {
+        "id": "host",
+        "type": "short-input",
+        "title": "SFTP Host",
+        "placeholder": "sftp.example.com or 192.168.1.100"
+      },
+      {
+        "id": "port",
+        "type": "short-input",
+        "title": "SFTP Port",
+        "placeholder": "22"
+      },
+      {
+        "id": "username",
+        "type": "short-input",
+        "title": "Username",
+        "placeholder": "sftp-user"
+      },
+      {
+        "id": "authMethod",
+        "type": "dropdown",
+        "title": "Authentication Method",
+        "options": [
+          {
+            "label": "Password",
+            "value": "password"
+          },
+          {
+            "label": "Private Key",
+            "value": "privateKey"
+          }
+        ]
+      },
+      {
+        "id": "password",
+        "type": "short-input",
+        "title": "Password",
+        "placeholder": "Your SFTP password",
+        "password": true
+      },
+      {
+        "id": "privateKey",
+        "type": "code",
+        "title": "Private Key",
+        "placeholder": "-----BEGIN OPENSSH PRIVATE KEY-----\\n..."
+      },
+      {
+        "id": "passphrase",
+        "type": "short-input",
+        "title": "Passphrase",
+        "placeholder": "Passphrase for encrypted key (optional)",
+        "password": true
+      },
+      {
+        "id": "remotePath",
+        "type": "short-input",
+        "title": "Remote Path",
+        "placeholder": "/home/user/uploads"
+      },
+      {
+        "id": "uploadFiles",
+        "type": "file-upload",
+        "title": "Files to Upload",
+        "placeholder": "Select files to upload",
+        "mode": "basic",
+        "canonicalParamId": "files"
+      },
+      {
+        "id": "files",
+        "type": "short-input",
+        "title": "File Reference",
+        "placeholder": "Reference file from previous block (e.g., {{block_name.file}})",
+        "mode": "advanced",
+        "canonicalParamId": "files"
+      },
+      {
+        "id": "overwrite",
+        "type": "switch",
+        "title": "Overwrite Existing Files"
+      },
+      {
+        "id": "permissions",
+        "type": "short-input",
+        "title": "File Permissions",
+        "placeholder": "0644",
+        "mode": "advanced"
+      },
+      {
+        "id": "fileName",
+        "type": "short-input",
+        "title": "File Name",
+        "placeholder": "filename.txt"
+      },
+      {
+        "id": "fileContent",
+        "type": "code",
+        "title": "File Content",
+        "placeholder": "Text content to write to the file"
+      },
+      {
+        "id": "encoding",
+        "type": "dropdown",
+        "title": "Output Encoding",
+        "options": [
+          {
+            "label": "UTF-8 (Text)",
+            "value": "utf-8"
+          },
+          {
+            "label": "Base64 (Binary)",
+            "value": "base64"
+          }
+        ]
+      },
+      {
+        "id": "detailed",
+        "type": "switch",
+        "title": "Show Detailed Info"
+      },
+      {
+        "id": "recursive",
+        "type": "switch",
+        "title": "Recursive Delete"
+      },
+      {
+        "id": "mkdirRecursive",
+        "type": "switch",
+        "title": "Create Parent Directories"
+      }
+    ],
+    "tools": {
+      "access": [
+        "sftp_upload",
+        "sftp_download",
+        "sftp_list",
+        "sftp_delete",
+        "sftp_mkdir"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "boolean"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "sftp_delete",
+      "name": "SFTP Delete",
+      "description": "Delete a file or directory on a remote SFTP server",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "sftp",
+        "operation": "sftp_delete"
+      }
+    },
+    {
+      "id": "sftp_download",
+      "name": "SFTP Download",
+      "description": "Download a file from a remote SFTP server",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "sftp",
+        "operation": "sftp_download"
+      }
+    },
+    {
+      "id": "sftp_list",
+      "name": "SFTP List Directory",
+      "description": "List files and directories on a remote SFTP server",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "sftp",
+        "operation": "sftp_list"
+      }
+    },
+    {
+      "id": "sftp_mkdir",
+      "name": "SFTP Create Directory",
+      "description": "Create a directory on a remote SFTP server",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "sftp",
+        "operation": "sftp_mkdir"
+      }
+    },
+    {
+      "id": "sftp_upload",
+      "name": "SFTP Upload",
+      "description": "Upload files to a remote SFTP server",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "sftp",
+        "operation": "sftp_upload"
+      }
+    }
+  ]
+}

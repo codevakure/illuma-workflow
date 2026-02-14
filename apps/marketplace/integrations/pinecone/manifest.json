@@ -1,0 +1,266 @@
+{
+  "id": "pinecone",
+  "name": "Pinecone",
+  "version": "1.0.0",
+  "description": "Use Pinecone vector database",
+  "icon": "PineconeIcon",
+  "block": {
+    "type": "pinecone",
+    "name": "Pinecone",
+    "description": "Use Pinecone vector database",
+    "longDescription": "Integrate Pinecone into the workflow. Can generate embeddings, upsert text, search with text, fetch vectors, and search with vectors.",
+    "docsLink": "https://docs.sim.ai/tools/pinecone",
+    "category": "tools",
+    "bgColor": "#0D1117",
+    "icon": "PineconeIcon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Generate Embeddings",
+            "value": "generate"
+          },
+          {
+            "label": "Upsert Text",
+            "value": "upsert_text"
+          },
+          {
+            "label": "Search With Text",
+            "value": "search_text"
+          },
+          {
+            "label": "Search With Vector",
+            "value": "search_vector"
+          },
+          {
+            "label": "Fetch Vectors",
+            "value": "fetch"
+          }
+        ]
+      },
+      {
+        "id": "model",
+        "type": "dropdown",
+        "title": "Model",
+        "options": [
+          {
+            "label": "multilingual-e5-large",
+            "value": "multilingual-e5-large"
+          },
+          {
+            "label": "llama-text-embed-v2",
+            "value": "llama-text-embed-v2"
+          }
+        ]
+      },
+      {
+        "id": "inputs",
+        "type": "long-input",
+        "title": "Text Inputs",
+        "placeholder": "[{"
+      },
+      {
+        "id": "indexHost",
+        "type": "short-input",
+        "title": "Index Host",
+        "placeholder": "https://index-name-abc123.svc.project-id.pinecone.io"
+      },
+      {
+        "id": "namespace",
+        "type": "short-input",
+        "title": "Namespace",
+        "placeholder": "default"
+      },
+      {
+        "id": "records",
+        "type": "long-input",
+        "title": "Records",
+        "placeholder": "{"
+      },
+      {
+        "id": "indexHost",
+        "type": "short-input",
+        "title": "Index Host",
+        "placeholder": "https://index-name-abc123.svc.project-id.pinecone.io"
+      },
+      {
+        "id": "namespace",
+        "type": "short-input",
+        "title": "Namespace",
+        "placeholder": "default"
+      },
+      {
+        "id": "searchQuery",
+        "type": "long-input",
+        "title": "Search Query",
+        "placeholder": "Enter text to search for"
+      },
+      {
+        "id": "topK",
+        "type": "short-input",
+        "title": "Top K Results",
+        "placeholder": "10"
+      },
+      {
+        "id": "fields",
+        "type": "long-input",
+        "title": "Fields to Return",
+        "placeholder": "["
+      },
+      {
+        "id": "filter",
+        "type": "long-input",
+        "title": "Filter",
+        "placeholder": "{"
+      },
+      {
+        "id": "rerank",
+        "type": "long-input",
+        "title": "Rerank Options",
+        "placeholder": "{"
+      },
+      {
+        "id": "indexHost",
+        "type": "short-input",
+        "title": "Index Host",
+        "placeholder": "https://index-name-abc123.svc.project-id.pinecone.io"
+      },
+      {
+        "id": "namespace",
+        "type": "short-input",
+        "title": "Namespace",
+        "placeholder": "Namespace"
+      },
+      {
+        "id": "ids",
+        "type": "long-input",
+        "title": "Vector IDs",
+        "placeholder": "["
+      },
+      {
+        "id": "indexHost",
+        "type": "short-input",
+        "title": "Index Host",
+        "placeholder": "https://index-name-abc123.svc.project-id.pinecone.io"
+      },
+      {
+        "id": "namespace",
+        "type": "short-input",
+        "title": "Namespace",
+        "placeholder": "default"
+      },
+      {
+        "id": "vector",
+        "type": "long-input",
+        "title": "Query Vector",
+        "placeholder": "[0.1, 0.2, 0.3, ...]"
+      },
+      {
+        "id": "topK",
+        "type": "short-input",
+        "title": "Top K Results",
+        "placeholder": "10"
+      },
+      {
+        "id": "options",
+        "type": "checkbox-list",
+        "title": "Options"
+      },
+      {
+        "id": "apiKey",
+        "type": "short-input",
+        "title": "API Key",
+        "placeholder": "Your Pinecone API key",
+        "password": true
+      }
+    ],
+    "tools": {
+      "access": [
+        "pinecone_generate_embeddings",
+        "pinecone_upsert_text",
+        "pinecone_search_text",
+        "pinecone_search_vector",
+        "pinecone_fetch"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "matches": {
+        "type": "json"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "pinecone_fetch",
+      "name": "Pinecone Fetch",
+      "description": "Fetch vectors by ID from a Pinecone index",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "pinecone",
+        "operation": "pinecone_fetch"
+      }
+    },
+    {
+      "id": "pinecone_generate_embeddings",
+      "name": "Pinecone Generate Embeddings",
+      "description": "Generate embeddings from text using Pinecone",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "pinecone",
+        "operation": "pinecone_generate_embeddings"
+      }
+    },
+    {
+      "id": "pinecone_search_text",
+      "name": "Pinecone Search Text",
+      "description": "Search for similar text in a Pinecone index",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "pinecone",
+        "operation": "pinecone_search_text"
+      }
+    },
+    {
+      "id": "pinecone_search_vector",
+      "name": "Pinecone Search Vector",
+      "description": "Search for similar vectors in a Pinecone index",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "pinecone",
+        "operation": "pinecone_search_vector"
+      }
+    },
+    {
+      "id": "pinecone_upsert_text",
+      "name": "Pinecone Upsert Text",
+      "description": "Insert or update text records in a Pinecone index",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "pinecone",
+        "operation": "pinecone_upsert_text"
+      }
+    }
+  ]
+}

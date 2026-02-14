@@ -1,0 +1,298 @@
+{
+  "id": "notion",
+  "name": "Notion (Legacy)",
+  "version": "1.0.0",
+  "description": "Manage Notion pages",
+  "icon": "NotionIcon",
+  "block": {
+    "type": "notion",
+    "name": "Notion (Legacy)",
+    "description": "Manage Notion pages",
+    "longDescription": "Integrate with Notion into the workflow. Can read page, read database, create page, create database, append content, query database, and search workspace.",
+    "docsLink": "https://docs.sim.ai/tools/notion",
+    "category": "tools",
+    "bgColor": "#181C1E",
+    "icon": "NotionIcon",
+    "authMode": "oauth",
+    "hideFromToolbar": true,
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Read Page",
+            "value": "notion_read"
+          },
+          {
+            "label": "Read Database",
+            "value": "notion_read_database"
+          },
+          {
+            "label": "Create Page",
+            "value": "notion_create_page"
+          },
+          {
+            "label": "Create Database",
+            "value": "notion_create_database"
+          },
+          {
+            "label": "Add Database Row",
+            "value": "notion_add_database_row"
+          },
+          {
+            "label": "Append Content",
+            "value": "notion_write"
+          },
+          {
+            "label": "Query Database",
+            "value": "notion_query_database"
+          },
+          {
+            "label": "Search Workspace",
+            "value": "notion_search"
+          }
+        ]
+      },
+      {
+        "id": "credential",
+        "type": "oauth-input",
+        "title": "Notion Account",
+        "placeholder": "Select Notion account"
+      },
+      {
+        "id": "pageId",
+        "type": "short-input",
+        "title": "Page ID",
+        "placeholder": "Enter Notion page ID"
+      },
+      {
+        "id": "databaseId",
+        "type": "short-input",
+        "title": "Database ID",
+        "placeholder": "Enter Notion database ID"
+      },
+      {
+        "id": "pageId",
+        "type": "short-input",
+        "title": "Page ID",
+        "placeholder": "Enter Notion page ID"
+      },
+      {
+        "id": "parentId",
+        "type": "short-input",
+        "title": "Parent Page ID",
+        "placeholder": "ID of parent page"
+      },
+      {
+        "id": "title",
+        "type": "short-input",
+        "title": "Page Title",
+        "placeholder": "Title for the new page"
+      },
+      {
+        "id": "content",
+        "type": "long-input",
+        "title": "Content",
+        "placeholder": "Enter content to add to the page"
+      },
+      {
+        "id": "content",
+        "type": "long-input",
+        "title": "Content",
+        "placeholder": "Enter content to add to the page"
+      },
+      {
+        "id": "databaseId",
+        "type": "short-input",
+        "title": "Database ID",
+        "placeholder": "Enter Notion database ID"
+      },
+      {
+        "id": "filter",
+        "type": "code",
+        "title": "Filter",
+        "placeholder": "Enter filter conditions as JSON (optional)"
+      },
+      {
+        "id": "sorts",
+        "type": "code",
+        "title": "Sort Criteria",
+        "placeholder": "Enter sort criteria as JSON array (optional)"
+      },
+      {
+        "id": "pageSize",
+        "type": "short-input",
+        "title": "Page Size",
+        "placeholder": "Number of results (default: 100, max: 100)",
+        "max": 100
+      },
+      {
+        "id": "query",
+        "type": "short-input",
+        "title": "Search Query",
+        "placeholder": "Enter search terms (leave empty for all pages)"
+      },
+      {
+        "id": "filterType",
+        "type": "dropdown",
+        "title": "Filter Type",
+        "options": [
+          {
+            "label": "All",
+            "value": "all"
+          },
+          {
+            "label": "Pages Only",
+            "value": "page"
+          },
+          {
+            "label": "Databases Only",
+            "value": "database"
+          }
+        ]
+      },
+      {
+        "id": "parentId",
+        "type": "short-input",
+        "title": "Parent Page ID",
+        "placeholder": "ID of parent page where database will be created"
+      },
+      {
+        "id": "title",
+        "type": "short-input",
+        "title": "Database Title",
+        "placeholder": "Title for the new database"
+      },
+      {
+        "id": "properties",
+        "type": "code",
+        "title": "Database Properties",
+        "placeholder": "Enter database properties as JSON object"
+      },
+      {
+        "id": "databaseId",
+        "type": "short-input",
+        "title": "Database ID",
+        "placeholder": "Enter Notion database ID"
+      },
+      {
+        "id": "properties",
+        "type": "code",
+        "title": "Row Properties",
+        "placeholder": "Enter row properties as JSON object"
+      }
+    ],
+    "tools": {
+      "access": [
+        "notion_read",
+        "notion_read_database",
+        "notion_write",
+        "notion_create_page",
+        "notion_query_database",
+        "notion_search",
+        "notion_create_database"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "content": {
+        "type": "string"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "notion_create_database",
+      "name": "Create Notion Database",
+      "description": "Create a new database in Notion with custom properties",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "notion",
+        "operation": "notion_create_database"
+      }
+    },
+    {
+      "id": "notion_create_page",
+      "name": "Notion Page Creator",
+      "description": "Create a new page in Notion",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "notion",
+        "operation": "notion_create_page"
+      }
+    },
+    {
+      "id": "notion_query_database",
+      "name": "Query Notion Database",
+      "description": "Query and filter Notion database entries with advanced filtering",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "notion",
+        "operation": "notion_query_database"
+      }
+    },
+    {
+      "id": "notion_read",
+      "name": "Notion Reader",
+      "description": "Read content from a Notion page",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "notion",
+        "operation": "notion_read"
+      }
+    },
+    {
+      "id": "notion_read_database",
+      "name": "Read Notion Database",
+      "description": "Read database information and structure from Notion",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "notion",
+        "operation": "notion_read_database"
+      }
+    },
+    {
+      "id": "notion_search",
+      "name": "Search Notion Workspace",
+      "description": "Search across all pages and databases in Notion workspace",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "notion",
+        "operation": "notion_search"
+      }
+    },
+    {
+      "id": "notion_write",
+      "name": "Notion Content Appender",
+      "description": "Append content to a Notion page",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "notion",
+        "operation": "notion_write"
+      }
+    }
+  ]
+}

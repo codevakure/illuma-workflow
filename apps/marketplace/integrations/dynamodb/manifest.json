@@ -1,0 +1,331 @@
+{
+  "id": "dynamodb",
+  "name": "Amazon DynamoDB",
+  "version": "1.0.0",
+  "description": "Connect to Amazon DynamoDB",
+  "icon": "DynamoDBIcon",
+  "block": {
+    "type": "dynamodb",
+    "name": "Amazon DynamoDB",
+    "description": "Connect to Amazon DynamoDB",
+    "longDescription": "Integrate Amazon DynamoDB into workflows. Supports Get, Put, Query, Scan, Update, Delete, and Introspect operations on DynamoDB tables.",
+    "docsLink": "https://docs.sim.ai/tools/dynamodb",
+    "category": "tools",
+    "bgColor": "linear-gradient(45deg, #2E27AD 0%, #527FFF 100%)",
+    "icon": "DynamoDBIcon",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Get Item",
+            "value": "get"
+          },
+          {
+            "label": "Put Item",
+            "value": "put"
+          },
+          {
+            "label": "Query",
+            "value": "query"
+          },
+          {
+            "label": "Scan",
+            "value": "scan"
+          },
+          {
+            "label": "Update Item",
+            "value": "update"
+          },
+          {
+            "label": "Delete Item",
+            "value": "delete"
+          },
+          {
+            "label": "Introspect",
+            "value": "introspect"
+          }
+        ]
+      },
+      {
+        "id": "region",
+        "type": "short-input",
+        "title": "AWS Region",
+        "placeholder": "us-east-1"
+      },
+      {
+        "id": "accessKeyId",
+        "type": "short-input",
+        "title": "AWS Access Key ID",
+        "placeholder": "AKIA...",
+        "password": true
+      },
+      {
+        "id": "secretAccessKey",
+        "type": "short-input",
+        "title": "AWS Secret Access Key",
+        "placeholder": "Your secret access key",
+        "password": true
+      },
+      {
+        "id": "tableName",
+        "type": "short-input",
+        "title": "Table Name",
+        "placeholder": "my-table"
+      },
+      {
+        "id": "tableName",
+        "type": "short-input",
+        "title": "Table Name (Optional)",
+        "placeholder": "Leave empty to list all tables"
+      },
+      {
+        "id": "key",
+        "type": "code",
+        "title": "Key (JSON)",
+        "placeholder": "{\\n  "
+      },
+      {
+        "id": "key",
+        "type": "code",
+        "title": "Key (JSON)",
+        "placeholder": "{\\n  "
+      },
+      {
+        "id": "key",
+        "type": "code",
+        "title": "Key (JSON)",
+        "placeholder": "{\\n  "
+      },
+      {
+        "id": "consistentRead",
+        "type": "dropdown",
+        "title": "Consistent Read",
+        "options": [
+          {
+            "label": "Eventually Consistent",
+            "value": "false"
+          },
+          {
+            "label": "Strongly Consistent",
+            "value": "true"
+          }
+        ]
+      },
+      {
+        "id": "item",
+        "type": "code",
+        "title": "Item (JSON)",
+        "placeholder": "{\\n  "
+      },
+      {
+        "id": "keyConditionExpression",
+        "type": "short-input",
+        "title": "Key Condition Expression",
+        "placeholder": "pk = :pk"
+      },
+      {
+        "id": "updateExpression",
+        "type": "short-input",
+        "title": "Update Expression",
+        "placeholder": "SET #name = :name"
+      },
+      {
+        "id": "filterExpression",
+        "type": "short-input",
+        "title": "Filter Expression",
+        "placeholder": "attribute_exists(email)"
+      },
+      {
+        "id": "filterExpression",
+        "type": "short-input",
+        "title": "Filter Expression",
+        "placeholder": "attribute_exists(email)"
+      },
+      {
+        "id": "projectionExpression",
+        "type": "short-input",
+        "title": "Projection Expression",
+        "placeholder": "pk, #name, email"
+      },
+      {
+        "id": "expressionAttributeNames",
+        "type": "code",
+        "title": "Expression Attribute Names (JSON)",
+        "placeholder": "{\\n  "
+      },
+      {
+        "id": "expressionAttributeNames",
+        "type": "code",
+        "title": "Expression Attribute Names (JSON)",
+        "placeholder": "{\\n  "
+      },
+      {
+        "id": "expressionAttributeNames",
+        "type": "code",
+        "title": "Expression Attribute Names (JSON)",
+        "placeholder": "{\\n  "
+      },
+      {
+        "id": "expressionAttributeValues",
+        "type": "code",
+        "title": "Expression Attribute Values (JSON)",
+        "placeholder": "{\\n  "
+      },
+      {
+        "id": "expressionAttributeValues",
+        "type": "code",
+        "title": "Expression Attribute Values (JSON)",
+        "placeholder": "{\\n  "
+      },
+      {
+        "id": "expressionAttributeValues",
+        "type": "code",
+        "title": "Expression Attribute Values (JSON)",
+        "placeholder": "{\\n  "
+      },
+      {
+        "id": "indexName",
+        "type": "short-input",
+        "title": "Index Name",
+        "placeholder": "GSI1"
+      },
+      {
+        "id": "limit",
+        "type": "short-input",
+        "title": "Limit",
+        "placeholder": "100"
+      },
+      {
+        "id": "limit",
+        "type": "short-input",
+        "title": "Limit",
+        "placeholder": "100"
+      },
+      {
+        "id": "conditionExpression",
+        "type": "short-input",
+        "title": "Condition Expression",
+        "placeholder": "attribute_exists(pk)"
+      },
+      {
+        "id": "conditionExpression",
+        "type": "short-input",
+        "title": "Condition Expression",
+        "placeholder": "attribute_exists(pk)"
+      }
+    ],
+    "tools": {
+      "access": [
+        "dynamodb_get",
+        "dynamodb_put",
+        "dynamodb_query",
+        "dynamodb_scan",
+        "dynamodb_update",
+        "dynamodb_delete",
+        "dynamodb_introspect"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "message": {
+        "type": "string"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "dynamodb_delete",
+      "name": "DynamoDB Delete",
+      "description": "Delete an item from a DynamoDB table",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "dynamodb",
+        "operation": "dynamodb_delete"
+      }
+    },
+    {
+      "id": "dynamodb_get",
+      "name": "DynamoDB Get",
+      "description": "Get an item from a DynamoDB table by primary key",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "dynamodb",
+        "operation": "dynamodb_get"
+      }
+    },
+    {
+      "id": "dynamodb_introspect",
+      "name": "DynamoDB Introspect",
+      "description": "Introspect DynamoDB to list tables or get detailed schema information for a specific table",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "dynamodb",
+        "operation": "dynamodb_introspect"
+      }
+    },
+    {
+      "id": "dynamodb_put",
+      "name": "DynamoDB Put",
+      "description": "Put an item into a DynamoDB table",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "dynamodb",
+        "operation": "dynamodb_put"
+      }
+    },
+    {
+      "id": "dynamodb_query",
+      "name": "DynamoDB Query",
+      "description": "Query items from a DynamoDB table using key conditions",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "dynamodb",
+        "operation": "dynamodb_query"
+      }
+    },
+    {
+      "id": "dynamodb_scan",
+      "name": "DynamoDB Scan",
+      "description": "Scan all items in a DynamoDB table",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "dynamodb",
+        "operation": "dynamodb_scan"
+      }
+    },
+    {
+      "id": "dynamodb_update",
+      "name": "DynamoDB Update",
+      "description": "Update an item in a DynamoDB table",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "dynamodb",
+        "operation": "dynamodb_update"
+      }
+    }
+  ]
+}

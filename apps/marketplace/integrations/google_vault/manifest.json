@@ -1,0 +1,349 @@
+{
+  "id": "google_vault",
+  "name": "Google Vault",
+  "version": "1.0.0",
+  "description": "Search, export, and manage holds/exports for Vault matters",
+  "icon": "GoogleVaultIcon",
+  "block": {
+    "type": "google_vault",
+    "name": "Google Vault",
+    "description": "Search, export, and manage holds/exports for Vault matters",
+    "longDescription": "Connect Google Vault to create exports, list exports, and manage holds within matters.",
+    "docsLink": "https://developers.google.com/vault",
+    "category": "tools",
+    "bgColor": "#E8F0FE",
+    "icon": "GoogleVaultIcon",
+    "authMode": "oauth",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Create Export",
+            "value": "create_matters_export"
+          },
+          {
+            "label": "List Exports",
+            "value": "list_matters_export"
+          },
+          {
+            "label": "Download Export File",
+            "value": "download_export_file"
+          },
+          {
+            "label": "Create Hold",
+            "value": "create_matters_holds"
+          },
+          {
+            "label": "List Holds",
+            "value": "list_matters_holds"
+          },
+          {
+            "label": "Create Matter",
+            "value": "create_matters"
+          },
+          {
+            "label": "List Matters",
+            "value": "list_matters"
+          }
+        ]
+      },
+      {
+        "id": "credential",
+        "type": "oauth-input",
+        "title": "Google Vault Account",
+        "placeholder": "Select Google Vault account"
+      },
+      {
+        "id": "matterId",
+        "type": "short-input",
+        "title": "Matter ID",
+        "placeholder": "Enter Matter ID"
+      },
+      {
+        "id": "bucketName",
+        "type": "short-input",
+        "title": "Bucket Name",
+        "placeholder": "Vault export bucket (from cloudStorageSink.files.bucketName)"
+      },
+      {
+        "id": "objectName",
+        "type": "long-input",
+        "title": "Object Name",
+        "placeholder": "Vault export object (from cloudStorageSink.files.objectName)"
+      },
+      {
+        "id": "fileName",
+        "type": "short-input",
+        "title": "File Name",
+        "placeholder": "Override filename used for storage/display"
+      },
+      {
+        "id": "exportName",
+        "type": "short-input",
+        "title": "Export Name",
+        "placeholder": "Name for the export"
+      },
+      {
+        "id": "holdName",
+        "type": "short-input",
+        "title": "Hold Name",
+        "placeholder": "Name of the hold"
+      },
+      {
+        "id": "corpus",
+        "type": "dropdown",
+        "title": "Corpus",
+        "options": [
+          {
+            "label": "MAIL",
+            "value": "MAIL"
+          },
+          {
+            "label": "MAIL",
+            "value": "MAIL"
+          },
+          {
+            "label": "DRIVE",
+            "value": "DRIVE"
+          },
+          {
+            "label": "DRIVE",
+            "value": "DRIVE"
+          },
+          {
+            "label": "GROUPS",
+            "value": "GROUPS"
+          },
+          {
+            "label": "GROUPS",
+            "value": "GROUPS"
+          },
+          {
+            "label": "HANGOUTS_CHAT",
+            "value": "HANGOUTS_CHAT"
+          },
+          {
+            "label": "HANGOUTS_CHAT",
+            "value": "HANGOUTS_CHAT"
+          },
+          {
+            "label": "VOICE",
+            "value": "VOICE"
+          },
+          {
+            "label": "VOICE",
+            "value": "VOICE"
+          }
+        ]
+      },
+      {
+        "id": "accountEmails",
+        "type": "long-input",
+        "title": "Account Emails",
+        "placeholder": "Comma-separated emails (alternative to Org Unit)"
+      },
+      {
+        "id": "orgUnitId",
+        "type": "short-input",
+        "title": "Org Unit ID",
+        "placeholder": "Org Unit ID (alternative to emails)"
+      },
+      {
+        "id": "startTime",
+        "type": "short-input",
+        "title": "Start Time",
+        "placeholder": "YYYY-MM-DDTHH:mm:ssZ"
+      },
+      {
+        "id": "endTime",
+        "type": "short-input",
+        "title": "End Time",
+        "placeholder": "YYYY-MM-DDTHH:mm:ssZ"
+      },
+      {
+        "id": "holdStartTime",
+        "type": "short-input",
+        "title": "Start Time",
+        "placeholder": "YYYY-MM-DDTHH:mm:ssZ"
+      },
+      {
+        "id": "holdEndTime",
+        "type": "short-input",
+        "title": "End Time",
+        "placeholder": "YYYY-MM-DDTHH:mm:ssZ"
+      },
+      {
+        "id": "terms",
+        "type": "long-input",
+        "title": "Search Terms",
+        "placeholder": "Enter search query (e.g., from:user@example.com subject:confidential)"
+      },
+      {
+        "id": "holdTerms",
+        "type": "long-input",
+        "title": "Search Terms",
+        "placeholder": "Enter search query (e.g., from:user@example.com subject:confidential)"
+      },
+      {
+        "id": "includeSharedDrives",
+        "type": "switch",
+        "title": "Include Shared Drives"
+      },
+      {
+        "id": "exportId",
+        "type": "short-input",
+        "title": "Export ID",
+        "placeholder": "Enter Export ID (optional to fetch a specific export)"
+      },
+      {
+        "id": "holdId",
+        "type": "short-input",
+        "title": "Hold ID",
+        "placeholder": "Enter Hold ID (optional to fetch a specific hold)"
+      },
+      {
+        "id": "pageSize",
+        "type": "short-input",
+        "title": "Page Size",
+        "placeholder": "Number of items to return"
+      },
+      {
+        "id": "pageToken",
+        "type": "short-input",
+        "title": "Page Token",
+        "placeholder": "Pagination token"
+      },
+      {
+        "id": "name",
+        "type": "short-input",
+        "title": "Matter Name",
+        "placeholder": "Enter Matter name"
+      },
+      {
+        "id": "description",
+        "type": "short-input",
+        "title": "Description",
+        "placeholder": "Optional description for the matter"
+      },
+      {
+        "id": "matterId",
+        "type": "short-input",
+        "title": "Matter ID",
+        "placeholder": "Enter Matter ID (optional to fetch a specific matter)"
+      }
+    ],
+    "tools": {
+      "access": [
+        "google_vault_create_matters_export",
+        "google_vault_list_matters_export",
+        "google_vault_download_export_file",
+        "google_vault_create_matters_holds",
+        "google_vault_list_matters_holds",
+        "google_vault_create_matters",
+        "google_vault_list_matters"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "matters": {
+        "type": "json"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "google_vault_create_matters",
+      "name": "Vault Create Matter",
+      "description": "Create a new matter in Google Vault",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_vault",
+        "operation": "google_vault_create_matters"
+      }
+    },
+    {
+      "id": "google_vault_create_matters_export",
+      "name": "Vault Create Export",
+      "description": "Create an export in a matter",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_vault",
+        "operation": "google_vault_create_matters_export"
+      }
+    },
+    {
+      "id": "google_vault_create_matters_holds",
+      "name": "Vault Create Hold",
+      "description": "Create a hold in a matter",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_vault",
+        "operation": "google_vault_create_matters_holds"
+      }
+    },
+    {
+      "id": "google_vault_download_export_file",
+      "name": "Vault Download Export File",
+      "description": "Download a single file from a Google Vault export (GCS object)",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_vault",
+        "operation": "google_vault_download_export_file"
+      }
+    },
+    {
+      "id": "google_vault_list_matters",
+      "name": "Vault List Matters",
+      "description": "List matters, or get a specific matter if matterId is provided",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_vault",
+        "operation": "google_vault_list_matters"
+      }
+    },
+    {
+      "id": "google_vault_list_matters_export",
+      "name": "Vault List Exports",
+      "description": "List exports for a matter",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_vault",
+        "operation": "google_vault_list_matters_export"
+      }
+    },
+    {
+      "id": "google_vault_list_matters_holds",
+      "name": "Vault List Holds",
+      "description": "List holds for a matter",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_vault",
+        "operation": "google_vault_list_matters_holds"
+      }
+    }
+  ]
+}

@@ -1,0 +1,260 @@
+{
+  "id": "rds",
+  "name": "Amazon RDS",
+  "version": "1.0.0",
+  "description": "Connect to Amazon RDS via Data API",
+  "icon": "RDSIcon",
+  "block": {
+    "type": "rds",
+    "name": "Amazon RDS",
+    "description": "Connect to Amazon RDS via Data API",
+    "longDescription": "Integrate Amazon RDS Aurora Serverless into the workflow using the Data API. Can query, insert, update, delete, and execute raw SQL without managing database connections.",
+    "docsLink": "https://docs.sim.ai/tools/rds",
+    "category": "tools",
+    "bgColor": "linear-gradient(45deg, #2E27AD 0%, #527FFF 100%)",
+    "icon": "RDSIcon",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Query (SELECT)",
+            "value": "query"
+          },
+          {
+            "label": "Insert Data",
+            "value": "insert"
+          },
+          {
+            "label": "Update Data",
+            "value": "update"
+          },
+          {
+            "label": "Delete Data",
+            "value": "delete"
+          },
+          {
+            "label": "Execute Raw SQL",
+            "value": "execute"
+          },
+          {
+            "label": "Introspect Schema",
+            "value": "introspect"
+          }
+        ]
+      },
+      {
+        "id": "region",
+        "type": "short-input",
+        "title": "AWS Region",
+        "placeholder": "us-east-1"
+      },
+      {
+        "id": "accessKeyId",
+        "type": "short-input",
+        "title": "AWS Access Key ID",
+        "placeholder": "AKIA...",
+        "password": true
+      },
+      {
+        "id": "secretAccessKey",
+        "type": "short-input",
+        "title": "AWS Secret Access Key",
+        "placeholder": "Your secret access key",
+        "password": true
+      },
+      {
+        "id": "resourceArn",
+        "type": "short-input",
+        "title": "Resource ARN",
+        "placeholder": "arn:aws:rds:us-east-1:123456789:cluster:my-cluster"
+      },
+      {
+        "id": "secretArn",
+        "type": "short-input",
+        "title": "Secret ARN",
+        "placeholder": "arn:aws:secretsmanager:us-east-1:123456789:secret:my-secret"
+      },
+      {
+        "id": "database",
+        "type": "short-input",
+        "title": "Database Name",
+        "placeholder": "your_database"
+      },
+      {
+        "id": "table",
+        "type": "short-input",
+        "title": "Table Name",
+        "placeholder": "users"
+      },
+      {
+        "id": "table",
+        "type": "short-input",
+        "title": "Table Name",
+        "placeholder": "users"
+      },
+      {
+        "id": "table",
+        "type": "short-input",
+        "title": "Table Name",
+        "placeholder": "users"
+      },
+      {
+        "id": "query",
+        "type": "code",
+        "title": "SQL Query",
+        "placeholder": "SELECT * FROM users WHERE active = true"
+      },
+      {
+        "id": "query",
+        "type": "code",
+        "title": "SQL Query",
+        "placeholder": "SELECT * FROM table_name"
+      },
+      {
+        "id": "data",
+        "type": "code",
+        "title": "Data (JSON)",
+        "placeholder": "{\\n  "
+      },
+      {
+        "id": "data",
+        "type": "code",
+        "title": "Update Data (JSON)",
+        "placeholder": "{\\n  "
+      },
+      {
+        "id": "conditions",
+        "type": "code",
+        "title": "Conditions (JSON)",
+        "placeholder": "{\\n  "
+      },
+      {
+        "id": "conditions",
+        "type": "code",
+        "title": "Conditions (JSON)",
+        "placeholder": "{\\n  "
+      },
+      {
+        "id": "schema",
+        "type": "short-input",
+        "title": "Schema Name",
+        "placeholder": "public (PostgreSQL) or database name (MySQL)"
+      },
+      {
+        "id": "engine",
+        "type": "dropdown",
+        "title": "Database Engine",
+        "options": [
+          {
+            "label": "Aurora PostgreSQL",
+            "value": "aurora-postgresql"
+          },
+          {
+            "label": "Aurora MySQL",
+            "value": "aurora-mysql"
+          }
+        ]
+      }
+    ],
+    "tools": {
+      "access": [
+        "rds_query",
+        "rds_insert",
+        "rds_update",
+        "rds_delete",
+        "rds_execute",
+        "rds_introspect"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "message": {
+        "type": "string"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "rds_delete",
+      "name": "RDS Delete",
+      "description": "Delete data from an Amazon RDS table using the Data API",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "rds",
+        "operation": "rds_delete"
+      }
+    },
+    {
+      "id": "rds_execute",
+      "name": "RDS Execute",
+      "description": "Execute raw SQL on Amazon RDS using the Data API",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "rds",
+        "operation": "rds_execute"
+      }
+    },
+    {
+      "id": "rds_insert",
+      "name": "RDS Insert",
+      "description": "Insert data into an Amazon RDS table using the Data API",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "rds",
+        "operation": "rds_insert"
+      }
+    },
+    {
+      "id": "rds_introspect",
+      "name": "RDS Introspect",
+      "description": "Introspect Amazon RDS Aurora database schema to retrieve table structures, columns, and relationships",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "rds",
+        "operation": "rds_introspect"
+      }
+    },
+    {
+      "id": "rds_query",
+      "name": "RDS Query",
+      "description": "Execute a SELECT query on Amazon RDS using the Data API",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "rds",
+        "operation": "rds_query"
+      }
+    },
+    {
+      "id": "rds_update",
+      "name": "RDS Update",
+      "description": "Update data in an Amazon RDS table using the Data API",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "rds",
+        "operation": "rds_update"
+      }
+    }
+  ]
+}

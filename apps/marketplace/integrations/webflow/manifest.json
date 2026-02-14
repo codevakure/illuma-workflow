@@ -1,0 +1,204 @@
+{
+  "id": "webflow",
+  "name": "Webflow",
+  "version": "1.0.0",
+  "description": "Manage Webflow CMS collections",
+  "icon": "WebflowIcon",
+  "block": {
+    "type": "webflow",
+    "name": "Webflow",
+    "description": "Manage Webflow CMS collections",
+    "longDescription": "Integrates Webflow CMS into the workflow. Can create, get, list, update, or delete items in Webflow CMS collections. Manage your Webflow content programmatically. Can be used in trigger mode to trigger workflows when collection items change or forms are submitted.",
+    "docsLink": "https://docs.sim.ai/tools/webflow",
+    "category": "tools",
+    "bgColor": "#E0E0E0",
+    "icon": "WebflowIcon",
+    "authMode": "oauth",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "List Items",
+            "value": "list"
+          },
+          {
+            "label": "Get Item",
+            "value": "get"
+          },
+          {
+            "label": "Create Item",
+            "value": "create"
+          },
+          {
+            "label": "Update Item",
+            "value": "update"
+          },
+          {
+            "label": "Delete Item",
+            "value": "delete"
+          }
+        ]
+      },
+      {
+        "id": "credential",
+        "type": "oauth-input",
+        "title": "Webflow Account",
+        "placeholder": "Select Webflow account"
+      },
+      {
+        "id": "siteSelector",
+        "type": "project-selector",
+        "title": "Site",
+        "placeholder": "Select Webflow site",
+        "mode": "basic",
+        "canonicalParamId": "siteId"
+      },
+      {
+        "id": "manualSiteId",
+        "type": "short-input",
+        "title": "Site ID",
+        "placeholder": "Enter site ID",
+        "mode": "advanced",
+        "canonicalParamId": "siteId"
+      },
+      {
+        "id": "collectionSelector",
+        "type": "file-selector",
+        "title": "Collection",
+        "placeholder": "Select collection",
+        "mode": "basic",
+        "canonicalParamId": "collectionId"
+      },
+      {
+        "id": "manualCollectionId",
+        "type": "short-input",
+        "title": "Collection ID",
+        "placeholder": "Enter collection ID",
+        "mode": "advanced",
+        "canonicalParamId": "collectionId"
+      },
+      {
+        "id": "itemSelector",
+        "type": "file-selector",
+        "title": "Item",
+        "placeholder": "Select item",
+        "mode": "basic",
+        "canonicalParamId": "itemId"
+      },
+      {
+        "id": "manualItemId",
+        "type": "short-input",
+        "title": "Item ID",
+        "placeholder": "Enter item ID",
+        "mode": "advanced",
+        "canonicalParamId": "itemId"
+      },
+      {
+        "id": "offset",
+        "type": "short-input",
+        "title": "Offset",
+        "placeholder": "Pagination offset (optional)"
+      },
+      {
+        "id": "limit",
+        "type": "short-input",
+        "title": "Limit",
+        "placeholder": "Max items to return (optional)"
+      },
+      {
+        "id": "fieldData",
+        "type": "code",
+        "title": "Field Data",
+        "placeholder": "Field data as JSON: "
+      }
+    ],
+    "tools": {
+      "access": [
+        "webflow_list_items",
+        "webflow_get_item",
+        "webflow_create_item",
+        "webflow_update_item",
+        "webflow_delete_item"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "items": {
+        "type": "json"
+      }
+    },
+    "triggerAllowed": true
+  },
+  "tools": [
+    {
+      "id": "webflow_create_item",
+      "name": "Webflow Create Item",
+      "description": "Create a new item in a Webflow CMS collection",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "webflow",
+        "operation": "webflow_create_item"
+      }
+    },
+    {
+      "id": "webflow_delete_item",
+      "name": "Webflow Delete Item",
+      "description": "Delete an item from a Webflow CMS collection",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "webflow",
+        "operation": "webflow_delete_item"
+      }
+    },
+    {
+      "id": "webflow_get_item",
+      "name": "Webflow Get Item",
+      "description": "Get a single item from a Webflow CMS collection",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "webflow",
+        "operation": "webflow_get_item"
+      }
+    },
+    {
+      "id": "webflow_list_items",
+      "name": "Webflow List Items",
+      "description": "List all items from a Webflow CMS collection",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "webflow",
+        "operation": "webflow_list_items"
+      }
+    },
+    {
+      "id": "webflow_update_item",
+      "name": "Webflow Update Item",
+      "description": "Update an existing item in a Webflow CMS collection",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "webflow",
+        "operation": "webflow_update_item"
+      }
+    }
+  ]
+}

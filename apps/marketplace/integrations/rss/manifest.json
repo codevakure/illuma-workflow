@@ -1,0 +1,68 @@
+{
+  "id": "rss",
+  "name": "RSS Feed",
+  "version": "1.0.0",
+  "description": "Monitor RSS feeds and trigger workflows when new items are published",
+  "icon": "RssIcon",
+  "block": {
+    "type": "rss",
+    "name": "RSS Feed",
+    "description": "Monitor RSS feeds and trigger workflows when new items are published",
+    "longDescription": "Subscribe to any RSS or Atom feed and automatically trigger your workflow when new content is published. Perfect for monitoring blogs, news sites, podcasts, and any content that publishes an RSS feed.",
+    "docsLink": "https://docs.sim.ai/triggers/rss",
+    "category": "triggers",
+    "bgColor": "#F97316",
+    "icon": "RssIcon",
+    "triggerAllowed": true,
+    "subBlocks": [],
+    "tools": {
+      "access": [],
+      "config": {
+        "tool": ""
+      }
+    },
+    "inputs": {},
+    "outputs": {
+      "title": {
+        "type": "string",
+        "description": "Item title"
+      },
+      "link": {
+        "type": "string",
+        "description": "Item link"
+      },
+      "pubDate": {
+        "type": "string",
+        "description": "Publication date"
+      },
+      "item": {
+        "type": "json",
+        "description": "Raw item object with all fields"
+      },
+      "feed": {
+        "type": "json",
+        "description": "Raw feed object with all fields"
+      }
+    },
+    "triggers": {
+      "enabled": true,
+      "available": [
+        "rss_poller"
+      ]
+    }
+  },
+  "tools": [
+    {
+      "id": "rss_execute",
+      "name": "rss execute",
+      "description": "",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "rss",
+        "operation": "execute"
+      }
+    }
+  ]
+}

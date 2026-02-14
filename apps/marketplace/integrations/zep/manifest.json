@@ -1,0 +1,273 @@
+{
+  "id": "zep",
+  "name": "Zep",
+  "version": "1.0.0",
+  "description": "Long-term memory for AI agents",
+  "icon": "ZepIcon",
+  "block": {
+    "type": "zep",
+    "name": "Zep",
+    "description": "Long-term memory for AI agents",
+    "longDescription": "Integrate Zep for long-term memory management. Create threads, add messages, retrieve context with AI-powered summaries and facts extraction.",
+    "docsLink": "https://docs.sim.ai/tools/zep",
+    "category": "tools",
+    "bgColor": "#E8E8E8",
+    "icon": "ZepIcon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "placeholder": "Select an operation",
+        "options": [
+          {
+            "label": "Create Thread",
+            "value": "create_thread"
+          },
+          {
+            "label": "Add Messages",
+            "value": "add_messages"
+          },
+          {
+            "label": "Get Context",
+            "value": "get_context"
+          },
+          {
+            "label": "Get Messages",
+            "value": "get_messages"
+          },
+          {
+            "label": "Get Threads",
+            "value": "get_threads"
+          },
+          {
+            "label": "Delete Thread",
+            "value": "delete_thread"
+          },
+          {
+            "label": "Add User",
+            "value": "add_user"
+          },
+          {
+            "label": "Get User",
+            "value": "get_user"
+          },
+          {
+            "label": "Get User Threads",
+            "value": "get_user_threads"
+          }
+        ]
+      },
+      {
+        "id": "threadId",
+        "type": "short-input",
+        "title": "Thread ID",
+        "placeholder": "Enter unique thread identifier"
+      },
+      {
+        "id": "userId",
+        "type": "short-input",
+        "title": "User ID",
+        "placeholder": "Enter user identifier"
+      },
+      {
+        "id": "email",
+        "type": "short-input",
+        "title": "Email",
+        "placeholder": "user@example.com"
+      },
+      {
+        "id": "firstName",
+        "type": "short-input",
+        "title": "First Name",
+        "placeholder": "John"
+      },
+      {
+        "id": "lastName",
+        "type": "short-input",
+        "title": "Last Name",
+        "placeholder": "Doe"
+      },
+      {
+        "id": "metadata",
+        "type": "code",
+        "title": "Metadata",
+        "placeholder": "{"
+      },
+      {
+        "id": "messages",
+        "type": "code",
+        "title": "Messages",
+        "placeholder": "[{"
+      },
+      {
+        "id": "mode",
+        "type": "dropdown",
+        "title": "Context Mode",
+        "placeholder": "Select context mode",
+        "options": [
+          {
+            "label": "Summary (Natural Language)",
+            "value": "summary"
+          },
+          {
+            "label": "Basic (Raw Facts)",
+            "value": "basic"
+          }
+        ]
+      },
+      {
+        "id": "apiKey",
+        "type": "short-input",
+        "title": "API Key",
+        "placeholder": "Enter your Zep API key",
+        "password": true
+      },
+      {
+        "id": "limit",
+        "type": "slider",
+        "title": "Result Limit",
+        "min": 1,
+        "max": 100,
+        "step": 1
+      }
+    ],
+    "tools": {
+      "access": [
+        "zep_create_thread",
+        "zep_get_threads",
+        "zep_delete_thread",
+        "zep_get_context",
+        "zep_get_messages",
+        "zep_add_messages",
+        "zep_add_user",
+        "zep_get_user",
+        "zep_get_user_threads"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "threadId": {
+        "type": "string"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "zep_add_messages",
+      "name": "Add Messages",
+      "description": "Add messages to an existing thread",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "zep",
+        "operation": "zep_add_messages"
+      }
+    },
+    {
+      "id": "zep_add_user",
+      "name": "Add User",
+      "description": "Create a new user in Zep",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "zep",
+        "operation": "zep_add_user"
+      }
+    },
+    {
+      "id": "zep_create_thread",
+      "name": "Create Thread",
+      "description": "Start a new conversation thread in Zep",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "zep",
+        "operation": "zep_create_thread"
+      }
+    },
+    {
+      "id": "zep_delete_thread",
+      "name": "Delete Thread",
+      "description": "Delete a conversation thread from Zep",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "zep",
+        "operation": "zep_delete_thread"
+      }
+    },
+    {
+      "id": "zep_get_context",
+      "name": "Get User Context",
+      "description": "Retrieve user context from a thread with summary or basic mode",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "zep",
+        "operation": "zep_get_context"
+      }
+    },
+    {
+      "id": "zep_get_messages",
+      "name": "Get Messages",
+      "description": "Retrieve messages from a thread",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "zep",
+        "operation": "zep_get_messages"
+      }
+    },
+    {
+      "id": "zep_get_threads",
+      "name": "Get Threads",
+      "description": "List all conversation threads",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "zep",
+        "operation": "zep_get_threads"
+      }
+    },
+    {
+      "id": "zep_get_user",
+      "name": "Get User",
+      "description": "Retrieve user information from Zep",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "zep",
+        "operation": "zep_get_user"
+      }
+    },
+    {
+      "id": "zep_get_user_threads",
+      "name": "Get User Threads",
+      "description": "List all conversation threads for a specific user",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "zep",
+        "operation": "zep_get_user_threads"
+      }
+    }
+  ]
+}

@@ -1,0 +1,469 @@
+{
+  "id": "elasticsearch",
+  "name": "Elasticsearch",
+  "version": "1.0.0",
+  "description": "Search, index, and manage data in Elasticsearch",
+  "icon": "ElasticsearchIcon",
+  "block": {
+    "type": "elasticsearch",
+    "name": "Elasticsearch",
+    "description": "Search, index, and manage data in Elasticsearch",
+    "longDescription": "Integrate Elasticsearch into workflows for powerful search, indexing, and data management. Supports document CRUD operations, advanced search queries, bulk operations, index management, and cluster monitoring. Works with both self-hosted and Elastic Cloud deployments.",
+    "docsLink": "https://docs.sim.ai/tools/elasticsearch",
+    "category": "tools",
+    "bgColor": "#E0E0E0",
+    "icon": "ElasticsearchIcon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Search",
+            "value": "elasticsearch_search"
+          },
+          {
+            "label": "Index Document",
+            "value": "elasticsearch_index_document"
+          },
+          {
+            "label": "Get Document",
+            "value": "elasticsearch_get_document"
+          },
+          {
+            "label": "Update Document",
+            "value": "elasticsearch_update_document"
+          },
+          {
+            "label": "Delete Document",
+            "value": "elasticsearch_delete_document"
+          },
+          {
+            "label": "Bulk Operations",
+            "value": "elasticsearch_bulk"
+          },
+          {
+            "label": "Count Documents",
+            "value": "elasticsearch_count"
+          },
+          {
+            "label": "Create Index",
+            "value": "elasticsearch_create_index"
+          },
+          {
+            "label": "Delete Index",
+            "value": "elasticsearch_delete_index"
+          },
+          {
+            "label": "Get Index Info",
+            "value": "elasticsearch_get_index"
+          },
+          {
+            "label": "List Indices",
+            "value": "elasticsearch_list_indices"
+          },
+          {
+            "label": "Cluster Health",
+            "value": "elasticsearch_cluster_health"
+          },
+          {
+            "label": "Cluster Stats",
+            "value": "elasticsearch_cluster_stats"
+          }
+        ]
+      },
+      {
+        "id": "deploymentType",
+        "type": "dropdown",
+        "title": "Deployment Type",
+        "options": [
+          {
+            "label": "Self-Hosted",
+            "value": "self_hosted"
+          },
+          {
+            "label": "Elastic Cloud",
+            "value": "cloud"
+          }
+        ]
+      },
+      {
+        "id": "host",
+        "type": "short-input",
+        "title": "Elasticsearch Host",
+        "placeholder": "https://localhost:9200"
+      },
+      {
+        "id": "cloudId",
+        "type": "short-input",
+        "title": "Cloud ID",
+        "placeholder": "deployment-name:base64-encoded-data"
+      },
+      {
+        "id": "authMethod",
+        "type": "dropdown",
+        "title": "Authentication Method",
+        "options": [
+          {
+            "label": "API Key",
+            "value": "api_key"
+          },
+          {
+            "label": "Basic Auth",
+            "value": "basic_auth"
+          }
+        ]
+      },
+      {
+        "id": "apiKey",
+        "type": "short-input",
+        "title": "API Key",
+        "placeholder": "Enter encoded API key",
+        "password": true
+      },
+      {
+        "id": "username",
+        "type": "short-input",
+        "title": "Username",
+        "placeholder": "Enter username"
+      },
+      {
+        "id": "password",
+        "type": "short-input",
+        "title": "Password",
+        "placeholder": "Enter password",
+        "password": true
+      },
+      {
+        "id": "index",
+        "type": "short-input",
+        "title": "Index Name",
+        "placeholder": "my-index"
+      },
+      {
+        "id": "documentId",
+        "type": "short-input",
+        "title": "Document ID",
+        "placeholder": "unique-document-id"
+      },
+      {
+        "id": "documentId",
+        "type": "short-input",
+        "title": "Document ID",
+        "placeholder": "Leave empty for auto-generated ID"
+      },
+      {
+        "id": "document",
+        "type": "code",
+        "title": "Document",
+        "placeholder": "{ "
+      },
+      {
+        "id": "document",
+        "type": "code",
+        "title": "Partial Document",
+        "placeholder": "{ "
+      },
+      {
+        "id": "query",
+        "type": "code",
+        "title": "Search Query",
+        "placeholder": "{ "
+      },
+      {
+        "id": "query",
+        "type": "code",
+        "title": "Query",
+        "placeholder": "{ "
+      },
+      {
+        "id": "size",
+        "type": "short-input",
+        "title": "Number of Results",
+        "placeholder": "10"
+      },
+      {
+        "id": "from",
+        "type": "short-input",
+        "title": "Offset",
+        "placeholder": "0"
+      },
+      {
+        "id": "sort",
+        "type": "code",
+        "title": "Sort",
+        "placeholder": "[{ "
+      },
+      {
+        "id": "sourceIncludes",
+        "type": "short-input",
+        "title": "Fields to Include",
+        "placeholder": "field1, field2 (comma-separated)"
+      },
+      {
+        "id": "sourceExcludes",
+        "type": "short-input",
+        "title": "Fields to Exclude",
+        "placeholder": "field1, field2 (comma-separated)"
+      },
+      {
+        "id": "operations",
+        "type": "code",
+        "title": "Bulk Operations",
+        "placeholder": "{ "
+      },
+      {
+        "id": "settings",
+        "type": "code",
+        "title": "Index Settings",
+        "placeholder": "{ "
+      },
+      {
+        "id": "mappings",
+        "type": "code",
+        "title": "Index Mappings",
+        "placeholder": "{ "
+      },
+      {
+        "id": "refresh",
+        "type": "dropdown",
+        "title": "Refresh",
+        "options": [
+          {
+            "label": "Wait For",
+            "value": "wait_for"
+          },
+          {
+            "label": "Immediate",
+            "value": "true"
+          },
+          {
+            "label": "None",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "id": "waitForStatus",
+        "type": "dropdown",
+        "title": "Wait for Status",
+        "options": [
+          {
+            "label": "Green",
+            "value": "green"
+          },
+          {
+            "label": "Yellow",
+            "value": "yellow"
+          },
+          {
+            "label": "Red",
+            "value": "red"
+          }
+        ]
+      },
+      {
+        "id": "timeout",
+        "type": "short-input",
+        "title": "Timeout (seconds)",
+        "placeholder": "30"
+      },
+      {
+        "id": "retryOnConflict",
+        "type": "short-input",
+        "title": "Retry on Conflict",
+        "placeholder": "3"
+      }
+    ],
+    "tools": {
+      "access": [
+        "elasticsearch_search",
+        "elasticsearch_index_document",
+        "elasticsearch_get_document",
+        "elasticsearch_update_document",
+        "elasticsearch_delete_document",
+        "elasticsearch_bulk",
+        "elasticsearch_count",
+        "elasticsearch_create_index",
+        "elasticsearch_delete_index",
+        "elasticsearch_get_index",
+        "elasticsearch_cluster_health",
+        "elasticsearch_cluster_stats",
+        "elasticsearch_list_indices"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "hits": {
+        "type": "json"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "elasticsearch_bulk",
+      "name": "Elasticsearch Bulk Operations",
+      "description": "Perform multiple index, create, delete, or update operations in a single request for high performance.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "elasticsearch",
+        "operation": "elasticsearch_bulk"
+      }
+    },
+    {
+      "id": "elasticsearch_cluster_health",
+      "name": "Elasticsearch Cluster Health",
+      "description": "Get the health status of the Elasticsearch cluster.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "elasticsearch",
+        "operation": "elasticsearch_cluster_health"
+      }
+    },
+    {
+      "id": "elasticsearch_cluster_stats",
+      "name": "Elasticsearch Cluster Stats",
+      "description": "Get comprehensive statistics about the Elasticsearch cluster.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "elasticsearch",
+        "operation": "elasticsearch_cluster_stats"
+      }
+    },
+    {
+      "id": "elasticsearch_count",
+      "name": "Elasticsearch Count",
+      "description": "Count documents matching a query in Elasticsearch.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "elasticsearch",
+        "operation": "elasticsearch_count"
+      }
+    },
+    {
+      "id": "elasticsearch_create_index",
+      "name": "Elasticsearch Create Index",
+      "description": "Create a new index with optional settings and mappings.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "elasticsearch",
+        "operation": "elasticsearch_create_index"
+      }
+    },
+    {
+      "id": "elasticsearch_delete_document",
+      "name": "Elasticsearch Delete Document",
+      "description": "Delete a document from Elasticsearch by ID.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "elasticsearch",
+        "operation": "elasticsearch_delete_document"
+      }
+    },
+    {
+      "id": "elasticsearch_delete_index",
+      "name": "Elasticsearch Delete Index",
+      "description": "Delete an index and all its documents. This operation is irreversible.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "elasticsearch",
+        "operation": "elasticsearch_delete_index"
+      }
+    },
+    {
+      "id": "elasticsearch_get_document",
+      "name": "Elasticsearch Get Document",
+      "description": "Retrieve a document by ID from Elasticsearch.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "elasticsearch",
+        "operation": "elasticsearch_get_document"
+      }
+    },
+    {
+      "id": "elasticsearch_get_index",
+      "name": "Elasticsearch Get Index",
+      "description": "Retrieve index information including settings, mappings, and aliases.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "elasticsearch",
+        "operation": "elasticsearch_get_index"
+      }
+    },
+    {
+      "id": "elasticsearch_index_document",
+      "name": "Elasticsearch Index Document",
+      "description": "Index (create or update) a document in Elasticsearch.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "elasticsearch",
+        "operation": "elasticsearch_index_document"
+      }
+    },
+    {
+      "id": "elasticsearch_list_indices",
+      "name": "Elasticsearch List Indices",
+      "description": "List all indices in the Elasticsearch cluster with their health, status, and statistics.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "elasticsearch",
+        "operation": "elasticsearch_list_indices"
+      }
+    },
+    {
+      "id": "elasticsearch_search",
+      "name": "Elasticsearch Search",
+      "description": "Search documents in Elasticsearch using Query DSL. Returns matching documents with scores and metadata.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "elasticsearch",
+        "operation": "elasticsearch_search"
+      }
+    },
+    {
+      "id": "elasticsearch_update_document",
+      "name": "Elasticsearch Update Document",
+      "description": "Partially update a document in Elasticsearch using doc merge.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "elasticsearch",
+        "operation": "elasticsearch_update_document"
+      }
+    }
+  ]
+}

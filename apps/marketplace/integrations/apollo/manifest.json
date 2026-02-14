@@ -1,0 +1,774 @@
+{
+  "id": "apollo",
+  "name": "Apollo",
+  "version": "1.0.0",
+  "description": "Search, enrich, and manage contacts with Apollo.io",
+  "icon": "ApolloIcon",
+  "block": {
+    "type": "apollo",
+    "name": "Apollo",
+    "description": "Search, enrich, and manage contacts with Apollo.io",
+    "longDescription": "Integrates Apollo.io into the workflow. Search for people and companies, enrich contact data, manage your CRM contacts and accounts, add contacts to sequences, and create tasks.",
+    "docsLink": "https://docs.sim.ai/tools/apollo",
+    "category": "tools",
+    "bgColor": "#EBF212",
+    "icon": "ApolloIcon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Search People",
+            "value": "people_search"
+          },
+          {
+            "label": "Enrich Person",
+            "value": "people_enrich"
+          },
+          {
+            "label": "Bulk Enrich People",
+            "value": "people_bulk_enrich"
+          },
+          {
+            "label": "Search Organizations",
+            "value": "organization_search"
+          },
+          {
+            "label": "Enrich Organization",
+            "value": "organization_enrich"
+          },
+          {
+            "label": "Bulk Enrich Organizations",
+            "value": "organization_bulk_enrich"
+          },
+          {
+            "label": "Create Contact",
+            "value": "contact_create"
+          },
+          {
+            "label": "Update Contact",
+            "value": "contact_update"
+          },
+          {
+            "label": "Search Contacts",
+            "value": "contact_search"
+          },
+          {
+            "label": "Bulk Create Contacts",
+            "value": "contact_bulk_create"
+          },
+          {
+            "label": "Bulk Update Contacts",
+            "value": "contact_bulk_update"
+          },
+          {
+            "label": "Create Account",
+            "value": "account_create"
+          },
+          {
+            "label": "Update Account",
+            "value": "account_update"
+          },
+          {
+            "label": "Search Accounts",
+            "value": "account_search"
+          },
+          {
+            "label": "Bulk Create Accounts",
+            "value": "account_bulk_create"
+          },
+          {
+            "label": "Bulk Update Accounts",
+            "value": "account_bulk_update"
+          },
+          {
+            "label": "Create Opportunity",
+            "value": "opportunity_create"
+          },
+          {
+            "label": "Search Opportunities",
+            "value": "opportunity_search"
+          },
+          {
+            "label": "Get Opportunity",
+            "value": "opportunity_get"
+          },
+          {
+            "label": "Update Opportunity",
+            "value": "opportunity_update"
+          },
+          {
+            "label": "Search Sequences",
+            "value": "sequence_search"
+          },
+          {
+            "label": "Add to Sequence",
+            "value": "sequence_add"
+          },
+          {
+            "label": "Create Task",
+            "value": "task_create"
+          },
+          {
+            "label": "Search Tasks",
+            "value": "task_search"
+          },
+          {
+            "label": "Get Email Accounts",
+            "value": "email_accounts"
+          }
+        ]
+      },
+      {
+        "id": "apiKey",
+        "type": "short-input",
+        "title": "Apollo API Key",
+        "placeholder": "Enter your Apollo API key",
+        "password": true
+      },
+      {
+        "id": "person_titles",
+        "type": "code",
+        "title": "Job Titles",
+        "placeholder": "["
+      },
+      {
+        "id": "person_locations",
+        "type": "code",
+        "title": "Locations",
+        "placeholder": "["
+      },
+      {
+        "id": "organization_names",
+        "type": "code",
+        "title": "Company Names",
+        "placeholder": "["
+      },
+      {
+        "id": "person_seniorities",
+        "type": "code",
+        "title": "Seniority Levels",
+        "placeholder": "["
+      },
+      {
+        "id": "contact_stage_ids",
+        "type": "code",
+        "title": "Contact Stage IDs",
+        "placeholder": "["
+      },
+      {
+        "id": "first_name",
+        "type": "short-input",
+        "title": "First Name",
+        "placeholder": "First name"
+      },
+      {
+        "id": "last_name",
+        "type": "short-input",
+        "title": "Last Name",
+        "placeholder": "Last name"
+      },
+      {
+        "id": "email",
+        "type": "short-input",
+        "title": "Email",
+        "placeholder": "email@example.com"
+      },
+      {
+        "id": "organization_name",
+        "type": "short-input",
+        "title": "Company Name",
+        "placeholder": "Company name"
+      },
+      {
+        "id": "domain",
+        "type": "short-input",
+        "title": "Domain",
+        "placeholder": "example.com"
+      },
+      {
+        "id": "reveal_personal_emails",
+        "type": "switch",
+        "title": "Reveal Personal Emails"
+      },
+      {
+        "id": "reveal_phone_number",
+        "type": "switch",
+        "title": "Reveal Phone Numbers"
+      },
+      {
+        "id": "people",
+        "type": "code",
+        "title": "People (JSON Array)",
+        "placeholder": "[{"
+      },
+      {
+        "id": "organizations",
+        "type": "code",
+        "title": "Organizations (JSON Array)",
+        "placeholder": "[{"
+      },
+      {
+        "id": "organization_locations",
+        "type": "code",
+        "title": "Organization Locations",
+        "placeholder": "["
+      },
+      {
+        "id": "organization_num_employees_ranges",
+        "type": "code",
+        "title": "Employee Count Ranges",
+        "placeholder": "["
+      },
+      {
+        "id": "q_organization_keyword_tags",
+        "type": "code",
+        "title": "Keyword Tags",
+        "placeholder": "["
+      },
+      {
+        "id": "q_organization_name",
+        "type": "short-input",
+        "title": "Organization Name",
+        "placeholder": "Company name to search"
+      },
+      {
+        "id": "contact_id",
+        "type": "short-input",
+        "title": "Contact ID",
+        "placeholder": "Apollo contact ID"
+      },
+      {
+        "id": "title",
+        "type": "short-input",
+        "title": "Job Title",
+        "placeholder": "Job title"
+      },
+      {
+        "id": "account_id",
+        "type": "short-input",
+        "title": "Account ID",
+        "placeholder": "Apollo account ID"
+      },
+      {
+        "id": "owner_id",
+        "type": "short-input",
+        "title": "Owner ID",
+        "placeholder": "Apollo user ID"
+      },
+      {
+        "id": "contacts",
+        "type": "code",
+        "title": "Contacts (JSON Array)",
+        "placeholder": "[{"
+      },
+      {
+        "id": "contacts",
+        "type": "code",
+        "title": "Contacts (JSON Array)",
+        "placeholder": "[{"
+      },
+      {
+        "id": "run_dedupe",
+        "type": "switch",
+        "title": "Run Deduplication"
+      },
+      {
+        "id": "account_name",
+        "type": "short-input",
+        "title": "Account Name",
+        "placeholder": "Company name"
+      },
+      {
+        "id": "website_url",
+        "type": "short-input",
+        "title": "Website URL",
+        "placeholder": "https://example.com"
+      },
+      {
+        "id": "phone",
+        "type": "short-input",
+        "title": "Phone Number",
+        "placeholder": "Company phone"
+      },
+      {
+        "id": "q_keywords",
+        "type": "short-input",
+        "title": "Keywords",
+        "placeholder": "Search keywords"
+      },
+      {
+        "id": "account_stage_ids",
+        "type": "code",
+        "title": "Account Stage IDs",
+        "placeholder": "["
+      },
+      {
+        "id": "accounts",
+        "type": "code",
+        "title": "Accounts (JSON Array)",
+        "placeholder": "[{"
+      },
+      {
+        "id": "accounts",
+        "type": "code",
+        "title": "Accounts (JSON Array)",
+        "placeholder": "[{"
+      },
+      {
+        "id": "opportunity_name",
+        "type": "short-input",
+        "title": "Opportunity Name",
+        "placeholder": "Opportunity name"
+      },
+      {
+        "id": "amount",
+        "type": "short-input",
+        "title": "Amount",
+        "placeholder": "Deal amount (e.g., 50000)"
+      },
+      {
+        "id": "stage_id",
+        "type": "short-input",
+        "title": "Stage ID",
+        "placeholder": "Opportunity stage ID"
+      },
+      {
+        "id": "close_date",
+        "type": "short-input",
+        "title": "Close Date",
+        "placeholder": "ISO date (e.g., 2024-12-31)"
+      },
+      {
+        "id": "description",
+        "type": "long-input",
+        "title": "Description",
+        "placeholder": "Opportunity description"
+      },
+      {
+        "id": "opportunity_id",
+        "type": "short-input",
+        "title": "Opportunity ID",
+        "placeholder": "Apollo opportunity ID"
+      },
+      {
+        "id": "account_ids",
+        "type": "code",
+        "title": "Account IDs",
+        "placeholder": "["
+      },
+      {
+        "id": "stage_ids",
+        "type": "code",
+        "title": "Stage IDs",
+        "placeholder": "["
+      },
+      {
+        "id": "owner_ids",
+        "type": "code",
+        "title": "Owner IDs",
+        "placeholder": "["
+      },
+      {
+        "id": "q_name",
+        "type": "short-input",
+        "title": "Sequence Name",
+        "placeholder": "Search by sequence name"
+      },
+      {
+        "id": "active",
+        "type": "switch",
+        "title": "Active Only"
+      },
+      {
+        "id": "sequence_id",
+        "type": "short-input",
+        "title": "Sequence ID",
+        "placeholder": "Apollo sequence ID"
+      },
+      {
+        "id": "contact_ids",
+        "type": "code",
+        "title": "Contact IDs (JSON Array)",
+        "placeholder": "["
+      },
+      {
+        "id": "note",
+        "type": "long-input",
+        "title": "Task Note",
+        "placeholder": "Task description"
+      },
+      {
+        "id": "due_at",
+        "type": "short-input",
+        "title": "Due Date",
+        "placeholder": "ISO date (e.g., 2024-12-31T23:59:59Z)"
+      },
+      {
+        "id": "completed",
+        "type": "switch",
+        "title": "Completed"
+      },
+      {
+        "id": "page",
+        "type": "short-input",
+        "title": "Page Number",
+        "placeholder": "1"
+      },
+      {
+        "id": "per_page",
+        "type": "short-input",
+        "title": "Results Per Page",
+        "placeholder": "25 (max: 100)",
+        "max": 100
+      }
+    ],
+    "tools": {
+      "access": [
+        "apollo_people_search",
+        "apollo_people_enrich",
+        "apollo_people_bulk_enrich",
+        "apollo_organization_search",
+        "apollo_organization_enrich",
+        "apollo_organization_bulk_enrich",
+        "apollo_contact_create",
+        "apollo_contact_update",
+        "apollo_contact_search",
+        "apollo_contact_bulk_create",
+        "apollo_contact_bulk_update",
+        "apollo_account_create",
+        "apollo_account_update",
+        "apollo_account_search",
+        "apollo_account_bulk_create",
+        "apollo_account_bulk_update",
+        "apollo_opportunity_create",
+        "apollo_opportunity_search",
+        "apollo_opportunity_get",
+        "apollo_opportunity_update",
+        "apollo_sequence_search",
+        "apollo_sequence_add_contacts",
+        "apollo_task_create",
+        "apollo_task_search",
+        "apollo_email_accounts"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "boolean"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "apollo_account_bulk_create",
+      "name": "Apollo Bulk Create Accounts",
+      "description": "Create up to 100 accounts at once in your Apollo database. Note: Apollo does not apply deduplication - duplicate accounts may be created if entries share similar names or domains. Master key required.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "apollo",
+        "operation": "apollo_account_bulk_create"
+      }
+    },
+    {
+      "id": "apollo_account_bulk_update",
+      "name": "Apollo Bulk Update Accounts",
+      "description": "Update up to 1000 existing accounts at once in your Apollo database (higher limit than contacts!). Each account must include an id field. Master key required.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "apollo",
+        "operation": "apollo_account_bulk_update"
+      }
+    },
+    {
+      "id": "apollo_account_create",
+      "name": "Apollo Create Account",
+      "description": "Create a new account (company) in your Apollo database",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "apollo",
+        "operation": "apollo_account_create"
+      }
+    },
+    {
+      "id": "apollo_account_search",
+      "name": "Apollo Search Accounts",
+      "description": "Search your team",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "apollo",
+        "operation": "apollo_account_search"
+      }
+    },
+    {
+      "id": "apollo_account_update",
+      "name": "Apollo Update Account",
+      "description": "Update an existing account in your Apollo database",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "apollo",
+        "operation": "apollo_account_update"
+      }
+    },
+    {
+      "id": "apollo_contact_bulk_create",
+      "name": "Apollo Bulk Create Contacts",
+      "description": "Create up to 100 contacts at once in your Apollo database. Supports deduplication to prevent creating duplicate contacts. Master key required.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "apollo",
+        "operation": "apollo_contact_bulk_create"
+      }
+    },
+    {
+      "id": "apollo_contact_bulk_update",
+      "name": "Apollo Bulk Update Contacts",
+      "description": "Update up to 100 existing contacts at once in your Apollo database. Each contact must include an id field. Master key required.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "apollo",
+        "operation": "apollo_contact_bulk_update"
+      }
+    },
+    {
+      "id": "apollo_contact_create",
+      "name": "Apollo Create Contact",
+      "description": "Create a new contact in your Apollo database",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "apollo",
+        "operation": "apollo_contact_create"
+      }
+    },
+    {
+      "id": "apollo_contact_search",
+      "name": "Apollo Search Contacts",
+      "description": "Search your team",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "apollo",
+        "operation": "apollo_contact_search"
+      }
+    },
+    {
+      "id": "apollo_contact_update",
+      "name": "Apollo Update Contact",
+      "description": "Update an existing contact in your Apollo database",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "apollo",
+        "operation": "apollo_contact_update"
+      }
+    },
+    {
+      "id": "apollo_email_accounts",
+      "name": "Apollo Get Email Accounts",
+      "description": "Get list of team",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "apollo",
+        "operation": "apollo_email_accounts"
+      }
+    },
+    {
+      "id": "apollo_opportunity_create",
+      "name": "Apollo Create Opportunity",
+      "description": "Create a new deal for an account in your Apollo database (master key required)",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "apollo",
+        "operation": "apollo_opportunity_create"
+      }
+    },
+    {
+      "id": "apollo_opportunity_get",
+      "name": "Apollo Get Opportunity",
+      "description": "Retrieve complete details of a specific deal/opportunity by ID",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "apollo",
+        "operation": "apollo_opportunity_get"
+      }
+    },
+    {
+      "id": "apollo_opportunity_search",
+      "name": "Apollo Search Opportunities",
+      "description": "Search and list all deals/opportunities in your team",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "apollo",
+        "operation": "apollo_opportunity_search"
+      }
+    },
+    {
+      "id": "apollo_opportunity_update",
+      "name": "Apollo Update Opportunity",
+      "description": "Update an existing deal/opportunity in your Apollo database",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "apollo",
+        "operation": "apollo_opportunity_update"
+      }
+    },
+    {
+      "id": "apollo_organization_bulk_enrich",
+      "name": "Apollo Bulk Organization Enrichment",
+      "description": "Enrich data for up to 10 organizations at once using Apollo",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "apollo",
+        "operation": "apollo_organization_bulk_enrich"
+      }
+    },
+    {
+      "id": "apollo_organization_enrich",
+      "name": "Apollo Organization Enrichment",
+      "description": "Enrich data for a single organization using Apollo",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "apollo",
+        "operation": "apollo_organization_enrich"
+      }
+    },
+    {
+      "id": "apollo_organization_search",
+      "name": "Apollo Organization Search",
+      "description": "Search Apollo",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "apollo",
+        "operation": "apollo_organization_search"
+      }
+    },
+    {
+      "id": "apollo_people_bulk_enrich",
+      "name": "Apollo Bulk People Enrichment",
+      "description": "Enrich data for up to 10 people at once using Apollo",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "apollo",
+        "operation": "apollo_people_bulk_enrich"
+      }
+    },
+    {
+      "id": "apollo_people_enrich",
+      "name": "Apollo People Enrichment",
+      "description": "Enrich data for a single person using Apollo",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "apollo",
+        "operation": "apollo_people_enrich"
+      }
+    },
+    {
+      "id": "apollo_people_search",
+      "name": "Apollo People Search",
+      "description": "Search Apollo",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "apollo",
+        "operation": "apollo_people_search"
+      }
+    },
+    {
+      "id": "apollo_sequence_add_contacts",
+      "name": "Apollo Add Contacts to Sequence",
+      "description": "Add contacts to an Apollo sequence",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "apollo",
+        "operation": "apollo_sequence_add_contacts"
+      }
+    },
+    {
+      "id": "apollo_sequence_search",
+      "name": "Apollo Search Sequences",
+      "description": "Search for sequences/campaigns in your team",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "apollo",
+        "operation": "apollo_sequence_search"
+      }
+    },
+    {
+      "id": "apollo_task_create",
+      "name": "Apollo Create Task",
+      "description": "Create a new task in Apollo",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "apollo",
+        "operation": "apollo_task_create"
+      }
+    },
+    {
+      "id": "apollo_task_search",
+      "name": "Apollo Search Tasks",
+      "description": "Search for tasks in Apollo",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "apollo",
+        "operation": "apollo_task_search"
+      }
+    }
+  ]
+}

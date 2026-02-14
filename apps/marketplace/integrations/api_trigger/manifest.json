@@ -1,0 +1,53 @@
+{
+  "id": "api_trigger",
+  "name": "API (Legacy)",
+  "version": "1.0.0",
+  "description": "Legacy block for exposing HTTP API endpoint. Prefer Start block.",
+  "icon": "ApiIcon",
+  "block": {
+    "type": "api_trigger",
+    "name": "API (Legacy)",
+    "description": "Legacy block for exposing HTTP API endpoint. Prefer Start block.",
+    "longDescription": "API trigger to start the workflow via authenticated HTTP calls with structured input.",
+    "category": "triggers",
+    "bgColor": "#2F55FF",
+    "icon": "ApiIcon",
+    "hideFromToolbar": true,
+    "triggerAllowed": true,
+    "subBlocks": [
+      {
+        "id": "inputFormat",
+        "title": "Input Format",
+        "type": "input-format"
+      }
+    ],
+    "tools": {
+      "access": [],
+      "config": {
+        "tool": ""
+      }
+    },
+    "inputs": {},
+    "outputs": {},
+    "triggers": {
+      "enabled": true,
+      "available": [
+        "api"
+      ]
+    }
+  },
+  "tools": [
+    {
+      "id": "api_trigger_execute",
+      "name": "api_trigger execute",
+      "description": "",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "api_trigger",
+        "operation": "execute"
+      }
+    }
+  ]
+}

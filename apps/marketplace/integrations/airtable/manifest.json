@@ -1,0 +1,184 @@
+{
+  "id": "airtable",
+  "name": "Airtable",
+  "version": "1.0.0",
+  "description": "Read, create, and update Airtable",
+  "icon": "AirtableIcon",
+  "block": {
+    "type": "airtable",
+    "name": "Airtable",
+    "description": "Read, create, and update Airtable",
+    "longDescription": "Integrates Airtable into the workflow. Can create, get, list, or update Airtable records. Can be used in trigger mode to trigger a workflow when an update is made to an Airtable table.",
+    "docsLink": "https://docs.sim.ai/tools/airtable",
+    "category": "tools",
+    "bgColor": "#E0E0E0",
+    "icon": "AirtableIcon",
+    "authMode": "oauth",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "List Records",
+            "value": "list"
+          },
+          {
+            "label": "Get Record",
+            "value": "get"
+          },
+          {
+            "label": "Create Records",
+            "value": "create"
+          },
+          {
+            "label": "Update Record",
+            "value": "update"
+          }
+        ]
+      },
+      {
+        "id": "credential",
+        "type": "oauth-input",
+        "title": "Airtable Account",
+        "placeholder": "Select Airtable account"
+      },
+      {
+        "id": "baseId",
+        "type": "short-input",
+        "title": "Base ID",
+        "placeholder": "Enter your base ID (e.g., appXXXXXXXXXXXXXX)"
+      },
+      {
+        "id": "tableId",
+        "type": "short-input",
+        "title": "Table ID",
+        "placeholder": "Enter table ID (e.g., tblXXXXXXXXXXXXXX)"
+      },
+      {
+        "id": "recordId",
+        "type": "short-input",
+        "title": "Record ID",
+        "placeholder": "ID of the record (e.g., recXXXXXXXXXXXXXX)"
+      },
+      {
+        "id": "maxRecords",
+        "type": "short-input",
+        "title": "Max Records",
+        "placeholder": "Maximum records to return"
+      },
+      {
+        "id": "filterFormula",
+        "type": "long-input",
+        "title": "Filter Formula",
+        "placeholder": "Airtable formula to filter records (optional)"
+      },
+      {
+        "id": "records",
+        "type": "code",
+        "title": "Records (JSON Array)",
+        "placeholder": "For Create: "
+      },
+      {
+        "id": "fields",
+        "type": "code",
+        "title": "Fields (JSON Object)",
+        "placeholder": "Fields to update: "
+      }
+    ],
+    "tools": {
+      "access": [
+        "airtable_list_records",
+        "airtable_get_record",
+        "airtable_create_records",
+        "airtable_update_record",
+        "airtable_update_multiple_records"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "records": {
+        "type": "json"
+      },
+      "record": {
+        "type": "json"
+      },
+      "metadata": {
+        "type": "json"
+      },
+      "event_type": {
+        "type": "string"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "airtable_create_records",
+      "name": "Airtable Create Records",
+      "description": "Write new records to an Airtable table",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "airtable",
+        "operation": "airtable_create_records"
+      }
+    },
+    {
+      "id": "airtable_get_record",
+      "name": "Airtable Get Record",
+      "description": "Retrieve a single record from an Airtable table by its ID",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "airtable",
+        "operation": "airtable_get_record"
+      }
+    },
+    {
+      "id": "airtable_list_records",
+      "name": "Airtable List Records",
+      "description": "Read records from an Airtable table",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "airtable",
+        "operation": "airtable_list_records"
+      }
+    },
+    {
+      "id": "airtable_update_multiple_records",
+      "name": "Airtable Update Multiple Records",
+      "description": "Update multiple existing records in an Airtable table",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "airtable",
+        "operation": "airtable_update_multiple_records"
+      }
+    },
+    {
+      "id": "airtable_update_record",
+      "name": "Airtable Update Record",
+      "description": "Update an existing record in an Airtable table by ID",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "airtable",
+        "operation": "airtable_update_record"
+      }
+    }
+  ]
+}

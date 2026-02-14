@@ -1,0 +1,242 @@
+{
+  "id": "twilio_voice",
+  "name": "Twilio Voice",
+  "version": "1.0.0",
+  "description": "Make and manage phone calls",
+  "icon": "TwilioIcon",
+  "block": {
+    "type": "twilio_voice",
+    "name": "Twilio Voice",
+    "description": "Make and manage phone calls",
+    "longDescription": "Integrate Twilio Voice into the workflow. Make outbound calls and retrieve call recordings.",
+    "docsLink": "https://docs.sim.ai/tools/twilio_voice",
+    "category": "tools",
+    "bgColor": "#F22F46",
+    "icon": "TwilioIcon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Make Call",
+            "value": "make_call"
+          },
+          {
+            "label": "List Calls",
+            "value": "list_calls"
+          },
+          {
+            "label": "Get Recording",
+            "value": "get_recording"
+          }
+        ]
+      },
+      {
+        "id": "accountSid",
+        "type": "short-input",
+        "title": "Twilio Account SID",
+        "placeholder": "ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      },
+      {
+        "id": "authToken",
+        "type": "short-input",
+        "title": "Auth Token",
+        "placeholder": "Your Twilio Auth Token",
+        "password": true
+      },
+      {
+        "id": "to",
+        "type": "short-input",
+        "title": "To Phone Number",
+        "placeholder": "+14155551234"
+      },
+      {
+        "id": "from",
+        "type": "short-input",
+        "title": "From Twilio Number",
+        "placeholder": "+14155556789"
+      },
+      {
+        "id": "url",
+        "type": "short-input",
+        "title": "TwiML URL",
+        "placeholder": "https://example.com/twiml"
+      },
+      {
+        "id": "twiml",
+        "type": "long-input",
+        "title": "TwiML Instructions",
+        "placeholder": "[Response][Say]Hello from Twilio![/Say][/Response]"
+      },
+      {
+        "id": "record",
+        "type": "switch",
+        "title": "Record Call"
+      },
+      {
+        "id": "timeout",
+        "type": "short-input",
+        "title": "Timeout (seconds)",
+        "placeholder": "60"
+      },
+      {
+        "id": "statusCallback",
+        "type": "short-input",
+        "title": "Status Callback URL",
+        "placeholder": "https://example.com/status"
+      },
+      {
+        "id": "machineDetection",
+        "type": "dropdown",
+        "title": "Machine Detection",
+        "options": [
+          {
+            "label": "Enable",
+            "value": "Enable"
+          },
+          {
+            "label": "Detect Message End",
+            "value": "DetectMessageEnd"
+          }
+        ]
+      },
+      {
+        "id": "listTo",
+        "type": "short-input",
+        "title": "To Number",
+        "placeholder": "+14155551234"
+      },
+      {
+        "id": "listFrom",
+        "type": "short-input",
+        "title": "From Number",
+        "placeholder": "+14155556789"
+      },
+      {
+        "id": "listStatus",
+        "type": "dropdown",
+        "title": "Status",
+        "options": [
+          {
+            "label": "Queued",
+            "value": "queued"
+          },
+          {
+            "label": "Ringing",
+            "value": "ringing"
+          },
+          {
+            "label": "In Progress",
+            "value": "in-progress"
+          },
+          {
+            "label": "Completed",
+            "value": "completed"
+          },
+          {
+            "label": "Failed",
+            "value": "failed"
+          },
+          {
+            "label": "Busy",
+            "value": "busy"
+          },
+          {
+            "label": "No Answer",
+            "value": "no-answer"
+          },
+          {
+            "label": "Canceled",
+            "value": "canceled"
+          }
+        ]
+      },
+      {
+        "id": "listPageSize",
+        "type": "short-input",
+        "title": "Page Size",
+        "placeholder": "50"
+      },
+      {
+        "id": "startTimeAfter",
+        "type": "short-input",
+        "title": "After (YYYY-MM-DD)",
+        "placeholder": "2025-01-01"
+      },
+      {
+        "id": "startTimeBefore",
+        "type": "short-input",
+        "title": "Before (YYYY-MM-DD)",
+        "placeholder": "2025-12-31"
+      },
+      {
+        "id": "recordingSid",
+        "type": "short-input",
+        "title": "Recording SID",
+        "placeholder": "RExxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      }
+    ],
+    "tools": {
+      "access": [
+        "twilio_voice_make_call",
+        "twilio_voice_list_calls",
+        "twilio_voice_get_recording"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "boolean"
+      }
+    },
+    "triggerAllowed": true
+  },
+  "tools": [
+    {
+      "id": "twilio_voice_get_recording",
+      "name": "Twilio Voice Get Recording",
+      "description": "Retrieve call recording information and transcription (if enabled via TwiML).",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "twilio_voice",
+        "operation": "twilio_voice_get_recording"
+      }
+    },
+    {
+      "id": "twilio_voice_list_calls",
+      "name": "Twilio Voice List Calls",
+      "description": "Retrieve a list of calls made to and from an account.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "twilio_voice",
+        "operation": "twilio_voice_list_calls"
+      }
+    },
+    {
+      "id": "twilio_voice_make_call",
+      "name": "Twilio Voice Make Call",
+      "description": "Make an outbound phone call using Twilio Voice API.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "twilio_voice",
+        "operation": "twilio_voice_make_call"
+      }
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "id": "elevenlabs",
+  "name": "ElevenLabs",
+  "version": "1.0.0",
+  "description": "Convert TTS using ElevenLabs",
+  "icon": "ElevenLabsIcon",
+  "block": {
+    "type": "elevenlabs",
+    "name": "ElevenLabs",
+    "description": "Convert TTS using ElevenLabs",
+    "longDescription": "Integrate ElevenLabs into the workflow. Can convert text to speech.",
+    "docsLink": "https://docs.sim.ai/tools/elevenlabs",
+    "category": "tools",
+    "bgColor": "#181C1E",
+    "icon": "ElevenLabsIcon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "text",
+        "type": "long-input",
+        "title": "Text",
+        "placeholder": "Enter the text to convert to speech"
+      },
+      {
+        "id": "voiceId",
+        "type": "short-input",
+        "title": "Voice ID",
+        "placeholder": "Enter the voice ID"
+      },
+      {
+        "id": "modelId",
+        "type": "dropdown",
+        "title": "Model ID",
+        "options": [
+          {
+            "label": "eleven_monolingual_v1",
+            "value": "eleven_monolingual_v1"
+          },
+          {
+            "label": "eleven_multilingual_v2",
+            "value": "eleven_multilingual_v2"
+          },
+          {
+            "label": "eleven_turbo_v2",
+            "value": "eleven_turbo_v2"
+          },
+          {
+            "label": "eleven_turbo_v2_5",
+            "value": "eleven_turbo_v2_5"
+          },
+          {
+            "label": "eleven_flash_v2_5",
+            "value": "eleven_flash_v2_5"
+          },
+          {
+            "label": "eleven_v3",
+            "value": "eleven_v3"
+          }
+        ]
+      },
+      {
+        "id": "apiKey",
+        "type": "short-input",
+        "title": "API Key",
+        "placeholder": "Enter your ElevenLabs API key",
+        "password": true
+      }
+    ],
+    "tools": {
+      "access": [
+        "elevenlabs_tts"
+      ],
+      "config": {
+        "tool": "elevenlabs_tts"
+      }
+    },
+    "inputs": {
+      "text": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "audioUrl": {
+        "type": "string"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "elevenlabs_tts",
+      "name": "ElevenLabs TTS",
+      "description": "Convert TTS using ElevenLabs voices",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "elevenlabs",
+        "operation": "elevenlabs_tts"
+      }
+    }
+  ]
+}

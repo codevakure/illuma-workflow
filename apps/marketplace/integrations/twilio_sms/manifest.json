@@ -1,0 +1,117 @@
+{
+  "id": "twilio_sms",
+  "name": "Twilio SMS",
+  "version": "1.0.0",
+  "description": "Send SMS messages",
+  "icon": "TwilioIcon",
+  "block": {
+    "type": "twilio_sms",
+    "name": "Twilio SMS",
+    "description": "Send SMS messages",
+    "longDescription": "Integrate Twilio into the workflow. Can send SMS messages.",
+    "docsLink": "https://docs.sim.ai/tools/twilio",
+    "category": "tools",
+    "bgColor": "#F22F46",
+    "icon": "TwilioIcon",
+    "subBlocks": [
+      {
+        "id": "phoneNumbers",
+        "title": "Recipient Phone Numbers",
+        "type": "long-input",
+        "placeholder": "Enter phone numbers with country code (one per line, e.g., +1234567890)",
+        "required": true
+      },
+      {
+        "id": "message",
+        "title": "Message",
+        "type": "long-input",
+        "placeholder": "e.g. \"Hello! This is a test message.\"",
+        "required": true
+      },
+      {
+        "id": "accountSid",
+        "title": "Twilio Account SID",
+        "type": "short-input",
+        "placeholder": "Your Twilio Account SID",
+        "required": true
+      },
+      {
+        "id": "authToken",
+        "title": "Auth Token",
+        "type": "short-input",
+        "placeholder": "Your Twilio Auth Token",
+        "password": true,
+        "required": true
+      },
+      {
+        "id": "fromNumber",
+        "title": "From Twilio Phone Number",
+        "type": "short-input",
+        "placeholder": "e.g. +1234567890",
+        "required": true
+      }
+    ],
+    "tools": {
+      "access": [
+        "twilio_send_sms"
+      ],
+      "config": {
+        "tool": "twilio_send_sms"
+      }
+    },
+    "inputs": {
+      "phoneNumbers": {
+        "type": "string",
+        "description": "Recipient phone numbers"
+      },
+      "message": {
+        "type": "string",
+        "description": "SMS message text"
+      },
+      "accountSid": {
+        "type": "string",
+        "description": "Twilio account SID"
+      },
+      "authToken": {
+        "type": "string",
+        "description": "Twilio auth token"
+      },
+      "fromNumber": {
+        "type": "string",
+        "description": "Sender phone number"
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "boolean",
+        "description": "Send success status"
+      },
+      "messageId": {
+        "type": "string",
+        "description": "Twilio message SID"
+      },
+      "status": {
+        "type": "string",
+        "description": "SMS delivery status (queued, sent, delivered, etc.)"
+      },
+      "error": {
+        "type": "string",
+        "description": "Error information if sending fails"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "twilio_send_sms",
+      "name": "twilio send sms",
+      "description": "",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "twilio_sms",
+        "operation": "twilio_send_sms"
+      }
+    }
+  ]
+}

@@ -1,0 +1,762 @@
+{
+  "id": "google_drive",
+  "name": "Google Drive",
+  "version": "1.0.0",
+  "description": "Manage files, folders, and permissions",
+  "icon": "GoogleDriveIcon",
+  "block": {
+    "type": "google_drive",
+    "name": "Google Drive",
+    "description": "Manage files, folders, and permissions",
+    "longDescription": "Integrate Google Drive into the workflow. Can create, upload, download, copy, move, delete, share files and manage permissions.",
+    "docsLink": "https://docs.sim.ai/tools/google_drive",
+    "category": "tools",
+    "bgColor": "#E0E0E0",
+    "icon": "GoogleDriveIcon",
+    "authMode": "oauth",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "List Files",
+            "value": "list"
+          },
+          {
+            "label": "Get File Info",
+            "value": "get_file"
+          },
+          {
+            "label": "Create Folder",
+            "value": "create_folder"
+          },
+          {
+            "label": "Create File",
+            "value": "create_file"
+          },
+          {
+            "label": "Upload File",
+            "value": "upload"
+          },
+          {
+            "label": "Download File",
+            "value": "download"
+          },
+          {
+            "label": "Copy File",
+            "value": "copy"
+          },
+          {
+            "label": "Update File",
+            "value": "update"
+          },
+          {
+            "label": "Move to Trash",
+            "value": "trash"
+          },
+          {
+            "label": "Delete Permanently",
+            "value": "delete"
+          },
+          {
+            "label": "Share File",
+            "value": "share"
+          },
+          {
+            "label": "Remove Sharing",
+            "value": "unshare"
+          },
+          {
+            "label": "List Permissions",
+            "value": "list_permissions"
+          },
+          {
+            "label": "Get Drive Info",
+            "value": "get_about"
+          }
+        ]
+      },
+      {
+        "id": "credential",
+        "type": "oauth-input",
+        "title": "Google Drive Account",
+        "placeholder": "Select Google Drive account"
+      },
+      {
+        "id": "fileName",
+        "type": "short-input",
+        "title": "File Name",
+        "placeholder": "Name of the file (e.g., document.txt)"
+      },
+      {
+        "id": "fileUpload",
+        "type": "file-upload",
+        "title": "Upload File",
+        "placeholder": "Upload a file to Google Drive",
+        "mode": "basic",
+        "canonicalParamId": "file"
+      },
+      {
+        "id": "file",
+        "type": "short-input",
+        "title": "File Reference",
+        "placeholder": "Reference file from previous block (e.g., {{block_name.file}})",
+        "mode": "advanced",
+        "canonicalParamId": "file"
+      },
+      {
+        "id": "content",
+        "type": "long-input",
+        "title": "Text Content",
+        "placeholder": "Text content for the file"
+      },
+      {
+        "id": "mimeType",
+        "type": "dropdown",
+        "title": "MIME Type",
+        "placeholder": "Select file type",
+        "options": [
+          {
+            "label": "Plain Text (text/plain)",
+            "value": "text/plain"
+          },
+          {
+            "label": "Google Doc",
+            "value": "application/vnd.google-apps.document"
+          },
+          {
+            "label": "Google Sheet",
+            "value": "application/vnd.google-apps.spreadsheet"
+          },
+          {
+            "label": "Google Slides",
+            "value": "application/vnd.google-apps.presentation"
+          },
+          {
+            "label": "HTML (text/html)",
+            "value": "text/html"
+          },
+          {
+            "label": "CSV (text/csv)",
+            "value": "text/csv"
+          },
+          {
+            "label": "PDF (application/pdf)",
+            "value": "application/pdf"
+          }
+        ]
+      },
+      {
+        "id": "uploadFolderSelector",
+        "type": "file-selector",
+        "title": "Select Parent Folder",
+        "placeholder": "Select a parent folder",
+        "mode": "basic",
+        "canonicalParamId": "uploadFolderId"
+      },
+      {
+        "id": "uploadManualFolderId",
+        "type": "short-input",
+        "title": "Parent Folder ID",
+        "placeholder": "Enter parent folder ID (leave empty for root folder)",
+        "mode": "advanced",
+        "canonicalParamId": "uploadFolderId"
+      },
+      {
+        "id": "fileId",
+        "type": "file-selector",
+        "title": "Select File",
+        "placeholder": "Select a file"
+      },
+      {
+        "id": "fileId",
+        "type": "short-input",
+        "title": "Or Enter File ID Manually",
+        "placeholder": "ID of the file to get content from"
+      },
+      {
+        "id": "mimeType",
+        "type": "dropdown",
+        "title": "Export Format",
+        "placeholder": "Optional: Choose export format for Google Workspace files",
+        "options": [
+          {
+            "label": "Plain Text",
+            "value": "text/plain"
+          },
+          {
+            "label": "HTML",
+            "value": "text/html"
+          }
+        ]
+      },
+      {
+        "id": "fileName",
+        "type": "short-input",
+        "title": "Folder Name",
+        "placeholder": "Name for the new folder"
+      },
+      {
+        "id": "createFolderParentSelector",
+        "type": "file-selector",
+        "title": "Select Parent Folder",
+        "placeholder": "Select a parent folder",
+        "mode": "basic",
+        "canonicalParamId": "createFolderParentId"
+      },
+      {
+        "id": "createFolderManualParentId",
+        "type": "short-input",
+        "title": "Parent Folder ID",
+        "placeholder": "Enter parent folder ID (leave empty for root folder)",
+        "mode": "advanced",
+        "canonicalParamId": "createFolderParentId"
+      },
+      {
+        "id": "listFolderSelector",
+        "type": "file-selector",
+        "title": "Select Folder",
+        "placeholder": "Select a folder to list files from",
+        "mode": "basic",
+        "canonicalParamId": "listFolderId"
+      },
+      {
+        "id": "listManualFolderId",
+        "type": "short-input",
+        "title": "Folder ID",
+        "placeholder": "Enter folder ID (leave empty for root folder)",
+        "mode": "advanced",
+        "canonicalParamId": "listFolderId"
+      },
+      {
+        "id": "query",
+        "type": "short-input",
+        "title": "Search Query",
+        "placeholder": "Search for specific files (e.g., name contains "
+      },
+      {
+        "id": "pageSize",
+        "type": "short-input",
+        "title": "Results Per Page",
+        "placeholder": "Number of results (default: 100, max: 1000)",
+        "max": 1000
+      },
+      {
+        "id": "downloadFileSelector",
+        "type": "file-selector",
+        "title": "Select File",
+        "placeholder": "Select a file to download",
+        "mode": "basic",
+        "canonicalParamId": "downloadFileId"
+      },
+      {
+        "id": "downloadManualFileId",
+        "type": "short-input",
+        "title": "File ID",
+        "placeholder": "Enter file ID",
+        "mode": "advanced",
+        "canonicalParamId": "downloadFileId"
+      },
+      {
+        "id": "mimeType",
+        "type": "dropdown",
+        "title": "Export Format",
+        "placeholder": "Optional: Choose export format for Google Docs/Sheets/Slides",
+        "options": [
+          {
+            "label": "Plain Text (text/plain)",
+            "value": "text/plain"
+          },
+          {
+            "label": "HTML (text/html)",
+            "value": "text/html"
+          },
+          {
+            "label": "PDF (application/pdf)",
+            "value": "application/pdf"
+          },
+          {
+            "label": "CSV (text/csv)",
+            "value": "text/csv"
+          }
+        ]
+      },
+      {
+        "id": "fileName",
+        "type": "short-input",
+        "title": "File Name Override",
+        "placeholder": "Optional: Override the filename"
+      },
+      {
+        "id": "getFileSelector",
+        "type": "file-selector",
+        "title": "Select File",
+        "placeholder": "Select a file to get info for",
+        "mode": "basic",
+        "canonicalParamId": "getFileId"
+      },
+      {
+        "id": "getManualFileId",
+        "type": "short-input",
+        "title": "File ID",
+        "placeholder": "Enter file ID",
+        "mode": "advanced",
+        "canonicalParamId": "getFileId"
+      },
+      {
+        "id": "copyFileSelector",
+        "type": "file-selector",
+        "title": "Select File to Copy",
+        "placeholder": "Select a file to copy",
+        "mode": "basic",
+        "canonicalParamId": "copyFileId"
+      },
+      {
+        "id": "copyManualFileId",
+        "type": "short-input",
+        "title": "File ID",
+        "placeholder": "Enter file ID to copy",
+        "mode": "advanced",
+        "canonicalParamId": "copyFileId"
+      },
+      {
+        "id": "newName",
+        "type": "short-input",
+        "title": "New File Name",
+        "placeholder": "Name for the copy (optional)"
+      },
+      {
+        "id": "copyDestFolderSelector",
+        "type": "file-selector",
+        "title": "Destination Folder",
+        "placeholder": "Select destination folder (optional)",
+        "mode": "basic",
+        "canonicalParamId": "copyDestFolderId"
+      },
+      {
+        "id": "copyManualDestFolderId",
+        "type": "short-input",
+        "title": "Destination Folder ID",
+        "placeholder": "Enter destination folder ID (optional)",
+        "mode": "advanced",
+        "canonicalParamId": "copyDestFolderId"
+      },
+      {
+        "id": "updateFileSelector",
+        "type": "file-selector",
+        "title": "Select File to Update",
+        "placeholder": "Select a file to update",
+        "mode": "basic",
+        "canonicalParamId": "updateFileId"
+      },
+      {
+        "id": "updateManualFileId",
+        "type": "short-input",
+        "title": "File ID",
+        "placeholder": "Enter file ID to update",
+        "mode": "advanced",
+        "canonicalParamId": "updateFileId"
+      },
+      {
+        "id": "name",
+        "type": "short-input",
+        "title": "New Name",
+        "placeholder": "New name for the file (optional)"
+      },
+      {
+        "id": "description",
+        "type": "long-input",
+        "title": "Description",
+        "placeholder": "New description for the file (optional)"
+      },
+      {
+        "id": "starred",
+        "type": "dropdown",
+        "title": "Starred",
+        "placeholder": "Star or unstar the file",
+        "options": [
+          {
+            "label": "Star",
+            "value": "true"
+          },
+          {
+            "label": "Unstar",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "id": "addParents",
+        "type": "short-input",
+        "title": "Add to Folders",
+        "placeholder": "Comma-separated folder IDs to add file to",
+        "mode": "advanced"
+      },
+      {
+        "id": "removeParents",
+        "type": "short-input",
+        "title": "Remove from Folders",
+        "placeholder": "Comma-separated folder IDs to remove file from",
+        "mode": "advanced"
+      },
+      {
+        "id": "trashFileSelector",
+        "type": "file-selector",
+        "title": "Select File to Trash",
+        "placeholder": "Select a file to move to trash",
+        "mode": "basic",
+        "canonicalParamId": "trashFileId"
+      },
+      {
+        "id": "trashManualFileId",
+        "type": "short-input",
+        "title": "File ID",
+        "placeholder": "Enter file ID to trash",
+        "mode": "advanced",
+        "canonicalParamId": "trashFileId"
+      },
+      {
+        "id": "deleteFileSelector",
+        "type": "file-selector",
+        "title": "Select File to Delete",
+        "placeholder": "Select a file to permanently delete",
+        "mode": "basic",
+        "canonicalParamId": "deleteFileId"
+      },
+      {
+        "id": "deleteManualFileId",
+        "type": "short-input",
+        "title": "File ID",
+        "placeholder": "Enter file ID to permanently delete",
+        "mode": "advanced",
+        "canonicalParamId": "deleteFileId"
+      },
+      {
+        "id": "shareFileSelector",
+        "type": "file-selector",
+        "title": "Select File to Share",
+        "placeholder": "Select a file to share",
+        "mode": "basic",
+        "canonicalParamId": "shareFileId"
+      },
+      {
+        "id": "shareManualFileId",
+        "type": "short-input",
+        "title": "File ID",
+        "placeholder": "Enter file ID to share",
+        "mode": "advanced",
+        "canonicalParamId": "shareFileId"
+      },
+      {
+        "id": "shareType",
+        "type": "dropdown",
+        "title": "Share With",
+        "placeholder": "Who to share with",
+        "options": [
+          {
+            "label": "User (email)",
+            "value": "user"
+          },
+          {
+            "label": "Group (email)",
+            "value": "group"
+          },
+          {
+            "label": "Domain",
+            "value": "domain"
+          },
+          {
+            "label": "Anyone with link",
+            "value": "anyone"
+          }
+        ]
+      },
+      {
+        "id": "role",
+        "type": "dropdown",
+        "title": "Permission Level",
+        "placeholder": "Permission level",
+        "options": [
+          {
+            "label": "Viewer (read only)",
+            "value": "reader"
+          },
+          {
+            "label": "Commenter (view & comment)",
+            "value": "commenter"
+          },
+          {
+            "label": "Editor (can edit)",
+            "value": "writer"
+          },
+          {
+            "label": "Transfer Ownership",
+            "value": "owner"
+          }
+        ]
+      },
+      {
+        "id": "email",
+        "type": "short-input",
+        "title": "Email Address",
+        "placeholder": "Email of user or group to share with"
+      },
+      {
+        "id": "domain",
+        "type": "short-input",
+        "title": "Domain",
+        "placeholder": "Domain to share with (e.g., example.com)"
+      },
+      {
+        "id": "sendNotification",
+        "type": "dropdown",
+        "title": "Send Notification",
+        "placeholder": "Send email notification",
+        "options": [
+          {
+            "label": "Yes (default)",
+            "value": "true"
+          },
+          {
+            "label": "No",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "id": "emailMessage",
+        "type": "long-input",
+        "title": "Custom Message",
+        "placeholder": "Custom message for the notification email (optional)"
+      },
+      {
+        "id": "unshareFileSelector",
+        "type": "file-selector",
+        "title": "Select File",
+        "placeholder": "Select a file to remove sharing from",
+        "mode": "basic",
+        "canonicalParamId": "unshareFileId"
+      },
+      {
+        "id": "unshareManualFileId",
+        "type": "short-input",
+        "title": "File ID",
+        "placeholder": "Enter file ID",
+        "mode": "advanced",
+        "canonicalParamId": "unshareFileId"
+      },
+      {
+        "id": "permissionId",
+        "type": "short-input",
+        "title": "Permission ID",
+        "placeholder": "Permission ID to remove (use List Permissions to find)"
+      },
+      {
+        "id": "listPermissionsFileSelector",
+        "type": "file-selector",
+        "title": "Select File",
+        "placeholder": "Select a file to list permissions for",
+        "mode": "basic",
+        "canonicalParamId": "listPermissionsFileId"
+      },
+      {
+        "id": "listPermissionsManualFileId",
+        "type": "short-input",
+        "title": "File ID",
+        "placeholder": "Enter file ID",
+        "mode": "advanced",
+        "canonicalParamId": "listPermissionsFileId"
+      }
+    ],
+    "tools": {
+      "access": [
+        "google_drive_list",
+        "google_drive_get_file",
+        "google_drive_create_folder",
+        "google_drive_upload",
+        "google_drive_download",
+        "google_drive_copy",
+        "google_drive_update",
+        "google_drive_trash",
+        "google_drive_delete",
+        "google_drive_share",
+        "google_drive_unshare",
+        "google_drive_list_permissions",
+        "google_drive_get_about"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "file": {
+        "type": "file"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "google_drive_copy",
+      "name": "Copy Google Drive File",
+      "description": "Create a copy of a file in Google Drive",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_drive",
+        "operation": "google_drive_copy"
+      }
+    },
+    {
+      "id": "google_drive_create_folder",
+      "name": "Create Folder in Google Drive",
+      "description": "Create a new folder in Google Drive with complete metadata returned",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_drive",
+        "operation": "google_drive_create_folder"
+      }
+    },
+    {
+      "id": "google_drive_delete",
+      "name": "Delete Google Drive File",
+      "description": "Permanently delete a file from Google Drive (bypasses trash)",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_drive",
+        "operation": "google_drive_delete"
+      }
+    },
+    {
+      "id": "google_drive_download",
+      "name": "Download File from Google Drive",
+      "description": "Download a file from Google Drive with complete metadata (exports Google Workspace files automatically)",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_drive",
+        "operation": "google_drive_download"
+      }
+    },
+    {
+      "id": "google_drive_get_about",
+      "name": "Get Google Drive Info",
+      "description": "Get information about the user and their Google Drive (storage quota, capabilities)",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_drive",
+        "operation": "google_drive_get_about"
+      }
+    },
+    {
+      "id": "google_drive_get_file",
+      "name": "Get Google Drive File",
+      "description": "Get metadata for a specific file in Google Drive by its ID",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_drive",
+        "operation": "google_drive_get_file"
+      }
+    },
+    {
+      "id": "google_drive_list",
+      "name": "List Google Drive Files",
+      "description": "List files and folders in Google Drive with complete metadata",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_drive",
+        "operation": "google_drive_list"
+      }
+    },
+    {
+      "id": "google_drive_list_permissions",
+      "name": "List Google Drive Permissions",
+      "description": "List all permissions (who has access) for a file in Google Drive",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_drive",
+        "operation": "google_drive_list_permissions"
+      }
+    },
+    {
+      "id": "google_drive_share",
+      "name": "Share Google Drive File",
+      "description": "Share a file with a user, group, domain, or make it public",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_drive",
+        "operation": "google_drive_share"
+      }
+    },
+    {
+      "id": "google_drive_trash",
+      "name": "Trash Google Drive File",
+      "description": "Move a file to the trash in Google Drive (can be restored later)",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_drive",
+        "operation": "google_drive_trash"
+      }
+    },
+    {
+      "id": "google_drive_unshare",
+      "name": "Unshare Google Drive File",
+      "description": "Remove a permission from a file (revoke access)",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_drive",
+        "operation": "google_drive_unshare"
+      }
+    },
+    {
+      "id": "google_drive_update",
+      "name": "Update Google Drive File",
+      "description": "Update file metadata in Google Drive (rename, move, star, add description)",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_drive",
+        "operation": "google_drive_update"
+      }
+    },
+    {
+      "id": "google_drive_upload",
+      "name": "Upload to Google Drive",
+      "description": "Upload a file to Google Drive with complete metadata returned",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_drive",
+        "operation": "google_drive_upload"
+      }
+    }
+  ]
+}

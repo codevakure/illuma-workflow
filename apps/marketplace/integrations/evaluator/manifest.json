@@ -1,0 +1,314 @@
+{
+  "id": "evaluator",
+  "name": "Evaluator",
+  "version": "1.0.0",
+  "description": "Evaluate content",
+  "icon": "ChartBarIcon",
+  "block": {
+    "type": "evaluator",
+    "name": "Evaluator",
+    "description": "Evaluate content",
+    "longDescription": "This is a core workflow block. Assess content quality using customizable evaluation metrics and scoring criteria. Create objective evaluation frameworks with numeric scoring to measure performance across multiple dimensions.",
+    "docsLink": "https://docs.sim.ai/blocks/evaluator",
+    "category": "tools",
+    "bgColor": "#4D5FFF",
+    "icon": "ChartBarIcon",
+    "subBlocks": [
+      {
+        "id": "metrics",
+        "title": "Evaluation Metrics",
+        "type": "eval-input",
+        "required": true
+      },
+      {
+        "id": "content",
+        "title": "Content",
+        "type": "long-input",
+        "placeholder": "Enter the content to evaluate",
+        "required": true
+      },
+      {
+        "id": "model",
+        "title": "Model",
+        "type": "combobox",
+        "placeholder": "Type or select a model...",
+        "required": true,
+        "default": "claude-sonnet-4-5"
+      },
+      {
+        "id": "vertexCredential",
+        "title": "Google Cloud Account",
+        "type": "oauth-input",
+        "placeholder": "Select Google Cloud account",
+        "required": true,
+        "condition": {
+          "field": "model",
+          "value": "@@vertex.models"
+        }
+      },
+      {
+        "id": "apiKey",
+        "title": "API Key",
+        "type": "short-input",
+        "placeholder": "Enter your API key",
+        "password": true,
+        "required": true,
+        "condition": {
+          "field": "model",
+          "value": "@@hostedModels+vertex+bedrock",
+          "not": true
+        }
+      },
+      {
+        "id": "azureEndpoint",
+        "title": "Azure OpenAI Endpoint",
+        "type": "short-input",
+        "password": true,
+        "placeholder": "https://your-resource.openai.azure.com",
+        "condition": {
+          "field": "model",
+          "value": "@@azure-openai.models"
+        }
+      },
+      {
+        "id": "azureApiVersion",
+        "title": "Azure API Version",
+        "type": "short-input",
+        "placeholder": "2024-07-01-preview",
+        "condition": {
+          "field": "model",
+          "value": "@@azure-openai.models"
+        }
+      },
+      {
+        "id": "vertexProject",
+        "title": "Vertex AI Project",
+        "type": "short-input",
+        "placeholder": "your-gcp-project-id",
+        "required": true,
+        "condition": {
+          "field": "model",
+          "value": "@@vertex.models"
+        }
+      },
+      {
+        "id": "vertexLocation",
+        "title": "Vertex AI Location",
+        "type": "short-input",
+        "placeholder": "us-central1",
+        "required": true,
+        "condition": {
+          "field": "model",
+          "value": "@@vertex.models"
+        }
+      },
+      {
+        "id": "bedrockAccessKeyId",
+        "title": "AWS Access Key ID",
+        "type": "short-input",
+        "password": true,
+        "placeholder": "Enter your AWS Access Key ID",
+        "required": true,
+        "condition": {
+          "field": "model",
+          "value": "@@bedrock.models"
+        }
+      },
+      {
+        "id": "bedrockSecretKey",
+        "title": "AWS Secret Access Key",
+        "type": "short-input",
+        "password": true,
+        "placeholder": "Enter your AWS Secret Access Key",
+        "required": true,
+        "condition": {
+          "field": "model",
+          "value": "@@bedrock.models"
+        }
+      },
+      {
+        "id": "bedrockRegion",
+        "title": "AWS Region",
+        "type": "short-input",
+        "placeholder": "us-east-1",
+        "condition": {
+          "field": "model",
+          "value": "@@bedrock.models"
+        }
+      },
+      {
+        "id": "temperature",
+        "title": "Temperature",
+        "type": "slider",
+        "min": 0,
+        "max": 2,
+        "hidden": true
+      },
+      {
+        "id": "systemPrompt",
+        "title": "System Prompt",
+        "type": "code",
+        "hidden": true
+      }
+    ],
+    "tools": {
+      "access": [
+        "openai_chat",
+        "anthropic_chat",
+        "google_chat",
+        "xai_chat",
+        "deepseek_chat",
+        "deepseek_reasoner"
+      ],
+      "config": {
+        "tool": "@@enhanced"
+      }
+    },
+    "inputs": {
+      "metrics": {
+        "type": "json",
+        "description": "Evaluation metrics configuration"
+      },
+      "model": {
+        "type": "string",
+        "description": "AI model to use"
+      },
+      "apiKey": {
+        "type": "string",
+        "description": "Provider API key"
+      },
+      "azureEndpoint": {
+        "type": "string",
+        "description": "Azure OpenAI endpoint URL"
+      },
+      "azureApiVersion": {
+        "type": "string",
+        "description": "Azure API version"
+      },
+      "vertexProject": {
+        "type": "string",
+        "description": "Google Cloud project ID for Vertex AI"
+      },
+      "vertexLocation": {
+        "type": "string",
+        "description": "Google Cloud location for Vertex AI"
+      },
+      "vertexCredential": {
+        "type": "string",
+        "description": "Google Cloud OAuth credential ID for Vertex AI"
+      },
+      "bedrockAccessKeyId": {
+        "type": "string",
+        "description": "AWS Access Key ID for Bedrock"
+      },
+      "bedrockSecretKey": {
+        "type": "string",
+        "description": "AWS Secret Access Key for Bedrock"
+      },
+      "bedrockRegion": {
+        "type": "string",
+        "description": "AWS region for Bedrock"
+      },
+      "temperature": {
+        "type": "number",
+        "description": "Response randomness level (low for consistent evaluation)"
+      },
+      "content": {
+        "type": "string",
+        "description": "Content to evaluate"
+      }
+    },
+    "outputs": {
+      "content": {
+        "type": "string",
+        "description": "Evaluation results"
+      },
+      "model": {
+        "type": "string",
+        "description": "Model used"
+      },
+      "tokens": {
+        "type": "json",
+        "description": "Token usage"
+      },
+      "cost": {
+        "type": "json",
+        "description": "Cost information"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "openai_chat",
+      "name": "openai chat",
+      "description": "",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "evaluator",
+        "operation": "openai_chat"
+      }
+    },
+    {
+      "id": "anthropic_chat",
+      "name": "anthropic chat",
+      "description": "",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "evaluator",
+        "operation": "anthropic_chat"
+      }
+    },
+    {
+      "id": "google_chat",
+      "name": "google chat",
+      "description": "",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "evaluator",
+        "operation": "google_chat"
+      }
+    },
+    {
+      "id": "xai_chat",
+      "name": "xai chat",
+      "description": "",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "evaluator",
+        "operation": "xai_chat"
+      }
+    },
+    {
+      "id": "deepseek_chat",
+      "name": "deepseek chat",
+      "description": "",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "evaluator",
+        "operation": "deepseek_chat"
+      }
+    },
+    {
+      "id": "deepseek_reasoner",
+      "name": "deepseek reasoner",
+      "description": "",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "evaluator",
+        "operation": "deepseek_reasoner"
+      }
+    }
+  ]
+}

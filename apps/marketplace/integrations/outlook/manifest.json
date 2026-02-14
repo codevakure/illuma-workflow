@@ -1,0 +1,373 @@
+{
+  "id": "outlook",
+  "name": "Outlook",
+  "version": "1.0.0",
+  "description": "Send, read, draft, forward, and move Outlook email messages",
+  "icon": "OutlookIcon",
+  "block": {
+    "type": "outlook",
+    "name": "Outlook",
+    "description": "Send, read, draft, forward, and move Outlook email messages",
+    "longDescription": "Integrate Outlook into the workflow. Can read, draft, send, forward, and move email messages. Can be used in trigger mode to trigger a workflow when a new email is received.",
+    "docsLink": "https://docs.sim.ai/tools/outlook",
+    "category": "tools",
+    "bgColor": "#E0E0E0",
+    "icon": "OutlookIcon",
+    "authMode": "oauth",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Send Email",
+            "value": "send_outlook"
+          },
+          {
+            "label": "Draft Email",
+            "value": "draft_outlook"
+          },
+          {
+            "label": "Read Email",
+            "value": "read_outlook"
+          },
+          {
+            "label": "Forward Email",
+            "value": "forward_outlook"
+          },
+          {
+            "label": "Move Email",
+            "value": "move_outlook"
+          },
+          {
+            "label": "Mark as Read",
+            "value": "mark_read_outlook"
+          },
+          {
+            "label": "Mark as Unread",
+            "value": "mark_unread_outlook"
+          },
+          {
+            "label": "Delete Email",
+            "value": "delete_outlook"
+          },
+          {
+            "label": "Copy Email",
+            "value": "copy_outlook"
+          }
+        ]
+      },
+      {
+        "id": "credential",
+        "type": "oauth-input",
+        "title": "Microsoft Account",
+        "placeholder": "Select Microsoft account"
+      },
+      {
+        "id": "to",
+        "type": "short-input",
+        "title": "To",
+        "placeholder": "Recipient email address"
+      },
+      {
+        "id": "messageId",
+        "type": "short-input",
+        "title": "Message ID",
+        "placeholder": "Message ID to forward"
+      },
+      {
+        "id": "comment",
+        "type": "long-input",
+        "title": "Comment",
+        "placeholder": "Optional comment to include when forwarding"
+      },
+      {
+        "id": "subject",
+        "type": "short-input",
+        "title": "Subject",
+        "placeholder": "Email subject"
+      },
+      {
+        "id": "body",
+        "type": "long-input",
+        "title": "Body",
+        "placeholder": "Email content"
+      },
+      {
+        "id": "contentType",
+        "type": "dropdown",
+        "title": "Content Type",
+        "options": [
+          {
+            "label": "Plain Text",
+            "value": "text"
+          },
+          {
+            "label": "HTML",
+            "value": "html"
+          }
+        ]
+      },
+      {
+        "id": "attachmentFiles",
+        "type": "file-upload",
+        "title": "Attachments",
+        "placeholder": "Upload files to attach",
+        "mode": "basic",
+        "canonicalParamId": "attachments"
+      },
+      {
+        "id": "attachmentReference",
+        "type": "short-input",
+        "title": "Attachments",
+        "placeholder": "Reference files from previous blocks",
+        "mode": "advanced",
+        "canonicalParamId": "attachments"
+      },
+      {
+        "id": "replyToMessageId",
+        "type": "short-input",
+        "title": "Reply to Message ID",
+        "placeholder": "Message ID to reply to (for threading)",
+        "mode": "advanced"
+      },
+      {
+        "id": "conversationId",
+        "type": "short-input",
+        "title": "Conversation ID",
+        "placeholder": "Conversation ID for threading",
+        "mode": "advanced"
+      },
+      {
+        "id": "cc",
+        "type": "short-input",
+        "title": "CC",
+        "placeholder": "CC recipients (comma-separated)",
+        "mode": "advanced"
+      },
+      {
+        "id": "bcc",
+        "type": "short-input",
+        "title": "BCC",
+        "placeholder": "BCC recipients (comma-separated)",
+        "mode": "advanced"
+      },
+      {
+        "id": "folderSelector",
+        "type": "folder-selector",
+        "title": "Folder",
+        "placeholder": "Select Outlook folder",
+        "mode": "basic",
+        "canonicalParamId": "folder"
+      },
+      {
+        "id": "manualFolder",
+        "type": "short-input",
+        "title": "Folder",
+        "placeholder": "Enter Outlook folder name (e.g., INBOX, SENT, or custom folder)",
+        "mode": "advanced",
+        "canonicalParamId": "folder"
+      },
+      {
+        "id": "maxResults",
+        "type": "short-input",
+        "title": "Number of Emails",
+        "placeholder": "Number of emails to retrieve (default: 1, max: 10)",
+        "max": 10
+      },
+      {
+        "id": "includeAttachments",
+        "type": "switch",
+        "title": "Include Attachments"
+      },
+      {
+        "id": "moveMessageId",
+        "type": "short-input",
+        "title": "Message ID",
+        "placeholder": "ID of the email to move"
+      },
+      {
+        "id": "destinationFolder",
+        "type": "folder-selector",
+        "title": "Move To Folder",
+        "placeholder": "Select destination folder",
+        "mode": "basic",
+        "canonicalParamId": "destinationId"
+      },
+      {
+        "id": "manualDestinationFolder",
+        "type": "short-input",
+        "title": "Move To Folder",
+        "placeholder": "Enter folder ID",
+        "mode": "advanced",
+        "canonicalParamId": "destinationId"
+      },
+      {
+        "id": "actionMessageId",
+        "type": "short-input",
+        "title": "Message ID",
+        "placeholder": "ID of the email"
+      },
+      {
+        "id": "copyMessageId",
+        "type": "short-input",
+        "title": "Message ID",
+        "placeholder": "ID of the email to copy"
+      },
+      {
+        "id": "copyDestinationFolder",
+        "type": "folder-selector",
+        "title": "Copy To Folder",
+        "placeholder": "Select destination folder",
+        "mode": "basic",
+        "canonicalParamId": "copyDestinationId"
+      },
+      {
+        "id": "manualCopyDestinationFolder",
+        "type": "short-input",
+        "title": "Copy To Folder",
+        "placeholder": "Enter folder ID",
+        "mode": "advanced",
+        "canonicalParamId": "copyDestinationId"
+      }
+    ],
+    "tools": {
+      "access": [
+        "outlook_send",
+        "outlook_draft",
+        "outlook_read",
+        "outlook_forward",
+        "outlook_move",
+        "outlook_mark_read",
+        "outlook_mark_unread",
+        "outlook_delete",
+        "outlook_copy"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "message": {
+        "type": "string"
+      }
+    },
+    "triggerAllowed": true
+  },
+  "tools": [
+    {
+      "id": "outlook_copy",
+      "name": "Outlook Copy",
+      "description": "Copy an Outlook message to another folder",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "outlook",
+        "operation": "outlook_copy"
+      }
+    },
+    {
+      "id": "outlook_delete",
+      "name": "Outlook Delete",
+      "description": "Delete an Outlook message (move to Deleted Items)",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "outlook",
+        "operation": "outlook_delete"
+      }
+    },
+    {
+      "id": "outlook_draft",
+      "name": "Outlook Draft",
+      "description": "Draft emails using Outlook",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "outlook",
+        "operation": "outlook_draft"
+      }
+    },
+    {
+      "id": "outlook_forward",
+      "name": "Outlook Forward",
+      "description": "Forward an existing Outlook message to specified recipients",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "outlook",
+        "operation": "outlook_forward"
+      }
+    },
+    {
+      "id": "outlook_mark_read",
+      "name": "Outlook Mark as Read",
+      "description": "Mark an Outlook message as read",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "outlook",
+        "operation": "outlook_mark_read"
+      }
+    },
+    {
+      "id": "outlook_mark_unread",
+      "name": "Outlook Mark as Unread",
+      "description": "Mark an Outlook message as unread",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "outlook",
+        "operation": "outlook_mark_unread"
+      }
+    },
+    {
+      "id": "outlook_move",
+      "name": "Outlook Move",
+      "description": "Move emails between Outlook folders",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "outlook",
+        "operation": "outlook_move"
+      }
+    },
+    {
+      "id": "outlook_read",
+      "name": "Outlook Read",
+      "description": "Read emails from Outlook",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "outlook",
+        "operation": "outlook_read"
+      }
+    },
+    {
+      "id": "outlook_send",
+      "name": "Outlook Send",
+      "description": "Send emails using Outlook",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "outlook",
+        "operation": "outlook_send"
+      }
+    }
+  ]
+}

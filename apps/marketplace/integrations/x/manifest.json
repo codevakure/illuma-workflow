@@ -1,0 +1,204 @@
+{
+  "id": "x",
+  "name": "X",
+  "version": "1.0.0",
+  "description": "Interact with X",
+  "icon": "xIcon",
+  "block": {
+    "type": "x",
+    "name": "X",
+    "description": "Interact with X",
+    "longDescription": "Integrate X into the workflow. Can post a new tweet, get tweet details, search tweets, and get user profile.",
+    "docsLink": "https://docs.sim.ai/tools/x",
+    "category": "tools",
+    "bgColor": "#000000",
+    "icon": "xIcon",
+    "authMode": "oauth",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Post a New Tweet",
+            "value": "x_write"
+          },
+          {
+            "label": "Get Tweet Details",
+            "value": "x_read"
+          },
+          {
+            "label": "Search Tweets",
+            "value": "x_search"
+          },
+          {
+            "label": "Get User Profile",
+            "value": "x_user"
+          }
+        ]
+      },
+      {
+        "id": "credential",
+        "type": "oauth-input",
+        "title": "X Account",
+        "placeholder": "Select X account"
+      },
+      {
+        "id": "text",
+        "type": "long-input",
+        "title": "Tweet Text",
+        "placeholder": "What"
+      },
+      {
+        "id": "replyTo",
+        "type": "short-input",
+        "title": "Reply To (Tweet ID)",
+        "placeholder": "Enter tweet ID to reply to"
+      },
+      {
+        "id": "mediaIds",
+        "type": "short-input",
+        "title": "Media IDs",
+        "placeholder": "Enter comma-separated media IDs"
+      },
+      {
+        "id": "tweetId",
+        "type": "short-input",
+        "title": "Tweet ID",
+        "placeholder": "Enter tweet ID to read"
+      },
+      {
+        "id": "includeReplies",
+        "type": "dropdown",
+        "title": "Include Replies",
+        "options": [
+          {
+            "label": "true",
+            "value": "true"
+          },
+          {
+            "label": "false",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "id": "query",
+        "type": "long-input",
+        "title": "Search Query",
+        "placeholder": "Enter search terms (supports X search operators)"
+      },
+      {
+        "id": "maxResults",
+        "type": "short-input",
+        "title": "Max Results",
+        "placeholder": "10"
+      },
+      {
+        "id": "sortOrder",
+        "type": "dropdown",
+        "title": "Sort Order",
+        "options": [
+          {
+            "label": "recency",
+            "value": "recency"
+          },
+          {
+            "label": "relevancy",
+            "value": "relevancy"
+          }
+        ]
+      },
+      {
+        "id": "startTime",
+        "type": "short-input",
+        "title": "Start Time",
+        "placeholder": "YYYY-MM-DDTHH:mm:ssZ"
+      },
+      {
+        "id": "endTime",
+        "type": "short-input",
+        "title": "End Time",
+        "placeholder": "YYYY-MM-DDTHH:mm:ssZ"
+      },
+      {
+        "id": "username",
+        "type": "short-input",
+        "title": "Username",
+        "placeholder": "Enter username (without @)"
+      }
+    ],
+    "tools": {
+      "access": [
+        "x_write",
+        "x_read",
+        "x_search",
+        "x_user"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "tweet": {
+        "type": "json"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "x_read",
+      "name": "X Read",
+      "description": "Read tweet details, including replies and conversation context",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "x",
+        "operation": "x_read"
+      }
+    },
+    {
+      "id": "x_search",
+      "name": "X Search",
+      "description": "Search for tweets using keywords, hashtags, or advanced queries",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "x",
+        "operation": "x_search"
+      }
+    },
+    {
+      "id": "x_user",
+      "name": "X User",
+      "description": "Get user profile information",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "x",
+        "operation": "x_user"
+      }
+    },
+    {
+      "id": "x_write",
+      "name": "X Write",
+      "description": "Post new tweets, reply to tweets, or create polls on X (Twitter)",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "x",
+        "operation": "x_write"
+      }
+    }
+  ]
+}

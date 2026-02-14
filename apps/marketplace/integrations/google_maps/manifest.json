@@ -1,0 +1,631 @@
+{
+  "id": "google_maps",
+  "name": "Google Maps",
+  "version": "1.0.0",
+  "description": "Geocoding, directions, places, and distance calculations",
+  "icon": "GoogleMapsIcon",
+  "block": {
+    "type": "google_maps",
+    "name": "Google Maps",
+    "description": "Geocoding, directions, places, and distance calculations",
+    "longDescription": "Integrate Google Maps Platform APIs into your workflow. Supports geocoding addresses to coordinates, reverse geocoding, getting directions between locations, calculating distance matrices, searching for places, retrieving place details, elevation data, and timezone information.",
+    "docsLink": "https://docs.sim.ai/tools/google_maps",
+    "category": "tools",
+    "bgColor": "#E0E0E0",
+    "icon": "GoogleMapsIcon",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Geocode Address",
+            "value": "geocode"
+          },
+          {
+            "label": "Reverse Geocode",
+            "value": "reverse_geocode"
+          },
+          {
+            "label": "Get Directions",
+            "value": "directions"
+          },
+          {
+            "label": "Distance Matrix",
+            "value": "distance_matrix"
+          },
+          {
+            "label": "Search Places",
+            "value": "places_search"
+          },
+          {
+            "label": "Place Details",
+            "value": "place_details"
+          },
+          {
+            "label": "Get Elevation",
+            "value": "elevation"
+          },
+          {
+            "label": "Get Timezone",
+            "value": "timezone"
+          },
+          {
+            "label": "Snap to Roads",
+            "value": "snap_to_roads"
+          },
+          {
+            "label": "Speed Limits",
+            "value": "speed_limits"
+          },
+          {
+            "label": "Validate Address",
+            "value": "validate_address"
+          },
+          {
+            "label": "Geolocate (WiFi/Cell)",
+            "value": "geolocate"
+          },
+          {
+            "label": "Air Quality",
+            "value": "air_quality"
+          }
+        ]
+      },
+      {
+        "id": "apiKey",
+        "type": "short-input",
+        "title": "API Key",
+        "placeholder": "Enter your Google Maps API key",
+        "password": true
+      },
+      {
+        "id": "address",
+        "type": "long-input",
+        "title": "Address",
+        "placeholder": "1600 Amphitheatre Parkway, Mountain View, CA"
+      },
+      {
+        "id": "latitude",
+        "type": "short-input",
+        "title": "Latitude",
+        "placeholder": "37.4224764"
+      },
+      {
+        "id": "longitude",
+        "type": "short-input",
+        "title": "Longitude",
+        "placeholder": "-122.0842499"
+      },
+      {
+        "id": "timestamp",
+        "type": "short-input",
+        "title": "Timestamp",
+        "placeholder": "Unix timestamp (defaults to current time)",
+        "mode": "advanced"
+      },
+      {
+        "id": "origin",
+        "type": "short-input",
+        "title": "Origin",
+        "placeholder": "Starting address or coordinates (lat,lng)"
+      },
+      {
+        "id": "destination",
+        "type": "short-input",
+        "title": "Destination",
+        "placeholder": "Destination address or coordinates (lat,lng)"
+      },
+      {
+        "id": "destinations",
+        "type": "long-input",
+        "title": "Destinations",
+        "placeholder": "Destination addresses separated by | (e.g., New York, NY|Boston, MA)"
+      },
+      {
+        "id": "mode",
+        "type": "dropdown",
+        "title": "Travel Mode",
+        "options": [
+          {
+            "label": "Driving",
+            "value": "driving"
+          },
+          {
+            "label": "Walking",
+            "value": "walking"
+          },
+          {
+            "label": "Bicycling",
+            "value": "bicycling"
+          },
+          {
+            "label": "Transit",
+            "value": "transit"
+          }
+        ]
+      },
+      {
+        "id": "avoid",
+        "type": "dropdown",
+        "title": "Avoid",
+        "mode": "advanced",
+        "options": [
+          {
+            "label": "Tolls",
+            "value": "tolls"
+          },
+          {
+            "label": "Highways",
+            "value": "highways"
+          },
+          {
+            "label": "Ferries",
+            "value": "ferries"
+          }
+        ]
+      },
+      {
+        "id": "waypoints",
+        "type": "long-input",
+        "title": "Waypoints",
+        "placeholder": "Optional stops separated by | (e.g., Stop 1|Stop 2)",
+        "mode": "advanced"
+      },
+      {
+        "id": "units",
+        "type": "dropdown",
+        "title": "Units",
+        "mode": "advanced",
+        "options": [
+          {
+            "label": "Metric (km)",
+            "value": "metric"
+          },
+          {
+            "label": "Imperial (miles)",
+            "value": "imperial"
+          }
+        ]
+      },
+      {
+        "id": "query",
+        "type": "short-input",
+        "title": "Search Query",
+        "placeholder": "restaurants near Times Square"
+      },
+      {
+        "id": "locationBias",
+        "type": "short-input",
+        "title": "Location Bias",
+        "placeholder": "lat,lng to bias results (e.g., 40.7580,-73.9855)",
+        "mode": "advanced"
+      },
+      {
+        "id": "radius",
+        "type": "short-input",
+        "title": "Radius (meters)",
+        "placeholder": "Search radius in meters (e.g., 5000)",
+        "mode": "advanced"
+      },
+      {
+        "id": "placeType",
+        "type": "dropdown",
+        "title": "Place Type",
+        "mode": "advanced",
+        "options": [
+          {
+            "label": "Restaurant",
+            "value": "restaurant"
+          },
+          {
+            "label": "Cafe",
+            "value": "cafe"
+          },
+          {
+            "label": "Bar",
+            "value": "bar"
+          },
+          {
+            "label": "Hotel",
+            "value": "lodging"
+          },
+          {
+            "label": "Gas Station",
+            "value": "gas_station"
+          },
+          {
+            "label": "Hospital",
+            "value": "hospital"
+          },
+          {
+            "label": "Pharmacy",
+            "value": "pharmacy"
+          },
+          {
+            "label": "Bank",
+            "value": "bank"
+          },
+          {
+            "label": "ATM",
+            "value": "atm"
+          },
+          {
+            "label": "Grocery Store",
+            "value": "supermarket"
+          },
+          {
+            "label": "Shopping Mall",
+            "value": "shopping_mall"
+          },
+          {
+            "label": "Gym",
+            "value": "gym"
+          },
+          {
+            "label": "Park",
+            "value": "park"
+          },
+          {
+            "label": "Museum",
+            "value": "museum"
+          },
+          {
+            "label": "Movie Theater",
+            "value": "movie_theater"
+          },
+          {
+            "label": "Airport",
+            "value": "airport"
+          },
+          {
+            "label": "Train Station",
+            "value": "train_station"
+          },
+          {
+            "label": "Bus Station",
+            "value": "bus_station"
+          },
+          {
+            "label": "Parking",
+            "value": "parking"
+          }
+        ]
+      },
+      {
+        "id": "placeId",
+        "type": "short-input",
+        "title": "Place ID",
+        "placeholder": "Google Place ID (e.g., ChIJN1t_tDeuEmsRUsoyG83frY4)"
+      },
+      {
+        "id": "fields",
+        "type": "short-input",
+        "title": "Fields",
+        "placeholder": "name,formatted_address,rating,opening_hours",
+        "mode": "advanced"
+      },
+      {
+        "id": "path",
+        "type": "long-input",
+        "title": "Path",
+        "placeholder": "Pipe-separated lat,lng pairs (e.g., 60.170880,24.942795|60.170879,24.942796)"
+      },
+      {
+        "id": "interpolate",
+        "type": "switch",
+        "title": "Interpolate",
+        "mode": "advanced"
+      },
+      {
+        "id": "placeIds",
+        "type": "long-input",
+        "title": "Place IDs",
+        "placeholder": "Pipe-separated Place IDs (alternative to path)",
+        "mode": "advanced"
+      },
+      {
+        "id": "addressToValidate",
+        "type": "long-input",
+        "title": "Address",
+        "placeholder": "1600 Amphitheatre Parkway, Mountain View, CA 94043"
+      },
+      {
+        "id": "regionCode",
+        "type": "short-input",
+        "title": "Region Code",
+        "placeholder": "ISO country code (e.g., US, CA, GB)",
+        "mode": "advanced"
+      },
+      {
+        "id": "locality",
+        "type": "short-input",
+        "title": "Locality",
+        "placeholder": "City name (optional hint)",
+        "mode": "advanced"
+      },
+      {
+        "id": "enableUspsCass",
+        "type": "switch",
+        "title": "Enable USPS CASS",
+        "mode": "advanced"
+      },
+      {
+        "id": "considerIp",
+        "type": "switch",
+        "title": "Use IP Address"
+      },
+      {
+        "id": "radioType",
+        "type": "dropdown",
+        "title": "Radio Type",
+        "mode": "advanced",
+        "options": [
+          {
+            "label": "LTE",
+            "value": "lte"
+          },
+          {
+            "label": "GSM",
+            "value": "gsm"
+          },
+          {
+            "label": "CDMA",
+            "value": "cdma"
+          },
+          {
+            "label": "WCDMA",
+            "value": "wcdma"
+          },
+          {
+            "label": "5G NR",
+            "value": "nr"
+          }
+        ]
+      },
+      {
+        "id": "carrier",
+        "type": "short-input",
+        "title": "Carrier",
+        "placeholder": "Carrier name",
+        "mode": "advanced"
+      },
+      {
+        "id": "wifiAccessPoints",
+        "type": "long-input",
+        "title": "WiFi Access Points",
+        "placeholder": "JSON array of WiFi APs: [{",
+        "mode": "advanced"
+      },
+      {
+        "id": "cellTowers",
+        "type": "long-input",
+        "title": "Cell Towers",
+        "placeholder": "JSON array of cell towers: [{",
+        "mode": "advanced"
+      },
+      {
+        "id": "aqLatitude",
+        "type": "short-input",
+        "title": "Latitude",
+        "placeholder": "37.4224764"
+      },
+      {
+        "id": "aqLongitude",
+        "type": "short-input",
+        "title": "Longitude",
+        "placeholder": "-122.0842499"
+      },
+      {
+        "id": "languageCode",
+        "type": "short-input",
+        "title": "Language Code",
+        "placeholder": "Language code (e.g., en, es)",
+        "mode": "advanced"
+      },
+      {
+        "id": "language",
+        "type": "short-input",
+        "title": "Language",
+        "placeholder": "Language code (e.g., en, es, fr, de)",
+        "mode": "advanced"
+      },
+      {
+        "id": "region",
+        "type": "short-input",
+        "title": "Region Bias",
+        "placeholder": "Country code (e.g., us, uk, de)",
+        "mode": "advanced"
+      }
+    ],
+    "tools": {
+      "access": [
+        "google_maps_air_quality",
+        "google_maps_directions",
+        "google_maps_distance_matrix",
+        "google_maps_elevation",
+        "google_maps_geocode",
+        "google_maps_geolocate",
+        "google_maps_place_details",
+        "google_maps_places_search",
+        "google_maps_reverse_geocode",
+        "google_maps_snap_to_roads",
+        "google_maps_speed_limits",
+        "google_maps_timezone",
+        "google_maps_validate_address"
+      ],
+      "config": {
+        "tool": "google_maps__{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "formattedAddress": {
+        "type": "string"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "google_maps_air_quality",
+      "name": "Google Maps Air Quality",
+      "description": "Get current air quality data for a location",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_maps",
+        "operation": "google_maps_air_quality"
+      }
+    },
+    {
+      "id": "google_maps_directions",
+      "name": "Google Maps Directions",
+      "description": "Get directions and route information between two locations",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_maps",
+        "operation": "google_maps_directions"
+      }
+    },
+    {
+      "id": "google_maps_distance_matrix",
+      "name": "Google Maps Distance Matrix",
+      "description": "Calculate travel distance and time between multiple origins and destinations",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_maps",
+        "operation": "google_maps_distance_matrix"
+      }
+    },
+    {
+      "id": "google_maps_elevation",
+      "name": "Google Maps Elevation",
+      "description": "Get elevation data for a location",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_maps",
+        "operation": "google_maps_elevation"
+      }
+    },
+    {
+      "id": "google_maps_geocode",
+      "name": "Google Maps Geocode",
+      "description": "Convert an address into geographic coordinates (latitude and longitude)",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_maps",
+        "operation": "google_maps_geocode"
+      }
+    },
+    {
+      "id": "google_maps_geolocate",
+      "name": "Google Maps Geolocate",
+      "description": "Geolocate a device using WiFi access points, cell towers, or IP address",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_maps",
+        "operation": "google_maps_geolocate"
+      }
+    },
+    {
+      "id": "google_maps_places_search",
+      "name": "Google Maps Places Search",
+      "description": "Search for places using a text query",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_maps",
+        "operation": "google_maps_places_search"
+      }
+    },
+    {
+      "id": "google_maps_place_details",
+      "name": "Google Maps Place Details",
+      "description": "Get detailed information about a specific place",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_maps",
+        "operation": "google_maps_place_details"
+      }
+    },
+    {
+      "id": "google_maps_reverse_geocode",
+      "name": "Google Maps Reverse Geocode",
+      "description": "Convert geographic coordinates (latitude and longitude) into a human-readable address",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_maps",
+        "operation": "google_maps_reverse_geocode"
+      }
+    },
+    {
+      "id": "google_maps_snap_to_roads",
+      "name": "Google Maps Snap to Roads",
+      "description": "Snap GPS coordinates to the nearest road segment",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_maps",
+        "operation": "google_maps_snap_to_roads"
+      }
+    },
+    {
+      "id": "google_maps_speed_limits",
+      "name": "Google Maps Speed Limits",
+      "description": "Get speed limits for road segments. Requires either path coordinates or placeIds.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_maps",
+        "operation": "google_maps_speed_limits"
+      }
+    },
+    {
+      "id": "google_maps_timezone",
+      "name": "Google Maps Timezone",
+      "description": "Get timezone information for a location",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_maps",
+        "operation": "google_maps_timezone"
+      }
+    },
+    {
+      "id": "google_maps_validate_address",
+      "name": "Google Maps Validate Address",
+      "description": "Validate and standardize a postal address",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_maps",
+        "operation": "google_maps_validate_address"
+      }
+    }
+  ]
+}

@@ -1,0 +1,1209 @@
+{
+  "id": "stripe",
+  "name": "Stripe",
+  "version": "1.0.0",
+  "description": "Process payments and manage Stripe data",
+  "icon": "StripeIcon",
+  "block": {
+    "type": "stripe",
+    "name": "Stripe",
+    "description": "Process payments and manage Stripe data",
+    "longDescription": "Integrates Stripe into the workflow. Manage payment intents, customers, subscriptions, invoices, charges, products, prices, and events. Can be used in trigger mode to trigger a workflow when a Stripe event occurs.",
+    "docsLink": "https://docs.sim.ai/tools/stripe",
+    "category": "tools",
+    "bgColor": "#635BFF",
+    "icon": "StripeIcon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Create Payment Intent",
+            "value": "create_payment_intent"
+          },
+          {
+            "label": "Retrieve Payment Intent",
+            "value": "retrieve_payment_intent"
+          },
+          {
+            "label": "Update Payment Intent",
+            "value": "update_payment_intent"
+          },
+          {
+            "label": "Confirm Payment Intent",
+            "value": "confirm_payment_intent"
+          },
+          {
+            "label": "Capture Payment Intent",
+            "value": "capture_payment_intent"
+          },
+          {
+            "label": "Cancel Payment Intent",
+            "value": "cancel_payment_intent"
+          },
+          {
+            "label": "List Payment Intents",
+            "value": "list_payment_intents"
+          },
+          {
+            "label": "Search Payment Intents",
+            "value": "search_payment_intents"
+          },
+          {
+            "label": "Create Customer",
+            "value": "create_customer"
+          },
+          {
+            "label": "Retrieve Customer",
+            "value": "retrieve_customer"
+          },
+          {
+            "label": "Update Customer",
+            "value": "update_customer"
+          },
+          {
+            "label": "Delete Customer",
+            "value": "delete_customer"
+          },
+          {
+            "label": "List Customers",
+            "value": "list_customers"
+          },
+          {
+            "label": "Search Customers",
+            "value": "search_customers"
+          },
+          {
+            "label": "Create Subscription",
+            "value": "create_subscription"
+          },
+          {
+            "label": "Retrieve Subscription",
+            "value": "retrieve_subscription"
+          },
+          {
+            "label": "Update Subscription",
+            "value": "update_subscription"
+          },
+          {
+            "label": "Cancel Subscription",
+            "value": "cancel_subscription"
+          },
+          {
+            "label": "Resume Subscription",
+            "value": "resume_subscription"
+          },
+          {
+            "label": "List Subscriptions",
+            "value": "list_subscriptions"
+          },
+          {
+            "label": "Search Subscriptions",
+            "value": "search_subscriptions"
+          },
+          {
+            "label": "Create Invoice",
+            "value": "create_invoice"
+          },
+          {
+            "label": "Retrieve Invoice",
+            "value": "retrieve_invoice"
+          },
+          {
+            "label": "Update Invoice",
+            "value": "update_invoice"
+          },
+          {
+            "label": "Delete Invoice",
+            "value": "delete_invoice"
+          },
+          {
+            "label": "Finalize Invoice",
+            "value": "finalize_invoice"
+          },
+          {
+            "label": "Pay Invoice",
+            "value": "pay_invoice"
+          },
+          {
+            "label": "Void Invoice",
+            "value": "void_invoice"
+          },
+          {
+            "label": "Send Invoice",
+            "value": "send_invoice"
+          },
+          {
+            "label": "List Invoices",
+            "value": "list_invoices"
+          },
+          {
+            "label": "Search Invoices",
+            "value": "search_invoices"
+          },
+          {
+            "label": "Create Charge",
+            "value": "create_charge"
+          },
+          {
+            "label": "Retrieve Charge",
+            "value": "retrieve_charge"
+          },
+          {
+            "label": "Update Charge",
+            "value": "update_charge"
+          },
+          {
+            "label": "Capture Charge",
+            "value": "capture_charge"
+          },
+          {
+            "label": "List Charges",
+            "value": "list_charges"
+          },
+          {
+            "label": "Search Charges",
+            "value": "search_charges"
+          },
+          {
+            "label": "Create Product",
+            "value": "create_product"
+          },
+          {
+            "label": "Retrieve Product",
+            "value": "retrieve_product"
+          },
+          {
+            "label": "Update Product",
+            "value": "update_product"
+          },
+          {
+            "label": "Delete Product",
+            "value": "delete_product"
+          },
+          {
+            "label": "List Products",
+            "value": "list_products"
+          },
+          {
+            "label": "Search Products",
+            "value": "search_products"
+          },
+          {
+            "label": "Create Price",
+            "value": "create_price"
+          },
+          {
+            "label": "Retrieve Price",
+            "value": "retrieve_price"
+          },
+          {
+            "label": "Update Price",
+            "value": "update_price"
+          },
+          {
+            "label": "List Prices",
+            "value": "list_prices"
+          },
+          {
+            "label": "Search Prices",
+            "value": "search_prices"
+          },
+          {
+            "label": "Retrieve Event",
+            "value": "retrieve_event"
+          },
+          {
+            "label": "List Events",
+            "value": "list_events"
+          }
+        ]
+      },
+      {
+        "id": "apiKey",
+        "type": "short-input",
+        "title": "Stripe API Key",
+        "placeholder": "Enter your Stripe secret key (sk_test_... or sk_live_...)",
+        "password": true
+      },
+      {
+        "id": "id",
+        "type": "short-input",
+        "title": "ID",
+        "placeholder": "Enter the ID"
+      },
+      {
+        "id": "amount",
+        "type": "short-input",
+        "title": "Amount (in cents)",
+        "placeholder": "e.g., 1000 for $10.00"
+      },
+      {
+        "id": "amount",
+        "type": "short-input",
+        "title": "Amount (in cents)",
+        "placeholder": "e.g., 1000 for $10.00"
+      },
+      {
+        "id": "currency",
+        "type": "short-input",
+        "title": "Currency",
+        "placeholder": "e.g., usd, eur, gbp"
+      },
+      {
+        "id": "currency",
+        "type": "short-input",
+        "title": "Currency",
+        "placeholder": "e.g., usd, eur, gbp"
+      },
+      {
+        "id": "payment_method",
+        "type": "short-input",
+        "title": "Payment Method ID",
+        "placeholder": "e.g., pm_1234567890"
+      },
+      {
+        "id": "customer",
+        "type": "short-input",
+        "title": "Customer ID",
+        "placeholder": "e.g., cus_1234567890"
+      },
+      {
+        "id": "customer",
+        "type": "short-input",
+        "title": "Customer ID",
+        "placeholder": "e.g., cus_1234567890"
+      },
+      {
+        "id": "email",
+        "type": "short-input",
+        "title": "Email",
+        "placeholder": "customer@example.com"
+      },
+      {
+        "id": "name",
+        "type": "short-input",
+        "title": "Name",
+        "placeholder": "Product Name"
+      },
+      {
+        "id": "name",
+        "type": "short-input",
+        "title": "Name",
+        "placeholder": "Customer or Product Name"
+      },
+      {
+        "id": "phone",
+        "type": "short-input",
+        "title": "Phone",
+        "placeholder": "+1234567890"
+      },
+      {
+        "id": "address",
+        "type": "code",
+        "title": "Address (JSON)",
+        "placeholder": "{"
+      },
+      {
+        "id": "items",
+        "type": "code",
+        "title": "Items (JSON Array)",
+        "placeholder": "[{"
+      },
+      {
+        "id": "items",
+        "type": "code",
+        "title": "Items (JSON Array)",
+        "placeholder": "[{"
+      },
+      {
+        "id": "trial_period_days",
+        "type": "short-input",
+        "title": "Trial Period (days)",
+        "placeholder": "e.g., 14"
+      },
+      {
+        "id": "default_payment_method",
+        "type": "short-input",
+        "title": "Default Payment Method",
+        "placeholder": "e.g., pm_1234567890"
+      },
+      {
+        "id": "cancel_at_period_end",
+        "type": "dropdown",
+        "title": "Cancel at Period End",
+        "options": [
+          {
+            "label": "Yes",
+            "value": "true"
+          },
+          {
+            "label": "No",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "id": "collection_method",
+        "type": "dropdown",
+        "title": "Collection Method",
+        "options": [
+          {
+            "label": "Charge Automatically",
+            "value": "charge_automatically"
+          },
+          {
+            "label": "Send Invoice",
+            "value": "send_invoice"
+          }
+        ]
+      },
+      {
+        "id": "auto_advance",
+        "type": "dropdown",
+        "title": "Auto Advance",
+        "options": [
+          {
+            "label": "Yes",
+            "value": "true"
+          },
+          {
+            "label": "No",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "id": "source",
+        "type": "short-input",
+        "title": "Payment Source",
+        "placeholder": "e.g., tok_visa, card ID"
+      },
+      {
+        "id": "capture",
+        "type": "dropdown",
+        "title": "Capture Immediately",
+        "options": [
+          {
+            "label": "Yes",
+            "value": "true"
+          },
+          {
+            "label": "No",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "id": "active",
+        "type": "dropdown",
+        "title": "Active",
+        "options": [
+          {
+            "label": "Yes",
+            "value": "true"
+          },
+          {
+            "label": "No",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "id": "images",
+        "type": "code",
+        "title": "Images (JSON Array)",
+        "placeholder": "["
+      },
+      {
+        "id": "product",
+        "type": "short-input",
+        "title": "Product ID",
+        "placeholder": "e.g., prod_1234567890"
+      },
+      {
+        "id": "unit_amount",
+        "type": "short-input",
+        "title": "Unit Amount (in cents)",
+        "placeholder": "e.g., 1000 for $10.00"
+      },
+      {
+        "id": "recurring",
+        "type": "code",
+        "title": "Recurring (JSON)",
+        "placeholder": "{"
+      },
+      {
+        "id": "description",
+        "type": "long-input",
+        "title": "Description",
+        "placeholder": "Enter description"
+      },
+      {
+        "id": "metadata",
+        "type": "code",
+        "title": "Metadata (JSON)",
+        "placeholder": "{"
+      },
+      {
+        "id": "limit",
+        "type": "short-input",
+        "title": "Limit",
+        "placeholder": "Max results (default: 10)"
+      },
+      {
+        "id": "query",
+        "type": "long-input",
+        "title": "Search Query",
+        "placeholder": "Enter Stripe search query"
+      },
+      {
+        "id": "status",
+        "type": "short-input",
+        "title": "Status",
+        "placeholder": "e.g., succeeded, pending"
+      },
+      {
+        "id": "receipt_email",
+        "type": "short-input",
+        "title": "Receipt Email",
+        "placeholder": "customer@example.com"
+      },
+      {
+        "id": "cancellation_reason",
+        "type": "short-input",
+        "title": "Cancellation Reason",
+        "placeholder": "e.g., requested_by_customer"
+      },
+      {
+        "id": "amount_to_capture",
+        "type": "short-input",
+        "title": "Amount to Capture (in cents)",
+        "placeholder": "Leave empty to capture full amount"
+      },
+      {
+        "id": "prorate",
+        "type": "dropdown",
+        "title": "Prorate",
+        "options": [
+          {
+            "label": "Yes",
+            "value": "true"
+          },
+          {
+            "label": "No",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "id": "invoice_now",
+        "type": "dropdown",
+        "title": "Invoice Now",
+        "options": [
+          {
+            "label": "Yes",
+            "value": "true"
+          },
+          {
+            "label": "No",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "id": "paid_out_of_band",
+        "type": "dropdown",
+        "title": "Paid Out of Band",
+        "options": [
+          {
+            "label": "Yes",
+            "value": "true"
+          },
+          {
+            "label": "No",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "id": "type",
+        "type": "short-input",
+        "title": "Event Type",
+        "placeholder": "e.g., payment_intent.succeeded"
+      }
+    ],
+    "tools": {
+      "access": [
+        "stripe_create_payment_intent",
+        "stripe_retrieve_payment_intent",
+        "stripe_update_payment_intent",
+        "stripe_confirm_payment_intent",
+        "stripe_capture_payment_intent",
+        "stripe_cancel_payment_intent",
+        "stripe_list_payment_intents",
+        "stripe_search_payment_intents",
+        "stripe_create_customer",
+        "stripe_retrieve_customer",
+        "stripe_update_customer",
+        "stripe_delete_customer",
+        "stripe_list_customers",
+        "stripe_search_customers",
+        "stripe_create_subscription",
+        "stripe_retrieve_subscription",
+        "stripe_update_subscription",
+        "stripe_cancel_subscription",
+        "stripe_resume_subscription",
+        "stripe_list_subscriptions",
+        "stripe_search_subscriptions",
+        "stripe_create_invoice",
+        "stripe_retrieve_invoice",
+        "stripe_update_invoice",
+        "stripe_delete_invoice",
+        "stripe_finalize_invoice",
+        "stripe_pay_invoice",
+        "stripe_void_invoice",
+        "stripe_send_invoice",
+        "stripe_list_invoices",
+        "stripe_search_invoices",
+        "stripe_create_charge",
+        "stripe_retrieve_charge",
+        "stripe_update_charge",
+        "stripe_capture_charge",
+        "stripe_list_charges",
+        "stripe_search_charges",
+        "stripe_create_product",
+        "stripe_retrieve_product",
+        "stripe_update_product",
+        "stripe_delete_product",
+        "stripe_list_products",
+        "stripe_search_products",
+        "stripe_create_price",
+        "stripe_retrieve_price",
+        "stripe_update_price",
+        "stripe_list_prices",
+        "stripe_search_prices",
+        "stripe_retrieve_event",
+        "stripe_list_events"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "payment_intent": {
+        "type": "json"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "stripe_cancel_payment_intent",
+      "name": "Stripe Cancel Payment Intent",
+      "description": "Cancel a Payment Intent",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_cancel_payment_intent"
+      }
+    },
+    {
+      "id": "stripe_cancel_subscription",
+      "name": "Stripe Cancel Subscription",
+      "description": "Cancel a subscription",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_cancel_subscription"
+      }
+    },
+    {
+      "id": "stripe_capture_charge",
+      "name": "Stripe Capture Charge",
+      "description": "Capture an uncaptured charge",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_capture_charge"
+      }
+    },
+    {
+      "id": "stripe_capture_payment_intent",
+      "name": "Stripe Capture Payment Intent",
+      "description": "Capture an authorized Payment Intent",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_capture_payment_intent"
+      }
+    },
+    {
+      "id": "stripe_confirm_payment_intent",
+      "name": "Stripe Confirm Payment Intent",
+      "description": "Confirm a Payment Intent to complete the payment",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_confirm_payment_intent"
+      }
+    },
+    {
+      "id": "stripe_create_charge",
+      "name": "Stripe Create Charge",
+      "description": "Create a new charge to process a payment",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_create_charge"
+      }
+    },
+    {
+      "id": "stripe_create_customer",
+      "name": "Stripe Create Customer",
+      "description": "Create a new customer object",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_create_customer"
+      }
+    },
+    {
+      "id": "stripe_create_invoice",
+      "name": "Stripe Create Invoice",
+      "description": "Create a new invoice",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_create_invoice"
+      }
+    },
+    {
+      "id": "stripe_create_payment_intent",
+      "name": "Stripe Create Payment Intent",
+      "description": "Create a new Payment Intent to process a payment",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_create_payment_intent"
+      }
+    },
+    {
+      "id": "stripe_create_price",
+      "name": "Stripe Create Price",
+      "description": "Create a new price for a product",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_create_price"
+      }
+    },
+    {
+      "id": "stripe_create_product",
+      "name": "Stripe Create Product",
+      "description": "Create a new product object",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_create_product"
+      }
+    },
+    {
+      "id": "stripe_create_subscription",
+      "name": "Stripe Create Subscription",
+      "description": "Create a new subscription for a customer",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_create_subscription"
+      }
+    },
+    {
+      "id": "stripe_delete_customer",
+      "name": "Stripe Delete Customer",
+      "description": "Permanently delete a customer",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_delete_customer"
+      }
+    },
+    {
+      "id": "stripe_delete_invoice",
+      "name": "Stripe Delete Invoice",
+      "description": "Permanently delete a draft invoice",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_delete_invoice"
+      }
+    },
+    {
+      "id": "stripe_delete_product",
+      "name": "Stripe Delete Product",
+      "description": "Permanently delete a product",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_delete_product"
+      }
+    },
+    {
+      "id": "stripe_finalize_invoice",
+      "name": "Stripe Finalize Invoice",
+      "description": "Finalize a draft invoice",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_finalize_invoice"
+      }
+    },
+    {
+      "id": "stripe_list_charges",
+      "name": "Stripe List Charges",
+      "description": "List all charges",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_list_charges"
+      }
+    },
+    {
+      "id": "stripe_list_customers",
+      "name": "Stripe List Customers",
+      "description": "List all customers",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_list_customers"
+      }
+    },
+    {
+      "id": "stripe_list_events",
+      "name": "Stripe List Events",
+      "description": "List all Events",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_list_events"
+      }
+    },
+    {
+      "id": "stripe_list_invoices",
+      "name": "Stripe List Invoices",
+      "description": "List all invoices",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_list_invoices"
+      }
+    },
+    {
+      "id": "stripe_list_payment_intents",
+      "name": "Stripe List Payment Intents",
+      "description": "List all Payment Intents",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_list_payment_intents"
+      }
+    },
+    {
+      "id": "stripe_list_prices",
+      "name": "Stripe List Prices",
+      "description": "List all prices",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_list_prices"
+      }
+    },
+    {
+      "id": "stripe_list_products",
+      "name": "Stripe List Products",
+      "description": "List all products",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_list_products"
+      }
+    },
+    {
+      "id": "stripe_list_subscriptions",
+      "name": "Stripe List Subscriptions",
+      "description": "List all subscriptions",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_list_subscriptions"
+      }
+    },
+    {
+      "id": "stripe_pay_invoice",
+      "name": "Stripe Pay Invoice",
+      "description": "Pay an invoice",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_pay_invoice"
+      }
+    },
+    {
+      "id": "stripe_resume_subscription",
+      "name": "Stripe Resume Subscription",
+      "description": "Resume a subscription that was scheduled for cancellation",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_resume_subscription"
+      }
+    },
+    {
+      "id": "stripe_retrieve_charge",
+      "name": "Stripe Retrieve Charge",
+      "description": "Retrieve an existing charge by ID",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_retrieve_charge"
+      }
+    },
+    {
+      "id": "stripe_retrieve_customer",
+      "name": "Stripe Retrieve Customer",
+      "description": "Retrieve an existing customer by ID",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_retrieve_customer"
+      }
+    },
+    {
+      "id": "stripe_retrieve_event",
+      "name": "Stripe Retrieve Event",
+      "description": "Retrieve an existing Event by ID",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_retrieve_event"
+      }
+    },
+    {
+      "id": "stripe_retrieve_invoice",
+      "name": "Stripe Retrieve Invoice",
+      "description": "Retrieve an existing invoice by ID",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_retrieve_invoice"
+      }
+    },
+    {
+      "id": "stripe_retrieve_payment_intent",
+      "name": "Stripe Retrieve Payment Intent",
+      "description": "Retrieve an existing Payment Intent by ID",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_retrieve_payment_intent"
+      }
+    },
+    {
+      "id": "stripe_retrieve_price",
+      "name": "Stripe Retrieve Price",
+      "description": "Retrieve an existing price by ID",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_retrieve_price"
+      }
+    },
+    {
+      "id": "stripe_retrieve_product",
+      "name": "Stripe Retrieve Product",
+      "description": "Retrieve an existing product by ID",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_retrieve_product"
+      }
+    },
+    {
+      "id": "stripe_retrieve_subscription",
+      "name": "Stripe Retrieve Subscription",
+      "description": "Retrieve an existing subscription by ID",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_retrieve_subscription"
+      }
+    },
+    {
+      "id": "stripe_search_charges",
+      "name": "Stripe Search Charges",
+      "description": "Search for charges using query syntax",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_search_charges"
+      }
+    },
+    {
+      "id": "stripe_search_customers",
+      "name": "Stripe Search Customers",
+      "description": "Search for customers using query syntax",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_search_customers"
+      }
+    },
+    {
+      "id": "stripe_search_invoices",
+      "name": "Stripe Search Invoices",
+      "description": "Search for invoices using query syntax",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_search_invoices"
+      }
+    },
+    {
+      "id": "stripe_search_payment_intents",
+      "name": "Stripe Search Payment Intents",
+      "description": "Search for Payment Intents using query syntax",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_search_payment_intents"
+      }
+    },
+    {
+      "id": "stripe_search_prices",
+      "name": "Stripe Search Prices",
+      "description": "Search for prices using query syntax",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_search_prices"
+      }
+    },
+    {
+      "id": "stripe_search_products",
+      "name": "Stripe Search Products",
+      "description": "Search for products using query syntax",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_search_products"
+      }
+    },
+    {
+      "id": "stripe_search_subscriptions",
+      "name": "Stripe Search Subscriptions",
+      "description": "Search for subscriptions using query syntax",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_search_subscriptions"
+      }
+    },
+    {
+      "id": "stripe_send_invoice",
+      "name": "Stripe Send Invoice",
+      "description": "Send an invoice to the customer",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_send_invoice"
+      }
+    },
+    {
+      "id": "stripe_update_charge",
+      "name": "Stripe Update Charge",
+      "description": "Update an existing charge",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_update_charge"
+      }
+    },
+    {
+      "id": "stripe_update_customer",
+      "name": "Stripe Update Customer",
+      "description": "Update an existing customer",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_update_customer"
+      }
+    },
+    {
+      "id": "stripe_update_invoice",
+      "name": "Stripe Update Invoice",
+      "description": "Update an existing invoice",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_update_invoice"
+      }
+    },
+    {
+      "id": "stripe_update_payment_intent",
+      "name": "Stripe Update Payment Intent",
+      "description": "Update an existing Payment Intent",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_update_payment_intent"
+      }
+    },
+    {
+      "id": "stripe_update_price",
+      "name": "Stripe Update Price",
+      "description": "Update an existing price",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_update_price"
+      }
+    },
+    {
+      "id": "stripe_update_product",
+      "name": "Stripe Update Product",
+      "description": "Update an existing product",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_update_product"
+      }
+    },
+    {
+      "id": "stripe_update_subscription",
+      "name": "Stripe Update Subscription",
+      "description": "Update an existing subscription",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_update_subscription"
+      }
+    },
+    {
+      "id": "stripe_void_invoice",
+      "name": "Stripe Void Invoice",
+      "description": "Void an invoice",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_void_invoice"
+      }
+    }
+  ]
+}

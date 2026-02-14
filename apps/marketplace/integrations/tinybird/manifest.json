@@ -1,0 +1,154 @@
+{
+  "id": "tinybird",
+  "name": "Tinybird",
+  "version": "1.0.0",
+  "description": "Send events and query data with Tinybird",
+  "icon": "TinybirdIcon",
+  "block": {
+    "type": "tinybird",
+    "name": "Tinybird",
+    "description": "Send events and query data with Tinybird",
+    "longDescription": "Interact with Tinybird using the Events API to stream JSON or NDJSON events, or use the Query API to execute SQL queries against Pipes and Data Sources.",
+    "docsLink": "https://www.tinybird.co/docs/api-reference",
+    "category": "tools",
+    "bgColor": "#2EF598",
+    "icon": "TinybirdIcon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Send Events",
+            "value": "tinybird_events"
+          },
+          {
+            "label": "Query",
+            "value": "tinybird_query"
+          }
+        ]
+      },
+      {
+        "id": "base_url",
+        "type": "short-input",
+        "title": "Base URL",
+        "placeholder": "https://api.tinybird.co"
+      },
+      {
+        "id": "token",
+        "type": "short-input",
+        "title": "API Token",
+        "placeholder": "Enter your Tinybird API token",
+        "password": true
+      },
+      {
+        "id": "datasource",
+        "type": "short-input",
+        "title": "Data Source",
+        "placeholder": "my_events_datasource"
+      },
+      {
+        "id": "data",
+        "type": "code",
+        "title": "Data",
+        "placeholder": "{"
+      },
+      {
+        "id": "format",
+        "type": "dropdown",
+        "title": "Format",
+        "options": [
+          {
+            "label": "NDJSON (Newline-delimited JSON)",
+            "value": "ndjson"
+          },
+          {
+            "label": "JSON",
+            "value": "json"
+          }
+        ]
+      },
+      {
+        "id": "compression",
+        "type": "dropdown",
+        "title": "Compression",
+        "mode": "advanced",
+        "options": [
+          {
+            "label": "None",
+            "value": "none"
+          },
+          {
+            "label": "Gzip",
+            "value": "gzip"
+          }
+        ]
+      },
+      {
+        "id": "wait",
+        "type": "switch",
+        "title": "Wait for Acknowledgment",
+        "mode": "advanced"
+      },
+      {
+        "id": "query",
+        "type": "code",
+        "title": "SQL Query",
+        "placeholder": "SELECT * FROM my_pipe FORMAT JSON\\nOR\\nSELECT * FROM my_pipe FORMAT CSV"
+      },
+      {
+        "id": "pipeline",
+        "type": "short-input",
+        "title": "Pipeline Name",
+        "placeholder": "my_pipe (optional)"
+      }
+    ],
+    "tools": {
+      "access": [
+        "tinybird_events",
+        "tinybird_query"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "successful_rows": {
+        "type": "number"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "tinybird_events",
+      "name": "Tinybird Events",
+      "description": "Send events to a Tinybird Data Source using the Events API. Supports JSON and NDJSON formats with optional gzip compression.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "tinybird",
+        "operation": "tinybird_events"
+      }
+    },
+    {
+      "id": "tinybird_query",
+      "name": "Tinybird Query",
+      "description": "Execute SQL queries against Tinybird Pipes and Data Sources using the Query API.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "tinybird",
+        "operation": "tinybird_query"
+      }
+    }
+  ]
+}

@@ -1,0 +1,398 @@
+{
+  "id": "tavily",
+  "name": "Tavily",
+  "version": "1.0.0",
+  "description": "Search and extract information",
+  "icon": "TavilyIcon",
+  "block": {
+    "type": "tavily",
+    "name": "Tavily",
+    "description": "Search and extract information",
+    "longDescription": "Integrate Tavily into the workflow. Can search the web and extract content from specific URLs. Requires API Key.",
+    "docsLink": "https://docs.sim.ai/tools/tavily",
+    "category": "tools",
+    "bgColor": "#0066FF",
+    "icon": "TavilyIcon",
+    "authMode": "api_key",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Search",
+            "value": "tavily_search"
+          },
+          {
+            "label": "Extract Content",
+            "value": "tavily_extract"
+          },
+          {
+            "label": "Crawl Website",
+            "value": "tavily_crawl"
+          },
+          {
+            "label": "Map Website",
+            "value": "tavily_map"
+          }
+        ]
+      },
+      {
+        "id": "query",
+        "type": "long-input",
+        "title": "Search Query",
+        "placeholder": "Enter your search query..."
+      },
+      {
+        "id": "max_results",
+        "type": "short-input",
+        "title": "Max Results",
+        "placeholder": "5"
+      },
+      {
+        "id": "topic",
+        "type": "dropdown",
+        "title": "Topic",
+        "options": [
+          {
+            "label": "General",
+            "value": "general"
+          },
+          {
+            "label": "News",
+            "value": "news"
+          },
+          {
+            "label": "Finance",
+            "value": "finance"
+          }
+        ]
+      },
+      {
+        "id": "search_depth",
+        "type": "dropdown",
+        "title": "Search Depth",
+        "options": [
+          {
+            "label": "Basic",
+            "value": "basic"
+          },
+          {
+            "label": "Advanced",
+            "value": "advanced"
+          }
+        ]
+      },
+      {
+        "id": "include_answer",
+        "type": "dropdown",
+        "title": "Include Answer",
+        "options": [
+          {
+            "label": "Basic",
+            "value": "basic"
+          },
+          {
+            "label": "Advanced",
+            "value": "advanced"
+          }
+        ]
+      },
+      {
+        "id": "include_raw_content",
+        "type": "dropdown",
+        "title": "Include Raw Content",
+        "options": [
+          {
+            "label": "Markdown",
+            "value": "markdown"
+          },
+          {
+            "label": "Text",
+            "value": "text"
+          }
+        ]
+      },
+      {
+        "id": "include_images",
+        "type": "switch",
+        "title": "Include Images"
+      },
+      {
+        "id": "include_image_descriptions",
+        "type": "switch",
+        "title": "Include Image Descriptions"
+      },
+      {
+        "id": "include_favicon",
+        "type": "switch",
+        "title": "Include Favicon"
+      },
+      {
+        "id": "time_range",
+        "type": "dropdown",
+        "title": "Time Range",
+        "options": [
+          {
+            "label": "Day",
+            "value": "d"
+          },
+          {
+            "label": "Week",
+            "value": "w"
+          },
+          {
+            "label": "Month",
+            "value": "m"
+          },
+          {
+            "label": "Year",
+            "value": "y"
+          }
+        ]
+      },
+      {
+        "id": "include_domains",
+        "type": "long-input",
+        "title": "Include Domains",
+        "placeholder": "example.com, another.com (comma-separated)"
+      },
+      {
+        "id": "exclude_domains",
+        "type": "long-input",
+        "title": "Exclude Domains",
+        "placeholder": "example.com, another.com (comma-separated)"
+      },
+      {
+        "id": "country",
+        "type": "short-input",
+        "title": "Country",
+        "placeholder": "US"
+      },
+      {
+        "id": "urls",
+        "type": "long-input",
+        "title": "URL",
+        "placeholder": "Enter URL to extract content from..."
+      },
+      {
+        "id": "extract_depth",
+        "type": "dropdown",
+        "title": "Extract Depth",
+        "options": [
+          {
+            "label": "Basic",
+            "value": "basic"
+          },
+          {
+            "label": "Advanced",
+            "value": "advanced"
+          }
+        ]
+      },
+      {
+        "id": "format",
+        "type": "dropdown",
+        "title": "Format",
+        "options": [
+          {
+            "label": "Markdown",
+            "value": "markdown"
+          },
+          {
+            "label": "Text",
+            "value": "text"
+          }
+        ]
+      },
+      {
+        "id": "include_images",
+        "type": "switch",
+        "title": "Include Images"
+      },
+      {
+        "id": "include_favicon",
+        "type": "switch",
+        "title": "Include Favicon"
+      },
+      {
+        "id": "url",
+        "type": "short-input",
+        "title": "Website URL",
+        "placeholder": "https://example.com"
+      },
+      {
+        "id": "instructions",
+        "type": "long-input",
+        "title": "Instructions",
+        "placeholder": "Natural language directions for the crawler..."
+      },
+      {
+        "id": "max_depth",
+        "type": "short-input",
+        "title": "Max Depth",
+        "placeholder": "1"
+      },
+      {
+        "id": "max_breadth",
+        "type": "short-input",
+        "title": "Max Breadth",
+        "placeholder": "20"
+      },
+      {
+        "id": "limit",
+        "type": "short-input",
+        "title": "Limit",
+        "placeholder": "50"
+      },
+      {
+        "id": "select_paths",
+        "type": "long-input",
+        "title": "Select Paths",
+        "placeholder": "/docs/.*, /api/.* (regex patterns, comma-separated)"
+      },
+      {
+        "id": "select_domains",
+        "type": "long-input",
+        "title": "Select Domains",
+        "placeholder": "^docs\\\\.example\\\\.com$ (regex patterns, comma-separated)"
+      },
+      {
+        "id": "exclude_paths",
+        "type": "long-input",
+        "title": "Exclude Paths",
+        "placeholder": "/private/.*, /admin/.* (regex patterns, comma-separated)"
+      },
+      {
+        "id": "exclude_domains",
+        "type": "long-input",
+        "title": "Exclude Domains",
+        "placeholder": "^private\\\\.example\\\\.com$ (regex patterns, comma-separated)"
+      },
+      {
+        "id": "allow_external",
+        "type": "switch",
+        "title": "Allow External Links"
+      },
+      {
+        "id": "include_images",
+        "type": "switch",
+        "title": "Include Images"
+      },
+      {
+        "id": "extract_depth",
+        "type": "dropdown",
+        "title": "Extract Depth",
+        "options": [
+          {
+            "label": "Basic",
+            "value": "basic"
+          },
+          {
+            "label": "Advanced",
+            "value": "advanced"
+          }
+        ]
+      },
+      {
+        "id": "format",
+        "type": "dropdown",
+        "title": "Format",
+        "options": [
+          {
+            "label": "Markdown",
+            "value": "markdown"
+          },
+          {
+            "label": "Text",
+            "value": "text"
+          }
+        ]
+      },
+      {
+        "id": "include_favicon",
+        "type": "switch",
+        "title": "Include Favicon"
+      },
+      {
+        "id": "apiKey",
+        "type": "short-input",
+        "title": "API Key",
+        "placeholder": "Enter your Tavily API key",
+        "password": true
+      }
+    ],
+    "tools": {
+      "access": [
+        "tavily_search",
+        "tavily_extract",
+        "tavily_crawl",
+        "tavily_map"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "results": {
+        "type": "json"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "tavily_crawl",
+      "name": "Tavily Crawl",
+      "description": "Systematically crawl and extract content from websites using Tavily",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "tavily",
+        "operation": "tavily_crawl"
+      }
+    },
+    {
+      "id": "tavily_extract",
+      "name": "Tavily Extract",
+      "description": "Extract raw content from multiple web pages simultaneously using Tavily",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "tavily",
+        "operation": "tavily_extract"
+      }
+    },
+    {
+      "id": "tavily_map",
+      "name": "Tavily Map",
+      "description": "Discover and visualize website structure using Tavily",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "tavily",
+        "operation": "tavily_map"
+      }
+    },
+    {
+      "id": "tavily_search",
+      "name": "Tavily Search",
+      "description": "Perform AI-powered web searches using Tavily",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "tavily",
+        "operation": "tavily_search"
+      }
+    }
+  ]
+}

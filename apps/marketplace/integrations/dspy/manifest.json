@@ -1,0 +1,161 @@
+{
+  "id": "dspy",
+  "name": "DSPy",
+  "version": "1.0.0",
+  "description": "Run predictions using self-hosted DSPy programs",
+  "icon": "DsPyIcon",
+  "block": {
+    "type": "dspy",
+    "name": "DSPy",
+    "description": "Run predictions using self-hosted DSPy programs",
+    "longDescription": "Integrate with your self-hosted DSPy programs for LLM-powered predictions. Supports Predict, Chain of Thought, and ReAct agents. DSPy is the framework for programming—not prompting—language models.",
+    "category": "tools",
+    "bgColor": "#E0E0E0",
+    "icon": "DsPyIcon",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Predict",
+            "value": "predict"
+          },
+          {
+            "label": "Chain of Thought",
+            "value": "chain_of_thought"
+          },
+          {
+            "label": "ReAct Agent",
+            "value": "react"
+          }
+        ]
+      },
+      {
+        "id": "baseUrl",
+        "type": "short-input",
+        "title": "Base URL",
+        "placeholder": "https://your-dspy-server.com"
+      },
+      {
+        "id": "apiKey",
+        "type": "short-input",
+        "title": "API Key",
+        "placeholder": "Optional API key for authentication",
+        "password": true
+      },
+      {
+        "id": "endpoint",
+        "type": "short-input",
+        "title": "Endpoint",
+        "placeholder": "/predict",
+        "mode": "advanced"
+      },
+      {
+        "id": "input",
+        "type": "long-input",
+        "title": "Input",
+        "placeholder": "Enter your input text"
+      },
+      {
+        "id": "inputField",
+        "type": "short-input",
+        "title": "Input Field Name",
+        "placeholder": "text (defaults to ",
+        "mode": "advanced"
+      },
+      {
+        "id": "additionalInputs",
+        "type": "long-input",
+        "title": "Additional Inputs",
+        "placeholder": "{",
+        "mode": "advanced"
+      },
+      {
+        "id": "question",
+        "type": "long-input",
+        "title": "Question",
+        "placeholder": "Enter your question"
+      },
+      {
+        "id": "task",
+        "type": "long-input",
+        "title": "Task",
+        "placeholder": "Describe the task for the ReAct agent"
+      },
+      {
+        "id": "maxIterations",
+        "type": "short-input",
+        "title": "Max Iterations",
+        "placeholder": "Maximum reasoning iterations",
+        "mode": "advanced"
+      },
+      {
+        "id": "context",
+        "type": "long-input",
+        "title": "Context",
+        "placeholder": "Additional context for the DSPy program",
+        "mode": "advanced"
+      }
+    ],
+    "tools": {
+      "access": [
+        "dspy_predict",
+        "dspy_chain_of_thought",
+        "dspy_react"
+      ],
+      "config": {
+        "tool": "dspy__{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "answer": {
+        "type": "string"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "dspy_chain_of_thought",
+      "name": "DSPy Chain of Thought",
+      "description": "Run a Chain of Thought prediction using a self-hosted DSPy ChainOfThought program endpoint",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "dspy",
+        "operation": "dspy_chain_of_thought"
+      }
+    },
+    {
+      "id": "dspy_predict",
+      "name": "DSPy Predict",
+      "description": "Run a prediction using a self-hosted DSPy program endpoint",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "dspy",
+        "operation": "dspy_predict"
+      }
+    },
+    {
+      "id": "dspy_react",
+      "name": "DSPy ReAct",
+      "description": "Run a ReAct agent using a self-hosted DSPy ReAct program endpoint for multi-step reasoning and action",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "dspy",
+        "operation": "dspy_react"
+      }
+    }
+  ]
+}

@@ -1,0 +1,703 @@
+{
+  "id": "google_slides",
+  "name": "Google Slides (Legacy)",
+  "version": "1.0.0",
+  "description": "Read, write, and create presentations",
+  "icon": "GoogleSlidesIcon",
+  "block": {
+    "type": "google_slides",
+    "name": "Google Slides (Legacy)",
+    "description": "Read, write, and create presentations",
+    "longDescription": "Integrate Google Slides into the workflow. Can read, write, create presentations, replace text, add slides, add images, get thumbnails, get page details, delete objects, duplicate objects, reorder slides, create tables, create shapes, and insert text.",
+    "docsLink": "https://docs.sim.ai/tools/google_slides",
+    "category": "tools",
+    "bgColor": "#E0E0E0",
+    "icon": "GoogleSlidesIcon",
+    "authMode": "oauth",
+    "hideFromToolbar": true,
+    "subBlocks": [
+      {
+        "id": "operation",
+        "type": "dropdown",
+        "title": "Operation",
+        "options": [
+          {
+            "label": "Read Presentation",
+            "value": "read"
+          },
+          {
+            "label": "Write to Presentation",
+            "value": "write"
+          },
+          {
+            "label": "Create Presentation",
+            "value": "create"
+          },
+          {
+            "label": "Replace All Text",
+            "value": "replace_all_text"
+          },
+          {
+            "label": "Add Slide",
+            "value": "add_slide"
+          },
+          {
+            "label": "Add Image",
+            "value": "add_image"
+          },
+          {
+            "label": "Get Thumbnail",
+            "value": "get_thumbnail"
+          },
+          {
+            "label": "Get Page",
+            "value": "get_page"
+          },
+          {
+            "label": "Delete Object",
+            "value": "delete_object"
+          },
+          {
+            "label": "Duplicate Object",
+            "value": "duplicate_object"
+          },
+          {
+            "label": "Reorder Slides",
+            "value": "reorder_slides"
+          },
+          {
+            "label": "Create Table",
+            "value": "create_table"
+          },
+          {
+            "label": "Create Shape",
+            "value": "create_shape"
+          },
+          {
+            "label": "Insert Text",
+            "value": "insert_text"
+          }
+        ]
+      },
+      {
+        "id": "credential",
+        "type": "oauth-input",
+        "title": "Google Account",
+        "placeholder": "Select Google account"
+      },
+      {
+        "id": "presentationId",
+        "type": "file-selector",
+        "title": "Select Presentation",
+        "placeholder": "Select a presentation",
+        "mode": "basic",
+        "canonicalParamId": "presentationId"
+      },
+      {
+        "id": "manualPresentationId",
+        "type": "short-input",
+        "title": "Presentation ID",
+        "placeholder": "Enter presentation ID",
+        "mode": "advanced",
+        "canonicalParamId": "presentationId"
+      },
+      {
+        "id": "slideIndex",
+        "type": "short-input",
+        "title": "Slide Index",
+        "placeholder": "Enter slide index (0 for first slide)"
+      },
+      {
+        "id": "content",
+        "type": "long-input",
+        "title": "Content",
+        "placeholder": "Enter slide content"
+      },
+      {
+        "id": "title",
+        "type": "short-input",
+        "title": "Presentation Title",
+        "placeholder": "Enter title for the new presentation"
+      },
+      {
+        "id": "folderSelector",
+        "type": "file-selector",
+        "title": "Select Parent Folder",
+        "placeholder": "Select a parent folder",
+        "mode": "basic",
+        "canonicalParamId": "folderId"
+      },
+      {
+        "id": "folderId",
+        "type": "short-input",
+        "title": "Parent Folder ID",
+        "placeholder": "Enter parent folder ID (leave empty for root folder)",
+        "mode": "advanced",
+        "canonicalParamId": "folderId"
+      },
+      {
+        "id": "createContent",
+        "type": "long-input",
+        "title": "Initial Content",
+        "placeholder": "Enter initial slide content (optional)"
+      },
+      {
+        "id": "findText",
+        "type": "short-input",
+        "title": "Find Text",
+        "placeholder": "Text to find (e.g., {{placeholder}})"
+      },
+      {
+        "id": "replaceText",
+        "type": "short-input",
+        "title": "Replace With",
+        "placeholder": "Text to replace with"
+      },
+      {
+        "id": "matchCase",
+        "type": "switch",
+        "title": "Match Case"
+      },
+      {
+        "id": "pageObjectIds",
+        "type": "short-input",
+        "title": "Limit to Slides (IDs)",
+        "placeholder": "Comma-separated slide IDs (leave empty for all)",
+        "mode": "advanced"
+      },
+      {
+        "id": "layout",
+        "type": "dropdown",
+        "title": "Slide Layout",
+        "options": [
+          {
+            "label": "Blank",
+            "value": "BLANK"
+          },
+          {
+            "label": "Title",
+            "value": "TITLE"
+          },
+          {
+            "label": "Title and Body",
+            "value": "TITLE_AND_BODY"
+          },
+          {
+            "label": "Title Only",
+            "value": "TITLE_ONLY"
+          },
+          {
+            "label": "Title and Two Columns",
+            "value": "TITLE_AND_TWO_COLUMNS"
+          },
+          {
+            "label": "Section Header",
+            "value": "SECTION_HEADER"
+          },
+          {
+            "label": "Caption Only",
+            "value": "CAPTION_ONLY"
+          },
+          {
+            "label": "Main Point",
+            "value": "MAIN_POINT"
+          },
+          {
+            "label": "Big Number",
+            "value": "BIG_NUMBER"
+          }
+        ]
+      },
+      {
+        "id": "insertionIndex",
+        "type": "short-input",
+        "title": "Insertion Position",
+        "placeholder": "Position to insert slide (leave empty for end)"
+      },
+      {
+        "id": "placeholderIdMappings",
+        "type": "long-input",
+        "title": "Placeholder ID Mappings",
+        "placeholder": "JSON array: [{",
+        "mode": "advanced"
+      },
+      {
+        "id": "pageObjectId",
+        "type": "short-input",
+        "title": "Slide ID",
+        "placeholder": "Object ID of the slide to add image to"
+      },
+      {
+        "id": "imageFile",
+        "type": "file-upload",
+        "title": "Image",
+        "placeholder": "Upload image (PNG, JPEG, or GIF)",
+        "mode": "basic",
+        "canonicalParamId": "imageSource"
+      },
+      {
+        "id": "imageUrl",
+        "type": "short-input",
+        "title": "Image",
+        "placeholder": "Reference image from previous blocks or enter URL",
+        "mode": "advanced",
+        "canonicalParamId": "imageSource"
+      },
+      {
+        "id": "imageWidth",
+        "type": "short-input",
+        "title": "Width (points)",
+        "placeholder": "Image width in points (default: 300)"
+      },
+      {
+        "id": "imageHeight",
+        "type": "short-input",
+        "title": "Height (points)",
+        "placeholder": "Image height in points (default: 200)"
+      },
+      {
+        "id": "positionX",
+        "type": "short-input",
+        "title": "X Position (points)",
+        "placeholder": "X position from left (default: 100)"
+      },
+      {
+        "id": "positionY",
+        "type": "short-input",
+        "title": "Y Position (points)",
+        "placeholder": "Y position from top (default: 100)"
+      },
+      {
+        "id": "thumbnailPageId",
+        "type": "short-input",
+        "title": "Slide ID",
+        "placeholder": "Object ID of the slide to get thumbnail for"
+      },
+      {
+        "id": "thumbnailSize",
+        "type": "dropdown",
+        "title": "Thumbnail Size",
+        "options": [
+          {
+            "label": "Small (200px)",
+            "value": "SMALL"
+          },
+          {
+            "label": "Medium (800px)",
+            "value": "MEDIUM"
+          },
+          {
+            "label": "Large (1600px)",
+            "value": "LARGE"
+          }
+        ]
+      },
+      {
+        "id": "mimeType",
+        "type": "dropdown",
+        "title": "Image Format",
+        "options": [
+          {
+            "label": "PNG",
+            "value": "PNG"
+          },
+          {
+            "label": "GIF",
+            "value": "GIF"
+          }
+        ]
+      },
+      {
+        "id": "getPageObjectId",
+        "type": "short-input",
+        "title": "Page/Slide ID",
+        "placeholder": "Object ID of the slide/page to retrieve"
+      },
+      {
+        "id": "deleteObjectId",
+        "type": "short-input",
+        "title": "Object ID",
+        "placeholder": "Object ID of the element or slide to delete"
+      },
+      {
+        "id": "duplicateObjectId",
+        "type": "short-input",
+        "title": "Object ID",
+        "placeholder": "Object ID of the element or slide to duplicate"
+      },
+      {
+        "id": "duplicateObjectIds",
+        "type": "long-input",
+        "title": "Object ID Mappings",
+        "placeholder": "JSON object: {",
+        "mode": "advanced"
+      },
+      {
+        "id": "reorderSlideIds",
+        "type": "short-input",
+        "title": "Slide IDs",
+        "placeholder": "Comma-separated slide object IDs to move"
+      },
+      {
+        "id": "reorderInsertionIndex",
+        "type": "short-input",
+        "title": "New Position",
+        "placeholder": "Zero-based index where slides should be moved"
+      },
+      {
+        "id": "tablePageObjectId",
+        "type": "short-input",
+        "title": "Slide ID",
+        "placeholder": "Object ID of the slide to add the table to"
+      },
+      {
+        "id": "tableRows",
+        "type": "short-input",
+        "title": "Rows",
+        "placeholder": "Number of rows (minimum 1)"
+      },
+      {
+        "id": "tableColumns",
+        "type": "short-input",
+        "title": "Columns",
+        "placeholder": "Number of columns (minimum 1)"
+      },
+      {
+        "id": "tableWidth",
+        "type": "short-input",
+        "title": "Width (points)",
+        "placeholder": "Table width in points (default: 400)"
+      },
+      {
+        "id": "tableHeight",
+        "type": "short-input",
+        "title": "Height (points)",
+        "placeholder": "Table height in points (default: 200)"
+      },
+      {
+        "id": "tablePositionX",
+        "type": "short-input",
+        "title": "X Position (points)",
+        "placeholder": "X position from left (default: 100)"
+      },
+      {
+        "id": "tablePositionY",
+        "type": "short-input",
+        "title": "Y Position (points)",
+        "placeholder": "Y position from top (default: 100)"
+      },
+      {
+        "id": "shapePageObjectId",
+        "type": "short-input",
+        "title": "Slide ID",
+        "placeholder": "Object ID of the slide to add the shape to"
+      },
+      {
+        "id": "shapeType",
+        "type": "dropdown",
+        "title": "Shape Type",
+        "options": [
+          {
+            "label": "Text Box",
+            "value": "TEXT_BOX"
+          },
+          {
+            "label": "Rectangle",
+            "value": "RECTANGLE"
+          },
+          {
+            "label": "Rounded Rectangle",
+            "value": "ROUND_RECTANGLE"
+          },
+          {
+            "label": "Ellipse",
+            "value": "ELLIPSE"
+          },
+          {
+            "label": "Triangle",
+            "value": "TRIANGLE"
+          },
+          {
+            "label": "Diamond",
+            "value": "DIAMOND"
+          },
+          {
+            "label": "Star (5 points)",
+            "value": "STAR_5"
+          },
+          {
+            "label": "Arrow (Right)",
+            "value": "RIGHT_ARROW"
+          },
+          {
+            "label": "Arrow (Left)",
+            "value": "LEFT_ARROW"
+          },
+          {
+            "label": "Arrow (Up)",
+            "value": "UP_ARROW"
+          },
+          {
+            "label": "Arrow (Down)",
+            "value": "DOWN_ARROW"
+          },
+          {
+            "label": "Heart",
+            "value": "HEART"
+          },
+          {
+            "label": "Cloud",
+            "value": "CLOUD"
+          },
+          {
+            "label": "Lightning Bolt",
+            "value": "LIGHTNING_BOLT"
+          }
+        ]
+      },
+      {
+        "id": "shapeWidth",
+        "type": "short-input",
+        "title": "Width (points)",
+        "placeholder": "Shape width in points (default: 200)"
+      },
+      {
+        "id": "shapeHeight",
+        "type": "short-input",
+        "title": "Height (points)",
+        "placeholder": "Shape height in points (default: 100)"
+      },
+      {
+        "id": "shapePositionX",
+        "type": "short-input",
+        "title": "X Position (points)",
+        "placeholder": "X position from left (default: 100)"
+      },
+      {
+        "id": "shapePositionY",
+        "type": "short-input",
+        "title": "Y Position (points)",
+        "placeholder": "Y position from top (default: 100)"
+      },
+      {
+        "id": "insertTextObjectId",
+        "type": "short-input",
+        "title": "Object ID",
+        "placeholder": "Object ID of the shape or table cell"
+      },
+      {
+        "id": "insertTextContent",
+        "type": "long-input",
+        "title": "Text",
+        "placeholder": "Text to insert"
+      },
+      {
+        "id": "insertTextIndex",
+        "type": "short-input",
+        "title": "Insertion Index",
+        "placeholder": "Zero-based index (default: 0)"
+      }
+    ],
+    "tools": {
+      "access": [
+        "google_slides_read",
+        "google_slides_write",
+        "google_slides_create",
+        "google_slides_replace_all_text",
+        "google_slides_add_slide",
+        "google_slides_add_image",
+        "google_slides_get_thumbnail",
+        "google_slides_get_page",
+        "google_slides_delete_object",
+        "google_slides_duplicate_object",
+        "google_slides_update_slides_position",
+        "google_slides_create_table",
+        "google_slides_create_shape",
+        "google_slides_insert_text"
+      ],
+      "config": {
+        "tool": "{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "slides": {
+        "type": "json"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "google_slides_add_image",
+      "name": "Add Image to Google Slides",
+      "description": "Insert an image into a specific slide in a Google Slides presentation",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_slides",
+        "operation": "google_slides_add_image"
+      }
+    },
+    {
+      "id": "google_slides_add_slide",
+      "name": "Add Slide to Google Slides",
+      "description": "Add a new slide to a Google Slides presentation with a specified layout",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_slides",
+        "operation": "google_slides_add_slide"
+      }
+    },
+    {
+      "id": "google_slides_create",
+      "name": "Create Google Slides Presentation",
+      "description": "Create a new Google Slides presentation",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_slides",
+        "operation": "google_slides_create"
+      }
+    },
+    {
+      "id": "google_slides_create_shape",
+      "name": "Create Shape in Google Slides",
+      "description": "Create a shape (rectangle, ellipse, text box, arrow, etc.) on a slide in a Google Slides presentation",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_slides",
+        "operation": "google_slides_create_shape"
+      }
+    },
+    {
+      "id": "google_slides_create_table",
+      "name": "Create Table in Google Slides",
+      "description": "Create a new table on a slide in a Google Slides presentation",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_slides",
+        "operation": "google_slides_create_table"
+      }
+    },
+    {
+      "id": "google_slides_delete_object",
+      "name": "Delete Object from Google Slides",
+      "description": "Delete a page element (shape, image, table, etc.) or an entire slide from a Google Slides presentation",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_slides",
+        "operation": "google_slides_delete_object"
+      }
+    },
+    {
+      "id": "google_slides_duplicate_object",
+      "name": "Duplicate Object in Google Slides",
+      "description": "Duplicate an object (slide, shape, image, table, etc.) in a Google Slides presentation",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_slides",
+        "operation": "google_slides_duplicate_object"
+      }
+    },
+    {
+      "id": "google_slides_get_page",
+      "name": "Get Slide Page",
+      "description": "Get detailed information about a specific slide/page in a Google Slides presentation",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_slides",
+        "operation": "google_slides_get_page"
+      }
+    },
+    {
+      "id": "google_slides_get_thumbnail",
+      "name": "Get Slide Thumbnail",
+      "description": "Generate a thumbnail image of a specific slide in a Google Slides presentation",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_slides",
+        "operation": "google_slides_get_thumbnail"
+      }
+    },
+    {
+      "id": "google_slides_insert_text",
+      "name": "Insert Text in Google Slides",
+      "description": "Insert text into a shape or table cell in a Google Slides presentation. Use this to add text to text boxes, shapes, or table cells.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_slides",
+        "operation": "google_slides_insert_text"
+      }
+    },
+    {
+      "id": "google_slides_read",
+      "name": "Read Google Slides Presentation",
+      "description": "Read content from a Google Slides presentation",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_slides",
+        "operation": "google_slides_read"
+      }
+    },
+    {
+      "id": "google_slides_replace_all_text",
+      "name": "Replace All Text in Google Slides",
+      "description": "Find and replace all occurrences of text throughout a Google Slides presentation",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_slides",
+        "operation": "google_slides_replace_all_text"
+      }
+    },
+    {
+      "id": "google_slides_update_slides_position",
+      "name": "Reorder Slides in Google Slides",
+      "description": "Move one or more slides to a new position in a Google Slides presentation",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_slides",
+        "operation": "google_slides_update_slides_position"
+      }
+    },
+    {
+      "id": "google_slides_write",
+      "name": "Write to Google Slides Presentation",
+      "description": "Write or update content in a Google Slides presentation",
+      "version": "1.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "google_slides",
+        "operation": "google_slides_write"
+      }
+    }
+  ]
+}
