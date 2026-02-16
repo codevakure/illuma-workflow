@@ -242,9 +242,11 @@
       },
       {
         "id": "triggerFolderIds",
-        "type": "short-input",
-        "title": "Folders to Monitor",
-        "placeholder": "e.g. inbox, sentitems (comma-separated, leave empty for inbox)",
+        "type": "dropdown",
+        "title": "Outlook Folders to Monitor",
+        "placeholder": "Select Outlook folders to monitor for new emails",
+        "multiSelect": true,
+        "dependsOn": ["triggerCredentials"],
         "mode": "trigger"
       },
       {

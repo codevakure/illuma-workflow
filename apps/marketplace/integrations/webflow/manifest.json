@@ -18,8 +18,58 @@
       {
         "id": "selectedTriggerId",
         "type": "dropdown",
-        "title": "Trigger Event",
-        "mode": "trigger"
+        "title": "Trigger Type",
+        "mode": "trigger",
+        "required": true,
+        "options": [
+          { "label": "Collection Item Created", "value": "webflow_collection_item_created" },
+          { "label": "Collection Item Changed", "value": "webflow_collection_item_changed" },
+          { "label": "Collection Item Deleted", "value": "webflow_collection_item_deleted" },
+          { "label": "Form Submission", "value": "webflow_form_submission" }
+        ]
+      },
+      {
+        "id": "triggerCredentials",
+        "type": "oauth-input",
+        "title": "Credentials",
+        "required": true,
+        "mode": "trigger",
+        "serviceId": "webflow",
+        "description": "This trigger requires webflow credentials to access your account."
+      },
+      {
+        "id": "triggerSiteId",
+        "type": "dropdown",
+        "title": "Site",
+        "placeholder": "Select a site",
+        "required": true,
+        "mode": "trigger",
+        "options": [],
+        "description": "The Webflow site to monitor",
+        "dependsOn": ["triggerCredentials"],
+        "condition": { "field": "selectedTriggerId", "value": ["webflow_collection_item_created", "webflow_collection_item_changed", "webflow_collection_item_deleted", "webflow_form_submission"] }
+      },
+      {
+        "id": "triggerCollectionId",
+        "type": "dropdown",
+        "title": "Collection",
+        "placeholder": "Select a collection (optional)",
+        "required": false,
+        "mode": "trigger",
+        "options": [],
+        "description": "Optionally filter to monitor only a specific collection",
+        "dependsOn": ["triggerCredentials", "triggerSiteId"],
+        "condition": { "field": "selectedTriggerId", "value": ["webflow_collection_item_created", "webflow_collection_item_changed", "webflow_collection_item_deleted"] }
+      },
+      {
+        "id": "formName",
+        "type": "short-input",
+        "title": "Form Name",
+        "placeholder": "Contact Form (optional)",
+        "required": false,
+        "mode": "trigger",
+        "description": "The name of the specific form to monitor (optional - leave empty for all forms)",
+        "condition": { "field": "selectedTriggerId", "value": "webflow_form_submission" }
       },
       {
         "id": "operation",
@@ -122,16 +172,6 @@
         "placeholder": "Field data as JSON: "
       },
       {
-        "id": "webhookUrlDisplay",
-        "type": "short-input",
-        "title": "Webhook URL",
-        "readOnly": true,
-        "showCopyButton": true,
-        "useWebhookUrl": true,
-        "placeholder": "Webhook URL will be generated",
-        "mode": "trigger"
-      },
-      {
         "id": "triggerSave",
         "type": "trigger-save",
         "title": "",
@@ -145,7 +185,7 @@
         "title": "Setup Instructions",
         "hideFromPreview": true,
         "mode": "trigger",
-        "default": "<div class='mb-3'><strong>1.</strong> Go to your Webflow project settings > Integrations > Webhooks.</div><div class='mb-3'><strong>2.</strong> Add a new webhook with the Webhook URL above.</div><div class='mb-3'><strong>3.</strong> Select the trigger type (collection item created, changed, etc.).</div>"
+        "default": "<div class='mb-3'><strong>1.</strong> Connect your Webflow account using OAuth above.</div><div class='mb-3'><strong>2.</strong> Select the site you want to monitor.</div><div class='mb-3'><strong>3.</strong> Optionally select a specific collection to monitor.</div><div class='mb-3'><strong>4.</strong> Select the trigger type (item created, changed, deleted, or form submission).</div><div class='mb-3'><strong>5.</strong> The workflow will receive the relevant data when the selected event occurs.</div>"
       }
     ],
     "tools": {

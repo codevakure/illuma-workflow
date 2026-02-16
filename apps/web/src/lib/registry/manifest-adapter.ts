@@ -7,7 +7,7 @@
 import { resolveIcon } from '@/lib/registry/icon-resolver'
 import { applyBlockEnhancements, resolveConditionReference } from '@/lib/registry/block-enhancements'
 import type { ManifestBlock, ManifestSubBlock } from '@/stores/registry/types'
-import type { BlockConfig, SubBlockConfig } from '@/blocks/types'
+import type { BlockConfig, GenerationType, SubBlockConfig } from '@/blocks/types'
 import { AuthMode } from '@/blocks/types'
 
 /**
@@ -205,6 +205,17 @@ function adaptSubBlock(sub: ManifestSubBlock): SubBlockConfig {
   // OAuth properties
   if (sub.serviceId) config.serviceId = sub.serviceId
   if (sub.requiredScopes) config.requiredScopes = sub.requiredScopes
+
+  // AI-assist wand configuration
+  if (sub.wandConfig) {
+    config.wandConfig = {
+      enabled: sub.wandConfig.enabled !== false,
+      prompt: sub.wandConfig.prompt,
+      ...(sub.wandConfig.generationType && { generationType: sub.wandConfig.generationType as GenerationType }),
+      ...(sub.wandConfig.placeholder && { placeholder: sub.wandConfig.placeholder }),
+      ...(sub.wandConfig.maintainHistory !== undefined && { maintainHistory: sub.wandConfig.maintainHistory }),
+    }
+  }
 
   return config
 }

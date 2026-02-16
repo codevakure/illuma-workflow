@@ -137,6 +137,214 @@ export function resolveConditionReference(ref: string): string[] | undefined {
   }
 }
 
+// ---------------------------------------------------------------------------
+// Gmail / Outlook trigger label/folder fetchers
+// ---------------------------------------------------------------------------
+
+const GMAIL_SYSTEM_LABELS = [
+  { id: 'INBOX', label: 'Inbox' },
+  { id: 'SENT', label: 'Sent' },
+  { id: 'DRAFT', label: 'Drafts' },
+  { id: 'SPAM', label: 'Spam' },
+  { id: 'TRASH', label: 'Trash' },
+  { id: 'STARRED', label: 'Starred' },
+  { id: 'IMPORTANT', label: 'Important' },
+  { id: 'UNREAD', label: 'Unread' },
+  { id: 'CATEGORY_PERSONAL', label: 'Category: Personal' },
+  { id: 'CATEGORY_SOCIAL', label: 'Category: Social' },
+  { id: 'CATEGORY_PROMOTIONS', label: 'Category: Promotions' },
+  { id: 'CATEGORY_UPDATES', label: 'Category: Updates' },
+  { id: 'CATEGORY_FORUMS', label: 'Category: Forums' },
+]
+
+const OUTLOOK_SYSTEM_FOLDERS = [
+  { id: 'inbox', label: 'Inbox' },
+  { id: 'drafts', label: 'Drafts' },
+  { id: 'sentitems', label: 'Sent Items' },
+  { id: 'deleteditems', label: 'Deleted Items' },
+  { id: 'junkemail', label: 'Junk Email' },
+  { id: 'archive', label: 'Archive' },
+  { id: 'outbox', label: 'Outbox' },
+]
+
+/**
+ * Creates a fetchOptions function for credential-dependent dropdowns
+ * (e.g. Gmail labels, Outlook folders).
+ */
+function createCredentialDependentFetchOptions(
+  credentialSubBlockId: string,
+  apiEndpoint: string,
+  responseKey: string,
+  mapItem: (item: { id: string; name: string }) => { id: string; label: string },
+  fallbackOptions: Array<{ id: string; label: string }>
+): (blockId: string, subBlockId: string) => Promise<Array<{ label: string; id: string }>> {
+  return async (blockId: string) => {
+    const { useSubBlockStore } = await import('@/stores/workflows/subblock/store')
+    const { useWorkflowRegistry } = await import('@/stores/workflows/registry/store')
+
+    const activeWorkflowId = useWorkflowRegistry.getState().activeWorkflowId
+    if (!activeWorkflowId) return fallbackOptions
+
+    const workflowValues = useSubBlockStore.getState().workflowValues[activeWorkflowId]
+    const blockValues = workflowValues?.[blockId]
+    const credentialId = blockValues?.[credentialSubBlockId] as string | null
+    if (!credentialId) throw new Error('No credential selected')
+
+    try {
+      const response = await fetch(`${apiEndpoint}?credentialId=${credentialId}`)
+      if (!response.ok) throw new Error(`Failed to fetch from ${apiEndpoint}`)
+      const data = await response.json()
+      const items = data[responseKey]
+      if (items && Array.isArray(items)) {
+        return items.map(mapItem)
+      }
+      return fallbackOptions
+    } catch {
+      return fallbackOptions
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// IMAP mailbox fetcher
+// ---------------------------------------------------------------------------
+
+/**
+ * Creates a fetchOptions function for IMAP mailboxes.
+ * Unlike credential-dependent fetchers, IMAP uses connection params (host, port, etc.)
+ * sent via POST to fetch available mailboxes.
+ */
+function createImapMailboxFetchOptions(): (
+  blockId: string,
+  subBlockId: string
+) => Promise<Array<{ label: string; id: string }>> {
+  const fallback = [{ id: 'INBOX', label: 'INBOX' }]
+
+  return async (blockId: string) => {
+    const { useSubBlockStore } = await import('@/stores/workflows/subblock/store')
+    const { useWorkflowRegistry } = await import('@/stores/workflows/registry/store')
+
+    const activeWorkflowId = useWorkflowRegistry.getState().activeWorkflowId
+    if (!activeWorkflowId) return fallback
+
+    const workflowValues = useSubBlockStore.getState().workflowValues[activeWorkflowId]
+    const blockValues = workflowValues?.[blockId]
+
+    const host = blockValues?.host as string
+    const username = blockValues?.username as string
+    const password = blockValues?.password as string
+    if (!host || !username || !password) throw new Error('IMAP connection details required')
+
+    const port = Number(blockValues?.port ?? 993)
+    const secure = blockValues?.secure !== false
+    const rejectUnauthorized = blockValues?.rejectUnauthorized !== false
+
+    try {
+      const response = await fetch('/api/tools/imap/mailboxes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ host, port, secure, rejectUnauthorized, username, password }),
+      })
+      if (!response.ok) throw new Error('Failed to fetch IMAP mailboxes')
+      const data = await response.json()
+      if (data.mailboxes && Array.isArray(data.mailboxes)) {
+        return data.mailboxes.map((mb: { path: string; name: string }) => ({
+          id: mb.path,
+          label: mb.name,
+        }))
+      }
+      return fallback
+    } catch {
+      return fallback
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Webflow site/collection fetchers
+// ---------------------------------------------------------------------------
+
+/**
+ * Creates a fetchOptions function for Webflow sites (OAuth credential-dependent, POST).
+ */
+function createWebflowSiteFetchOptions(): (
+  blockId: string,
+  subBlockId: string
+) => Promise<Array<{ label: string; id: string }>> {
+  return async (blockId: string) => {
+    const { useSubBlockStore } = await import('@/stores/workflows/subblock/store')
+    const { useWorkflowRegistry } = await import('@/stores/workflows/registry/store')
+
+    const activeWorkflowId = useWorkflowRegistry.getState().activeWorkflowId
+    if (!activeWorkflowId) return []
+
+    const workflowValues = useSubBlockStore.getState().workflowValues[activeWorkflowId]
+    const blockValues = workflowValues?.[blockId]
+    const credentialId = blockValues?.triggerCredentials as string | null
+    if (!credentialId) throw new Error('No credential selected')
+
+    try {
+      const response = await fetch('/api/tools/webflow/sites', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ credential: credentialId }),
+      })
+      if (!response.ok) throw new Error('Failed to fetch Webflow sites')
+      const data = await response.json()
+      if (data.sites && Array.isArray(data.sites)) {
+        return data.sites.map((site: { id: string; name: string }) => ({
+          id: site.id,
+          label: site.name,
+        }))
+      }
+      return []
+    } catch {
+      return []
+    }
+  }
+}
+
+/**
+ * Creates a fetchOptions function for Webflow collections (depends on credential + site).
+ */
+function createWebflowCollectionFetchOptions(): (
+  blockId: string,
+  subBlockId: string
+) => Promise<Array<{ label: string; id: string }>> {
+  return async (blockId: string) => {
+    const { useSubBlockStore } = await import('@/stores/workflows/subblock/store')
+    const { useWorkflowRegistry } = await import('@/stores/workflows/registry/store')
+
+    const activeWorkflowId = useWorkflowRegistry.getState().activeWorkflowId
+    if (!activeWorkflowId) return []
+
+    const workflowValues = useSubBlockStore.getState().workflowValues[activeWorkflowId]
+    const blockValues = workflowValues?.[blockId]
+    const credentialId = blockValues?.triggerCredentials as string | null
+    const siteId = blockValues?.triggerSiteId as string | null
+    if (!credentialId || !siteId) throw new Error('Credential and site selection required')
+
+    try {
+      const response = await fetch('/api/tools/webflow/collections', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ credential: credentialId, siteId }),
+      })
+      if (!response.ok) throw new Error('Failed to fetch Webflow collections')
+      const data = await response.json()
+      if (data.collections && Array.isArray(data.collections)) {
+        return data.collections.map((col: { id: string; name: string }) => ({
+          id: col.id,
+          label: col.name,
+        }))
+      }
+      return []
+    } catch {
+      return []
+    }
+  }
+}
+
 /**
  * Registry of block enhancements keyed by block type.
  */
@@ -217,6 +425,53 @@ const BLOCK_ENHANCEMENTS: Record<string, BlockEnhancement> = {
         ? toolName.slice(serverId.length + 1)
         : toolName
       return `mcp_${serverId}_${cleanToolName}`
+    },
+  },
+
+  gmail: {
+    subBlocks: {
+      triggerLabelIds: {
+        fetchOptions: createCredentialDependentFetchOptions(
+          'triggerCredentials',
+          '/api/tools/gmail/labels',
+          'labels',
+          (label: { id: string; name: string }) => ({ id: label.id, label: label.name }),
+          GMAIL_SYSTEM_LABELS
+        ),
+      },
+    },
+  },
+
+  outlook: {
+    subBlocks: {
+      triggerFolderIds: {
+        fetchOptions: createCredentialDependentFetchOptions(
+          'triggerCredentials',
+          '/api/tools/outlook/folders',
+          'folders',
+          (folder: { id: string; name: string }) => ({ id: folder.id, label: folder.name }),
+          OUTLOOK_SYSTEM_FOLDERS
+        ),
+      },
+    },
+  },
+
+  imap: {
+    subBlocks: {
+      mailbox: {
+        fetchOptions: createImapMailboxFetchOptions(),
+      },
+    },
+  },
+
+  webflow: {
+    subBlocks: {
+      triggerSiteId: {
+        fetchOptions: createWebflowSiteFetchOptions(),
+      },
+      triggerCollectionId: {
+        fetchOptions: createWebflowCollectionFetchOptions(),
+      },
     },
   },
 

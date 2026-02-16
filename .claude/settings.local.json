@@ -20,7 +20,8 @@
       "Bash(node:*)",
       "Bash(python3:*)",
       "Bash(bunx vitest:*)",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Bash(xargs:*)"
     ]
   }
 }

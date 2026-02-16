@@ -75,7 +75,13 @@ export interface ManifestSubBlock {
   /** Required OAuth scopes */
   requiredScopes?: string[]
   /** Wand AI-assist configuration */
-  wandConfig?: { prompt: string }
+  wandConfig?: {
+    enabled?: boolean
+    prompt: string
+    generationType?: string
+    placeholder?: string
+    maintainHistory?: boolean
+  }
 }
 
 export interface ManifestTool {

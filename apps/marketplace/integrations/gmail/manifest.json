@@ -276,9 +276,11 @@
       },
       {
         "id": "triggerLabelIds",
-        "type": "short-input",
-        "title": "Labels to Monitor",
-        "placeholder": "e.g. INBOX, CATEGORY_PERSONAL (comma-separated, leave empty for INBOX)",
+        "type": "dropdown",
+        "title": "Gmail Labels to Monitor",
+        "placeholder": "Select Gmail labels to monitor for new emails",
+        "multiSelect": true,
+        "dependsOn": ["triggerCredentials"],
         "mode": "trigger"
       },
       {
@@ -294,9 +296,15 @@
       {
         "id": "triggerSearchQuery",
         "type": "short-input",
-        "title": "Search Query",
-        "placeholder": "Gmail search query (e.g. from:user@example.com subject:invoice)",
-        "mode": "trigger"
+        "title": "Gmail Search Query",
+        "placeholder": "subject:report OR from:important@example.com",
+        "mode": "trigger",
+        "wandConfig": {
+          "enabled": true,
+          "maintainHistory": true,
+          "prompt": "You are an expert in Gmail search syntax. Generate Gmail search queries based on user descriptions.\n\nGmail search operators include:\n- from: / to: / cc: / bcc: - Filter by sender/recipient\n- subject: - Search in subject line\n- has:attachment - Emails with attachments\n- filename: - Search attachment filenames\n- is:unread / is:read / is:starred\n- after: / before: / older: / newer: - Date filters (YYYY/MM/DD)\n- label: - Filter by label\n- in:inbox / in:spam / in:trash\n- larger: / smaller: - Size filters (e.g., 10M, 1K)\n- OR / AND / - (NOT) - Boolean operators\n- \"exact phrase\" - Exact match\n- ( ) - Grouping\n\nCurrent query: {context}\n\nReturn ONLY the Gmail search query, no explanations or markdown.",
+          "placeholder": "Describe what emails you want to filter..."
+        }
       },
       {
         "id": "triggerMarkAsRead",

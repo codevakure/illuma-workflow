@@ -191,11 +191,35 @@
       {
         "id": "triggerAccountSid",
         "type": "short-input",
-        "title": "Account SID",
+        "title": "Twilio Account SID",
         "placeholder": "ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-        "description": "Your Twilio Account SID for validating webhook requests.",
+        "description": "Your Twilio Account SID from the Twilio Console",
         "required": true,
         "mode": "trigger"
+      },
+      {
+        "id": "triggerAuthToken",
+        "type": "short-input",
+        "title": "Auth Token",
+        "placeholder": "Your Twilio Auth Token",
+        "password": true,
+        "required": true,
+        "description": "Your Twilio Auth Token for webhook signature verification",
+        "mode": "trigger"
+      },
+      {
+        "id": "twimlResponse",
+        "type": "long-input",
+        "title": "TwiML Response",
+        "placeholder": "[Response][Say]Please hold.[/Say][/Response]",
+        "required": false,
+        "description": "TwiML instructions to return immediately to Twilio. Use square brackets instead of angle brackets (e.g., [Response] instead of <Response>). This controls what happens when the call comes in (e.g., play a message, record, gather input). Your workflow will execute in the background.",
+        "mode": "trigger",
+        "wandConfig": {
+          "enabled": true,
+          "prompt": "Generate TwiML (Twilio Markup Language) for voice calls based on the user's description.\n\n### IMPORTANT: Use SQUARE BRACKETS instead of angle brackets\n- Use [Tag] instead of <Tag>\n- Use [/Tag] instead of </Tag>\n- Use [Tag/] for self-closing tags instead of <Tag/>\n\n### COMMON TWIML VERBS\n\n**[Say]** - Text-to-speech\n[Say voice=\"alice\"]Hello, how can I help you?[/Say]\n- Voices: alice, man, woman, Polly.Joanna, Polly.Matthew, etc.\n\n**[Play]** - Play audio file\n[Play]https://example.com/audio.mp3[/Play]\n\n**[Record]** - Record caller's voice\n[Record maxLength=\"120\" transcribe=\"true\"/]\n- transcribe=\"true\" to get text transcription\n\n**[Gather]** - Collect keypad input or speech\n[Gather input=\"dtmf speech\" timeout=\"5\" numDigits=\"1\"]\n  [Say]Press 1 for sales, 2 for support.[/Say]\n[/Gather]\n\n**[Dial]** - Connect to another number\n[Dial]+14155551234[/Dial]\n\n**[Pause]** - Add silence\n[Pause length=\"2\"/]\n\n**[Hangup]** - End the call\n[Hangup/]\n\n**[Redirect]** - Redirect to another URL\n[Redirect]https://example.com/next[/Redirect]\n\n### EXAMPLES\n\n\"say hello and ask them to leave a message\"\n-> [Response][Say voice=\"alice\"]Hello! Please leave a message after the beep.[/Say][Record maxLength=\"120\" transcribe=\"true\"/][/Response]\n\n\"greet and offer options: press 1 for sales, 2 for support\"\n-> [Response][Gather input=\"dtmf\" timeout=\"5\" numDigits=\"1\"][Say voice=\"alice\"]Welcome! Press 1 for sales, or press 2 for support.[/Say][/Gather][Say]Sorry, I didn't get that. Goodbye.[/Say][/Response]\n\n\"play hold music\"\n-> [Response][Say voice=\"alice\"]Please hold while we connect you.[/Say][Play loop=\"0\"]https://api.twilio.com/cowbell.mp3[/Play][/Response]\n\n\"just say please wait\"\n-> [Response][Say voice=\"alice\"]Please wait while we process your request.[/Say][/Response]\n\n\"record a voicemail with transcription\"\n-> [Response][Say voice=\"alice\"]You've reached our voicemail. Please leave a message.[/Say][Record transcribe=\"true\" maxLength=\"180\" playBeep=\"true\"/][Say voice=\"alice\"]Thank you for your message. Goodbye.[/Say][/Response]\n\nReturn ONLY the TwiML with square brackets - no explanations, no markdown, no extra text.",
+          "placeholder": "Describe what should happen when a call comes in..."
+        }
       },
       {
         "id": "triggerSave",

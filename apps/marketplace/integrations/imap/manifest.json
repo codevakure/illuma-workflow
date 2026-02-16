@@ -74,13 +74,15 @@
       },
       {
         "id": "mailbox",
-        "type": "short-input",
-        "title": "Mailbox",
-        "placeholder": "INBOX",
-        "description": "Mailbox/folder to monitor for new emails. Default: INBOX.",
+        "type": "dropdown",
+        "title": "Mailboxes to Monitor",
+        "placeholder": "Select mailboxes to monitor",
+        "description": "Choose which mailbox/folder(s) to monitor for new emails. Leave empty to monitor INBOX.",
+        "multiSelect": true,
         "required": false,
-        "default": "INBOX",
-        "mode": "trigger"
+        "mode": "trigger",
+        "options": [],
+        "dependsOn": ["host", "port", "secure", "rejectUnauthorized", "username", "password"]
       },
       {
         "id": "searchCriteria",
@@ -90,7 +92,14 @@
         "description": "ImapFlow search criteria as JSON object. Default: unseen messages only.",
         "default": "{ \"unseen\": true }",
         "required": false,
-        "mode": "trigger"
+        "mode": "trigger",
+        "wandConfig": {
+          "enabled": true,
+          "maintainHistory": true,
+          "generationType": "json-object",
+          "prompt": "Generate ImapFlow search criteria as a JSON object based on the user's description.\n\nAvailable properties (all optional, combine as needed):\n- \"unseen\": true - Unread messages\n- \"seen\": true - Read messages\n- \"flagged\": true - Starred/flagged messages\n- \"answered\": true - Replied messages\n- \"deleted\": true - Deleted messages\n- \"draft\": true - Draft messages\n- \"from\": \"sender@example.com\" - From address contains\n- \"to\": \"recipient@example.com\" - To address contains\n- \"cc\": \"cc@example.com\" - CC address contains\n- \"subject\": \"keyword\" - Subject contains\n- \"body\": \"text\" - Body contains\n- \"text\": \"search\" - Headers or body contains\n- \"since\": \"2024-01-01\" - Emails since date (ISO format)\n- \"before\": \"2024-12-31\" - Emails before date\n- \"larger\": 10240 - Larger than N bytes\n- \"smaller\": 1048576 - Smaller than N bytes\n- \"header\": { \"X-Priority\": \"1\" } - Custom header search\n- \"or\": [{ \"from\": \"a@x.com\" }, { \"from\": \"b@x.com\" }] - OR conditions\n- \"not\": { \"from\": \"spam@x.com\" } - Negate condition\n\nMultiple properties are combined with AND.\n\nExamples:\n- Unread from boss: { \"unseen\": true, \"from\": \"boss@company.com\" }\n- From Alice or Bob: { \"or\": [{ \"from\": \"alice@x.com\" }, { \"from\": \"bob@x.com\" }] }\n- Recent with keyword: { \"since\": \"2024-01-01\", \"subject\": \"report\" }\n- Exclude spam: { \"unseen\": true, \"not\": { \"from\": \"newsletter@x.com\" } }\n\nCurrent criteria: {context}\n\nReturn ONLY valid JSON, no explanations or markdown.",
+          "placeholder": "Describe what emails you want to filter..."
+        }
       },
       {
         "id": "markAsRead",
