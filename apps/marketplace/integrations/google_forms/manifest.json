@@ -13,6 +13,7 @@
     "category": "tools",
     "bgColor": "#E0E0E0",
     "icon": "GoogleFormsIcon",
+    "authMode": "oauth",
     "subBlocks": [
       {
         "id": "operation",
@@ -155,6 +156,32 @@
         "type": "short-input",
         "title": "Watch ID",
         "placeholder": "Custom watch ID (optional)"
+      },
+      {
+        "id": "webhookUrlDisplay",
+        "type": "short-input",
+        "title": "Webhook URL",
+        "readOnly": true,
+        "showCopyButton": true,
+        "useWebhookUrl": true,
+        "placeholder": "Webhook URL will be generated",
+        "mode": "trigger"
+      },
+      {
+        "id": "triggerSave",
+        "type": "trigger-save",
+        "title": "",
+        "hideFromPreview": true,
+        "mode": "trigger",
+        "triggerId": "google_forms_webhook"
+      },
+      {
+        "id": "triggerInstructions",
+        "type": "text",
+        "title": "Setup Instructions",
+        "hideFromPreview": true,
+        "mode": "trigger",
+        "default": "<div class='mb-3'><strong>1.</strong> Open your Google Form in edit mode.</div><div class='mb-3'><strong>2.</strong> Go to Script Editor (Extensions > Apps Script).</div><div class='mb-3'><strong>3.</strong> Add a form submit trigger that sends data to the Webhook URL above.</div>"
       }
     ],
     "tools": {
@@ -182,7 +209,12 @@
       "responses": {
         "type": "json"
       }
-    }
+    },
+    "triggers": {
+      "enabled": true,
+      "available": ["google_forms_webhook"]
+    },
+    "triggerAllowed": true
   },
   "tools": [
     {

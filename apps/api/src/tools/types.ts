@@ -47,14 +47,18 @@ export interface OAuthConfig {
   requiredScopes?: string[] // Specific scopes this tool needs (for granular scope validation)
 }
 
+/**
+ * Minimal tool configuration — schema-only for LLM tool schema generation
+ * and parameter validation. Execution is delegated to the marketplace.
+ *
+ * For custom tools, a request config is created dynamically from DB schemas.
+ */
 export interface ToolConfig<P = any, R = any> {
-  // Basic tool identification
   id: string
   name: string
   description: string
   version: string
 
-  // Parameter schema - what this tool accepts
   params: Record<
     string,
     {
@@ -90,43 +94,21 @@ export interface ToolConfig<P = any, R = any> {
     }
   >
 
-  // OAuth configuration for this tool (if it requires authentication)
   oauth?: OAuthConfig
 
-  // Error extractor to use for this tool's error responses
-  // If specified, only this extractor will be used (deterministic)
-  // If not specified, will try all extractors in order (fallback)
-  errorExtractor?: string
+  schemaEnrichment?: Record<string, SchemaEnrichmentConfig>
 
-  // Request configuration
-  request: {
+  // Custom tools still use request config (created dynamically from DB schemas)
+  request?: {
     url: string | ((params: P) => string)
     method: HttpMethod | ((params: P) => HttpMethod)
     headers: (params: P) => Record<string, string>
     body?: (params: P) => Record<string, any> | string | FormData | undefined
   }
 
-  // Post-processing (optional) - allows additional processing after the initial request
-  postProcess?: (
-    result: R extends ToolResponse ? R : ToolResponse,
-    params: P,
-    executeTool: (toolId: string, params: Record<string, any>) => Promise<ToolResponse>
-  ) => Promise<R extends ToolResponse ? R : ToolResponse>
-
-  // Response handling
   transformResponse?: (response: Response, params?: P) => Promise<R>
 
-  /**
-   * Direct execution function for tools that don't need HTTP requests.
-   * If provided, this will be called instead of making an HTTP request.
-   */
   directExecution?: (params: P) => Promise<ToolResponse>
-
-  /**
-   * Optional dynamic schema enrichment for specific params.
-   * Maps param IDs to their enrichment configuration.
-   */
-  schemaEnrichment?: Record<string, SchemaEnrichmentConfig>
 }
 
 export interface TableRow {

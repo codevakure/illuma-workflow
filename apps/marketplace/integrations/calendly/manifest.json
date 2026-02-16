@@ -16,6 +16,12 @@
     "authMode": "api_key",
     "subBlocks": [
       {
+        "id": "selectedTriggerId",
+        "type": "dropdown",
+        "title": "Trigger Event",
+        "mode": "trigger"
+      },
+      {
         "id": "operation",
         "type": "dropdown",
         "title": "Operation",
@@ -149,6 +155,41 @@
         "type": "short-input",
         "title": "Sort Order",
         "placeholder": "e.g., "
+      },
+      {
+        "id": "webhookUrlDisplay",
+        "type": "short-input",
+        "title": "Webhook URL",
+        "readOnly": true,
+        "showCopyButton": true,
+        "useWebhookUrl": true,
+        "placeholder": "Webhook URL will be generated",
+        "mode": "trigger"
+      },
+      {
+        "id": "webhookSecret",
+        "type": "short-input",
+        "title": "Webhook Signing Key",
+        "placeholder": "Enter your Calendly webhook signing key",
+        "password": true,
+        "required": false,
+        "mode": "trigger"
+      },
+      {
+        "id": "triggerSave",
+        "type": "trigger-save",
+        "title": "",
+        "hideFromPreview": true,
+        "mode": "trigger",
+        "triggerId": "calendly_webhook"
+      },
+      {
+        "id": "triggerInstructions",
+        "type": "text",
+        "title": "Setup Instructions",
+        "hideFromPreview": true,
+        "mode": "trigger",
+        "default": "<div class='mb-3'><strong>1.</strong> Go to Calendly Developer Portal > Webhooks.</div><div class='mb-3'><strong>2.</strong> Create a webhook subscription with the Webhook URL above.</div><div class='mb-3'><strong>3.</strong> Select the events you want to listen for.</div>"
       }
     ],
     "tools": {
@@ -174,6 +215,10 @@
       "success": {
         "type": "boolean"
       }
+    },
+    "triggers": {
+      "enabled": true,
+      "available": ["calendly_webhook", "calendly_invitee_created", "calendly_invitee_canceled", "calendly_routing_form_submitted"]
     },
     "triggerAllowed": true
   },

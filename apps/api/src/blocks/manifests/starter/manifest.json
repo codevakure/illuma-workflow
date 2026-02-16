@@ -1,0 +1,60 @@
+{
+  "id": "starter",
+  "name": "Starter",
+  "version": "1.0.0",
+  "description": "Start workflow",
+  "icon": "StartIcon",
+  "block": {
+    "type": "starter",
+    "name": "Starter",
+    "description": "Start workflow",
+    "longDescription": "Initiate your workflow manually with optional structured input.",
+    "category": "blocks",
+    "bgColor": "#2FB3FF",
+    "icon": "StartIcon",
+    "hideFromToolbar": true,
+    "subBlocks": [
+      {
+        "id": "startWorkflow",
+        "title": "Start Workflow",
+        "type": "dropdown",
+        "default": "manual",
+        "options": [
+          {
+            "label": "Run manually",
+            "value": "manual"
+          },
+          {
+            "label": "Chat",
+            "value": "chat"
+          }
+        ]
+      },
+      {
+        "id": "inputFormat",
+        "title": "Input Format",
+        "type": "input-format",
+        "description": "Name and Type define your input schema. Value is used only for manual test runs.",
+        "mode": "advanced",
+        "condition": {
+          "field": "startWorkflow",
+          "value": "manual"
+        }
+      }
+    ],
+    "tools": {
+      "access": [],
+      "config": {
+        "tool": ""
+      }
+    },
+    "inputs": {
+      "input": {
+        "type": "json",
+        "description": "Workflow input data"
+      }
+    },
+    "outputs": {}
+  },
+  "tools": []
+}

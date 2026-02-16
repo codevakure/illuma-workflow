@@ -159,7 +159,60 @@
         "id": "selectedTriggerId",
         "type": "dropdown",
         "title": "Trigger Type",
+        "mode": "trigger",
+        "options": [
+          {
+            "label": "Recording Created",
+            "value": "grain_recording_created"
+          },
+          {
+            "label": "Recording Updated",
+            "value": "grain_recording_updated"
+          },
+          {
+            "label": "Highlight Created",
+            "value": "grain_highlight_created"
+          },
+          {
+            "label": "Highlight Updated",
+            "value": "grain_highlight_updated"
+          },
+          {
+            "label": "Story Created",
+            "value": "grain_story_created"
+          },
+          {
+            "label": "General Webhook",
+            "value": "grain_webhook"
+          }
+        ],
+        "required": true
+      },
+      {
+        "id": "triggerApiKey",
+        "type": "short-input",
+        "title": "API Key",
+        "placeholder": "Enter your Grain API key (Personal Access Token)",
+        "description": "Required to create the webhook in Grain.",
+        "password": true,
+        "required": true,
         "mode": "trigger"
+      },
+      {
+        "id": "triggerSave",
+        "type": "trigger-save",
+        "title": "",
+        "hideFromPreview": true,
+        "mode": "trigger",
+        "triggerId": "grain_webhook"
+      },
+      {
+        "id": "triggerInstructions",
+        "type": "text",
+        "title": "Setup Instructions",
+        "hideFromPreview": true,
+        "mode": "trigger",
+        "default": "<div class='mb-3'><strong>1.</strong> Go to your <a href='https://grain.com/app/settings/integrations' target='_blank'>Grain Settings</a> page.</div><div class='mb-3'><strong>2.</strong> Navigate to <strong>Integrations</strong> and find the Webhooks section.</div><div class='mb-3'><strong>3.</strong> Enter your Grain <strong>API Key</strong> (Personal Access Token) above.</div><div class='mb-3'><strong>4.</strong> Click <strong>Save Configuration</strong> above to register the webhook automatically.</div><div class='mb-3'><strong>Note:</strong> Grain will send events to this workflow when recordings, highlights, or stories are created or updated.</div>"
       }
     ],
     "tools": {
@@ -187,7 +240,18 @@
         "type": "json"
       }
     },
-    "triggerAllowed": true
+    "triggerAllowed": true,
+    "triggers": {
+      "enabled": true,
+      "available": [
+        "grain_recording_created",
+        "grain_recording_updated",
+        "grain_highlight_created",
+        "grain_highlight_updated",
+        "grain_story_created",
+        "grain_webhook"
+      ]
+    }
   },
   "tools": [
     {

@@ -16,6 +16,12 @@
     "authMode": "oauth",
     "subBlocks": [
       {
+        "id": "selectedTriggerId",
+        "type": "dropdown",
+        "title": "Trigger Event",
+        "mode": "trigger"
+      },
+      {
         "id": "operation",
         "type": "dropdown",
         "title": "Operation",
@@ -113,6 +119,32 @@
         "type": "code",
         "title": "Field Data",
         "placeholder": "Field data as JSON: "
+      },
+      {
+        "id": "webhookUrlDisplay",
+        "type": "short-input",
+        "title": "Webhook URL",
+        "readOnly": true,
+        "showCopyButton": true,
+        "useWebhookUrl": true,
+        "placeholder": "Webhook URL will be generated",
+        "mode": "trigger"
+      },
+      {
+        "id": "triggerSave",
+        "type": "trigger-save",
+        "title": "",
+        "hideFromPreview": true,
+        "mode": "trigger",
+        "triggerId": "webflow_collection_item_created"
+      },
+      {
+        "id": "triggerInstructions",
+        "type": "text",
+        "title": "Setup Instructions",
+        "hideFromPreview": true,
+        "mode": "trigger",
+        "default": "<div class='mb-3'><strong>1.</strong> Go to your Webflow project settings > Integrations > Webhooks.</div><div class='mb-3'><strong>2.</strong> Add a new webhook with the Webhook URL above.</div><div class='mb-3'><strong>3.</strong> Select the trigger type (collection item created, changed, etc.).</div>"
       }
     ],
     "tools": {
@@ -136,6 +168,10 @@
       "items": {
         "type": "json"
       }
+    },
+    "triggers": {
+      "enabled": true,
+      "available": ["webflow_collection_item_created", "webflow_collection_item_changed", "webflow_collection_item_deleted", "webflow_form_submission"]
     },
     "triggerAllowed": true
   },

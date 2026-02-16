@@ -1,0 +1,623 @@
+{
+  "id": "agent",
+  "name": "Agent",
+  "version": "1.0.0",
+  "description": "Build an agent",
+  "icon": "AgentIcon",
+  "block": {
+    "type": "agent",
+    "name": "Agent",
+    "description": "Build an agent",
+    "longDescription": "The Agent block is a core workflow block that is a wrapper around an LLM. It takes in system/user prompts and calls an LLM provider. It can also make tool calls by directly containing tools inside of its tool input. It can additionally return structured output.",
+    "docsLink": "https://docs.sim.ai/blocks/agent",
+    "category": "blocks",
+    "bgColor": "var(--brand-primary-hex)",
+    "icon": "AgentIcon",
+    "subBlocks": [
+      {
+        "id": "messages",
+        "title": "Messages",
+        "type": "messages-input",
+        "placeholder": "Enter messages...",
+        "wandConfig": {
+          "prompt": "Generate a professional set of messages (system prompt + user prompt) for an AI agent."
+        }
+      },
+      {
+        "id": "model",
+        "title": "Model",
+        "type": "combobox",
+        "placeholder": "Type or select a model...",
+        "required": true,
+        "default": "claude-sonnet-4-5"
+      },
+      {
+        "id": "vertexCredential",
+        "title": "Google Cloud Account",
+        "type": "oauth-input",
+        "placeholder": "Select Google Cloud account",
+        "required": true,
+        "serviceId": "vertex-ai",
+        "requiredScopes": ["https://www.googleapis.com/auth/cloud-platform"],
+        "condition": {
+          "field": "model",
+          "value": "@@vertex.models"
+        }
+      },
+      {
+        "id": "reasoningEffort",
+        "title": "Reasoning Effort",
+        "type": "dropdown",
+        "placeholder": "Select reasoning effort...",
+        "mode": "advanced",
+        "options": [
+          {
+            "label": "auto",
+            "value": "auto"
+          },
+          {
+            "label": "low",
+            "value": "low"
+          },
+          {
+            "label": "medium",
+            "value": "medium"
+          },
+          {
+            "label": "high",
+            "value": "high"
+          }
+        ],
+        "dependsOn": [
+          "model"
+        ],
+        "condition": {
+          "field": "model",
+          "value": "@@MODELS_WITH_REASONING_EFFORT"
+        }
+      },
+      {
+        "id": "verbosity",
+        "title": "Verbosity",
+        "type": "dropdown",
+        "placeholder": "Select verbosity...",
+        "mode": "advanced",
+        "options": [
+          {
+            "label": "auto",
+            "value": "auto"
+          },
+          {
+            "label": "low",
+            "value": "low"
+          },
+          {
+            "label": "medium",
+            "value": "medium"
+          },
+          {
+            "label": "high",
+            "value": "high"
+          }
+        ],
+        "dependsOn": [
+          "model"
+        ],
+        "condition": {
+          "field": "model",
+          "value": "@@MODELS_WITH_VERBOSITY"
+        }
+      },
+      {
+        "id": "thinkingLevel",
+        "title": "Thinking Level",
+        "type": "dropdown",
+        "placeholder": "Select thinking level...",
+        "mode": "advanced",
+        "options": [
+          {
+            "label": "none",
+            "value": "none"
+          },
+          {
+            "label": "minimal",
+            "value": "minimal"
+          },
+          {
+            "label": "low",
+            "value": "low"
+          },
+          {
+            "label": "medium",
+            "value": "medium"
+          },
+          {
+            "label": "high",
+            "value": "high"
+          },
+          {
+            "label": "max",
+            "value": "max"
+          }
+        ],
+        "dependsOn": [
+          "model"
+        ],
+        "condition": {
+          "field": "model",
+          "value": "@@MODELS_WITH_THINKING"
+        }
+      },
+      {
+        "id": "azureEndpoint",
+        "title": "Azure Endpoint",
+        "type": "short-input",
+        "password": true,
+        "placeholder": "https://your-resource.services.ai.azure.com",
+        "connectionDroppable": false,
+        "condition": {
+          "field": "model",
+          "value": "@@azure-openai+azure-anthropic.models"
+        }
+      },
+      {
+        "id": "azureApiVersion",
+        "title": "Azure API Version",
+        "type": "short-input",
+        "placeholder": "2024-07-01-preview",
+        "connectionDroppable": false,
+        "condition": {
+          "field": "model",
+          "value": "@@azure-openai.models"
+        }
+      },
+      {
+        "id": "vertexProject",
+        "title": "Vertex AI Project",
+        "type": "short-input",
+        "placeholder": "your-gcp-project-id",
+        "required": true,
+        "connectionDroppable": false,
+        "condition": {
+          "field": "model",
+          "value": "@@vertex.models"
+        }
+      },
+      {
+        "id": "vertexLocation",
+        "title": "Vertex AI Location",
+        "type": "short-input",
+        "placeholder": "us-central1",
+        "required": true,
+        "connectionDroppable": false,
+        "condition": {
+          "field": "model",
+          "value": "@@vertex.models"
+        }
+      },
+      {
+        "id": "bedrockAccessKeyId",
+        "title": "AWS Access Key ID",
+        "type": "short-input",
+        "password": true,
+        "placeholder": "Enter your AWS Access Key ID",
+        "required": true,
+        "connectionDroppable": false,
+        "condition": {
+          "field": "model",
+          "value": "@@bedrock.models"
+        }
+      },
+      {
+        "id": "bedrockSecretKey",
+        "title": "AWS Secret Access Key",
+        "type": "short-input",
+        "password": true,
+        "placeholder": "Enter your AWS Secret Access Key",
+        "required": true,
+        "connectionDroppable": false,
+        "condition": {
+          "field": "model",
+          "value": "@@bedrock.models"
+        }
+      },
+      {
+        "id": "bedrockRegion",
+        "title": "AWS Region",
+        "type": "short-input",
+        "placeholder": "us-east-1",
+        "connectionDroppable": false,
+        "condition": {
+          "field": "model",
+          "value": "@@bedrock.models"
+        }
+      },
+      {
+        "id": "tools",
+        "title": "Tools",
+        "type": "tool-input",
+        "default": [],
+        "condition": {
+          "field": "model",
+          "value": "@@MODELS_WITH_DEEP_RESEARCH",
+          "not": true
+        }
+      },
+      {
+        "id": "skills",
+        "title": "Skills",
+        "type": "skill-input",
+        "default": [],
+        "condition": {
+          "field": "model",
+          "value": "@@MODELS_WITH_DEEP_RESEARCH",
+          "not": true
+        }
+      },
+      {
+        "id": "apiKey",
+        "title": "API Key",
+        "type": "short-input",
+        "placeholder": "Enter your API key",
+        "password": true,
+        "required": true,
+        "connectionDroppable": false,
+        "condition": {
+          "field": "model",
+          "value": "@@hostedModels+vertex+bedrock",
+          "not": true
+        }
+      },
+      {
+        "id": "memoryType",
+        "title": "Memory",
+        "type": "dropdown",
+        "placeholder": "Select memory...",
+        "options": [
+          {
+            "label": "None",
+            "value": "none"
+          },
+          {
+            "label": "Conversation",
+            "value": "conversation"
+          },
+          {
+            "label": "Sliding window (messages)",
+            "value": "sliding_window"
+          },
+          {
+            "label": "Sliding window (tokens)",
+            "value": "sliding_window_tokens"
+          }
+        ],
+        "default": "none",
+        "condition": {
+          "field": "model",
+          "value": "@@MODELS_WITHOUT_MEMORY",
+          "not": true
+        }
+      },
+      {
+        "id": "conversationId",
+        "title": "Conversation ID",
+        "type": "short-input",
+        "placeholder": "e.g., user-123, session-abc, customer-456",
+        "required": {
+          "field": "memoryType",
+          "value": [
+            "conversation",
+            "sliding_window",
+            "sliding_window_tokens"
+          ]
+        },
+        "condition": {
+          "field": "memoryType",
+          "value": [
+            "conversation",
+            "sliding_window",
+            "sliding_window_tokens"
+          ],
+          "and": {
+            "field": "model",
+            "value": "@@MODELS_WITHOUT_MEMORY",
+            "not": true
+          }
+        }
+      },
+      {
+        "id": "slidingWindowSize",
+        "title": "Sliding Window Size",
+        "type": "short-input",
+        "placeholder": "Enter number of messages (e.g., 10)...",
+        "condition": {
+          "field": "memoryType",
+          "value": [
+            "sliding_window"
+          ],
+          "and": {
+            "field": "model",
+            "value": "@@MODELS_WITHOUT_MEMORY",
+            "not": true
+          }
+        }
+      },
+      {
+        "id": "slidingWindowTokens",
+        "title": "Max Tokens",
+        "type": "short-input",
+        "placeholder": "Enter max tokens (e.g., 4000)...",
+        "condition": {
+          "field": "memoryType",
+          "value": [
+            "sliding_window_tokens"
+          ],
+          "and": {
+            "field": "model",
+            "value": "@@MODELS_WITHOUT_MEMORY",
+            "not": true
+          }
+        }
+      },
+      {
+        "id": "temperature",
+        "title": "Temperature",
+        "type": "slider",
+        "min": 0,
+        "max": 2,
+        "mode": "advanced",
+        "default": 0.3
+      },
+      {
+        "id": "maxTokens",
+        "title": "Max Output Tokens",
+        "type": "short-input",
+        "placeholder": "Enter max tokens (e.g., 4096)...",
+        "mode": "advanced",
+        "condition": {
+          "field": "model",
+          "value": "@@MODELS_WITH_DEEP_RESEARCH",
+          "not": true
+        }
+      },
+      {
+        "id": "responseFormat",
+        "title": "Response Format",
+        "type": "code",
+        "placeholder": "Enter JSON schema...",
+        "language": "json",
+        "condition": {
+          "field": "model",
+          "value": "@@MODELS_WITH_DEEP_RESEARCH",
+          "not": true
+        },
+        "wandConfig": {
+          "prompt": "Generate a JSON schema for structured AI output."
+        }
+      },
+      {
+        "id": "previousInteractionId",
+        "title": "Previous Interaction ID",
+        "type": "short-input",
+        "placeholder": "e.g., {{agent_1.interactionId}}",
+        "mode": "advanced",
+        "condition": {
+          "field": "model",
+          "value": "@@MODELS_WITH_DEEP_RESEARCH"
+        }
+      }
+    ],
+    "tools": {
+      "access": [
+        "openai_chat",
+        "anthropic_chat",
+        "google_chat",
+        "xai_chat",
+        "deepseek_chat",
+        "deepseek_reasoner"
+      ],
+      "config": {
+        "tool": "@@enhanced"
+      }
+    },
+    "inputs": {
+      "messages": {
+        "type": "json",
+        "description": "Array of message objects with role and content"
+      },
+      "memoryType": {
+        "type": "string",
+        "description": "Type of memory to use: none, conversation, sliding_window, or sliding_window_tokens"
+      },
+      "conversationId": {
+        "type": "string",
+        "description": "Specific conversation ID to retrieve memories from"
+      },
+      "slidingWindowSize": {
+        "type": "string",
+        "description": "Number of recent messages to include"
+      },
+      "slidingWindowTokens": {
+        "type": "string",
+        "description": "Maximum number of tokens for token-based sliding window memory"
+      },
+      "model": {
+        "type": "string",
+        "description": "AI model to use"
+      },
+      "apiKey": {
+        "type": "string",
+        "description": "Provider API key"
+      },
+      "azureEndpoint": {
+        "type": "string",
+        "description": "Azure OpenAI endpoint URL"
+      },
+      "azureApiVersion": {
+        "type": "string",
+        "description": "Azure API version"
+      },
+      "vertexProject": {
+        "type": "string",
+        "description": "Google Cloud project ID for Vertex AI"
+      },
+      "vertexLocation": {
+        "type": "string",
+        "description": "Google Cloud location for Vertex AI"
+      },
+      "bedrockAccessKeyId": {
+        "type": "string",
+        "description": "AWS Access Key ID for Bedrock"
+      },
+      "bedrockSecretKey": {
+        "type": "string",
+        "description": "AWS Secret Access Key for Bedrock"
+      },
+      "bedrockRegion": {
+        "type": "string",
+        "description": "AWS region for Bedrock"
+      },
+      "responseFormat": {
+        "type": "json",
+        "description": "JSON response format schema"
+      },
+      "temperature": {
+        "type": "number",
+        "description": "Response randomness level"
+      },
+      "maxTokens": {
+        "type": "number",
+        "description": "Maximum number of tokens in the response"
+      },
+      "reasoningEffort": {
+        "type": "string",
+        "description": "Reasoning effort level for GPT-5 models"
+      },
+      "verbosity": {
+        "type": "string",
+        "description": "Verbosity level for GPT-5 models"
+      },
+      "thinkingLevel": {
+        "type": "string",
+        "description": "Thinking level for models with extended thinking"
+      },
+      "tools": {
+        "type": "json",
+        "description": "Available tools configuration"
+      },
+      "skills": {
+        "type": "json",
+        "description": "Selected skills configuration"
+      },
+      "previousInteractionId": {
+        "type": "string",
+        "description": "Previous interaction ID for multi-turn deep research"
+      }
+    },
+    "outputs": {
+      "content": {
+        "type": "string",
+        "description": "Generated response content"
+      },
+      "model": {
+        "type": "string",
+        "description": "Model used for generation"
+      },
+      "tokens": {
+        "type": "json",
+        "description": "Token usage statistics"
+      },
+      "toolCalls": {
+        "type": "json",
+        "description": "Tool calls made"
+      },
+      "providerTiming": {
+        "type": "json",
+        "description": "Provider timing information"
+      },
+      "cost": {
+        "type": "json",
+        "description": "Cost of the API call"
+      },
+      "interactionId": {
+        "type": "string",
+        "description": "Interaction ID for multi-turn conversations"
+      }
+    },
+    "bestPractices": "- Prefer using integrations as tools within the agent block over separate integration blocks unless complete determinism needed.\n- Response Format should be a valid JSON Schema. This determines the output of the agent only if present. Fields can be accessed at root level by the following blocks: e.g. <agent1.field>. If response format is not present, the agent will return the standard outputs: content, model, tokens, toolCalls."
+  },
+  "tools": [
+    {
+      "id": "openai_chat",
+      "name": "openai chat",
+      "description": "",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "agent",
+        "operation": "openai_chat"
+      }
+    },
+    {
+      "id": "anthropic_chat",
+      "name": "anthropic chat",
+      "description": "",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "agent",
+        "operation": "anthropic_chat"
+      }
+    },
+    {
+      "id": "google_chat",
+      "name": "google chat",
+      "description": "",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "agent",
+        "operation": "google_chat"
+      }
+    },
+    {
+      "id": "xai_chat",
+      "name": "xai chat",
+      "description": "",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "agent",
+        "operation": "xai_chat"
+      }
+    },
+    {
+      "id": "deepseek_chat",
+      "name": "deepseek chat",
+      "description": "",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "agent",
+        "operation": "deepseek_chat"
+      }
+    },
+    {
+      "id": "deepseek_reasoner",
+      "name": "deepseek reasoner",
+      "description": "",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "agent",
+        "operation": "deepseek_reasoner"
+      }
+    }
+  ]
+}

@@ -6,12 +6,14 @@
  * `@/components/icons`.
  */
 
+import { createElement } from 'react'
 import type { SVGProps } from 'react'
 import type { BlockIcon } from '@/blocks/types'
 import {
   A2AIcon,
   AgentIcon,
   AhrefsIcon,
+  AirweaveIcon,
   AirtableIcon,
   ApifyIcon,
   ApolloIcon,
@@ -26,12 +28,14 @@ import {
   CalComIcon,
   CalendlyIcon,
   ChartBarIcon,
+  ChatTriggerIcon,
   CirclebackIcon,
   ClayIcon,
   ClerkIcon,
   CodeIcon,
   ConditionalIcon,
   ConfluenceIcon,
+  ConnectIcon,
   CrunchbaseIcon,
   CursorIcon,
   DatadogIcon,
@@ -45,12 +49,14 @@ import {
   ElevenLabsIcon,
   EnrichSoIcon,
   ExaAIIcon,
+  EyeIcon,
   FirecrawlIcon,
   FirefliesIcon,
   GeminiIcon,
   GithubIcon,
   GitLabIcon,
   GmailIcon,
+  GoogleBooksIcon,
   GoogleCalendarIcon,
   GoogleDocsIcon,
   GoogleDriveIcon,
@@ -60,6 +66,7 @@ import {
   GoogleMapsIcon,
   GoogleSheetsIcon,
   GoogleSlidesIcon,
+  GoogleVaultIcon,
   GrafanaIcon,
   GrainIcon,
   GreptileIcon,
@@ -70,6 +77,7 @@ import {
   ImageIcon,
   IncidentioIcon,
   InputIcon,
+  InputTriggerIcon,
   IntercomIcon,
   JinaAIIcon,
   JiraIcon,
@@ -83,6 +91,8 @@ import {
   MailchimpIcon,
   MailgunIcon,
   MailIcon,
+  MailServerIcon,
+  ManualTriggerIcon,
   McpIcon,
   Mem0Icon,
   MicrosoftExcelIcon,
@@ -97,9 +107,11 @@ import {
   Neo4jIcon,
   NoteIcon,
   NotionIcon,
+  OnePasswordIcon,
   OpenAIIcon,
   OpenRouterIcon,
   OutlookIcon,
+  PackageSearchIcon,
   ParallelIcon,
   PerplexityIcon,
   PineconeIcon,
@@ -112,7 +124,10 @@ import {
   RDSIcon,
   RedditIcon,
   ReductoIcon,
+  ResendIcon,
+  ResponseIcon,
   RssIcon,
+  S3Icon,
   SalesforceIcon,
   ScheduleIcon,
   SearchIcon,
@@ -122,6 +137,7 @@ import {
   ServerIcon,
   ServiceNowIcon,
   SftpIcon,
+  ShieldCheckIcon,
   ShopifyIcon,
   SimilarwebIcon,
   SlackIcon,
@@ -147,12 +163,14 @@ import {
   VariableIcon,
   VideoIcon,
   VllmIcon,
+  WaitIcon,
   WealthboxIcon,
   WebflowIcon,
   WebhookIcon,
   WhatsAppIcon,
   WikipediaIcon,
   WordpressIcon,
+  WorkflowIcon,
   xAIIcon,
   xIcon,
   YouTubeIcon,
@@ -169,6 +187,7 @@ const ICON_MAP: Record<string, BlockIcon> = {
   A2AIcon,
   AgentIcon,
   AhrefsIcon,
+  AirweaveIcon,
   AirtableIcon,
   ApifyIcon,
   ApolloIcon,
@@ -183,12 +202,14 @@ const ICON_MAP: Record<string, BlockIcon> = {
   CalComIcon,
   CalendlyIcon,
   ChartBarIcon,
+  ChatTriggerIcon,
   CirclebackIcon,
   ClayIcon,
   ClerkIcon,
   CodeIcon,
   ConditionalIcon,
   ConfluenceIcon,
+  ConnectIcon,
   CrunchbaseIcon,
   CursorIcon,
   DatadogIcon,
@@ -202,12 +223,14 @@ const ICON_MAP: Record<string, BlockIcon> = {
   ElevenLabsIcon,
   EnrichSoIcon,
   ExaAIIcon,
+  EyeIcon,
   FirecrawlIcon,
   FirefliesIcon,
   GeminiIcon,
   GithubIcon,
   GitLabIcon,
   GmailIcon,
+  GoogleBooksIcon,
   GoogleCalendarIcon,
   GoogleDocsIcon,
   GoogleDriveIcon,
@@ -217,6 +240,7 @@ const ICON_MAP: Record<string, BlockIcon> = {
   GoogleMapsIcon,
   GoogleSheetsIcon,
   GoogleSlidesIcon,
+  GoogleVaultIcon,
   GrafanaIcon,
   GrainIcon,
   GreptileIcon,
@@ -228,6 +252,7 @@ const ICON_MAP: Record<string, BlockIcon> = {
   ImageIcon,
   IncidentioIcon,
   InputIcon,
+  InputTriggerIcon,
   IntercomIcon,
   JinaAIIcon,
   JinaIcon: JinaAIIcon,
@@ -242,6 +267,8 @@ const ICON_MAP: Record<string, BlockIcon> = {
   MailchimpIcon,
   MailgunIcon,
   MailIcon,
+  MailServerIcon,
+  ManualTriggerIcon,
   McpIcon,
   Mem0Icon,
   MicrosoftExcelIcon,
@@ -256,9 +283,11 @@ const ICON_MAP: Record<string, BlockIcon> = {
   Neo4jIcon,
   NoteIcon,
   NotionIcon,
+  OnePasswordIcon,
   OpenAIIcon,
   OpenRouterIcon,
   OutlookIcon,
+  PackageSearchIcon,
   ParallelIcon,
   PerplexityIcon,
   PineconeIcon,
@@ -271,7 +300,10 @@ const ICON_MAP: Record<string, BlockIcon> = {
   RDSIcon,
   RedditIcon,
   ReductoIcon,
+  ResendIcon,
+  ResponseIcon,
   RssIcon,
+  S3Icon,
   SalesforceIcon,
   ScheduleIcon,
   SearchIcon,
@@ -281,6 +313,7 @@ const ICON_MAP: Record<string, BlockIcon> = {
   ServerIcon,
   ServiceNowIcon,
   SftpIcon,
+  ShieldCheckIcon,
   ShopifyIcon,
   SimilarwebIcon,
   SlackIcon,
@@ -306,12 +339,14 @@ const ICON_MAP: Record<string, BlockIcon> = {
   VariableIcon,
   VideoIcon,
   VllmIcon,
+  WaitIcon,
   WealthboxIcon,
   WebflowIcon,
   WebhookIcon,
   WhatsAppIcon,
   WikipediaIcon,
   WordpressIcon,
+  WorkflowIcon,
   xAIIcon,
   xIcon,
   YouTubeIcon,
@@ -321,11 +356,45 @@ const ICON_MAP: Record<string, BlockIcon> = {
 }
 
 /**
- * Resolves an icon string ID from a manifest to a React component.
- * Returns a fallback icon if the ID is not found.
+ * Cache of inline SVG components created from marketplace SVG strings.
+ * Prevents creating new component references on every call.
  */
-export function resolveIcon(iconId: string): BlockIcon {
-  return ICON_MAP[iconId] || SearchIcon
+const inlineSvgCache = new Map<string, BlockIcon>()
+
+/**
+ * Creates a React component from a raw SVG string.
+ * The component renders the SVG inline using dangerouslySetInnerHTML.
+ */
+function createInlineSvgIcon(svgString: string): BlockIcon {
+  const cached = inlineSvgCache.get(svgString)
+  if (cached) return cached
+
+  const InlineSvgIcon = ((props: SVGProps<SVGSVGElement>) => {
+    const { width = 24, height = 24, className, style } = props
+    return createElement('span', {
+      className,
+      style: { display: 'inline-flex', width, height, ...(style as Record<string, unknown>) },
+      dangerouslySetInnerHTML: { __html: svgString },
+    })
+  }) as BlockIcon
+  inlineSvgCache.set(svgString, InlineSvgIcon)
+  return InlineSvgIcon
+}
+
+/**
+ * Resolves an icon string ID from a manifest to a React component.
+ * Checks local ICON_MAP first, then falls back to inline SVG if provided.
+ * Returns a fallback icon if neither is available.
+ */
+export function resolveIcon(iconId: string, iconSvg?: string): BlockIcon {
+  // 1. Check local icon components
+  if (ICON_MAP[iconId]) return ICON_MAP[iconId]
+
+  // 2. Use inline SVG from marketplace if available
+  if (iconSvg) return createInlineSvgIcon(iconSvg)
+
+  // 3. Fallback
+  return SearchIcon
 }
 
 /**

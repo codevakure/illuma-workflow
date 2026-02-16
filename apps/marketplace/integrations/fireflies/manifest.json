@@ -206,6 +206,32 @@
         "type": "long-input",
         "title": "Summary",
         "placeholder": "Brief description of the highlight"
+      },
+      {
+        "id": "webhookUrlDisplay",
+        "type": "short-input",
+        "title": "Webhook URL",
+        "readOnly": true,
+        "showCopyButton": true,
+        "useWebhookUrl": true,
+        "placeholder": "Webhook URL will be generated",
+        "mode": "trigger"
+      },
+      {
+        "id": "triggerSave",
+        "type": "trigger-save",
+        "title": "",
+        "hideFromPreview": true,
+        "mode": "trigger",
+        "triggerId": "fireflies_transcription_complete"
+      },
+      {
+        "id": "triggerInstructions",
+        "type": "text",
+        "title": "Setup Instructions",
+        "hideFromPreview": true,
+        "mode": "trigger",
+        "default": "<div class='mb-3'><strong>1.</strong> Go to your Fireflies.ai settings > Integrations > Webhooks.</div><div class='mb-3'><strong>2.</strong> Add the Webhook URL above.</div><div class='mb-3'><strong>3.</strong> Select Transcription Complete as the event.</div>"
       }
     ],
     "tools": {
@@ -234,6 +260,10 @@
       "transcripts": {
         "type": "json"
       }
+    },
+    "triggers": {
+      "enabled": true,
+      "available": ["fireflies_transcription_complete"]
     },
     "triggerAllowed": true
   },

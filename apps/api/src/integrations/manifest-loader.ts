@@ -28,6 +28,9 @@ class ManifestRegistry {
   /** Integration ID → manifest for tool-to-integration resolution */
   private toolToIntegration = new Map<string, string>()
 
+  /** Integration IDs that are core blocks (loaded from API's blocks/manifests/) */
+  private coreIntegrationIds = new Set<string>()
+
   // -----------------------------------------------------------------------
   // Loading
   // -----------------------------------------------------------------------
@@ -35,8 +38,10 @@ class ManifestRegistry {
   /**
    * Scans the integrations directory and loads all manifest.json files.
    * Invalid manifests are logged and skipped — they don't block startup.
+   * @param isCore - If true, marks loaded integrations as core (API-owned)
+   * @param handlerOnly - If true, only loads integrations that have a handler.ts file
    */
-  load(integrationsDir: string): void {
+  load(integrationsDir: string, isCore = false, handlerOnly = false): void {
     if (!fs.existsSync(integrationsDir)) {
       logger.info('Integrations directory does not exist, no manifests loaded', {
         dir: integrationsDir,
@@ -54,6 +59,15 @@ class ManifestRegistry {
       const manifestPath = path.join(integrationsDir, entry.name, 'manifest.json')
       if (!fs.existsSync(manifestPath)) continue
 
+      // When handlerOnly is true, skip integrations without a handler.ts file
+      if (handlerOnly) {
+        const handlerPath = path.join(integrationsDir, entry.name, 'handler.ts')
+        if (!fs.existsSync(handlerPath)) {
+          skipped++
+          continue
+        }
+      }
+
       try {
         const raw = fs.readFileSync(manifestPath, 'utf-8')
         const manifest = JSON.parse(raw) as IntegrationManifest
@@ -65,7 +79,7 @@ class ManifestRegistry {
           continue
         }
 
-        this.register(manifest)
+        this.register(manifest, isCore)
         loaded++
       } catch (error) {
         logger.error(`Failed to load manifest: ${entry.name}`, { error })
@@ -135,8 +149,21 @@ class ManifestRegistry {
   // Registration
   // -----------------------------------------------------------------------
 
-  private register(manifest: IntegrationManifest): void {
+  private register(manifest: IntegrationManifest, isCore = false): void {
+    // Enrich with icon SVG from the marketplace icon registry
+    const iconId = manifest.icon || manifest.block?.icon
+    if (iconId && iconSvgMap[iconId]) {
+      manifest.iconSvg = iconSvgMap[iconId]
+      if (manifest.block) {
+        manifest.block.iconSvg = iconSvgMap[iconId]
+      }
+    }
+
     this.integrations.set(manifest.id, manifest)
+
+    if (isCore) {
+      this.coreIntegrationIds.add(manifest.id)
+    }
 
     // Block
     if (manifest.block) {
@@ -202,6 +229,18 @@ class ManifestRegistry {
     return this.toolsById.has(toolId)
   }
 
+  /** Check if an integration is a core block (loaded from API's blocks/manifests/) */
+  isCoreIntegration(id: string): boolean {
+    return this.coreIntegrationIds.has(id)
+  }
+
+  /** Returns all core integration manifests */
+  getCoreIntegrations(): IntegrationManifest[] {
+    return Array.from(this.integrations.values()).filter((i) =>
+      this.coreIntegrationIds.has(i.id)
+    )
+  }
+
   /** Returns counts for monitoring */
   stats(): { integrations: number; blocks: number; tools: number; triggers: number } {
     return {
@@ -213,11 +252,24 @@ class ManifestRegistry {
   }
 }
 
+/** In-memory icon SVG map loaded from marketplace icons.json */
+let iconSvgMap: Record<string, string> = {}
+
 /** Singleton registry instance */
 export const manifestRegistry = new ManifestRegistry()
 
 /**
- * Resolves the integrations directory path.
+ * Resolves the core blocks manifest directory.
+ * Core blocks (starter, agent, condition, etc.) and trigger blocks live in
+ * the API's own blocks/manifests/ directory.
+ */
+function resolveCoreManifestsDir(): string {
+  const dir = path.resolve(__dirname, '..', 'blocks', 'manifests')
+  return dir
+}
+
+/**
+ * Resolves the marketplace integrations directory for tool manifests.
  *
  * Checks in order:
  * 1. Marketplace app's integrations directory (canonical location)
@@ -247,11 +299,46 @@ function resolveIntegrationsDir(): string {
 }
 
 /**
- * Initializes the manifest registry by scanning the integrations directory.
+ * Loads the marketplace icon registry (icons.json) so that integration
+ * manifests can be enriched with inline SVG data. This allows the web app
+ * to render icons without maintaining a separate icon registry.
+ */
+function loadIconRegistry(): void {
+  // Look for icons.json in the marketplace app root
+  const marketplaceRoot = path.resolve(__dirname, '..', '..', '..', 'marketplace')
+  const iconsPath = path.join(marketplaceRoot, 'icons.json')
+
+  if (fs.existsSync(iconsPath)) {
+    try {
+      const raw = fs.readFileSync(iconsPath, 'utf-8')
+      iconSvgMap = JSON.parse(raw) as Record<string, string>
+      logger.info('Loaded icon registry', { icons: Object.keys(iconSvgMap).length })
+    } catch (error) {
+      logger.warn('Failed to load icons.json', { error })
+    }
+  } else {
+    logger.info('No icons.json found, icons will not be enriched', { path: iconsPath })
+  }
+}
+
+/**
+ * Initializes the manifest registry by scanning both the core blocks
+ * directory (API-local) and the marketplace integrations directory.
  * Call this once at server startup.
  */
 export function initializeManifests(): void {
+  // 0. Load icon SVG registry from marketplace
+  loadIconRegistry()
+
+  // 1. Load core block + trigger manifests from API's blocks/manifests/
+  const coreDir = resolveCoreManifestsDir()
+  if (fs.existsSync(coreDir)) {
+    logger.info('Loading core block manifests', { dir: coreDir })
+    manifestRegistry.load(coreDir, true)
+  }
+
+  // 2. Load tool integration manifests from marketplace
   const integrationsDir = resolveIntegrationsDir()
-  logger.info('Initializing manifest registry', { dir: integrationsDir })
-  manifestRegistry.load(integrationsDir)
+  logger.info('Loading tool integration manifests', { dir: integrationsDir })
+  manifestRegistry.load(integrationsDir, false)
 }

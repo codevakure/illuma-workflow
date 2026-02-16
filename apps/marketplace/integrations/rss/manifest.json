@@ -14,7 +14,33 @@
     "bgColor": "#F97316",
     "icon": "RssIcon",
     "triggerAllowed": true,
-    "subBlocks": [],
+    "subBlocks": [
+      {
+        "id": "feedUrl",
+        "type": "short-input",
+        "title": "Feed URL",
+        "placeholder": "https://example.com/feed.xml",
+        "description": "The URL of the RSS or Atom feed to monitor",
+        "required": true,
+        "mode": "trigger"
+      },
+      {
+        "id": "triggerSave",
+        "type": "trigger-save",
+        "title": "",
+        "hideFromPreview": true,
+        "mode": "trigger",
+        "triggerId": "rss_poller"
+      },
+      {
+        "id": "triggerInstructions",
+        "type": "text",
+        "title": "Setup Instructions",
+        "hideFromPreview": true,
+        "mode": "trigger",
+        "default": "<div class='mb-3'><strong>1.</strong> Enter the URL of any RSS or Atom feed you want to monitor</div><div class='mb-3'><strong>2.</strong> The feed will be checked every minute for new items</div><div class='mb-3'><strong>3.</strong> When a new item is published, your workflow will be triggered with the item data</div>"
+      }
+    ],
     "tools": {
       "access": [],
       "config": {

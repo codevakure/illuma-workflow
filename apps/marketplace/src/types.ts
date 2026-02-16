@@ -44,7 +44,7 @@ export type OutputType =
 
 export type ParameterVisibility = 'user-or-llm' | 'user-only' | 'llm-only' | 'hidden'
 
-export type ExecutionMode = 'direct' | 'proxy' | 'sandbox'
+export type ExecutionMode = 'direct' | 'proxy' | 'sandbox' | 'handler'
 
 // ---------------------------------------------------------------------------
 // Condition (show/hide SubBlocks based on other field values)
@@ -268,4 +268,7 @@ export interface IntegrationManifest {
   block: BlockManifest
   tools: ToolManifest[]
   trigger?: TriggerManifest
+
+  /** Set at runtime by the manifest loader when a handler.ts file exists */
+  hasHandler?: boolean
 }

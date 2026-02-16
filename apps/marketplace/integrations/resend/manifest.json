@@ -13,6 +13,7 @@
     "category": "tools",
     "bgColor": "#181C1E",
     "icon": "ResendIcon",
+    "authMode": "api_key",
     "subBlocks": [
       {
         "id": "fromAddress",

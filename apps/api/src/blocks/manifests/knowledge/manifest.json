@@ -1,0 +1,245 @@
+{
+  "id": "knowledge",
+  "name": "Knowledge",
+  "version": "1.0.0",
+  "description": "Use vector search",
+  "icon": "PackageSearchIcon",
+  "block": {
+    "type": "knowledge",
+    "name": "Knowledge",
+    "description": "Use vector search",
+    "longDescription": "Integrate Knowledge into the workflow. Can search, upload chunks, and create documents.",
+    "docsLink": "https://docs.sim.ai/blocks/knowledge",
+    "category": "blocks",
+    "bgColor": "#00B0B0",
+    "icon": "PackageSearchIcon",
+    "subBlocks": [
+      {
+        "id": "operation",
+        "title": "Operation",
+        "type": "dropdown",
+        "default": "search",
+        "options": [
+          {
+            "label": "Search",
+            "value": "search"
+          },
+          {
+            "label": "Upload Chunk",
+            "value": "upload_chunk"
+          },
+          {
+            "label": "Create Document",
+            "value": "create_document"
+          }
+        ]
+      },
+      {
+        "id": "knowledgeBaseId",
+        "title": "Knowledge Base",
+        "type": "knowledge-base-selector",
+        "placeholder": "Select knowledge base",
+        "required": true,
+        "condition": {
+          "field": "operation",
+          "value": [
+            "search",
+            "upload_chunk",
+            "create_document"
+          ]
+        }
+      },
+      {
+        "id": "query",
+        "title": "Search Query",
+        "type": "short-input",
+        "placeholder": "Enter your search query (optional when using tag filters)",
+        "required": false,
+        "condition": {
+          "field": "operation",
+          "value": "search"
+        }
+      },
+      {
+        "id": "topK",
+        "title": "Number of Results",
+        "type": "short-input",
+        "placeholder": "Enter number of results (default: 10)",
+        "condition": {
+          "field": "operation",
+          "value": "search"
+        }
+      },
+      {
+        "id": "tagFilters",
+        "title": "Tag Filters",
+        "type": "knowledge-tag-filters",
+        "placeholder": "Add tag filters",
+        "condition": {
+          "field": "operation",
+          "value": "search"
+        }
+      },
+      {
+        "id": "documentId",
+        "title": "Document",
+        "type": "document-selector",
+        "placeholder": "Select document",
+        "dependsOn": [
+          "knowledgeBaseId"
+        ],
+        "required": true,
+        "condition": {
+          "field": "operation",
+          "value": "upload_chunk"
+        }
+      },
+      {
+        "id": "content",
+        "title": "Chunk Content",
+        "type": "long-input",
+        "placeholder": "Enter the chunk content to upload",
+        "required": true,
+        "condition": {
+          "field": "operation",
+          "value": "upload_chunk"
+        }
+      },
+      {
+        "id": "name",
+        "title": "Document Name",
+        "type": "short-input",
+        "placeholder": "Enter document name",
+        "required": true,
+        "condition": {
+          "field": "operation",
+          "value": [
+            "create_document"
+          ]
+        }
+      },
+      {
+        "id": "content",
+        "title": "Document Content",
+        "type": "long-input",
+        "placeholder": "Enter the document content",
+        "required": true,
+        "condition": {
+          "field": "operation",
+          "value": [
+            "create_document"
+          ]
+        }
+      },
+      {
+        "id": "documentTags",
+        "title": "Document Tags",
+        "type": "document-tag-entry",
+        "condition": {
+          "field": "operation",
+          "value": "create_document"
+        }
+      }
+    ],
+    "tools": {
+      "access": [
+        "knowledge_search",
+        "knowledge_upload_chunk",
+        "knowledge_create_document"
+      ],
+      "config": {
+        "tool": "knowledge_{{operation}}"
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string",
+        "description": "Operation to perform"
+      },
+      "knowledgeBaseId": {
+        "type": "string",
+        "description": "Knowledge base identifier"
+      },
+      "query": {
+        "type": "string",
+        "description": "Search query terms"
+      },
+      "topK": {
+        "type": "number",
+        "description": "Number of results"
+      },
+      "documentId": {
+        "type": "string",
+        "description": "Document identifier"
+      },
+      "content": {
+        "type": "string",
+        "description": "Content data"
+      },
+      "name": {
+        "type": "string",
+        "description": "Document name"
+      },
+      "tagFilters": {
+        "type": "string",
+        "description": "Tag filter criteria"
+      },
+      "documentTags": {
+        "type": "string",
+        "description": "Document tags"
+      }
+    },
+    "outputs": {
+      "results": {
+        "type": "json",
+        "description": "Search results"
+      },
+      "query": {
+        "type": "string",
+        "description": "Query used"
+      },
+      "totalResults": {
+        "type": "number",
+        "description": "Total results count"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "knowledge_search",
+      "name": "knowledge search",
+      "description": "",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "knowledge",
+        "operation": "search"
+      }
+    },
+    {
+      "id": "knowledge_upload_chunk",
+      "name": "knowledge upload chunk",
+      "description": "",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "knowledge",
+        "operation": "upload_chunk"
+      }
+    },
+    {
+      "id": "knowledge_create_document",
+      "name": "knowledge create document",
+      "description": "",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "knowledge",
+        "operation": "create_document"
+      }
+    }
+  ]
+}

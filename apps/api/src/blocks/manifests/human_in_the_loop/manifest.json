@@ -1,0 +1,121 @@
+{
+  "id": "human_in_the_loop",
+  "name": "Human in the Loop",
+  "version": "1.0.0",
+  "description": "Pause workflow execution and wait for human input",
+  "icon": "HumanInTheLoopIcon",
+  "block": {
+    "type": "human_in_the_loop",
+    "name": "Human in the Loop",
+    "description": "Pause workflow execution and wait for human input",
+    "longDescription": "Combines response and start functionality. Sends structured responses and allows workflow to resume from this point.",
+    "docsLink": "https://docs.sim.ai/blocks/human-in-the-loop",
+    "category": "blocks",
+    "bgColor": "#10B981",
+    "icon": "HumanInTheLoopIcon",
+    "subBlocks": [
+      {
+        "id": "builderData",
+        "title": "Display Data",
+        "type": "response-format",
+        "description": "Define the structure of your response data. Use <variable.name> in field names to reference workflow variables."
+      },
+      {
+        "id": "notification",
+        "title": "Notification (Send URL)",
+        "type": "tool-input",
+        "description": "Configure notification tools to alert approvers (e.g., Slack, Email)",
+        "default": []
+      },
+      {
+        "id": "inputFormat",
+        "title": "Resume Form",
+        "type": "input-format",
+        "description": "Define the fields the approver can fill in when resuming"
+      }
+    ],
+    "tools": {
+      "access": [],
+      "config": {
+        "tool": ""
+      }
+    },
+    "inputs": {
+      "operation": {
+        "type": "string",
+        "description": "Operation mode: human or api"
+      },
+      "inputFormat": {
+        "type": "json",
+        "description": "Input fields for resume"
+      },
+      "notification": {
+        "type": "json",
+        "description": "Notification tools configuration"
+      },
+      "dataMode": {
+        "type": "string",
+        "description": "Response data definition mode"
+      },
+      "builderData": {
+        "type": "json",
+        "description": "Structured response data"
+      },
+      "data": {
+        "type": "json",
+        "description": "JSON response body"
+      },
+      "status": {
+        "type": "number",
+        "description": "HTTP status code"
+      },
+      "headers": {
+        "type": "json",
+        "description": "Response headers"
+      }
+    },
+    "outputs": {
+      "url": {
+        "type": "string",
+        "description": "Resume UI URL"
+      },
+      "resumeEndpoint": {
+        "type": "string",
+        "description": "Resume API endpoint URL for direct curl requests"
+      },
+      "response": {
+        "type": "json",
+        "description": "Display data shown to the approver",
+        "hiddenFromDisplay": true
+      },
+      "submission": {
+        "type": "json",
+        "description": "Form submission data from the approver",
+        "hiddenFromDisplay": true
+      },
+      "resumeInput": {
+        "type": "json",
+        "description": "Raw input data submitted when resuming",
+        "hiddenFromDisplay": true
+      },
+      "submittedAt": {
+        "type": "string",
+        "description": "ISO timestamp when the workflow was resumed"
+      }
+    }
+  },
+  "tools": [
+    {
+      "id": "human_in_the_loop_execute",
+      "name": "human_in_the_loop execute",
+      "description": "",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "human_in_the_loop",
+        "operation": "execute"
+      }
+    }
+  ]
+}

@@ -1,11 +1,6 @@
 import { Hono } from 'hono'
 import { createLogger } from '@sim/logger'
 import { type AuthContext } from '@/middleware/auth'
-import { getDedicatedHandler } from '@/routes/tool-proxy/handler-registry'
-import { handleGenericProxy } from '@/routes/tool-proxy/generic-handler'
-
-// Import handler registration modules to ensure they register on load
-import '@/routes/tool-proxy/handlers/register'
 
 const logger = createLogger('ToolRoutes')
 
@@ -150,82 +145,6 @@ app.get('/image', async (c) => {
     return c.json({ error: 'Failed to fetch image' }, 502)
   } catch (error) {
     return c.json({ error: 'Image fetch failed' }, 500)
-  }
-})
-
-/**
- * Catch-all for /api/tools/:service/:action
- * Dispatches to dedicated handlers or generic proxy instead of returning 501.
- */
-app.all('/:service/:action', async (c) => {
-  const service = c.req.param('service')
-  const action = c.req.param('action')
-  const method = c.req.method
-
-  if (method !== 'POST') {
-    return c.json(
-      { success: false, error: `Method ${method} not supported for tool routes` },
-      405
-    )
-  }
-
-  try {
-    const body = await c.req.json()
-
-    // Check for a dedicated handler
-    const dedicatedHandler = getDedicatedHandler(service, action)
-    if (dedicatedHandler) {
-      logger.info(`Tool proxy: ${service}/${action} -> dedicated handler`)
-      const result = await dedicatedHandler(body, c)
-      return c.json(result, result.success === false ? 400 : 200)
-    }
-
-    // Fall through to generic proxy
-    logger.info(`Tool proxy: ${service}/${action} -> generic handler`)
-    const result = await handleGenericProxy(service, action, body, c)
-    return c.json(result, result.success === false ? 400 : 200)
-  } catch (error) {
-    logger.error(`Error in tool proxy ${service}/${action}:`, error)
-    const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred'
-    return c.json({ success: false, error: errorMessage }, 500)
-  }
-})
-
-/**
- * Catch-all for /api/tools/:service (single-level paths)
- */
-app.all('/:service', async (c) => {
-  const service = c.req.param('service')
-  const method = c.req.method
-
-  // Skip if already handled by explicit routes
-  if (['thinking', 'search', 'image', 'custom'].includes(service)) {
-    return c.notFound()
-  }
-
-  if (method !== 'POST') {
-    return c.json(
-      { success: false, error: `Method ${method} not supported for tool routes` },
-      405
-    )
-  }
-
-  try {
-    const body = await c.req.json()
-
-    const dedicatedHandler = getDedicatedHandler(service)
-    if (dedicatedHandler) {
-      logger.info(`Tool proxy: ${service} -> dedicated handler`)
-      const result = await dedicatedHandler(body, c)
-      return c.json(result, result.success === false ? 400 : 200)
-    }
-
-    const result = await handleGenericProxy(service, undefined, body, c)
-    return c.json(result, result.success === false ? 400 : 200)
-  } catch (error) {
-    logger.error(`Error in tool proxy ${service}:`, error)
-    const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred'
-    return c.json({ success: false, error: errorMessage }, 500)
   }
 })
 

@@ -39,6 +39,42 @@
         "title": "Access Token",
         "placeholder": "Your WhatsApp Business API Access Token",
         "password": true
+      },
+      {
+        "id": "webhookUrlDisplay",
+        "type": "short-input",
+        "title": "Webhook URL",
+        "readOnly": true,
+        "showCopyButton": true,
+        "useWebhookUrl": true,
+        "placeholder": "Webhook URL will be generated",
+        "mode": "trigger"
+      },
+      {
+        "id": "verificationToken",
+        "type": "short-input",
+        "title": "Verification Token",
+        "placeholder": "Generate or enter a verification token",
+        "description": "Enter any secure token here. You'll need to provide the same token in your WhatsApp Business Platform dashboard.",
+        "password": true,
+        "required": true,
+        "mode": "trigger"
+      },
+      {
+        "id": "triggerSave",
+        "type": "trigger-save",
+        "title": "",
+        "hideFromPreview": true,
+        "mode": "trigger",
+        "triggerId": "whatsapp_webhook"
+      },
+      {
+        "id": "triggerInstructions",
+        "type": "text",
+        "title": "Setup Instructions",
+        "hideFromPreview": true,
+        "mode": "trigger",
+        "default": "<div class='mb-3'><strong>1.</strong> Go to your Meta for Developers Apps page and navigate to WhatsApp > Configuration.</div><div class='mb-3'><strong>2.</strong> Find the Webhooks section and click Edit.</div><div class='mb-3'><strong>3.</strong> Paste the Webhook URL above into the Callback URL field.</div><div class='mb-3'><strong>4.</strong> Paste the Verification Token into the Verify token field.</div><div class='mb-3'><strong>5.</strong> Click Verify and save.</div><div class='mb-3'><strong>6.</strong> Subscribe to the messages webhook field.</div>"
       }
     ],
     "tools": {
@@ -58,6 +94,10 @@
       "success": {
         "type": "boolean"
       }
+    },
+    "triggers": {
+      "enabled": true,
+      "available": ["whatsapp_webhook"]
     },
     "triggerAllowed": true
   },

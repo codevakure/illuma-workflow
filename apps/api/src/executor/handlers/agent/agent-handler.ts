@@ -60,6 +60,17 @@ export class AgentBlockHandler implements BlockHandler {
     const streamingConfig = this.getStreamingConfig(ctx, block)
     const messages = await this.buildMessages(ctx, filteredInputs)
 
+    if (
+      !messages?.length &&
+      !filteredInputs.systemPrompt &&
+      !filteredInputs.userPrompt
+    ) {
+      throw new Error(
+        'Agent block has no input. Configure the agent with a system prompt, user prompt, or messages. ' +
+          'For chat workflows, set the user prompt to <start.input> to receive the chat message.'
+      )
+    }
+
     const providerRequest = this.buildProviderRequest({
       ctx,
       providerId,

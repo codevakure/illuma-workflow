@@ -565,6 +565,43 @@ app.get('/oauth/connections', async (c) => {
   }
 })
 
+// ─── POST /api/auth/oauth/disconnect ───────────────────────────────
+
+app.post('/oauth/disconnect', async (c) => {
+  const requestId = generateRequestId()
+  const userId = c.get('userId')
+
+  try {
+    const { providerId } = await c.req.json<{ providerId: string }>()
+
+    if (!providerId) {
+      return c.json({ error: 'providerId is required' }, 400)
+    }
+
+    const deleted = await db
+      .delete(account)
+      .where(and(eq(account.userId, userId), eq(account.providerId, providerId)))
+
+    logger.info(`[${requestId}] Disconnected OAuth provider`, { userId, providerId })
+    return c.json({ success: true })
+  } catch (error) {
+    logger.error(`[${requestId}] Error disconnecting OAuth provider`, error)
+    return c.json({ error: 'Internal server error' }, 500)
+  }
+})
+
+// ─── GET /api/auth/oauth/providers ─────────────────────────────────
+
+app.get('/oauth/providers', async (c) => {
+  try {
+    const { getProviderMetadata } = await import('@/lib/auth/oauth-providers')
+    return c.json({ providers: getProviderMetadata() })
+  } catch (error) {
+    logger.error('Error fetching provider metadata', error)
+    return c.json({ error: 'Internal server error' }, 500)
+  }
+})
+
 // ─── Static Routes ──────────────────────────────────────────────────
 
 app.get('/sso/providers', (c) => {

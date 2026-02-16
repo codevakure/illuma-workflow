@@ -156,7 +156,93 @@
         "id": "selectedTriggerId",
         "type": "dropdown",
         "title": "Trigger Type",
+        "mode": "trigger",
+        "options": [
+          { "label": "Contact Created", "value": "hubspot_contact_created" },
+          { "label": "Contact Deleted", "value": "hubspot_contact_deleted" },
+          { "label": "Contact Privacy Deleted", "value": "hubspot_contact_privacy_deleted" },
+          { "label": "Contact Property Changed", "value": "hubspot_contact_property_changed" },
+          { "label": "Company Created", "value": "hubspot_company_created" },
+          { "label": "Company Deleted", "value": "hubspot_company_deleted" },
+          { "label": "Company Property Changed", "value": "hubspot_company_property_changed" },
+          { "label": "Conversation Created", "value": "hubspot_conversation_creation" },
+          { "label": "Conversation Deleted", "value": "hubspot_conversation_deletion" },
+          { "label": "Conversation New Message", "value": "hubspot_conversation_new_message" },
+          { "label": "Conversation Privacy Deleted", "value": "hubspot_conversation_privacy_deletion" },
+          { "label": "Conversation Property Changed", "value": "hubspot_conversation_property_changed" },
+          { "label": "Deal Created", "value": "hubspot_deal_created" },
+          { "label": "Deal Deleted", "value": "hubspot_deal_deleted" },
+          { "label": "Deal Property Changed", "value": "hubspot_deal_property_changed" },
+          { "label": "Ticket Created", "value": "hubspot_ticket_created" },
+          { "label": "Ticket Deleted", "value": "hubspot_ticket_deleted" },
+          { "label": "Ticket Property Changed", "value": "hubspot_ticket_property_changed" }
+        ],
+        "required": true
+      },
+      {
+        "id": "clientId",
+        "type": "short-input",
+        "title": "Client ID",
+        "placeholder": "Enter your HubSpot app Client ID",
+        "description": "Found in your HubSpot app settings under Auth tab",
+        "required": true,
         "mode": "trigger"
+      },
+      {
+        "id": "clientSecret",
+        "type": "short-input",
+        "title": "Client Secret",
+        "placeholder": "Enter your HubSpot app Client Secret",
+        "description": "Found in your HubSpot app settings under Auth tab",
+        "password": true,
+        "required": true,
+        "mode": "trigger"
+      },
+      {
+        "id": "appId",
+        "type": "short-input",
+        "title": "App ID",
+        "placeholder": "Enter your HubSpot App ID",
+        "description": "Found in your HubSpot app settings. Used to identify your app.",
+        "required": true,
+        "mode": "trigger"
+      },
+      {
+        "id": "developerApiKey",
+        "type": "short-input",
+        "title": "Developer API Key",
+        "placeholder": "Enter your HubSpot Developer API Key",
+        "description": "Used for making API calls to HubSpot. Found in your HubSpot app settings.",
+        "password": true,
+        "required": true,
+        "mode": "trigger"
+      },
+      {
+        "id": "webhookUrlDisplay",
+        "type": "short-input",
+        "title": "Webhook URL",
+        "readOnly": true,
+        "showCopyButton": true,
+        "useWebhookUrl": true,
+        "placeholder": "Webhook URL will be generated",
+        "description": "Copy this URL and paste it into your HubSpot app webhook subscription settings",
+        "mode": "trigger"
+      },
+      {
+        "id": "triggerSave",
+        "type": "trigger-save",
+        "title": "",
+        "hideFromPreview": true,
+        "mode": "trigger",
+        "triggerId": "hubspot_contact_created"
+      },
+      {
+        "id": "triggerInstructions",
+        "type": "text",
+        "title": "Setup Instructions",
+        "hideFromPreview": true,
+        "mode": "trigger",
+        "default": "<div class='mb-3'><strong>1.</strong> Go to your <a href='https://developers.hubspot.com/' target='_blank'>HubSpot Developer Portal</a>.</div><div class='mb-3'><strong>2.</strong> Create or select your app, then go to <strong>Auth</strong> tab to get your Client ID and Client Secret.</div><div class='mb-3'><strong>3.</strong> Enter your <strong>App ID</strong> and <strong>Developer API Key</strong> above.</div><div class='mb-3'><strong>4.</strong> Copy the <strong>Webhook URL</strong> shown above.</div><div class='mb-3'><strong>5.</strong> In your HubSpot app settings, go to <strong>Webhooks</strong> and set the Target URL to the copied webhook URL.</div><div class='mb-3'><strong>6.</strong> Create a subscription for the event type you selected above.</div><div class='mb-3'><strong>7.</strong> Click <strong>Save Configuration</strong> above to complete setup.</div>"
       }
     ],
     "tools": {
@@ -188,7 +274,30 @@
         "type": "json"
       }
     },
-    "triggerAllowed": true
+    "triggerAllowed": true,
+    "triggers": {
+      "enabled": true,
+      "available": [
+        "hubspot_contact_created",
+        "hubspot_contact_deleted",
+        "hubspot_contact_privacy_deleted",
+        "hubspot_contact_property_changed",
+        "hubspot_company_created",
+        "hubspot_company_deleted",
+        "hubspot_company_property_changed",
+        "hubspot_conversation_creation",
+        "hubspot_conversation_deletion",
+        "hubspot_conversation_new_message",
+        "hubspot_conversation_privacy_deletion",
+        "hubspot_conversation_property_changed",
+        "hubspot_deal_created",
+        "hubspot_deal_deleted",
+        "hubspot_deal_property_changed",
+        "hubspot_ticket_created",
+        "hubspot_ticket_deleted",
+        "hubspot_ticket_property_changed"
+      ]
+    }
   },
   "tools": [
     {

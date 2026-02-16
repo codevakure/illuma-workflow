@@ -264,6 +264,22 @@
         "placeholder": "Enter label ID (e.g., INBOX, Label_123)",
         "mode": "advanced",
         "canonicalParamId": "manageLabelId"
+      },
+      {
+        "id": "triggerSave",
+        "type": "trigger-save",
+        "title": "",
+        "hideFromPreview": true,
+        "mode": "trigger",
+        "triggerId": "gmail_poller"
+      },
+      {
+        "id": "triggerInstructions",
+        "type": "text",
+        "title": "Setup Instructions",
+        "hideFromPreview": true,
+        "mode": "trigger",
+        "default": "<div class='mb-3'><strong>1.</strong> Connect your Gmail account using OAuth above.</div><div class='mb-3'><strong>2.</strong> The trigger will poll for new emails periodically.</div>"
       }
     ],
     "tools": {
@@ -294,6 +310,10 @@
       "content": {
         "type": "string"
       }
+    },
+    "triggers": {
+      "enabled": true,
+      "available": ["gmail_poller"]
     },
     "triggerAllowed": true
   },

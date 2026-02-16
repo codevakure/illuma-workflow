@@ -1,0 +1,48 @@
+{
+  "id": "manual_trigger",
+  "name": "Manual (Legacy)",
+  "version": "1.0.0",
+  "description": "Legacy manual start block. Prefer the Start block.",
+  "icon": "ManualTriggerIcon",
+  "block": {
+    "type": "manual_trigger",
+    "name": "Manual (Legacy)",
+    "description": "Legacy manual start block. Prefer the Start block.",
+    "longDescription": "Trigger the workflow manually without defining an input schema. Useful for simple runs where no structured input is needed.",
+    "category": "triggers",
+    "bgColor": "#2563EB",
+    "icon": "ManualTriggerIcon",
+    "hideFromToolbar": true,
+    "triggerAllowed": true,
+    "subBlocks": [],
+    "bestPractices": "- Use when you want a simple manual start without defining an input format.\n- If you need structured inputs or child workflows to map variables from, prefer the Input Form Trigger.",
+    "tools": {
+      "access": [],
+      "config": {
+        "tool": ""
+      }
+    },
+    "inputs": {},
+    "outputs": {},
+    "triggers": {
+      "enabled": true,
+      "available": [
+        "manual"
+      ]
+    }
+  },
+  "tools": [
+    {
+      "id": "manual_trigger_execute",
+      "name": "manual_trigger execute",
+      "description": "",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "manual_trigger",
+        "operation": "execute"
+      }
+    }
+  ]
+}

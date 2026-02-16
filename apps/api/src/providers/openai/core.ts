@@ -123,6 +123,13 @@ export async function executeResponsesProviderRequest(
 
   const initialInput = buildResponsesInputFromMessages(allMessages)
 
+  if (initialInput.length === 0) {
+    throw new Error(
+      'Cannot send request to OpenAI: no input messages provided. ' +
+        'Ensure the block has a system prompt, user prompt, or messages configured.'
+    )
+  }
+
   const basePayload: Record<string, any> = {
     model: config.modelName,
   }

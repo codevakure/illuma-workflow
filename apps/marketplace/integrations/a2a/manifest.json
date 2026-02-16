@@ -13,6 +13,7 @@
     "category": "tools",
     "bgColor": "#4151B5",
     "icon": "A2AIcon",
+    "authMode": "api_key",
     "subBlocks": [
       {
         "id": "operation",

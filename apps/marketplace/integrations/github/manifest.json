@@ -14,8 +14,64 @@
     "bgColor": "#181C1E",
     "icon": "GithubIcon",
     "authMode": "api_key",
-    "hideFromToolbar": true,
     "subBlocks": [
+      {
+        "id": "selectedTriggerId",
+        "type": "dropdown",
+        "title": "Trigger Event",
+        "mode": "trigger",
+        "options": [
+          { "label": "Issue Opened", "value": "github_issue_opened" },
+          { "label": "Issue Closed", "value": "github_issue_closed" },
+          { "label": "Issue Comment", "value": "github_issue_comment" },
+          { "label": "PR Opened", "value": "github_pr_opened" },
+          { "label": "PR Closed", "value": "github_pr_closed" },
+          { "label": "PR Merged", "value": "github_pr_merged" },
+          { "label": "PR Comment", "value": "github_pr_comment" },
+          { "label": "PR Reviewed", "value": "github_pr_reviewed" },
+          { "label": "Push", "value": "github_push" },
+          { "label": "Release Published", "value": "github_release_published" },
+          { "label": "Workflow Run", "value": "github_workflow_run" },
+          { "label": "General Webhook", "value": "github_webhook" }
+        ],
+        "required": true
+      },
+      {
+        "id": "webhookUrlDisplay",
+        "type": "short-input",
+        "title": "Webhook URL",
+        "readOnly": true,
+        "showCopyButton": true,
+        "useWebhookUrl": true,
+        "placeholder": "Webhook URL will be generated",
+        "mode": "trigger"
+      },
+      {
+        "id": "webhookSecret",
+        "type": "short-input",
+        "title": "Webhook Secret",
+        "placeholder": "Enter webhook secret from GitHub",
+        "description": "The secret used to verify webhook payloads. Set this in your GitHub webhook settings.",
+        "password": true,
+        "required": false,
+        "mode": "trigger"
+      },
+      {
+        "id": "triggerSave",
+        "type": "trigger-save",
+        "title": "",
+        "hideFromPreview": true,
+        "mode": "trigger",
+        "triggerId": "github_webhook"
+      },
+      {
+        "id": "triggerInstructions",
+        "type": "text",
+        "title": "Setup Instructions",
+        "hideFromPreview": true,
+        "mode": "trigger",
+        "default": "<div class='mb-3'><strong>1.</strong> Go to your GitHub repository's <strong>Settings > Webhooks</strong>.</div><div class='mb-3'><strong>2.</strong> Click <strong>Add webhook</strong>.</div><div class='mb-3'><strong>3.</strong> Paste the <strong>Webhook URL</strong> shown above into the Payload URL field.</div><div class='mb-3'><strong>4.</strong> Set Content type to <code>application/json</code>.</div><div class='mb-3'><strong>5.</strong> Optionally enter a <strong>Secret</strong> and paste it above for signature validation.</div><div class='mb-3'><strong>6.</strong> Select the events you want to receive (or choose 'Send me everything').</div><div class='mb-3'><strong>7.</strong> Click <strong>Add webhook</strong>, then click <strong>Save Configuration</strong> above.</div>"
+      },
       {
         "id": "operation",
         "type": "dropdown",
@@ -1629,6 +1685,10 @@
       "content": {
         "type": "string"
       }
+    },
+    "triggers": {
+      "enabled": true,
+      "available": ["github_webhook", "github_issue_opened", "github_issue_closed", "github_issue_comment", "github_pr_opened", "github_pr_closed", "github_pr_merged", "github_pr_comment", "github_pr_reviewed", "github_push", "github_release_published", "github_workflow_run"]
     },
     "triggerAllowed": true
   },

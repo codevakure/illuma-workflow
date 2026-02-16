@@ -315,6 +315,61 @@
         "type": "short-input",
         "title": "Emoji Name",
         "placeholder": "Emoji name without colons (e.g., thumbsup, heart, eyes)"
+      },
+      {
+        "id": "webhookUrlDisplay",
+        "type": "short-input",
+        "title": "Webhook URL",
+        "readOnly": true,
+        "showCopyButton": true,
+        "useWebhookUrl": true,
+        "placeholder": "Webhook URL will be generated",
+        "mode": "trigger"
+      },
+      {
+        "id": "signingSecret",
+        "type": "short-input",
+        "title": "Signing Secret",
+        "placeholder": "Enter your Slack app signing secret",
+        "description": "The signing secret from your Slack app to validate request authenticity.",
+        "password": true,
+        "required": true,
+        "mode": "trigger"
+      },
+      {
+        "id": "triggerBotToken",
+        "type": "short-input",
+        "title": "Bot Token",
+        "placeholder": "xoxb-...",
+        "description": "The bot token from your Slack app. Required for downloading files attached to messages.",
+        "password": true,
+        "required": false,
+        "mode": "trigger"
+      },
+      {
+        "id": "includeFiles",
+        "type": "switch",
+        "title": "Include File Attachments",
+        "default": false,
+        "description": "Download and include file attachments from messages. Requires a bot token with files:read scope.",
+        "required": false,
+        "mode": "trigger"
+      },
+      {
+        "id": "triggerSave",
+        "type": "trigger-save",
+        "title": "",
+        "hideFromPreview": true,
+        "mode": "trigger",
+        "triggerId": "slack_webhook"
+      },
+      {
+        "id": "triggerInstructions",
+        "type": "text",
+        "title": "Setup Instructions",
+        "hideFromPreview": true,
+        "mode": "trigger",
+        "default": "<div class='mb-3'><strong>1.</strong> Go to api.slack.com/apps and create or select an app.</div><div class='mb-3'><strong>2.</strong> Go to Basic Information, find the Signing Secret, and paste it above.</div><div class='mb-3'><strong>3.</strong> Go to OAuth and Permissions and add bot token scopes: app_mentions:read, chat:write, files:read.</div><div class='mb-3'><strong>4.</strong> Go to Event Subscriptions, enable events, subscribe to app_mention, and paste the Webhook URL above.</div><div class='mb-3'><strong>5.</strong> Install the app to your workspace.</div><div class='mb-3'><strong>6.</strong> Copy the Bot User OAuth Token and paste it in the Bot Token field above.</div>"
       }
     ],
     "tools": {
@@ -346,6 +401,10 @@
       "message": {
         "type": "json"
       }
+    },
+    "triggers": {
+      "enabled": true,
+      "available": ["slack_webhook"]
     },
     "triggerAllowed": true
   },

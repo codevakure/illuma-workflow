@@ -13,6 +13,7 @@
     "category": "tools",
     "bgColor": "#1A82E2",
     "icon": "SendgridIcon",
+    "authMode": "api_key",
     "subBlocks": [
       {
         "id": "operation",

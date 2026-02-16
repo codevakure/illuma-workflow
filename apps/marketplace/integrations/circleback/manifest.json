@@ -14,7 +14,56 @@
     "bgColor": "linear-gradient(180deg, #E0F7FA 0%, #FFFFFF 100%)",
     "icon": "CirclebackIcon",
     "triggerAllowed": true,
-    "subBlocks": [],
+    "subBlocks": [
+      {
+        "id": "selectedTriggerId",
+        "type": "dropdown",
+        "title": "Trigger Type",
+        "mode": "trigger",
+        "options": [
+          { "label": "Meeting Completed", "value": "circleback_meeting_completed" },
+          { "label": "Meeting Notes Ready", "value": "circleback_meeting_notes" },
+          { "label": "General Webhook", "value": "circleback_webhook" }
+        ],
+        "required": true
+      },
+      {
+        "id": "webhookUrlDisplay",
+        "type": "short-input",
+        "title": "Webhook URL",
+        "readOnly": true,
+        "showCopyButton": true,
+        "useWebhookUrl": true,
+        "placeholder": "Webhook URL will be generated",
+        "mode": "trigger"
+      },
+      {
+        "id": "webhookSecret",
+        "type": "short-input",
+        "title": "Signing Secret",
+        "placeholder": "Paste signing secret from Circleback (optional)",
+        "description": "Validates that webhook deliveries originate from Circleback using HMAC-SHA256.",
+        "password": true,
+        "required": false,
+        "mode": "trigger"
+      },
+      {
+        "id": "triggerSave",
+        "type": "trigger-save",
+        "title": "",
+        "hideFromPreview": true,
+        "mode": "trigger",
+        "triggerId": "circleback_webhook"
+      },
+      {
+        "id": "triggerInstructions",
+        "type": "text",
+        "title": "Setup Instructions",
+        "hideFromPreview": true,
+        "mode": "trigger",
+        "default": "<div class='mb-3'><strong>1.</strong> Go to your <a href='https://circleback.ai/settings/integrations' target='_blank'>Circleback Integrations</a> page.</div><div class='mb-3'><strong>2.</strong> Click <strong>Add Webhook</strong>.</div><div class='mb-3'><strong>3.</strong> Paste the <strong>Webhook URL</strong> shown above into the endpoint field.</div><div class='mb-3'><strong>4.</strong> Optionally copy the <strong>Signing Secret</strong> and paste it above for signature validation.</div><div class='mb-3'><strong>5.</strong> Click <strong>Save</strong> in Circleback, then click <strong>Save Configuration</strong> above.</div>"
+      }
+    ],
     "tools": {
       "access": [],
       "config": {
@@ -23,62 +72,20 @@
     },
     "inputs": {},
     "outputs": {
-      "id": {
-        "type": "number",
-        "description": "Circleback meeting ID"
-      },
-      "name": {
-        "type": "string",
-        "description": "Meeting title"
-      },
-      "url": {
-        "type": "string",
-        "description": "Virtual meeting URL (Zoom, Meet, Teams)"
-      },
-      "createdAt": {
-        "type": "string",
-        "description": "Meeting creation timestamp"
-      },
-      "duration": {
-        "type": "number",
-        "description": "Duration in seconds"
-      },
-      "recordingUrl": {
-        "type": "string",
-        "description": "Recording URL (valid 24 hours)"
-      },
-      "tags": {
-        "type": "json",
-        "description": "Array of tags"
-      },
-      "icalUid": {
-        "type": "string",
-        "description": "Calendar event ID"
-      },
-      "attendees": {
-        "type": "json",
-        "description": "Array of attendee objects"
-      },
-      "notes": {
-        "type": "string",
-        "description": "Meeting notes in Markdown"
-      },
-      "actionItems": {
-        "type": "json",
-        "description": "Array of action items"
-      },
-      "transcript": {
-        "type": "json",
-        "description": "Array of transcript segments"
-      },
-      "insights": {
-        "type": "json",
-        "description": "User-created insights"
-      },
-      "meeting": {
-        "type": "json",
-        "description": "Full meeting payload"
-      }
+      "id": { "type": "number", "description": "Circleback meeting ID" },
+      "name": { "type": "string", "description": "Meeting title" },
+      "url": { "type": "string", "description": "Virtual meeting URL (Zoom, Meet, Teams)" },
+      "createdAt": { "type": "string", "description": "Meeting creation timestamp" },
+      "duration": { "type": "number", "description": "Duration in seconds" },
+      "recordingUrl": { "type": "string", "description": "Recording URL (valid 24 hours)" },
+      "tags": { "type": "json", "description": "Array of tags" },
+      "icalUid": { "type": "string", "description": "Calendar event ID" },
+      "attendees": { "type": "json", "description": "Array of attendee objects" },
+      "notes": { "type": "string", "description": "Meeting notes in Markdown" },
+      "actionItems": { "type": "json", "description": "Array of action items" },
+      "transcript": { "type": "json", "description": "Array of transcript segments" },
+      "insights": { "type": "json", "description": "User-created insights" },
+      "meeting": { "type": "json", "description": "Full meeting payload" }
     },
     "triggers": {
       "enabled": true,

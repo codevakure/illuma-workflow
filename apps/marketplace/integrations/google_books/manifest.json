@@ -173,7 +173,7 @@
       "name": "Google Books Volume Search",
       "description": "Search for books using the Google Books API",
       "version": "1.0.0",
-      "executionMode": "proxy",
+      "executionMode": "handler",
       "params": {
         "apiKey": {
           "type": "string",
@@ -227,7 +227,7 @@
       "name": "Google Books Volume Details",
       "description": "Get detailed information about a specific book volume",
       "version": "1.0.0",
-      "executionMode": "proxy",
+      "executionMode": "handler",
       "params": {
         "apiKey": {
           "type": "string",

@@ -76,6 +76,12 @@ function adaptSubBlock(schema: SubBlockSchema): SubBlockConfig {
     )
   }
 
+  if (schema.description) config.description = schema.description
+  if (schema.hidden) config.hidden = schema.hidden
+  if (schema.rows !== undefined) config.rows = schema.rows
+  if (schema.multiSelect) config.multiSelect = schema.multiSelect
+  if (schema.searchable) config.searchable = schema.searchable
+
   return config
 }
 
@@ -148,6 +154,7 @@ export function adaptBlockManifest(manifest: BlockManifest): BlockConfig {
     hideFromToolbar: manifest.hideFromToolbar,
     triggerAllowed: manifest.triggerAllowed,
     triggers: manifest.triggers,
+    bestPractices: manifest.bestPractices,
     subBlocks,
     tools: toolConfig,
     inputs,

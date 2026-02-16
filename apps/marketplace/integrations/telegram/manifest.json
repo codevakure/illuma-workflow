@@ -160,6 +160,42 @@
         "type": "short-input",
         "title": "Message ID",
         "placeholder": "Enter the message ID to delete"
+      },
+      {
+        "id": "webhookUrlDisplay",
+        "type": "short-input",
+        "title": "Webhook URL",
+        "readOnly": true,
+        "showCopyButton": true,
+        "useWebhookUrl": true,
+        "placeholder": "Webhook URL will be generated",
+        "mode": "trigger"
+      },
+      {
+        "id": "triggerBotToken",
+        "type": "short-input",
+        "title": "Bot Token",
+        "placeholder": "123456789:ABCdefGHIjklMNOpqrsTUVwxyz",
+        "description": "Your Telegram Bot Token from BotFather",
+        "password": true,
+        "required": true,
+        "mode": "trigger"
+      },
+      {
+        "id": "triggerSave",
+        "type": "trigger-save",
+        "title": "",
+        "hideFromPreview": true,
+        "mode": "trigger",
+        "triggerId": "telegram_webhook"
+      },
+      {
+        "id": "triggerInstructions",
+        "type": "text",
+        "title": "Setup Instructions",
+        "hideFromPreview": true,
+        "mode": "trigger",
+        "default": "<div class='mb-3'><strong>1.</strong> Message /newbot to @BotFather in Telegram to create a bot and copy its token.</div><div class='mb-3'><strong>2.</strong> Enter your Bot Token above.</div><div class='mb-3'><strong>3.</strong> Any message sent to your bot will trigger the workflow once deployed.</div>"
       }
     ],
     "tools": {
@@ -185,6 +221,10 @@
       "ok": {
         "type": "boolean"
       }
+    },
+    "triggers": {
+      "enabled": true,
+      "available": ["telegram_webhook"]
     },
     "triggerAllowed": true
   },

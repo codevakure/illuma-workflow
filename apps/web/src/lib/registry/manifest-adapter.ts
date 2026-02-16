@@ -31,20 +31,24 @@ export function adaptManifestToBlockConfig(manifest: ManifestBlock): BlockConfig
     docsLink: manifest.docsLink,
     category: manifest.category,
     bgColor: manifest.bgColor,
-    icon: resolveIcon(manifest.icon),
+    icon: resolveIcon(manifest.icon, manifest.iconSvg),
     hideFromToolbar: manifest.hideFromToolbar,
     authMode: adaptAuthMode(manifest.authMode),
-    subBlocks: manifest.subBlocks.map(adaptSubBlock),
+    subBlocks: manifest.subBlocks
+      // Filter out deprecated trigger-save subblocks (handled by trigger mode UI)
+      .filter((sub) => sub.type !== 'trigger-save')
+      .map(adaptSubBlock),
     tools: {
       access: manifest.tools.access,
       config: {
-        tool: createToolResolver(manifest.tools.config.tool),
+        tool: createToolResolver(manifest.tools.config?.tool ?? ''),
       },
     },
     inputs: manifest.inputs as BlockConfig['inputs'],
     outputs: manifest.outputs as BlockConfig['outputs'],
     triggerAllowed: manifest.triggerAllowed,
     triggers: manifest.triggers,
+    bestPractices: manifest.bestPractices,
   }
 
   // Apply runtime enhancements (dynamic options, fetchOptions, tool resolvers)
@@ -182,6 +186,25 @@ function adaptSubBlock(sub: ManifestSubBlock): SubBlockConfig {
   if (sub.min !== undefined) config.min = sub.min
   if (sub.max !== undefined) config.max = sub.max
   if (sub.step !== undefined) config.step = sub.step
+  if (sub.description) config.description = sub.description
+  if (sub.hidden) config.hidden = sub.hidden
+  if (sub.rows !== undefined) config.rows = sub.rows
+  if (sub.multiSelect) config.multiSelect = sub.multiSelect
+  if (sub.searchable) config.searchable = sub.searchable
+
+  // Trigger-specific properties
+  if (sub.useWebhookUrl) config.useWebhookUrl = sub.useWebhookUrl
+  if (sub.showCopyButton) config.showCopyButton = sub.showCopyButton
+  if (sub.readOnly) config.readOnly = sub.readOnly
+  if (sub.triggerId) config.triggerId = sub.triggerId
+  if (sub.hideFromPreview) config.hideFromPreview = sub.hideFromPreview
+  if (sub.collapsible) config.collapsible = sub.collapsible
+  if (sub.defaultCollapsed) config.defaultCollapsed = sub.defaultCollapsed
+  if (sub.connectionDroppable !== undefined) config.connectionDroppable = sub.connectionDroppable
+
+  // OAuth properties
+  if (sub.serviceId) config.serviceId = sub.serviceId
+  if (sub.requiredScopes) config.requiredScopes = sub.requiredScopes
 
   return config
 }

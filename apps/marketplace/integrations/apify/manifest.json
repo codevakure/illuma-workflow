@@ -13,6 +13,7 @@
     "category": "tools",
     "bgColor": "#E0E0E0",
     "icon": "ApifyIcon",
+    "authMode": "api_key",
     "subBlocks": [
       {
         "id": "operation",

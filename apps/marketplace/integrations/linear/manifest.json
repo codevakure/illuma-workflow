@@ -16,6 +16,12 @@
     "authMode": "oauth",
     "subBlocks": [
       {
+        "id": "selectedTriggerId",
+        "type": "dropdown",
+        "title": "Trigger Event",
+        "mode": "trigger"
+      },
+      {
         "id": "operation",
         "type": "dropdown",
         "title": "Operation",
@@ -969,6 +975,41 @@
         "type": "short-input",
         "title": "Project ID",
         "placeholder": "Enter project ID"
+      },
+      {
+        "id": "webhookUrlDisplay",
+        "type": "short-input",
+        "title": "Webhook URL",
+        "readOnly": true,
+        "showCopyButton": true,
+        "useWebhookUrl": true,
+        "placeholder": "Webhook URL will be generated",
+        "mode": "trigger"
+      },
+      {
+        "id": "webhookSecret",
+        "type": "short-input",
+        "title": "Webhook Secret",
+        "placeholder": "Enter your Linear webhook secret",
+        "password": true,
+        "required": false,
+        "mode": "trigger"
+      },
+      {
+        "id": "triggerSave",
+        "type": "trigger-save",
+        "title": "",
+        "hideFromPreview": true,
+        "mode": "trigger",
+        "triggerId": "linear_webhook"
+      },
+      {
+        "id": "triggerInstructions",
+        "type": "text",
+        "title": "Setup Instructions",
+        "hideFromPreview": true,
+        "mode": "trigger",
+        "default": "<div class='mb-3'><strong>1.</strong> Go to Linear Settings > API > Webhooks.</div><div class='mb-3'><strong>2.</strong> Create a new webhook with the Webhook URL above.</div><div class='mb-3'><strong>3.</strong> Select the resource types and actions you want to listen for.</div>"
       }
     ],
     "tools": {
@@ -1065,6 +1106,10 @@
       "issues": {
         "type": "json"
       }
+    },
+    "triggers": {
+      "enabled": true,
+      "available": ["linear_webhook", "linear_issue_created", "linear_issue_updated", "linear_issue_removed", "linear_comment_created", "linear_comment_updated", "linear_project_created", "linear_project_updated", "linear_cycle_created", "linear_cycle_updated", "linear_label_created", "linear_label_updated", "linear_project_update_created", "linear_customer_request_created", "linear_customer_request_updated"]
     },
     "triggerAllowed": true
   },

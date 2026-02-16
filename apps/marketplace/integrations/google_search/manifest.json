@@ -13,6 +13,7 @@
     "category": "tools",
     "bgColor": "#E0E0E0",
     "icon": "GoogleIcon",
+    "authMode": "api_key",
     "subBlocks": [
       {
         "id": "query",

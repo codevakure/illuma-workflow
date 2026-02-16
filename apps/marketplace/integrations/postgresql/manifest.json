@@ -13,6 +13,7 @@
     "category": "tools",
     "bgColor": "#336791",
     "icon": "PostgresIcon",
+    "authMode": "api_key",
     "subBlocks": [
       {
         "id": "operation",

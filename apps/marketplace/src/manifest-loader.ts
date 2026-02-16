@@ -59,6 +59,10 @@ class ManifestRegistry {
           continue
         }
 
+        // Detect handler.ts presence
+        const handlerPath = path.join(integrationsDir, entry.name, 'handler.ts')
+        manifest.hasHandler = fs.existsSync(handlerPath)
+
         this.register(manifest)
         loaded++
       } catch (error) {
@@ -179,6 +183,14 @@ class ManifestRegistry {
     return this.toolsById.has(toolId)
   }
 
+  /**
+   * Returns a map of tool ID → integration ID for all loaded tools.
+   * Used by the handler-loader to build its lookup tables.
+   */
+  getToolIdMappings(): Map<string, string> {
+    return new Map(this.toolToIntegration)
+  }
+
   stats(): { integrations: number; blocks: number; tools: number; triggers: number } {
     return {
       integrations: this.integrations.size,
@@ -196,7 +208,7 @@ export const manifestRegistry = new ManifestRegistry()
  * Resolves the integrations directory path.
  * Looks for the integrations/ folder relative to the marketplace app root.
  */
-function resolveIntegrationsDir(): string {
+export function resolveIntegrationsDir(): string {
   // When running from src/, go up one level to find integrations/
   const fromSrc = path.resolve(__dirname, '..', '..', 'integrations')
   if (fs.existsSync(fromSrc)) {

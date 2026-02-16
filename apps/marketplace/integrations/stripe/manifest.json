@@ -534,6 +534,42 @@
         "type": "short-input",
         "title": "Event Type",
         "placeholder": "e.g., payment_intent.succeeded"
+      },
+      {
+        "id": "webhookUrlDisplay",
+        "type": "short-input",
+        "title": "Webhook URL",
+        "readOnly": true,
+        "showCopyButton": true,
+        "useWebhookUrl": true,
+        "placeholder": "Webhook URL will be generated",
+        "mode": "trigger"
+      },
+      {
+        "id": "webhookSecret",
+        "type": "short-input",
+        "title": "Webhook Signing Secret",
+        "placeholder": "whsec_...",
+        "description": "The webhook signing secret from your Stripe dashboard to validate events.",
+        "password": true,
+        "required": true,
+        "mode": "trigger"
+      },
+      {
+        "id": "triggerSave",
+        "type": "trigger-save",
+        "title": "",
+        "hideFromPreview": true,
+        "mode": "trigger",
+        "triggerId": "stripe_webhook"
+      },
+      {
+        "id": "triggerInstructions",
+        "type": "text",
+        "title": "Setup Instructions",
+        "hideFromPreview": true,
+        "mode": "trigger",
+        "default": "<div class='mb-3'><strong>1.</strong> Go to the Stripe Dashboard > Developers > Webhooks.</div><div class='mb-3'><strong>2.</strong> Click Add endpoint and paste the Webhook URL above.</div><div class='mb-3'><strong>3.</strong> Select the events you want to listen for.</div><div class='mb-3'><strong>4.</strong> Copy the Signing Secret and paste it above.</div>"
       }
     ],
     "tools": {
@@ -602,7 +638,12 @@
       "payment_intent": {
         "type": "json"
       }
-    }
+    },
+    "triggers": {
+      "enabled": true,
+      "available": ["stripe_webhook"]
+    },
+    "triggerAllowed": true
   },
   "tools": [
     {

@@ -85,37 +85,42 @@ async function proxyToMarketplace(path: string): Promise<Response | null> {
   }
 }
 
-app.get('/integrations', async (c) => {
-  const remote = await proxyToMarketplace('/integrations')
-  if (remote) {
-    const data = await remote.json()
-    return c.json(data)
-  }
+// ---------------------------------------------------------------------------
+// Aggregated routes — combine API-local core blocks with marketplace tools.
+// Core blocks and triggers are always served from the local manifest registry.
+// Tool integrations are fetched from the marketplace, with local fallback.
+// ---------------------------------------------------------------------------
+
+app.get('/integrations', (c) => {
+  // Serve all integrations from the local manifest registry.
+  // Core blocks are loaded from API's blocks/manifests/ directory.
+  // Tool integrations are loaded from marketplace's integrations/ directory
+  // (only those with handler.ts files, so we only serve migrated tools).
   return c.json({ integrations: manifestRegistry.getAllIntegrations() })
 })
 
 app.get('/integrations/:id', async (c) => {
   const id = c.req.param('id')
+  // Core integrations: always serve locally (no marketplace proxy needed)
+  if (manifestRegistry.isCoreIntegration(id)) {
+    const integration = manifestRegistry.getIntegration(id)
+    return c.json({ integration })
+  }
+  // Tool integrations: try marketplace first
   const remote = await proxyToMarketplace(`/integrations/${id}`)
   if (remote) {
     const data = await remote.json()
     return c.json(data)
   }
-  const integration = manifestRegistry.getIntegration(id)
-  if (!integration) {
-    return c.json({ error: `Integration "${id}" not found` }, 404)
+  const local = manifestRegistry.getIntegration(id)
+  if (local) {
+    return c.json({ integration: local })
   }
-  return c.json({ integration })
+  return c.json({ error: `Integration "${id}" not found` }, 404)
 })
 
-app.get('/blocks', async (c) => {
+app.get('/blocks', (c) => {
   const category = c.req.query('category')
-  const qs = category ? `?category=${category}` : ''
-  const remote = await proxyToMarketplace(`/blocks${qs}`)
-  if (remote) {
-    const data = await remote.json()
-    return c.json(data)
-  }
   let blocks = manifestRegistry.getAllBlocks()
   if (category) {
     blocks = blocks.filter((b) => b.category === category)
@@ -125,16 +130,21 @@ app.get('/blocks', async (c) => {
 
 app.get('/blocks/:type', async (c) => {
   const type = c.req.param('type')
+  // Check local first (core blocks always available locally)
+  const block = manifestRegistry.getBlock(type)
+  if (block && manifestRegistry.isCoreIntegration(type)) {
+    return c.json({ block })
+  }
+  // Tool blocks: try marketplace
   const remote = await proxyToMarketplace(`/blocks/${type}`)
   if (remote) {
     const data = await remote.json()
     return c.json(data)
   }
-  const block = manifestRegistry.getBlock(type)
-  if (!block) {
-    return c.json({ error: `Block type "${type}" not found` }, 404)
+  if (block) {
+    return c.json({ block })
   }
-  return c.json({ block })
+  return c.json({ error: `Block type "${type}" not found` }, 404)
 })
 
 app.get('/tools', async (c) => {
@@ -166,22 +176,13 @@ app.get('/tools/:id', async (c) => {
   return c.json({ tool })
 })
 
-app.get('/triggers', async (c) => {
-  const remote = await proxyToMarketplace('/triggers')
-  if (remote) {
-    const data = await remote.json()
-    return c.json(data)
-  }
+// Triggers: always served locally (trigger config is in core/trigger manifests)
+app.get('/triggers', (c) => {
   return c.json({ triggers: manifestRegistry.getAllTriggers() })
 })
 
-app.get('/triggers/:provider', async (c) => {
+app.get('/triggers/:provider', (c) => {
   const provider = c.req.param('provider')
-  const remote = await proxyToMarketplace(`/triggers/${provider}`)
-  if (remote) {
-    const data = await remote.json()
-    return c.json(data)
-  }
   const trigger = manifestRegistry.getTrigger(provider)
   if (!trigger) {
     return c.json({ error: `Trigger for provider "${provider}" not found` }, 404)
@@ -193,7 +194,13 @@ app.get('/stats', async (c) => {
   const remote = await proxyToMarketplace('/stats')
   if (remote) {
     const data = await remote.json()
-    return c.json(data)
+    // Merge stats: add local core/trigger counts
+    const localStats = manifestRegistry.stats()
+    return c.json({
+      ...data,
+      coreBlocks: localStats.blocks,
+      localTriggers: localStats.triggers,
+    })
   }
   return c.json(manifestRegistry.stats())
 })

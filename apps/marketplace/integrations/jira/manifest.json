@@ -16,6 +16,12 @@
     "authMode": "oauth",
     "subBlocks": [
       {
+        "id": "selectedTriggerId",
+        "type": "dropdown",
+        "title": "Trigger Event",
+        "mode": "trigger"
+      },
+      {
         "id": "operation",
         "type": "dropdown",
         "title": "Operation",
@@ -374,6 +380,41 @@
         "type": "short-input",
         "title": "Max Results",
         "placeholder": "Maximum users to return (default: 50)"
+      },
+      {
+        "id": "webhookUrlDisplay",
+        "type": "short-input",
+        "title": "Webhook URL",
+        "readOnly": true,
+        "showCopyButton": true,
+        "useWebhookUrl": true,
+        "placeholder": "Webhook URL will be generated",
+        "mode": "trigger"
+      },
+      {
+        "id": "webhookSecret",
+        "type": "short-input",
+        "title": "Webhook Secret",
+        "placeholder": "Enter a webhook secret",
+        "password": true,
+        "required": false,
+        "mode": "trigger"
+      },
+      {
+        "id": "triggerSave",
+        "type": "trigger-save",
+        "title": "",
+        "hideFromPreview": true,
+        "mode": "trigger",
+        "triggerId": "jira_webhook"
+      },
+      {
+        "id": "triggerInstructions",
+        "type": "text",
+        "title": "Setup Instructions",
+        "hideFromPreview": true,
+        "mode": "trigger",
+        "default": "<div class='mb-3'><strong>1.</strong> Go to Jira Settings > System > Webhooks.</div><div class='mb-3'><strong>2.</strong> Create a new webhook with the Webhook URL above.</div><div class='mb-3'><strong>3.</strong> Select the events (issue created, updated, etc.) you want to trigger on.</div>"
       }
     ],
     "tools": {
@@ -416,6 +457,10 @@
       "ts": {
         "type": "string"
       }
+    },
+    "triggers": {
+      "enabled": true,
+      "available": ["jira_webhook", "jira_issue_created", "jira_issue_updated", "jira_issue_deleted", "jira_issue_commented", "jira_worklog_created"]
     },
     "triggerAllowed": true
   },

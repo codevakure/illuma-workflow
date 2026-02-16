@@ -4,6 +4,8 @@ import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 import { logger } from 'hono/logger'
 import { initializeManifests } from './integrations/manifest-loader'
+import { auth } from './lib/auth/better-auth'
+import { seedDevSession } from './lib/auth/dev-seed'
 import { authMiddleware } from './middleware/auth'
 import { authRoutes } from './routes/auth'
 import { chatPublicRoutes } from './routes/chat-public'
@@ -65,6 +67,13 @@ app.route('/api/webhooks', webhookTriggerRoutes)
 app.route('/api/chat', chatPublicRoutes)
 app.route('/api/form', formPublicRoutes)
 
+// better-auth handles only its own OAuth2 endpoints (link + callback)
+// Scoped to /api/auth/oauth2/* to avoid intercepting existing Hono auth routes
+app.on(['GET', 'POST'], '/api/auth/oauth2/*', (c) => auth.handler(c.req.raw))
+// better-auth session/user endpoints
+app.on(['GET', 'POST'], '/api/auth/get-session', (c) => auth.handler(c.req.raw))
+app.on(['GET', 'POST'], '/api/auth/sign-out', (c) => auth.handler(c.req.raw))
+
 // API routes (with auth)
 const api = new Hono()
 api.use('*', authMiddleware)
@@ -113,6 +122,9 @@ app.onError((err, c) => {
 
 // Initialize integration manifests
 initializeManifests()
+
+// Seed dev session for OAuth testing
+seedDevSession().catch(console.error)
 
 const port = Number(process.env.PORT) || 3001
 

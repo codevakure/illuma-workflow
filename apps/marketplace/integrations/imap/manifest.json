@@ -15,7 +15,118 @@
     "icon": "MailServerIcon",
     "hideFromToolbar": false,
     "triggerAllowed": true,
-    "subBlocks": [],
+    "subBlocks": [
+      {
+        "id": "host",
+        "type": "short-input",
+        "title": "IMAP Server",
+        "placeholder": "imap.example.com",
+        "description": "IMAP server hostname (e.g., imap.gmail.com, outlook.office365.com)",
+        "required": true,
+        "mode": "trigger"
+      },
+      {
+        "id": "port",
+        "type": "short-input",
+        "title": "Port",
+        "placeholder": "993",
+        "description": "IMAP port (993 for SSL/TLS, 143 for STARTTLS)",
+        "default": "993",
+        "required": true,
+        "mode": "trigger"
+      },
+      {
+        "id": "secure",
+        "type": "switch",
+        "title": "Use SSL/TLS",
+        "default": true,
+        "description": "Enable SSL/TLS encryption (recommended for port 993)",
+        "required": false,
+        "mode": "trigger"
+      },
+      {
+        "id": "rejectUnauthorized",
+        "type": "switch",
+        "title": "Verify TLS Certificate",
+        "default": true,
+        "description": "Verify server TLS certificate. Disable for self-signed certificates.",
+        "required": false,
+        "mode": "trigger"
+      },
+      {
+        "id": "username",
+        "type": "short-input",
+        "title": "Username",
+        "placeholder": "user@example.com",
+        "description": "Email address or username for authentication",
+        "required": true,
+        "mode": "trigger"
+      },
+      {
+        "id": "password",
+        "type": "short-input",
+        "title": "Password",
+        "password": true,
+        "placeholder": "App password or email password",
+        "description": "Password or app-specific password (for Gmail, use an App Password)",
+        "required": true,
+        "mode": "trigger"
+      },
+      {
+        "id": "mailbox",
+        "type": "short-input",
+        "title": "Mailbox",
+        "placeholder": "INBOX",
+        "description": "Mailbox/folder to monitor for new emails. Default: INBOX.",
+        "required": false,
+        "default": "INBOX",
+        "mode": "trigger"
+      },
+      {
+        "id": "searchCriteria",
+        "type": "code",
+        "title": "Search Criteria",
+        "placeholder": "{ \"unseen\": true }",
+        "description": "ImapFlow search criteria as JSON object. Default: unseen messages only.",
+        "default": "{ \"unseen\": true }",
+        "required": false,
+        "mode": "trigger"
+      },
+      {
+        "id": "markAsRead",
+        "type": "switch",
+        "title": "Mark as Read",
+        "default": true,
+        "description": "Automatically mark emails as read (SEEN) after processing",
+        "required": false,
+        "mode": "trigger"
+      },
+      {
+        "id": "includeAttachments",
+        "type": "switch",
+        "title": "Include Attachments",
+        "default": false,
+        "description": "Download and include email attachments in the trigger payload",
+        "required": false,
+        "mode": "trigger"
+      },
+      {
+        "id": "triggerSave",
+        "type": "trigger-save",
+        "title": "",
+        "hideFromPreview": true,
+        "mode": "trigger",
+        "triggerId": "imap_poller"
+      },
+      {
+        "id": "triggerInstructions",
+        "type": "text",
+        "title": "Setup Instructions",
+        "hideFromPreview": true,
+        "mode": "trigger",
+        "default": "<div class='mb-3'><strong>1.</strong> Enter your IMAP server details (host, port, SSL settings)</div><div class='mb-3'><strong>2.</strong> Enter your email credentials (username and password)</div><div class='mb-3'><strong>3.</strong> For Gmail: Use an <a href='https://support.google.com/accounts/answer/185833' target='_blank'>App Password</a> instead of your regular password</div><div class='mb-3'><strong>4.</strong> Select the mailbox to monitor (INBOX is most common)</div><div class='mb-3'><strong>5.</strong> Optionally configure search criteria and processing options</div><div class='mb-3'><strong>6.</strong> The system will automatically check for new emails and trigger your workflow</div>"
+      }
+    ],
     "tools": {
       "access": [],
       "config": {

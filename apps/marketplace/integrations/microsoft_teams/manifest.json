@@ -16,6 +16,12 @@
     "authMode": "oauth",
     "subBlocks": [
       {
+        "id": "selectedTriggerId",
+        "type": "dropdown",
+        "title": "Trigger Event",
+        "mode": "trigger"
+      },
+      {
         "id": "operation",
         "type": "dropdown",
         "title": "Operation",
@@ -170,6 +176,32 @@
         "placeholder": "Reference files from previous blocks",
         "mode": "advanced",
         "canonicalParamId": "files"
+      },
+      {
+        "id": "webhookUrlDisplay",
+        "type": "short-input",
+        "title": "Webhook URL",
+        "readOnly": true,
+        "showCopyButton": true,
+        "useWebhookUrl": true,
+        "placeholder": "Webhook URL will be generated",
+        "mode": "trigger"
+      },
+      {
+        "id": "triggerSave",
+        "type": "trigger-save",
+        "title": "",
+        "hideFromPreview": true,
+        "mode": "trigger",
+        "triggerId": "microsoftteams_webhook"
+      },
+      {
+        "id": "triggerInstructions",
+        "type": "text",
+        "title": "Setup Instructions",
+        "hideFromPreview": true,
+        "mode": "trigger",
+        "default": "<div class='mb-3'><strong>1.</strong> Go to Microsoft Teams admin center.</div><div class='mb-3'><strong>2.</strong> Configure an outgoing webhook with the Webhook URL above.</div><div class='mb-3'><strong>3.</strong> Select the channel and events to listen for.</div>"
       }
     ],
     "tools": {
@@ -202,6 +234,10 @@
       "content": {
         "type": "string"
       }
+    },
+    "triggers": {
+      "enabled": true,
+      "available": ["microsoftteams_webhook", "microsoftteams_chat_subscription"]
     },
     "triggerAllowed": true
   },

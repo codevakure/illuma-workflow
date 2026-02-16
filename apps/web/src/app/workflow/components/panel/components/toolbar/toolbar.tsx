@@ -337,13 +337,15 @@ export const Toolbar = memo(
 
     // Subscribe to registry store — when manifests finish loading, invalidate
     // the module-level caches so blocks/triggers are rebuilt from fresh data.
+    // Cache must be cleared synchronously during render (before getBlocks/getTriggers)
+    // to avoid a stale-cache race condition with useEffect running after render.
     const registryLoaded = useRegistryStore((state) => state.isLoaded)
-    useEffect(() => {
-      if (registryLoaded) {
-        cachedBlocks = null
-        cachedTriggers = null
-      }
-    }, [registryLoaded])
+    const prevRegistryLoaded = useRef(false)
+    if (registryLoaded && !prevRegistryLoaded.current) {
+      cachedBlocks = null
+      cachedTriggers = null
+    }
+    prevRegistryLoaded.current = registryLoaded
 
     const toolbarTriggersHeight = useToolbarStore((state) => state.toolbarTriggersHeight)
     const setToolbarTriggersHeight = useToolbarStore((state) => state.setToolbarTriggersHeight)

@@ -16,6 +16,12 @@
     "authMode": "api_key",
     "subBlocks": [
       {
+        "id": "selectedTriggerId",
+        "type": "dropdown",
+        "title": "Trigger Event",
+        "mode": "trigger"
+      },
+      {
         "id": "operation",
         "type": "dropdown",
         "title": "Operation",
@@ -161,6 +167,32 @@
         "title": "API Key",
         "placeholder": "Enter your Lemlist API key",
         "password": true
+      },
+      {
+        "id": "webhookUrlDisplay",
+        "type": "short-input",
+        "title": "Webhook URL",
+        "readOnly": true,
+        "showCopyButton": true,
+        "useWebhookUrl": true,
+        "placeholder": "Webhook URL will be generated",
+        "mode": "trigger"
+      },
+      {
+        "id": "triggerSave",
+        "type": "trigger-save",
+        "title": "",
+        "hideFromPreview": true,
+        "mode": "trigger",
+        "triggerId": "lemlist_webhook"
+      },
+      {
+        "id": "triggerInstructions",
+        "type": "text",
+        "title": "Setup Instructions",
+        "hideFromPreview": true,
+        "mode": "trigger",
+        "default": "<div class='mb-3'><strong>1.</strong> Go to your Lemlist settings > Integrations > Webhooks.</div><div class='mb-3'><strong>2.</strong> Add the Webhook URL above.</div><div class='mb-3'><strong>3.</strong> Select the events you want to trigger on.</div>"
       }
     ],
     "tools": {
@@ -182,7 +214,12 @@
       "activities": {
         "type": "json"
       }
-    }
+    },
+    "triggers": {
+      "enabled": true,
+      "available": ["lemlist_webhook", "lemlist_email_replied", "lemlist_email_opened", "lemlist_email_clicked", "lemlist_email_sent", "lemlist_email_bounced", "lemlist_linkedin_replied", "lemlist_interested", "lemlist_not_interested"]
+    },
+    "triggerAllowed": true
   },
   "tools": [
     {

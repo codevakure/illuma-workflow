@@ -6,7 +6,6 @@ import {
 } from '@/lib/workflows/subblocks/visibility'
 import type { SubBlockConfig as BlockSubBlockConfig } from '@/blocks/types'
 import { safeAssign } from '@/tools/safe-assign'
-import { isEmptyTagValue } from '@/tools/shared/tags'
 import type { ParameterVisibility, ToolConfig } from '@/tools/types'
 import { getTool } from '@/tools/utils'
 
@@ -641,6 +640,40 @@ export function deepMergeInputMapping(
   }
 
   return merged
+}
+
+/**
+ * Checks if a tag-based value is effectively empty (only contains default/unfilled entries).
+ */
+function isEmptyTagValue(value: unknown): boolean {
+  if (!value) return true
+
+  const isEmptyEntry = (entry: Record<string, unknown>): boolean =>
+    !entry.tagName || (typeof entry.tagName === 'string' && entry.tagName.trim() === '')
+
+  if (typeof value === 'string') {
+    try {
+      const parsed = JSON.parse(value)
+      if (!Array.isArray(parsed)) return false
+      if (parsed.length === 0) return true
+      return parsed.every((entry: Record<string, unknown>) => isEmptyEntry(entry))
+    } catch {
+      return false
+    }
+  }
+
+  if (Array.isArray(value)) {
+    if (value.length === 0) return true
+    return value.every((entry: Record<string, unknown>) => isEmptyEntry(entry))
+  }
+
+  if (typeof value === 'object' && value !== null) {
+    const entries = Object.entries(value)
+    if (entries.length === 0) return true
+    return entries.every(([, val]) => val === undefined || val === null || val === '')
+  }
+
+  return false
 }
 
 /**

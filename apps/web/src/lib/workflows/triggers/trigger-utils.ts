@@ -173,19 +173,15 @@ export function getAllTriggerBlocks(): TriggerInfo[] {
 }
 
 /**
- * Check if a block has trigger capability (contains trigger mode subblocks)
+ * Check if a block has trigger capability (contains trigger mode subblocks).
+ *
+ * Only returns true when the block actually has subBlocks with `mode: 'trigger'`.
+ * Blocks that have `triggers.enabled` but no trigger-mode subBlocks (like start_trigger)
+ * should NOT get triggerMode=true, because the editor would filter out all their
+ * non-trigger subBlocks, resulting in "This block has no subblocks."
  */
 export function hasTriggerCapability(block: BlockConfig): boolean {
-  const hasTriggerModeSubBlocks = block.subBlocks.some((subBlock) => subBlock.mode === 'trigger')
-
-  if (block.category === 'triggers') {
-    return hasTriggerModeSubBlocks
-  }
-
-  return (
-    (block.triggers?.enabled === true && block.triggers.available.length > 0) ||
-    hasTriggerModeSubBlocks
-  )
+  return block.subBlocks.some((subBlock) => subBlock.mode === 'trigger')
 }
 
 /**

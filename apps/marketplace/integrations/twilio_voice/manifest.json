@@ -177,6 +177,41 @@
         "type": "short-input",
         "title": "Recording SID",
         "placeholder": "RExxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      },
+      {
+        "id": "webhookUrlDisplay",
+        "type": "short-input",
+        "title": "Webhook URL",
+        "readOnly": true,
+        "showCopyButton": true,
+        "useWebhookUrl": true,
+        "placeholder": "Webhook URL will be generated",
+        "mode": "trigger"
+      },
+      {
+        "id": "triggerAccountSid",
+        "type": "short-input",
+        "title": "Account SID",
+        "placeholder": "ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "description": "Your Twilio Account SID for validating webhook requests.",
+        "required": true,
+        "mode": "trigger"
+      },
+      {
+        "id": "triggerSave",
+        "type": "trigger-save",
+        "title": "",
+        "hideFromPreview": true,
+        "mode": "trigger",
+        "triggerId": "twilio_voice_webhook"
+      },
+      {
+        "id": "triggerInstructions",
+        "type": "text",
+        "title": "Setup Instructions",
+        "hideFromPreview": true,
+        "mode": "trigger",
+        "default": "<div class='mb-3'><strong>1.</strong> Go to the Twilio Console > Phone Numbers.</div><div class='mb-3'><strong>2.</strong> Select the phone number you want to use.</div><div class='mb-3'><strong>3.</strong> Set the Voice webhook URL to the Webhook URL above.</div><div class='mb-3'><strong>4.</strong> Save your changes.</div>"
       }
     ],
     "tools": {
@@ -198,6 +233,10 @@
       "success": {
         "type": "boolean"
       }
+    },
+    "triggers": {
+      "enabled": true,
+      "available": ["twilio_voice_webhook"]
     },
     "triggerAllowed": true
   },

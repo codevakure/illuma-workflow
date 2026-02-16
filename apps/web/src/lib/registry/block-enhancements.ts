@@ -19,9 +19,11 @@ import {
   getReasoningEffortValuesForModel,
   getThinkingLevelsForModel,
   getVerbosityValuesForModel,
+  MODELS_WITH_DEEP_RESEARCH,
   MODELS_WITH_REASONING_EFFORT,
   MODELS_WITH_THINKING,
   MODELS_WITH_VERBOSITY,
+  MODELS_WITHOUT_MEMORY,
   providers,
   supportsTemperature,
 } from '@/providers/utils'
@@ -116,6 +118,10 @@ export function resolveConditionReference(ref: string): string[] | undefined {
       return MODELS_WITH_VERBOSITY
     case '@@MODELS_WITH_THINKING':
       return MODELS_WITH_THINKING
+    case '@@MODELS_WITH_DEEP_RESEARCH':
+      return MODELS_WITH_DEEP_RESEARCH
+    case '@@MODELS_WITHOUT_MEMORY':
+      return MODELS_WITHOUT_MEMORY
     default: {
       // Handle "@@hostedModels+vertex+bedrock" pattern
       if (ref.startsWith('@@hostedModels')) {

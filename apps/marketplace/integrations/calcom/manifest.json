@@ -16,6 +16,12 @@
     "authMode": "oauth",
     "subBlocks": [
       {
+        "id": "selectedTriggerId",
+        "type": "dropdown",
+        "title": "Trigger Event",
+        "mode": "trigger"
+      },
+      {
         "id": "operation",
         "type": "dropdown",
         "title": "Operation",
@@ -351,6 +357,41 @@
             "value": "desc"
           }
         ]
+      },
+      {
+        "id": "webhookUrlDisplay",
+        "type": "short-input",
+        "title": "Webhook URL",
+        "readOnly": true,
+        "showCopyButton": true,
+        "useWebhookUrl": true,
+        "placeholder": "Webhook URL will be generated",
+        "mode": "trigger"
+      },
+      {
+        "id": "signingKey",
+        "type": "short-input",
+        "title": "Signing Key",
+        "placeholder": "Enter your Cal.com webhook signing key",
+        "password": true,
+        "required": false,
+        "mode": "trigger"
+      },
+      {
+        "id": "triggerSave",
+        "type": "trigger-save",
+        "title": "",
+        "hideFromPreview": true,
+        "mode": "trigger",
+        "triggerId": "calcom_webhook"
+      },
+      {
+        "id": "triggerInstructions",
+        "type": "text",
+        "title": "Setup Instructions",
+        "hideFromPreview": true,
+        "mode": "trigger",
+        "default": "<div class='mb-3'><strong>1.</strong> Go to Cal.com Settings > Developer > Webhooks.</div><div class='mb-3'><strong>2.</strong> Create a new webhook and paste the Webhook URL above.</div><div class='mb-3'><strong>3.</strong> Select the events you want to trigger on.</div><div class='mb-3'><strong>4.</strong> Optionally add a signing key for security.</div>"
       }
     ],
     "tools": {
@@ -388,6 +429,10 @@
       "success": {
         "type": "boolean"
       }
+    },
+    "triggers": {
+      "enabled": true,
+      "available": ["calcom_webhook", "calcom_booking_created", "calcom_booking_cancelled", "calcom_booking_rescheduled", "calcom_booking_requested", "calcom_booking_rejected", "calcom_booking_paid", "calcom_meeting_ended", "calcom_recording_ready"]
     },
     "triggerAllowed": true
   },

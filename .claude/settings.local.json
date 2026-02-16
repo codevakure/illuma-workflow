@@ -12,7 +12,12 @@
       "Bash(python -c \"import os; os.remove\\(r''\\\\\\\\?\\\\C:\\\\Projects\\\\Chat\\\\agent-builders\\\\sim-v2\\\\apps\\\\api\\\\nul''\\)\")",
       "Bash(python -c:*)",
       "Bash(git check-ignore:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(node -e:*)",
+      "Bash(curl:*)",
+      "Bash(# Check the web proxy config and how /api/ routes are proxied cd /c/Projects/Chat/agent-builders/sim-v2 && cat apps/web/vite.config.ts | head -60 || cat apps/web/vite.config.mts)",
+      "Bash(# Check what the web actually gets from the proxy curl -s http://localhost:5173/api/registry/integrations)",
+      "Bash(node:*)"
     ]
   }
 }

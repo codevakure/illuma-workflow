@@ -202,6 +202,32 @@
         "type": "code",
         "title": "JSON Patch Operations",
         "placeholder": "[{"
+      },
+      {
+        "id": "webhookUrlDisplay",
+        "type": "short-input",
+        "title": "Webhook URL",
+        "readOnly": true,
+        "showCopyButton": true,
+        "useWebhookUrl": true,
+        "placeholder": "Webhook URL will be generated",
+        "mode": "trigger"
+      },
+      {
+        "id": "triggerSave",
+        "type": "trigger-save",
+        "title": "",
+        "hideFromPreview": true,
+        "mode": "trigger",
+        "triggerId": "typeform_webhook"
+      },
+      {
+        "id": "triggerInstructions",
+        "type": "text",
+        "title": "Setup Instructions",
+        "hideFromPreview": true,
+        "mode": "trigger",
+        "default": "<div class='mb-3'><strong>1.</strong> Go to your Typeform form settings.</div><div class='mb-3'><strong>2.</strong> Navigate to Connect > Webhooks.</div><div class='mb-3'><strong>3.</strong> Add the Webhook URL above as a new webhook.</div>"
       }
     ],
     "tools": {
@@ -228,7 +254,12 @@
       "total_items": {
         "type": "number"
       }
-    }
+    },
+    "triggers": {
+      "enabled": true,
+      "available": ["typeform_webhook"]
+    },
+    "triggerAllowed": true
   },
   "tools": [
     {

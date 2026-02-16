@@ -12,6 +12,7 @@
 
 export type SubBlockType =
   | 'dropdown'
+  | 'combobox'
   | 'short-input'
   | 'long-input'
   | 'code'
@@ -25,10 +26,15 @@ export type SubBlockType =
   | 'table'
   | 'eval-input'
   | 'tool-input'
+  | 'skill-input'
   | 'date-picker'
   | 'time-picker'
+  | 'oauth-input'
   | 'oauth-account'
   | 'credential-selector'
+  | 'messages-input'
+  | 'text'
+  | 'trigger-save'
 
 export type AuthMode = 'oauth' | 'api_key' | 'bot_token' | 'none'
 
@@ -73,6 +79,11 @@ export interface SubBlockSchema {
   dependsOn?: string[] | { all?: string[]; any?: string[] }
   mode?: 'basic' | 'advanced' | 'both' | 'trigger'
   canonicalParamId?: string
+  description?: string
+  hidden?: boolean
+  rows?: number
+  multiSelect?: boolean
+  searchable?: boolean
 
   /** For dropdowns */
   options?: Array<string | { value: string; label: string }>
@@ -90,6 +101,33 @@ export interface SubBlockSchema {
 
   /** Layout hint */
   layout?: 'full' | 'half'
+
+  /** Whether to use the auto-generated webhook URL (trigger mode) */
+  useWebhookUrl?: boolean
+  /** Show a copy-to-clipboard button (typically for webhook URL fields) */
+  showCopyButton?: boolean
+  /** Make the input read-only */
+  readOnly?: boolean
+  /** Trigger ID for trigger-save subblocks */
+  triggerId?: string
+  /** Hide this subblock from the workflow block preview */
+  hideFromPreview?: boolean
+  /** Whether the section can be collapsed (for code blocks, etc.) */
+  collapsible?: boolean
+  /** Whether the section is collapsed by default */
+  defaultCollapsed?: boolean
+  /** Whether connections can be dropped onto this input */
+  connectionDroppable?: boolean
+
+  /** OAuth service ID */
+  serviceId?: string
+  /** Required OAuth scopes */
+  requiredScopes?: string[]
+
+  /** Wand AI-assist configuration */
+  wandConfig?: {
+    prompt: string
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -190,6 +228,7 @@ export interface BlockManifest {
   category: 'tools' | 'triggers' | 'blocks'
   bgColor: string
   icon: string
+  iconSvg?: string
   authMode?: AuthMode
   hideFromToolbar?: boolean
   deprecated?: boolean
@@ -221,6 +260,9 @@ export interface BlockManifest {
     enabled: boolean
     available: string[]
   }
+
+  /** Best practices text for the block */
+  bestPractices?: string
 }
 
 // ---------------------------------------------------------------------------
@@ -264,6 +306,7 @@ export interface IntegrationManifest {
   version: string
   description?: string
   icon: string
+  iconSvg?: string
 
   block: BlockManifest
   tools: ToolManifest[]

@@ -5,6 +5,7 @@
 
 import { Hono } from 'hono'
 import { manifestRegistry } from '@/manifest-loader'
+import { getIconSvg, iconRegistry } from '@/icons'
 
 const app = new Hono()
 
@@ -104,6 +105,30 @@ app.get('/triggers/:provider', (c) => {
     return c.json({ error: `Trigger for provider "${provider}" not found` }, 404)
   }
   return c.json({ trigger })
+})
+
+/**
+ * GET /icons/:iconId
+ * Returns raw SVG for a specific icon.
+ */
+app.get('/icons/:iconId', (c) => {
+  const iconId = c.req.param('iconId').replace(/\.svg$/, '')
+  const svg = getIconSvg(iconId)
+  if (!svg) {
+    return c.json({ error: `Icon "${iconId}" not found` }, 404)
+  }
+  return c.body(svg, 200, {
+    'Content-Type': 'image/svg+xml',
+    'Cache-Control': 'public, max-age=86400',
+  })
+})
+
+/**
+ * GET /icons
+ * Returns list of all available icon IDs.
+ */
+app.get('/icons', (c) => {
+  return c.json({ icons: Object.keys(iconRegistry) })
 })
 
 /**

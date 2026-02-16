@@ -14,6 +14,7 @@ export interface ManifestBlock {
   category: 'tools' | 'triggers' | 'blocks'
   bgColor: string
   icon: string
+  iconSvg?: string
   authMode?: 'oauth' | 'api_key' | 'bot_token' | 'none'
   hideFromToolbar?: boolean
   operations?: Array<{ value: string; label: string; toolId: string }>
@@ -26,6 +27,7 @@ export interface ManifestBlock {
   outputs: Record<string, { type: string; description?: string }>
   triggerAllowed?: boolean
   triggers?: { enabled: boolean; available: string[] }
+  bestPractices?: string
 }
 
 export interface ManifestSubBlock {
@@ -47,6 +49,33 @@ export interface ManifestSubBlock {
   language?: string
   columns?: Array<{ key: string; label: string }>
   layout?: string
+  description?: string
+  hidden?: boolean
+  rows?: number
+  multiSelect?: boolean
+  searchable?: boolean
+  /** Whether to use the auto-generated webhook URL (trigger mode) */
+  useWebhookUrl?: boolean
+  /** Show a copy-to-clipboard button */
+  showCopyButton?: boolean
+  /** Make the input read-only */
+  readOnly?: boolean
+  /** Trigger ID for trigger-save subblocks */
+  triggerId?: string
+  /** Hide from workflow block preview */
+  hideFromPreview?: boolean
+  /** Whether the section can be collapsed */
+  collapsible?: boolean
+  /** Whether the section is collapsed by default */
+  defaultCollapsed?: boolean
+  /** Whether connections can be dropped onto this input */
+  connectionDroppable?: boolean
+  /** OAuth service ID */
+  serviceId?: string
+  /** Required OAuth scopes */
+  requiredScopes?: string[]
+  /** Wand AI-assist configuration */
+  wandConfig?: { prompt: string }
 }
 
 export interface ManifestTool {

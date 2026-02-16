@@ -12,6 +12,7 @@
     "category": "tools",
     "bgColor": "#E0E0E0",
     "icon": "DsPyIcon",
+    "authMode": "api_key",
     "subBlocks": [
       {
         "id": "operation",

@@ -55,6 +55,10 @@ export interface ModelCapabilities {
     levels: string[]
     default?: string
   }
+  /** Models that support deep research (e.g., o3-deep-research) */
+  deepResearch?: boolean
+  /** Set to false to disable memory for this model */
+  memory?: boolean
 }
 
 export interface ModelDefinition {
@@ -2573,4 +2577,35 @@ export function getMaxOutputTokensForModel(modelId: string, streaming = false): 
   }
 
   return STANDARD_MAX_OUTPUT_TOKENS
+}
+
+/**
+ * Get all models that support deep research capability.
+ */
+export function getModelsWithDeepResearch(): string[] {
+  const models: string[] = []
+  for (const provider of Object.values(PROVIDER_DEFINITIONS)) {
+    for (const model of provider.models) {
+      if (model.capabilities.deepResearch) {
+        models.push(model.id)
+      }
+    }
+  }
+  return models
+}
+
+/**
+ * Get all models that explicitly disable memory support (memory: false).
+ * Models without this capability default to supporting memory.
+ */
+export function getModelsWithoutMemory(): string[] {
+  const models: string[] = []
+  for (const provider of Object.values(PROVIDER_DEFINITIONS)) {
+    for (const model of provider.models) {
+      if (model.capabilities.memory === false) {
+        models.push(model.id)
+      }
+    }
+  }
+  return models
 }

@@ -230,6 +230,22 @@
         "placeholder": "Enter folder ID",
         "mode": "advanced",
         "canonicalParamId": "copyDestinationId"
+      },
+      {
+        "id": "triggerSave",
+        "type": "trigger-save",
+        "title": "",
+        "hideFromPreview": true,
+        "mode": "trigger",
+        "triggerId": "outlook_poller"
+      },
+      {
+        "id": "triggerInstructions",
+        "type": "text",
+        "title": "Setup Instructions",
+        "hideFromPreview": true,
+        "mode": "trigger",
+        "default": "<div class='mb-3'><strong>1.</strong> Connect your Outlook account using OAuth above.</div><div class='mb-3'><strong>2.</strong> The trigger will poll for new emails periodically.</div>"
       }
     ],
     "tools": {
@@ -257,6 +273,10 @@
       "message": {
         "type": "string"
       }
+    },
+    "triggers": {
+      "enabled": true,
+      "available": ["outlook_poller"]
     },
     "triggerAllowed": true
   },
