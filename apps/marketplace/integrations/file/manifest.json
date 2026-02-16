@@ -1,45 +1,35 @@
 {
   "id": "file",
-  "name": "File (Legacy)",
+  "name": "File",
   "version": "1.0.0",
   "description": "Read and parse multiple files",
   "icon": "DocumentIcon",
   "block": {
     "type": "file",
-    "name": "File (Legacy)",
+    "name": "File",
     "description": "Read and parse multiple files",
-    "longDescription": "Integrate File into the workflow. Can upload a file manually or insert a file url.",
+    "longDescription": "Upload files directly or import from external URLs to get parsed file objects for use in other blocks.",
     "docsLink": "https://docs.sim.ai/tools/file",
     "category": "tools",
     "bgColor": "#40916C",
     "icon": "DocumentIcon",
-    "hideFromToolbar": true,
+    "hideFromToolbar": false,
     "subBlocks": [
-      {
-        "id": "inputMethod",
-        "type": "dropdown",
-        "title": "Select Input Method",
-        "options": [
-          {
-            "label": "url",
-            "value": "url"
-          },
-          {
-            "label": "upload",
-            "value": "upload"
-          }
-        ]
-      },
-      {
-        "id": "filePath",
-        "type": "short-input",
-        "title": "File URL",
-        "placeholder": "Enter URL to a file (https://example.com/document.pdf)"
-      },
       {
         "id": "file",
         "type": "file-upload",
-        "title": "Process Files"
+        "title": "Files",
+        "placeholder": "Upload files to process",
+        "mode": "basic",
+        "canonicalParamId": "fileInput"
+      },
+      {
+        "id": "fileUrl",
+        "type": "short-input",
+        "title": "File URL",
+        "placeholder": "https://example.com/document.pdf",
+        "mode": "advanced",
+        "canonicalParamId": "fileInput"
       }
     ],
     "tools": {
@@ -51,11 +41,19 @@
       }
     },
     "inputs": {
-      "inputMethod": {
-        "type": "string"
-      }
+      "fileInput": { "type": "json", "description": "File input (canonical param)" },
+      "fileType": { "type": "string", "description": "File type" }
     },
-    "outputs": {}
+    "outputs": {
+      "files": {
+        "type": "file[]",
+        "description": "Parsed files with content, metadata, and file properties"
+      },
+      "combinedContent": {
+        "type": "string",
+        "description": "All file contents merged into a single text string"
+      }
+    }
   },
   "tools": [
     {

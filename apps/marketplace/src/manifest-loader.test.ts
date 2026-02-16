@@ -281,13 +281,15 @@ describe('manifest-loader', () => {
       const dir = path.join('/test', 'triggers')
       const manifest = {
         ...makeManifest('trigger_wiki'),
-        trigger: {
-          id: 'trigger_wiki_trigger',
-          name: 'Wikipedia Webhook',
-          provider: 'trigger_wiki',
-          credentials: [],
-          outputs: {},
-        },
+        triggers: [
+          {
+            id: 'trigger_wiki_trigger',
+            name: 'Wikipedia Webhook',
+            provider: 'trigger_wiki',
+            credentials: [],
+            outputs: {},
+          },
+        ],
       }
       setDir(dir, [{ name: 'trigger_wiki', isDirectory: () => true }])
       setFile(path.join(dir, 'trigger_wiki', 'manifest.json'), JSON.stringify(manifest))
@@ -301,13 +303,15 @@ describe('manifest-loader', () => {
       const dir = path.join('/test', 'all-triggers')
       const manifest = {
         ...makeManifest('all_trigger_wiki'),
-        trigger: {
-          id: 'all_trigger_wiki_trigger',
-          name: 'Wikipedia Webhook',
-          provider: 'all_trigger_wiki',
-          credentials: [],
-          outputs: {},
-        },
+        triggers: [
+          {
+            id: 'all_trigger_wiki_trigger',
+            name: 'Wikipedia Webhook',
+            provider: 'all_trigger_wiki',
+            credentials: [],
+            outputs: {},
+          },
+        ],
       }
       setDir(dir, [{ name: 'all_trigger_wiki', isDirectory: () => true }])
       setFile(path.join(dir, 'all_trigger_wiki', 'manifest.json'), JSON.stringify(manifest))

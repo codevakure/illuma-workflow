@@ -350,5 +350,97 @@
         "operation": "grain_list_teams"
       }
     }
+  ],
+  "triggers": [
+    {
+      "id": "grain_recording_created",
+      "name": "Grain Recording Created",
+      "provider": "grain",
+      "description": "Trigger when a recording is created",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [],
+      "outputs": {
+        "type": { "type": "string", "description": "Event type" },
+        "user_id": { "type": "string", "description": "User UUID" },
+        "data": {
+          "type": "object",
+          "description": "Recording data (id, title, start_datetime, end_datetime, duration_ms, media_type, source, url, thumbnail_url, tags, teams)"
+        }
+      }
+    },
+    {
+      "id": "grain_recording_updated",
+      "name": "Grain Recording Updated",
+      "provider": "grain",
+      "description": "Trigger when a recording is updated",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [],
+      "outputs": {
+        "type": { "type": "string", "description": "Event type" },
+        "user_id": { "type": "string", "description": "User UUID" },
+        "data": { "type": "object", "description": "Recording data" }
+      }
+    },
+    {
+      "id": "grain_highlight_created",
+      "name": "Grain Highlight Created",
+      "provider": "grain",
+      "description": "Trigger when a highlight is created",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [],
+      "outputs": {
+        "type": { "type": "string", "description": "Event type" },
+        "user_id": { "type": "string", "description": "User UUID" },
+        "data": {
+          "type": "object",
+          "description": "Highlight data (id, recording_id, text, transcript, speakers, timestamp, duration, tags, url)"
+        }
+      }
+    },
+    {
+      "id": "grain_highlight_updated",
+      "name": "Grain Highlight Updated",
+      "provider": "grain",
+      "description": "Trigger when a highlight is updated",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [],
+      "outputs": {
+        "type": { "type": "string", "description": "Event type" },
+        "user_id": { "type": "string", "description": "User UUID" },
+        "data": { "type": "object", "description": "Highlight data" }
+      }
+    },
+    {
+      "id": "grain_story_created",
+      "name": "Grain Story Created",
+      "provider": "grain",
+      "description": "Trigger when a story is created",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [],
+      "outputs": {
+        "type": { "type": "string", "description": "Event type" },
+        "user_id": { "type": "string", "description": "User UUID" },
+        "data": { "type": "object", "description": "Story data (id, title, url, created_datetime)" }
+      }
+    },
+    {
+      "id": "grain_webhook",
+      "name": "Grain Webhook (All Events)",
+      "provider": "grain",
+      "description": "Trigger on any Grain webhook event",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [],
+      "outputs": {
+        "type": { "type": "string", "description": "Event type" },
+        "user_id": { "type": "string", "description": "User UUID" },
+        "data": { "type": "object", "description": "Event data" }
+      }
+    }
   ]
 }

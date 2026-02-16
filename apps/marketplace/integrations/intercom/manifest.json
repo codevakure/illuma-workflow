@@ -1,12 +1,12 @@
 {
   "id": "intercom",
-  "name": "Intercom (Legacy)",
+  "name": "Intercom",
   "version": "1.0.0",
   "description": "Manage contacts, companies, conversations, tickets, and messages in Intercom",
   "icon": "IntercomIcon",
   "block": {
     "type": "intercom",
-    "name": "Intercom (Legacy)",
+    "name": "Intercom",
     "description": "Manage contacts, companies, conversations, tickets, and messages in Intercom",
     "longDescription": "Integrate Intercom into the workflow. Can create, get, update, list, search, and delete contacts; create, get, and list companies; get, list, reply, and search conversations; create and get tickets; and create messages.",
     "docsLink": "https://docs.sim.ai/tools/intercom",
@@ -14,7 +14,7 @@
     "bgColor": "#E0E0E0",
     "icon": "IntercomIcon",
     "authMode": "api_key",
-    "hideFromToolbar": true,
+    "hideFromToolbar": false,
     "subBlocks": [
       {
         "id": "operation",

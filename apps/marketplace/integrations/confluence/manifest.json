@@ -1,20 +1,20 @@
 {
   "id": "confluence",
-  "name": "Confluence (Legacy)",
+  "name": "Confluence",
   "version": "1.0.0",
   "description": "Interact with Confluence",
   "icon": "ConfluenceIcon",
   "block": {
     "type": "confluence",
-    "name": "Confluence (Legacy)",
+    "name": "Confluence",
     "description": "Interact with Confluence",
-    "longDescription": "Integrate Confluence into the workflow. Can read, create, update, delete pages, manage comments, attachments, labels, and search content.",
+    "longDescription": "Integrate Confluence into the workflow. Can read, create, update, delete pages, manage comments, attachments, labels, blog posts, page properties, versions, and search content.",
     "docsLink": "https://docs.sim.ai/tools/confluence",
     "category": "tools",
     "bgColor": "#E0E0E0",
     "icon": "ConfluenceIcon",
     "authMode": "oauth",
-    "hideFromToolbar": true,
+    "hideFromToolbar": false,
     "subBlocks": [
       {
         "id": "operation",
@@ -38,8 +38,24 @@
             "value": "delete"
           },
           {
+            "label": "List Pages in Space",
+            "value": "list_pages_in_space"
+          },
+          {
+            "label": "Get Page Children",
+            "value": "get_page_children"
+          },
+          {
+            "label": "Get Page Ancestors",
+            "value": "get_page_ancestors"
+          },
+          {
             "label": "Search Content",
             "value": "search"
+          },
+          {
+            "label": "Search in Space",
+            "value": "search_in_space"
           },
           {
             "label": "Create Comment",
@@ -74,6 +90,58 @@
             "value": "list_labels"
           },
           {
+            "label": "Add Label",
+            "value": "add_label"
+          },
+          {
+            "label": "Delete Label",
+            "value": "delete_label"
+          },
+          {
+            "label": "Get Pages by Label",
+            "value": "get_pages_by_label"
+          },
+          {
+            "label": "List Space Labels",
+            "value": "list_space_labels"
+          },
+          {
+            "label": "List Page Versions",
+            "value": "list_page_versions"
+          },
+          {
+            "label": "Get Page Version",
+            "value": "get_page_version"
+          },
+          {
+            "label": "List Page Properties",
+            "value": "list_page_properties"
+          },
+          {
+            "label": "Create Page Property",
+            "value": "create_page_property"
+          },
+          {
+            "label": "Delete Page Property",
+            "value": "delete_page_property"
+          },
+          {
+            "label": "List Blog Posts",
+            "value": "list_blogposts"
+          },
+          {
+            "label": "Get Blog Post",
+            "value": "get_blogpost"
+          },
+          {
+            "label": "Create Blog Post",
+            "value": "create_blogpost"
+          },
+          {
+            "label": "List Blog Posts in Space",
+            "value": "list_blogposts_in_space"
+          },
+          {
             "label": "Get Space",
             "value": "get_space"
           },
@@ -84,16 +152,16 @@
         ]
       },
       {
-        "id": "domain",
-        "type": "short-input",
-        "title": "Domain",
-        "placeholder": "Enter Confluence domain (e.g., simstudio.atlassian.net)"
-      },
-      {
         "id": "credential",
         "type": "oauth-input",
         "title": "Confluence Account",
         "placeholder": "Select Confluence account"
+      },
+      {
+        "id": "domain",
+        "type": "short-input",
+        "title": "Domain",
+        "placeholder": "Enter Confluence domain (e.g., simstudio.atlassian.net)"
       },
       {
         "id": "pageId",
@@ -101,7 +169,11 @@
         "title": "Select Page",
         "placeholder": "Select Confluence page",
         "mode": "basic",
-        "canonicalParamId": "pageId"
+        "canonicalParamId": "pageId",
+        "condition": {
+          "field": "operation",
+          "value": ["read", "update", "delete", "create_comment", "list_comments", "update_comment", "delete_comment", "upload_attachment", "list_attachments", "delete_attachment", "list_labels", "add_label", "delete_label", "delete_page_property", "get_page_children", "get_page_ancestors", "list_page_versions", "get_page_version", "list_page_properties", "create_page_property"]
+        }
       },
       {
         "id": "manualPageId",
@@ -109,85 +181,280 @@
         "title": "Page ID",
         "placeholder": "Enter Confluence page ID",
         "mode": "advanced",
-        "canonicalParamId": "pageId"
+        "canonicalParamId": "pageId",
+        "condition": {
+          "field": "operation",
+          "value": ["read", "update", "delete", "create_comment", "list_comments", "update_comment", "delete_comment", "upload_attachment", "list_attachments", "delete_attachment", "list_labels", "add_label", "delete_label", "delete_page_property", "get_page_children", "get_page_ancestors", "list_page_versions", "get_page_version", "list_page_properties", "create_page_property"]
+        }
       },
       {
         "id": "spaceId",
         "type": "short-input",
         "title": "Space ID",
-        "placeholder": "Enter Confluence space ID"
+        "placeholder": "Enter Confluence space ID",
+        "condition": {
+          "field": "operation",
+          "value": ["create", "get_space", "list_pages_in_space", "search_in_space", "create_blogpost", "list_blogposts_in_space", "list_space_labels"]
+        }
+      },
+      {
+        "id": "blogPostId",
+        "type": "short-input",
+        "title": "Blog Post ID",
+        "placeholder": "Enter blog post ID",
+        "condition": {
+          "field": "operation",
+          "value": "get_blogpost"
+        }
+      },
+      {
+        "id": "versionNumber",
+        "type": "short-input",
+        "title": "Version Number",
+        "placeholder": "Enter version number",
+        "condition": {
+          "field": "operation",
+          "value": "get_page_version"
+        }
+      },
+      {
+        "id": "propertyKey",
+        "type": "short-input",
+        "title": "Property Key",
+        "placeholder": "Enter property key/name",
+        "condition": {
+          "field": "operation",
+          "value": "create_page_property"
+        }
+      },
+      {
+        "id": "propertyValue",
+        "type": "long-input",
+        "title": "Property Value",
+        "placeholder": "Enter property value (JSON supported)",
+        "condition": {
+          "field": "operation",
+          "value": "create_page_property"
+        }
+      },
+      {
+        "id": "propertyId",
+        "type": "short-input",
+        "title": "Property ID",
+        "placeholder": "Enter property ID to delete",
+        "condition": {
+          "field": "operation",
+          "value": "delete_page_property"
+        }
       },
       {
         "id": "title",
         "type": "short-input",
         "title": "Title",
-        "placeholder": "Enter title for the page"
+        "placeholder": "Enter title",
+        "condition": {
+          "field": "operation",
+          "value": ["create", "update", "create_blogpost"]
+        }
       },
       {
         "id": "content",
         "type": "long-input",
         "title": "Content",
-        "placeholder": "Enter content for the page"
+        "placeholder": "Enter content",
+        "condition": {
+          "field": "operation",
+          "value": ["create", "update", "create_blogpost"]
+        }
       },
       {
         "id": "parentId",
         "type": "short-input",
         "title": "Parent Page ID",
-        "placeholder": "Enter parent page ID (optional)"
+        "placeholder": "Enter parent page ID (optional)",
+        "condition": {
+          "field": "operation",
+          "value": "create"
+        }
       },
       {
         "id": "query",
         "type": "short-input",
         "title": "Search Query",
-        "placeholder": "Enter search query"
+        "placeholder": "Enter search query",
+        "condition": {
+          "field": "operation",
+          "value": ["search", "search_in_space"]
+        }
       },
       {
         "id": "comment",
         "type": "long-input",
         "title": "Comment Text",
-        "placeholder": "Enter comment text"
+        "placeholder": "Enter comment text",
+        "condition": {
+          "field": "operation",
+          "value": ["create_comment", "update_comment"]
+        }
       },
       {
         "id": "commentId",
         "type": "short-input",
         "title": "Comment ID",
-        "placeholder": "Enter comment ID"
+        "placeholder": "Enter comment ID",
+        "condition": {
+          "field": "operation",
+          "value": ["update_comment", "delete_comment"]
+        }
       },
       {
         "id": "attachmentId",
         "type": "short-input",
         "title": "Attachment ID",
-        "placeholder": "Enter attachment ID"
+        "placeholder": "Enter attachment ID",
+        "condition": {
+          "field": "operation",
+          "value": "delete_attachment"
+        }
       },
       {
-        "id": "attachmentFile",
+        "id": "attachmentFileUpload",
         "type": "file-upload",
         "title": "File",
-        "placeholder": "Select file to upload"
+        "placeholder": "Select file to upload",
+        "mode": "basic",
+        "canonicalParamId": "attachmentFile",
+        "condition": {
+          "field": "operation",
+          "value": "upload_attachment"
+        }
+      },
+      {
+        "id": "attachmentFileReference",
+        "type": "short-input",
+        "title": "File",
+        "placeholder": "Reference file from previous blocks",
+        "mode": "advanced",
+        "canonicalParamId": "attachmentFile",
+        "condition": {
+          "field": "operation",
+          "value": "upload_attachment"
+        }
       },
       {
         "id": "attachmentFileName",
         "type": "short-input",
         "title": "File Name",
-        "placeholder": "Optional custom file name"
+        "placeholder": "Optional custom file name",
+        "condition": {
+          "field": "operation",
+          "value": "upload_attachment"
+        }
       },
       {
         "id": "attachmentComment",
         "type": "short-input",
         "title": "Comment",
-        "placeholder": "Optional comment for the attachment"
+        "placeholder": "Optional comment for the attachment",
+        "condition": {
+          "field": "operation",
+          "value": "upload_attachment"
+        }
       },
       {
         "id": "labelName",
         "type": "short-input",
         "title": "Label Name",
-        "placeholder": "Enter label name"
+        "placeholder": "Enter label name",
+        "condition": {
+          "field": "operation",
+          "value": ["add_label", "delete_label"]
+        }
+      },
+      {
+        "id": "labelPrefix",
+        "type": "dropdown",
+        "title": "Label Prefix",
+        "options": [
+          { "label": "Global (default)", "value": "global" },
+          { "label": "My", "value": "my" },
+          { "label": "Team", "value": "team" },
+          { "label": "System", "value": "system" }
+        ],
+        "default": "global",
+        "condition": {
+          "field": "operation",
+          "value": "add_label"
+        }
+      },
+      {
+        "id": "labelId",
+        "type": "short-input",
+        "title": "Label ID",
+        "placeholder": "Enter label ID",
+        "condition": {
+          "field": "operation",
+          "value": "get_pages_by_label"
+        }
+      },
+      {
+        "id": "blogPostStatus",
+        "type": "dropdown",
+        "title": "Status",
+        "options": [
+          { "label": "Published (current)", "value": "current" },
+          { "label": "Draft", "value": "draft" }
+        ],
+        "default": "current",
+        "condition": {
+          "field": "operation",
+          "value": "create_blogpost"
+        }
+      },
+      {
+        "id": "purge",
+        "type": "switch",
+        "title": "Permanently Delete",
+        "condition": {
+          "field": "operation",
+          "value": "delete"
+        }
+      },
+      {
+        "id": "bodyFormat",
+        "type": "dropdown",
+        "title": "Body Format",
+        "options": [
+          { "label": "Storage (default)", "value": "storage" },
+          { "label": "Atlas Doc Format", "value": "atlas_doc_format" },
+          { "label": "View", "value": "view" },
+          { "label": "Export View", "value": "export_view" }
+        ],
+        "default": "storage",
+        "condition": {
+          "field": "operation",
+          "value": "list_comments"
+        }
       },
       {
         "id": "limit",
         "type": "short-input",
         "title": "Limit",
-        "placeholder": "Enter maximum number of results (default: 25)"
+        "placeholder": "Enter maximum number of results (default: 50, max: 250)",
+        "condition": {
+          "field": "operation",
+          "value": ["search", "search_in_space", "list_comments", "list_attachments", "list_spaces", "list_pages_in_space", "list_blogposts", "list_blogposts_in_space", "get_page_children", "list_page_versions", "list_page_properties", "list_labels", "get_pages_by_label", "list_space_labels"]
+        }
+      },
+      {
+        "id": "cursor",
+        "type": "short-input",
+        "title": "Pagination Cursor",
+        "placeholder": "Enter cursor from previous response (optional)",
+        "condition": {
+          "field": "operation",
+          "value": ["list_comments", "list_attachments", "list_spaces", "list_pages_in_space", "list_blogposts", "list_blogposts_in_space", "get_page_children", "list_page_versions", "list_page_properties", "list_labels", "get_pages_by_label", "list_space_labels"]
+        }
       }
     ],
     "tools": {
@@ -196,7 +463,11 @@
         "confluence_update",
         "confluence_create_page",
         "confluence_delete_page",
+        "confluence_list_pages_in_space",
+        "confluence_get_page_children",
+        "confluence_get_page_ancestors",
         "confluence_search",
+        "confluence_search_in_space",
         "confluence_create_comment",
         "confluence_list_comments",
         "confluence_update_comment",
@@ -205,6 +476,19 @@
         "confluence_list_attachments",
         "confluence_delete_attachment",
         "confluence_list_labels",
+        "confluence_add_label",
+        "confluence_delete_label",
+        "confluence_get_pages_by_label",
+        "confluence_list_space_labels",
+        "confluence_list_page_versions",
+        "confluence_get_page_version",
+        "confluence_list_page_properties",
+        "confluence_create_page_property",
+        "confluence_delete_page_property",
+        "confluence_list_blogposts",
+        "confluence_get_blogpost",
+        "confluence_create_blogpost",
+        "confluence_list_blogposts_in_space",
         "confluence_get_space",
         "confluence_list_spaces"
       ],
@@ -213,137 +497,53 @@
       }
     },
     "inputs": {
-      "operation": {
-        "type": "string"
-      }
+      "operation": { "type": "string" }
     },
     "outputs": {
-      "ts": {
-        "type": "string"
-      }
+      "ts": { "type": "string", "description": "Timestamp" },
+      "pageId": { "type": "string", "description": "Page identifier" },
+      "content": { "type": "string", "description": "Page content" },
+      "body": { "type": "json", "description": "Page body with storage format" },
+      "title": { "type": "string", "description": "Page title" },
+      "url": { "type": "string", "description": "Page or resource URL" },
+      "success": { "type": "boolean", "description": "Operation success status" },
+      "deleted": { "type": "boolean", "description": "Deletion status" },
+      "added": { "type": "boolean", "description": "Addition status" },
+      "removed": { "type": "boolean", "description": "Removal status" },
+      "updated": { "type": "boolean", "description": "Update status" },
+      "results": { "type": "array", "description": "Search results" },
+      "pages": { "type": "array", "description": "List of pages" },
+      "children": { "type": "array", "description": "List of child pages" },
+      "ancestors": { "type": "array", "description": "List of ancestor pages" },
+      "comments": { "type": "array", "description": "List of comments" },
+      "commentId": { "type": "string", "description": "Comment identifier" },
+      "attachments": { "type": "array", "description": "List of attachments" },
+      "attachmentId": { "type": "string", "description": "Attachment identifier" },
+      "fileSize": { "type": "number", "description": "Attachment file size in bytes" },
+      "mediaType": { "type": "string", "description": "Attachment MIME type" },
+      "downloadUrl": { "type": "string", "description": "Attachment download URL" },
+      "labels": { "type": "array", "description": "List of labels" },
+      "labelName": { "type": "string", "description": "Label name" },
+      "labelId": { "type": "string", "description": "Label identifier" },
+      "spaces": { "type": "array", "description": "List of spaces" },
+      "spaceId": { "type": "string", "description": "Space identifier" },
+      "name": { "type": "string", "description": "Space name" },
+      "key": { "type": "string", "description": "Space key" },
+      "type": { "type": "string", "description": "Space or content type" },
+      "status": { "type": "string", "description": "Space status" },
+      "blogPosts": { "type": "array", "description": "List of blog posts" },
+      "blogPostId": { "type": "string", "description": "Blog post identifier" },
+      "versions": { "type": "array", "description": "List of page versions" },
+      "version": { "type": "json", "description": "Version information" },
+      "versionNumber": { "type": "number", "description": "Version number" },
+      "properties": { "type": "array", "description": "List of page properties" },
+      "propertyId": { "type": "string", "description": "Property identifier" },
+      "propertyKey": { "type": "string", "description": "Property key" },
+      "propertyValue": { "type": "json", "description": "Property value" },
+      "nextCursor": { "type": "string", "description": "Cursor for fetching next page of results" }
     }
   },
   "tools": [
-    {
-      "id": "confluence_create_comment",
-      "name": "Confluence Create Comment",
-      "description": "Add a comment to a Confluence page.",
-      "version": "1.0.0",
-      "executionMode": "proxy",
-      "params": {},
-      "proxy": {
-        "handler": "confluence",
-        "operation": "confluence_create_comment"
-      }
-    },
-    {
-      "id": "confluence_create_page",
-      "name": "Confluence Create Page",
-      "description": "Create a new page in a Confluence space.",
-      "version": "1.0.0",
-      "executionMode": "proxy",
-      "params": {},
-      "proxy": {
-        "handler": "confluence",
-        "operation": "confluence_create_page"
-      }
-    },
-    {
-      "id": "confluence_delete_attachment",
-      "name": "Confluence Delete Attachment",
-      "description": "Delete an attachment from a Confluence page (moves to trash).",
-      "version": "1.0.0",
-      "executionMode": "proxy",
-      "params": {},
-      "proxy": {
-        "handler": "confluence",
-        "operation": "confluence_delete_attachment"
-      }
-    },
-    {
-      "id": "confluence_delete_comment",
-      "name": "Confluence Delete Comment",
-      "description": "Delete a comment from a Confluence page.",
-      "version": "1.0.0",
-      "executionMode": "proxy",
-      "params": {},
-      "proxy": {
-        "handler": "confluence",
-        "operation": "confluence_delete_comment"
-      }
-    },
-    {
-      "id": "confluence_delete_page",
-      "name": "Confluence Delete Page",
-      "description": "Delete a Confluence page. By default moves to trash; use purge=true to permanently delete.",
-      "version": "1.0.0",
-      "executionMode": "proxy",
-      "params": {},
-      "proxy": {
-        "handler": "confluence",
-        "operation": "confluence_delete_page"
-      }
-    },
-    {
-      "id": "confluence_get_space",
-      "name": "Confluence Get Space",
-      "description": "Get details about a specific Confluence space.",
-      "version": "1.0.0",
-      "executionMode": "proxy",
-      "params": {},
-      "proxy": {
-        "handler": "confluence",
-        "operation": "confluence_get_space"
-      }
-    },
-    {
-      "id": "confluence_list_attachments",
-      "name": "Confluence List Attachments",
-      "description": "List all attachments on a Confluence page.",
-      "version": "1.0.0",
-      "executionMode": "proxy",
-      "params": {},
-      "proxy": {
-        "handler": "confluence",
-        "operation": "confluence_list_attachments"
-      }
-    },
-    {
-      "id": "confluence_list_comments",
-      "name": "Confluence List Comments",
-      "description": "List all comments on a Confluence page.",
-      "version": "1.0.0",
-      "executionMode": "proxy",
-      "params": {},
-      "proxy": {
-        "handler": "confluence",
-        "operation": "confluence_list_comments"
-      }
-    },
-    {
-      "id": "confluence_list_labels",
-      "name": "Confluence List Labels",
-      "description": "List all labels on a Confluence page.",
-      "version": "1.0.0",
-      "executionMode": "proxy",
-      "params": {},
-      "proxy": {
-        "handler": "confluence",
-        "operation": "confluence_list_labels"
-      }
-    },
-    {
-      "id": "confluence_list_spaces",
-      "name": "Confluence List Spaces",
-      "description": "List all Confluence spaces accessible to the user.",
-      "version": "1.0.0",
-      "executionMode": "proxy",
-      "params": {},
-      "proxy": {
-        "handler": "confluence",
-        "operation": "confluence_list_spaces"
-      }
-    },
     {
       "id": "confluence_retrieve",
       "name": "Confluence Retrieve",
@@ -354,18 +554,6 @@
       "proxy": {
         "handler": "confluence",
         "operation": "confluence_retrieve"
-      }
-    },
-    {
-      "id": "confluence_search",
-      "name": "Confluence Search",
-      "description": "Search for content across Confluence pages, blog posts, and other content.",
-      "version": "1.0.0",
-      "executionMode": "proxy",
-      "params": {},
-      "proxy": {
-        "handler": "confluence",
-        "operation": "confluence_search"
       }
     },
     {
@@ -381,6 +569,114 @@
       }
     },
     {
+      "id": "confluence_create_page",
+      "name": "Confluence Create Page",
+      "description": "Create a new page in a Confluence space.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "confluence",
+        "operation": "confluence_create_page"
+      }
+    },
+    {
+      "id": "confluence_delete_page",
+      "name": "Confluence Delete Page",
+      "description": "Delete a Confluence page. By default moves to trash; use purge=true to permanently delete.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "confluence",
+        "operation": "confluence_delete_page"
+      }
+    },
+    {
+      "id": "confluence_list_pages_in_space",
+      "name": "Confluence List Pages in Space",
+      "description": "List all pages in a Confluence space.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "confluence",
+        "operation": "confluence_list_pages_in_space"
+      }
+    },
+    {
+      "id": "confluence_get_page_children",
+      "name": "Confluence Get Page Children",
+      "description": "Get all child pages of a Confluence page.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "confluence",
+        "operation": "confluence_get_page_children"
+      }
+    },
+    {
+      "id": "confluence_get_page_ancestors",
+      "name": "Confluence Get Page Ancestors",
+      "description": "Get all ancestor pages of a Confluence page.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "confluence",
+        "operation": "confluence_get_page_ancestors"
+      }
+    },
+    {
+      "id": "confluence_search",
+      "name": "Confluence Search",
+      "description": "Search for content across Confluence pages, blog posts, and other content.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "confluence",
+        "operation": "confluence_search"
+      }
+    },
+    {
+      "id": "confluence_search_in_space",
+      "name": "Confluence Search in Space",
+      "description": "Search for content within a specific Confluence space.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "confluence",
+        "operation": "confluence_search_in_space"
+      }
+    },
+    {
+      "id": "confluence_create_comment",
+      "name": "Confluence Create Comment",
+      "description": "Add a comment to a Confluence page.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "confluence",
+        "operation": "confluence_create_comment"
+      }
+    },
+    {
+      "id": "confluence_list_comments",
+      "name": "Confluence List Comments",
+      "description": "List all comments on a Confluence page.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "confluence",
+        "operation": "confluence_list_comments"
+      }
+    },
+    {
       "id": "confluence_update_comment",
       "name": "Confluence Update Comment",
       "description": "Update an existing comment on a Confluence page.",
@@ -393,6 +689,18 @@
       }
     },
     {
+      "id": "confluence_delete_comment",
+      "name": "Confluence Delete Comment",
+      "description": "Delete a comment from a Confluence page.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "confluence",
+        "operation": "confluence_delete_comment"
+      }
+    },
+    {
       "id": "confluence_upload_attachment",
       "name": "Confluence Upload Attachment",
       "description": "Upload a file as an attachment to a Confluence page.",
@@ -402,6 +710,222 @@
       "proxy": {
         "handler": "confluence",
         "operation": "confluence_upload_attachment"
+      }
+    },
+    {
+      "id": "confluence_list_attachments",
+      "name": "Confluence List Attachments",
+      "description": "List all attachments on a Confluence page.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "confluence",
+        "operation": "confluence_list_attachments"
+      }
+    },
+    {
+      "id": "confluence_delete_attachment",
+      "name": "Confluence Delete Attachment",
+      "description": "Delete an attachment from a Confluence page (moves to trash).",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "confluence",
+        "operation": "confluence_delete_attachment"
+      }
+    },
+    {
+      "id": "confluence_list_labels",
+      "name": "Confluence List Labels",
+      "description": "List all labels on a Confluence page.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "confluence",
+        "operation": "confluence_list_labels"
+      }
+    },
+    {
+      "id": "confluence_add_label",
+      "name": "Confluence Add Label",
+      "description": "Add a label to a Confluence page.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "confluence",
+        "operation": "confluence_add_label"
+      }
+    },
+    {
+      "id": "confluence_delete_label",
+      "name": "Confluence Delete Label",
+      "description": "Delete a label from a Confluence page.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "confluence",
+        "operation": "confluence_delete_label"
+      }
+    },
+    {
+      "id": "confluence_get_pages_by_label",
+      "name": "Confluence Get Pages by Label",
+      "description": "Get all pages with a specific label.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "confluence",
+        "operation": "confluence_get_pages_by_label"
+      }
+    },
+    {
+      "id": "confluence_list_space_labels",
+      "name": "Confluence List Space Labels",
+      "description": "List all labels in a Confluence space.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "confluence",
+        "operation": "confluence_list_space_labels"
+      }
+    },
+    {
+      "id": "confluence_list_page_versions",
+      "name": "Confluence List Page Versions",
+      "description": "List all versions of a Confluence page.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "confluence",
+        "operation": "confluence_list_page_versions"
+      }
+    },
+    {
+      "id": "confluence_get_page_version",
+      "name": "Confluence Get Page Version",
+      "description": "Get a specific version of a Confluence page.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "confluence",
+        "operation": "confluence_get_page_version"
+      }
+    },
+    {
+      "id": "confluence_list_page_properties",
+      "name": "Confluence List Page Properties",
+      "description": "List all properties of a Confluence page.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "confluence",
+        "operation": "confluence_list_page_properties"
+      }
+    },
+    {
+      "id": "confluence_create_page_property",
+      "name": "Confluence Create Page Property",
+      "description": "Create a new property on a Confluence page.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "confluence",
+        "operation": "confluence_create_page_property"
+      }
+    },
+    {
+      "id": "confluence_delete_page_property",
+      "name": "Confluence Delete Page Property",
+      "description": "Delete a property from a Confluence page.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "confluence",
+        "operation": "confluence_delete_page_property"
+      }
+    },
+    {
+      "id": "confluence_list_blogposts",
+      "name": "Confluence List Blog Posts",
+      "description": "List all blog posts in Confluence.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "confluence",
+        "operation": "confluence_list_blogposts"
+      }
+    },
+    {
+      "id": "confluence_get_blogpost",
+      "name": "Confluence Get Blog Post",
+      "description": "Get a specific blog post from Confluence.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "confluence",
+        "operation": "confluence_get_blogpost"
+      }
+    },
+    {
+      "id": "confluence_create_blogpost",
+      "name": "Confluence Create Blog Post",
+      "description": "Create a new blog post in a Confluence space.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "confluence",
+        "operation": "confluence_create_blogpost"
+      }
+    },
+    {
+      "id": "confluence_list_blogposts_in_space",
+      "name": "Confluence List Blog Posts in Space",
+      "description": "List all blog posts in a specific Confluence space.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "confluence",
+        "operation": "confluence_list_blogposts_in_space"
+      }
+    },
+    {
+      "id": "confluence_get_space",
+      "name": "Confluence Get Space",
+      "description": "Get details about a specific Confluence space.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "confluence",
+        "operation": "confluence_get_space"
+      }
+    },
+    {
+      "id": "confluence_list_spaces",
+      "name": "Confluence List Spaces",
+      "description": "List all Confluence spaces accessible to the user.",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "confluence",
+        "operation": "confluence_list_spaces"
       }
     }
   ]

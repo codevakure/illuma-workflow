@@ -34,6 +34,33 @@ function createManifest(id: string, category: 'blocks' | 'tools' | 'triggers' = 
   })
 }
 
+/** Helper to create a manifest with triggers */
+function createTriggerManifest(
+  id: string,
+  triggers: Array<{ id: string; name: string; provider: string }>
+) {
+  return JSON.stringify({
+    id,
+    name: id.charAt(0).toUpperCase() + id.slice(1),
+    version: '1.0.0',
+    icon: `${id}.svg`,
+    block: {
+      type: id,
+      name: id.charAt(0).toUpperCase() + id.slice(1),
+      category: 'tools',
+      subBlocks: [],
+    },
+    tools: [],
+    triggers: triggers.map((t) => ({
+      id: t.id,
+      name: t.name,
+      provider: t.provider,
+      credentials: [],
+      outputs: {},
+    })),
+  })
+}
+
 /** Helper to create a manifest with tools */
 function createToolManifest(id: string, toolIds: string[]) {
   return JSON.stringify({
@@ -239,6 +266,284 @@ describe('ManifestRegistry', () => {
       } finally {
         fs.rmSync(tmpDir, { recursive: true, force: true })
       }
+    })
+  })
+
+  describe('trigger loading', () => {
+    it('indexes triggers by ID from triggers array', () => {
+      const tmpDir = path.join(__dirname, '__test_trigger_byid__')
+      const slackDir = path.join(tmpDir, 'test_trigger_slack')
+      fs.mkdirSync(slackDir, { recursive: true })
+      fs.writeFileSync(
+        path.join(slackDir, 'manifest.json'),
+        createTriggerManifest('test_trigger_slack', [
+          { id: 'test_slack_webhook', name: 'Slack Webhook', provider: 'slack' },
+        ])
+      )
+
+      try {
+        manifestRegistry.load(tmpDir)
+
+        const trigger = manifestRegistry.getTriggerById('test_slack_webhook')
+        expect(trigger).toBeDefined()
+        expect(trigger?.name).toBe('Slack Webhook')
+        expect(trigger?.provider).toBe('slack')
+      } finally {
+        fs.rmSync(tmpDir, { recursive: true, force: true })
+      }
+    })
+
+    it('indexes multiple triggers per provider', () => {
+      const tmpDir = path.join(__dirname, '__test_trigger_multi__')
+      const ghDir = path.join(tmpDir, 'test_trigger_github')
+      fs.mkdirSync(ghDir, { recursive: true })
+      fs.writeFileSync(
+        path.join(ghDir, 'manifest.json'),
+        createTriggerManifest('test_trigger_github', [
+          { id: 'test_gh_push', name: 'GitHub Push', provider: 'github' },
+          { id: 'test_gh_pr_opened', name: 'GitHub PR Opened', provider: 'github' },
+          { id: 'test_gh_issue', name: 'GitHub Issue', provider: 'github' },
+        ])
+      )
+
+      try {
+        manifestRegistry.load(tmpDir)
+
+        // All three should be accessible by ID
+        expect(manifestRegistry.getTriggerById('test_gh_push')).toBeDefined()
+        expect(manifestRegistry.getTriggerById('test_gh_pr_opened')).toBeDefined()
+        expect(manifestRegistry.getTriggerById('test_gh_issue')).toBeDefined()
+
+        // Provider lookup should return all three
+        const providerTriggers = manifestRegistry.getTriggersForProvider('github')
+        const ids = providerTriggers.map((t) => t.id)
+        expect(ids).toContain('test_gh_push')
+        expect(ids).toContain('test_gh_pr_opened')
+        expect(ids).toContain('test_gh_issue')
+      } finally {
+        fs.rmSync(tmpDir, { recursive: true, force: true })
+      }
+    })
+
+    it('getTrigger returns first trigger for provider (backward compat)', () => {
+      const tmpDir = path.join(__dirname, '__test_trigger_compat__')
+      const dir = path.join(tmpDir, 'test_trigger_compat')
+      fs.mkdirSync(dir, { recursive: true })
+      fs.writeFileSync(
+        path.join(dir, 'manifest.json'),
+        createTriggerManifest('test_trigger_compat', [
+          { id: 'test_compat_first', name: 'First', provider: 'compat-prov' },
+          { id: 'test_compat_second', name: 'Second', provider: 'compat-prov' },
+        ])
+      )
+
+      try {
+        manifestRegistry.load(tmpDir)
+
+        const trigger = manifestRegistry.getTrigger('compat-prov')
+        expect(trigger).toBeDefined()
+        expect(trigger?.id).toBe('test_compat_first')
+      } finally {
+        fs.rmSync(tmpDir, { recursive: true, force: true })
+      }
+    })
+
+    it('getAllTriggers returns all triggers from all integrations', () => {
+      const tmpDir = path.join(__dirname, '__test_trigger_all__')
+
+      const dir1 = path.join(tmpDir, 'test_trigall_slack')
+      fs.mkdirSync(dir1, { recursive: true })
+      fs.writeFileSync(
+        path.join(dir1, 'manifest.json'),
+        createTriggerManifest('test_trigall_slack', [
+          { id: 'test_trigall_slack_wh', name: 'Slack WH', provider: 'slack' },
+        ])
+      )
+
+      const dir2 = path.join(tmpDir, 'test_trigall_stripe')
+      fs.mkdirSync(dir2, { recursive: true })
+      fs.writeFileSync(
+        path.join(dir2, 'manifest.json'),
+        createTriggerManifest('test_trigall_stripe', [
+          { id: 'test_trigall_stripe_wh', name: 'Stripe WH', provider: 'stripe' },
+        ])
+      )
+
+      try {
+        manifestRegistry.load(tmpDir)
+
+        const all = manifestRegistry.getAllTriggers()
+        const ids = all.map((t) => t.id)
+        expect(ids).toContain('test_trigall_slack_wh')
+        expect(ids).toContain('test_trigall_stripe_wh')
+      } finally {
+        fs.rmSync(tmpDir, { recursive: true, force: true })
+      }
+    })
+
+    it('getIntegrationForTrigger returns the parent integration', () => {
+      const tmpDir = path.join(__dirname, '__test_trigger_parent__')
+      const dir = path.join(tmpDir, 'test_trigger_parent')
+      fs.mkdirSync(dir, { recursive: true })
+      fs.writeFileSync(
+        path.join(dir, 'manifest.json'),
+        createTriggerManifest('test_trigger_parent', [
+          { id: 'test_parent_wh', name: 'Parent WH', provider: 'parent-prov' },
+        ])
+      )
+
+      try {
+        manifestRegistry.load(tmpDir)
+
+        const integration = manifestRegistry.getIntegrationForTrigger('test_parent_wh')
+        expect(integration).toBeDefined()
+        expect(integration?.id).toBe('test_trigger_parent')
+      } finally {
+        fs.rmSync(tmpDir, { recursive: true, force: true })
+      }
+    })
+
+    it('returns undefined for unknown trigger IDs', () => {
+      expect(manifestRegistry.getTriggerById('nonexistent_trigger_xyz')).toBeUndefined()
+      expect(manifestRegistry.getIntegrationForTrigger('nonexistent_trigger_xyz')).toBeUndefined()
+      expect(manifestRegistry.getTriggersForProvider('nonexistent_provider_xyz')).toEqual([])
+    })
+
+    it('validates trigger entries with missing required fields', () => {
+      const tmpDir = path.join(__dirname, '__test_trigger_invalid__')
+      const dir = path.join(tmpDir, 'test_trigger_invalid')
+      fs.mkdirSync(dir, { recursive: true })
+      fs.writeFileSync(
+        path.join(dir, 'manifest.json'),
+        JSON.stringify({
+          id: 'test_trigger_invalid',
+          name: 'Invalid',
+          version: '1.0.0',
+          icon: 'test.svg',
+          block: {
+            type: 'test_trigger_invalid',
+            name: 'Invalid',
+            category: 'tools',
+            subBlocks: [],
+          },
+          tools: [],
+          triggers: [{ id: 'missing_name_provider' }], // Missing name and provider
+        })
+      )
+
+      try {
+        manifestRegistry.load(tmpDir)
+        // Should be skipped due to validation errors
+        expect(manifestRegistry.getIntegration('test_trigger_invalid')).toBeUndefined()
+      } finally {
+        fs.rmSync(tmpDir, { recursive: true, force: true })
+      }
+    })
+
+    it('manifests without triggers array load normally', () => {
+      const tmpDir = path.join(__dirname, '__test_trigger_notrig__')
+      const dir = path.join(tmpDir, 'test_no_triggers')
+      fs.mkdirSync(dir, { recursive: true })
+      fs.writeFileSync(path.join(dir, 'manifest.json'), createManifest('test_no_triggers'))
+
+      try {
+        manifestRegistry.load(tmpDir)
+        expect(manifestRegistry.getIntegration('test_no_triggers')).toBeDefined()
+      } finally {
+        fs.rmSync(tmpDir, { recursive: true, force: true })
+      }
+    })
+
+    it('trigger count in stats reflects loaded triggers', () => {
+      const tmpDir = path.join(__dirname, '__test_trigger_stats__')
+      const dir = path.join(tmpDir, 'test_trigger_stats')
+      fs.mkdirSync(dir, { recursive: true })
+      fs.writeFileSync(
+        path.join(dir, 'manifest.json'),
+        createTriggerManifest('test_trigger_stats', [
+          { id: 'test_stats_t1', name: 'T1', provider: 'stats-prov' },
+          { id: 'test_stats_t2', name: 'T2', provider: 'stats-prov' },
+        ])
+      )
+
+      try {
+        const before = manifestRegistry.stats().triggers
+        manifestRegistry.load(tmpDir)
+        const after = manifestRegistry.stats().triggers
+        expect(after).toBe(before + 2)
+      } finally {
+        fs.rmSync(tmpDir, { recursive: true, force: true })
+      }
+    })
+  })
+
+  describe('real manifest trigger loading', () => {
+    it('loads triggers from actual marketplace manifests', () => {
+      // This test verifies our actual manifest.json files have valid triggers
+      const marketplaceDir = path.resolve(__dirname, '..', '..', '..', 'marketplace', 'integrations')
+      if (!fs.existsSync(marketplaceDir)) return // Skip if marketplace not available
+
+      const slackManifestPath = path.join(marketplaceDir, 'slack', 'manifest.json')
+      if (!fs.existsSync(slackManifestPath)) return
+
+      const raw = fs.readFileSync(slackManifestPath, 'utf-8')
+      const manifest = JSON.parse(raw)
+
+      expect(manifest.triggers).toBeDefined()
+      expect(Array.isArray(manifest.triggers)).toBe(true)
+      expect(manifest.triggers.length).toBeGreaterThan(0)
+
+      const slackTrigger = manifest.triggers[0]
+      expect(slackTrigger.id).toBe('slack_webhook')
+      expect(slackTrigger.provider).toBe('slack')
+      expect(slackTrigger.auth).toBeDefined()
+      expect(slackTrigger.auth.type).toBe('custom')
+      expect(slackTrigger.challenge).toBeDefined()
+      expect(slackTrigger.challenge.type).toBe('body_echo')
+    })
+
+    it('loads triggers from actual GitHub manifest with multiple triggers', () => {
+      const marketplaceDir = path.resolve(__dirname, '..', '..', '..', 'marketplace', 'integrations')
+      if (!fs.existsSync(marketplaceDir)) return
+
+      const ghManifestPath = path.join(marketplaceDir, 'github', 'manifest.json')
+      if (!fs.existsSync(ghManifestPath)) return
+
+      const raw = fs.readFileSync(ghManifestPath, 'utf-8')
+      const manifest = JSON.parse(raw)
+
+      expect(manifest.triggers).toBeDefined()
+      expect(manifest.triggers.length).toBe(12)
+
+      const triggerIds = manifest.triggers.map((t: { id: string }) => t.id)
+      expect(triggerIds).toContain('github_push')
+      expect(triggerIds).toContain('github_pr_opened')
+      expect(triggerIds).toContain('github_pr_merged')
+      expect(triggerIds).toContain('github_webhook')
+
+      // All GitHub triggers should have HMAC auth
+      for (const trigger of manifest.triggers) {
+        expect(trigger.auth).toBeDefined()
+        expect(trigger.auth.type).toBe('hmac')
+        expect(trigger.auth.headerName).toBe('X-Hub-Signature-256')
+        expect(trigger.auth.algorithm).toBe('sha256')
+      }
+    })
+
+    it('loads triggers from core generic_webhook manifest', () => {
+      const coreDir = path.resolve(__dirname, '..', 'blocks', 'manifests')
+      if (!fs.existsSync(coreDir)) return
+
+      const whManifestPath = path.join(coreDir, 'generic_webhook', 'manifest.json')
+      if (!fs.existsSync(whManifestPath)) return
+
+      const raw = fs.readFileSync(whManifestPath, 'utf-8')
+      const manifest = JSON.parse(raw)
+
+      expect(manifest.triggers).toBeDefined()
+      expect(manifest.triggers.length).toBe(1)
+      expect(manifest.triggers[0].id).toBe('generic_webhook')
+      expect(manifest.triggers[0].provider).toBe('generic')
     })
   })
 

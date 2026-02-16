@@ -17,7 +17,9 @@
       "Bash(curl:*)",
       "Bash(# Check the web proxy config and how /api/ routes are proxied cd /c/Projects/Chat/agent-builders/sim-v2 && cat apps/web/vite.config.ts | head -60 || cat apps/web/vite.config.mts)",
       "Bash(# Check what the web actually gets from the proxy curl -s http://localhost:5173/api/registry/integrations)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "Bash(python3:*)",
+      "Bash(bunx vitest:*)"
     ]
   }
 }

@@ -1,12 +1,12 @@
 {
   "id": "google_calendar",
-  "name": "Google Calendar (Legacy)",
+  "name": "Google Calendar",
   "version": "1.0.0",
   "description": "Manage Google Calendar events",
   "icon": "GoogleCalendarIcon",
   "block": {
     "type": "google_calendar",
-    "name": "Google Calendar (Legacy)",
+    "name": "Google Calendar",
     "description": "Manage Google Calendar events",
     "longDescription": "Integrate Google Calendar into the workflow. Can create, read, update, and list calendar events.",
     "docsLink": "https://docs.sim.ai/tools/google_calendar",
@@ -14,7 +14,7 @@
     "bgColor": "#E0E0E0",
     "icon": "GoogleCalendarIcon",
     "authMode": "oauth",
-    "hideFromToolbar": true,
+    "hideFromToolbar": false,
     "subBlocks": [
       {
         "id": "operation",

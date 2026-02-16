@@ -1,4 +1,3 @@
-import crypto from 'crypto'
 import { db } from '@sim/db'
 import { credentialSet, subscription, webhook, workflow, workflowDeploymentVersion } from '@sim/db/schema'
 import { createLogger } from '@sim/logger'
@@ -6,11 +5,14 @@ import { and, eq, isNull, or } from 'drizzle-orm'
 import { v4 as uuidv4 } from 'uuid'
 import { getEffectiveDecryptedEnv } from '@/lib/environment/utils'
 import { preprocessExecution } from '@/lib/execution/preprocessing'
+import { verifyWebhookAuth } from '@/lib/webhooks/auth-engine'
+import { handleManifestChallenge } from '@/lib/webhooks/challenge-engine'
 import { convertSquareBracketsToTwiML } from '@/lib/webhooks/utils'
 import { resolveEnvVarReferences } from '@/executor/utils/reference-validation'
-import { isGitHubEventMatch } from '@/triggers/github/utils'
-import { isHubSpotContactEventMatch } from '@/triggers/hubspot/utils'
-import { isJiraEventMatch } from '@/triggers/jira/utils'
+import { manifestRegistry } from '@/integrations/manifest-loader'
+import { isGitHubEventMatch } from '@/lib/webhooks/event-matching/github'
+import { isHubSpotContactEventMatch } from '@/lib/webhooks/event-matching/hubspot'
+import { isJiraEventMatch } from '@/lib/webhooks/event-matching/jira'
 
 const logger = createLogger('WebhookProcessor')
 
@@ -18,17 +20,6 @@ export interface WebhookProcessorOptions {
   requestId: string
   path?: string
   webhookId?: string
-}
-
-/**
- * Timing-safe string comparison using crypto.timingSafeEqual.
- * Returns false immediately if lengths differ (no timing leak on length).
- */
-function safeCompare(a: string, b: string): boolean {
-  if (a.length !== b.length) {
-    return false
-  }
-  return crypto.timingSafeEqual(Buffer.from(a), Buffer.from(b))
 }
 
 /**
@@ -79,335 +70,9 @@ function resolveProviderConfigEnvVars(
   return resolved
 }
 
-// ---------------------------------------------------------------------------
-// Signature validation helpers (inlined, no external server utils dependency)
-// ---------------------------------------------------------------------------
-
-/**
- * Validates a Microsoft Teams outgoing webhook HMAC signature.
- * Secret is base64-encoded, signature header starts with "HMAC ", output is base64.
- */
-function validateMicrosoftTeamsSignature(
-  hmacSecret: string,
-  signature: string,
-  body: string
-): boolean {
-  try {
-    if (!hmacSecret || !signature || !body) {
-      return false
-    }
-
-    if (!signature.startsWith('HMAC ')) {
-      return false
-    }
-
-    const providedSignature = signature.substring(5)
-
-    const secretBytes = Buffer.from(hmacSecret, 'base64')
-    const bodyBytes = Buffer.from(body, 'utf8')
-    const computedHash = crypto.createHmac('sha256', secretBytes).update(bodyBytes).digest('base64')
-
-    return safeCompare(computedHash, providedSignature)
-  } catch (error) {
-    logger.error('Error validating Microsoft Teams signature:', error)
-    return false
-  }
-}
-
-/**
- * Validates a Twilio webhook signature using HMAC SHA-1.
- * The signing string is URL + sorted param key/value pairs concatenated.
- */
-function validateTwilioSignature(
-  authToken: string,
-  signature: string,
-  url: string,
-  params: Record<string, any>
-): boolean {
-  try {
-    if (!authToken || !signature || !url) {
-      logger.warn('Twilio signature validation missing required fields', {
-        hasAuthToken: !!authToken,
-        hasSignature: !!signature,
-        hasUrl: !!url,
-      })
-      return false
-    }
-
-    const sortedKeys = Object.keys(params).sort()
-    let data = url
-    for (const key of sortedKeys) {
-      data += key + params[key]
-    }
-
-    const computedHash = crypto
-      .createHmac('sha1', authToken)
-      .update(data, 'utf8')
-      .digest('base64')
-
-    return safeCompare(computedHash, signature)
-  } catch (error) {
-    logger.error('Error validating Twilio signature:', error)
-    return false
-  }
-}
-
-/**
- * Validates a Typeform webhook signature using HMAC SHA-256.
- * Signature header format: sha256=<base64>.
- */
-function validateTypeformSignature(secret: string, signature: string, body: string): boolean {
-  try {
-    if (!secret || !signature || !body) {
-      return false
-    }
-
-    if (!signature.startsWith('sha256=')) {
-      return false
-    }
-
-    const providedSignature = signature.substring(7)
-
-    const computedHash = crypto.createHmac('sha256', secret).update(body, 'utf8').digest('base64')
-
-    return safeCompare(computedHash, providedSignature)
-  } catch (error) {
-    logger.error('Error validating Typeform signature:', error)
-    return false
-  }
-}
-
-/**
- * Validates a Linear webhook signature using HMAC SHA-256 (hex output).
- */
-function validateLinearSignature(secret: string, signature: string, body: string): boolean {
-  try {
-    if (!secret || !signature || !body) {
-      logger.warn('Linear signature validation missing required fields', {
-        hasSecret: !!secret,
-        hasSignature: !!signature,
-        hasBody: !!body,
-      })
-      return false
-    }
-
-    const computedHash = crypto.createHmac('sha256', secret).update(body, 'utf8').digest('hex')
-
-    logger.debug('Linear signature comparison', {
-      computedSignature: `${computedHash.substring(0, 10)}...`,
-      providedSignature: `${signature.substring(0, 10)}...`,
-      computedLength: computedHash.length,
-      providedLength: signature.length,
-      match: computedHash === signature,
-    })
-
-    return safeCompare(computedHash, signature)
-  } catch (error) {
-    logger.error('Error validating Linear signature:', error)
-    return false
-  }
-}
-
-/**
- * Validates a Circleback webhook signature using HMAC SHA-256 (hex output).
- */
-function validateCirclebackSignature(secret: string, signature: string, body: string): boolean {
-  try {
-    if (!secret || !signature || !body) {
-      logger.warn('Circleback signature validation missing required fields', {
-        hasSecret: !!secret,
-        hasSignature: !!signature,
-        hasBody: !!body,
-      })
-      return false
-    }
-
-    const computedHash = crypto.createHmac('sha256', secret).update(body, 'utf8').digest('hex')
-
-    logger.debug('Circleback signature comparison', {
-      computedSignature: `${computedHash.substring(0, 10)}...`,
-      providedSignature: `${signature.substring(0, 10)}...`,
-      computedLength: computedHash.length,
-      providedLength: signature.length,
-      match: computedHash === signature,
-    })
-
-    return safeCompare(computedHash, signature)
-  } catch (error) {
-    logger.error('Error validating Circleback signature:', error)
-    return false
-  }
-}
-
-/**
- * Validates a Cal.com webhook signature using HMAC SHA-256 (hex output).
- * Signature header may have sha256= prefix.
- */
-function validateCalcomSignature(secret: string, signature: string, body: string): boolean {
-  try {
-    if (!secret || !signature || !body) {
-      logger.warn('Cal.com signature validation missing required fields', {
-        hasSecret: !!secret,
-        hasSignature: !!signature,
-        hasBody: !!body,
-      })
-      return false
-    }
-
-    let providedSignature: string
-    if (signature.startsWith('sha256=')) {
-      providedSignature = signature.substring(7)
-    } else {
-      providedSignature = signature
-    }
-
-    const computedHash = crypto.createHmac('sha256', secret).update(body, 'utf8').digest('hex')
-
-    logger.debug('Cal.com signature comparison', {
-      computedSignature: `${computedHash.substring(0, 10)}...`,
-      providedSignature: `${providedSignature.substring(0, 10)}...`,
-      computedLength: computedHash.length,
-      providedLength: providedSignature.length,
-      match: computedHash === providedSignature,
-    })
-
-    return safeCompare(computedHash, providedSignature)
-  } catch (error) {
-    logger.error('Error validating Cal.com signature:', error)
-    return false
-  }
-}
-
-/**
- * Validates a Jira webhook signature using HMAC SHA-256.
- * Signature header format: sha256=<hex>.
- */
-function validateJiraSignature(secret: string, signature: string, body: string): boolean {
-  try {
-    if (!secret || !signature || !body) {
-      logger.warn('Jira signature validation missing required fields', {
-        hasSecret: !!secret,
-        hasSignature: !!signature,
-        hasBody: !!body,
-      })
-      return false
-    }
-
-    if (!signature.startsWith('sha256=')) {
-      logger.warn('Jira signature has invalid format (expected sha256=)', {
-        signaturePrefix: signature.substring(0, 10),
-      })
-      return false
-    }
-
-    const providedSignature = signature.substring(7)
-
-    const computedHash = crypto.createHmac('sha256', secret).update(body, 'utf8').digest('hex')
-
-    logger.debug('Jira signature comparison', {
-      computedSignature: `${computedHash.substring(0, 10)}...`,
-      providedSignature: `${providedSignature.substring(0, 10)}...`,
-      computedLength: computedHash.length,
-      providedLength: providedSignature.length,
-      match: computedHash === providedSignature,
-    })
-
-    return safeCompare(computedHash, providedSignature)
-  } catch (error) {
-    logger.error('Error validating Jira signature:', error)
-    return false
-  }
-}
-
-/**
- * Validates a GitHub webhook signature using HMAC SHA-256 or SHA-1.
- * Signature header format: sha256=<hex> or sha1=<hex>.
- */
-function validateGitHubSignature(secret: string, signature: string, body: string): boolean {
-  try {
-    if (!secret || !signature || !body) {
-      logger.warn('GitHub signature validation missing required fields', {
-        hasSecret: !!secret,
-        hasSignature: !!signature,
-        hasBody: !!body,
-      })
-      return false
-    }
-
-    let algorithm: 'sha256' | 'sha1'
-    let providedSignature: string
-
-    if (signature.startsWith('sha256=')) {
-      algorithm = 'sha256'
-      providedSignature = signature.substring(7)
-    } else if (signature.startsWith('sha1=')) {
-      algorithm = 'sha1'
-      providedSignature = signature.substring(5)
-    } else {
-      logger.warn('GitHub signature has invalid format', {
-        signature: `${signature.substring(0, 10)}...`,
-      })
-      return false
-    }
-
-    const computedHash = crypto.createHmac(algorithm, secret).update(body, 'utf8').digest('hex')
-
-    logger.debug('GitHub signature comparison', {
-      algorithm,
-      computedSignature: `${computedHash.substring(0, 10)}...`,
-      providedSignature: `${providedSignature.substring(0, 10)}...`,
-      computedLength: computedHash.length,
-      providedLength: providedSignature.length,
-      match: computedHash === providedSignature,
-    })
-
-    return safeCompare(computedHash, providedSignature)
-  } catch (error) {
-    logger.error('Error validating GitHub signature:', error)
-    return false
-  }
-}
-
-/**
- * Validates a Fireflies webhook signature using HMAC SHA-256.
- * Signature header format: sha256=<hex>.
- */
-function validateFirefliesSignature(secret: string, signature: string, body: string): boolean {
-  try {
-    if (!secret || !signature || !body) {
-      logger.warn('Fireflies signature validation missing required fields', {
-        hasSecret: !!secret,
-        hasSignature: !!signature,
-        hasBody: !!body,
-      })
-      return false
-    }
-
-    if (!signature.startsWith('sha256=')) {
-      logger.warn('Fireflies signature has invalid format (expected sha256=)', {
-        signaturePrefix: signature.substring(0, 10),
-      })
-      return false
-    }
-
-    const providedSignature = signature.substring(7)
-
-    const computedHash = crypto.createHmac('sha256', secret).update(body, 'utf8').digest('hex')
-
-    logger.debug('Fireflies signature comparison', {
-      computedSignature: `${computedHash.substring(0, 10)}...`,
-      providedSignature: `${providedSignature.substring(0, 10)}...`,
-      computedLength: computedHash.length,
-      providedLength: providedSignature.length,
-      match: computedHash === providedSignature,
-    })
-
-    return safeCompare(computedHash, providedSignature)
-  } catch (error) {
-    logger.error('Error validating Fireflies signature:', error)
-    return false
-  }
-}
+// Signature validation is now handled by the generic auth engine (auth-engine.ts)
+// reading AuthSpec from trigger manifests. Provider-specific validation functions
+// have been removed. Custom auth (Slack, Stripe) delegates to marketplace handlers.
 
 // ---------------------------------------------------------------------------
 // Exported webhook processing functions
@@ -474,7 +139,7 @@ export async function parseWebhookBody(
 
 /**
  * Handle provider-specific verification challenges that occur BEFORE webhook lookup.
- * Slack url_verification, Microsoft Graph validationToken, WhatsApp hub verification.
+ * Uses manifest-driven challenge specs (body_echo, query_echo, hub_verify).
  * Returns null to continue normal processing flow.
  */
 export async function handleProviderChallenges(
@@ -483,79 +148,97 @@ export async function handleProviderChallenges(
   requestId: string,
   path: string
 ): Promise<Response | null> {
-  // Slack url_verification challenge
-  if (body.type === 'url_verification' && body.challenge) {
-    return Response.json({ challenge: body.challenge })
-  }
-
   const url = new URL(request.url)
 
-  // Microsoft Graph subscription validation (can come as GET or POST)
-  const validationToken = url.searchParams.get('validationToken')
-  if (validationToken) {
-    logger.info(`[${requestId}] Microsoft Graph subscription validation for path: ${path}`)
-    return new Response(validationToken, {
-      status: 200,
-      headers: { 'Content-Type': 'text/plain' },
-    })
+  // Try manifest-based challenges first.
+  // Iterate all registered triggers that have a challenge spec and test if the
+  // current request matches. Only 3 challenge types exist — body_echo (Slack),
+  // query_echo (MS Graph), hub_verify (WhatsApp) — so matching is unambiguous.
+  const allTriggers = manifestRegistry.getAllTriggers()
+
+  for (const trigger of allTriggers) {
+    if (!trigger.challenge) continue
+
+    if (trigger.challenge.type === 'body_echo') {
+      const response = handleManifestChallenge(trigger.challenge, body, url)
+      if (response) {
+        logger.info(`[${requestId}] Handled body_echo challenge for trigger ${trigger.id}`)
+        return response
+      }
+    }
+
+    if (trigger.challenge.type === 'query_echo') {
+      const response = handleManifestChallenge(trigger.challenge, body, url)
+      if (response) {
+        logger.info(`[${requestId}] Handled query_echo challenge for trigger ${trigger.id} on path: ${path}`)
+        return response
+      }
+    }
   }
 
-  // WhatsApp hub verification
-  const mode = url.searchParams.get('hub.mode')
-  const token = url.searchParams.get('hub.verify_token')
-  const challenge = url.searchParams.get('hub.challenge')
+  // hub_verify challenges need provider config for token comparison.
+  // Must query DB for matching webhooks (challenge happens before webhook lookup).
+  const hubMode = url.searchParams.get('hub.mode')
+  const hubToken = url.searchParams.get('hub.verify_token')
+  const hubChallenge = url.searchParams.get('hub.challenge')
 
-  if (mode && token && challenge) {
-    logger.info(`[${requestId}] WhatsApp verification request received for path: ${path}`)
+  if (hubMode && hubToken && hubChallenge) {
+    // Find triggers with hub_verify challenge specs
+    const hubTriggers = allTriggers.filter(
+      (t) => t.challenge?.type === 'hub_verify'
+    )
 
-    if (mode !== 'subscribe') {
-      logger.warn(`[${requestId}] Invalid WhatsApp verification mode: ${mode}`)
-      return new Response('Invalid mode', { status: 400 })
-    }
+    if (hubTriggers.length > 0) {
+      logger.info(`[${requestId}] Hub verification request received for path: ${path}`)
 
-    // Query DB for whatsapp webhooks matching the verification token
-    const webhooks = await db
-      .select({ webhook })
-      .from(webhook)
-      .leftJoin(
-        workflowDeploymentVersion,
-        and(
-          eq(workflowDeploymentVersion.workflowId, webhook.workflowId),
-          eq(workflowDeploymentVersion.isActive, true)
-        )
-      )
-      .where(
-        and(
-          eq(webhook.provider, 'whatsapp'),
-          eq(webhook.isActive, true),
-          or(
-            eq(webhook.deploymentVersionId, workflowDeploymentVersion.id),
-            and(isNull(workflowDeploymentVersion.id), isNull(webhook.deploymentVersionId))
+      // Query DB for webhooks matching the hub_verify providers
+      const providers = [...new Set(hubTriggers.map((t) => t.provider))]
+
+      for (const provider of providers) {
+        const webhooks = await db
+          .select({ webhook })
+          .from(webhook)
+          .leftJoin(
+            workflowDeploymentVersion,
+            and(
+              eq(workflowDeploymentVersion.workflowId, webhook.workflowId),
+              eq(workflowDeploymentVersion.isActive, true)
+            )
           )
-        )
-      )
+          .where(
+            and(
+              eq(webhook.provider, provider),
+              eq(webhook.isActive, true),
+              or(
+                eq(webhook.deploymentVersionId, workflowDeploymentVersion.id),
+                and(isNull(workflowDeploymentVersion.id), isNull(webhook.deploymentVersionId))
+              )
+            )
+          )
 
-    for (const row of webhooks) {
-      const wh = row.webhook
-      const providerConfig = (wh.providerConfig as Record<string, any>) || {}
-      const verificationToken = providerConfig.verificationToken
+        for (const row of webhooks) {
+          const wh = row.webhook
+          const providerConfig = (wh.providerConfig as Record<string, any>) || {}
+          const hubTrigger = hubTriggers.find((t) => t.provider === provider)
 
-      if (!verificationToken) {
-        logger.debug(`[${requestId}] Webhook ${wh.id} has no verification token, skipping`)
-        continue
+          if (hubTrigger?.challenge) {
+            const response = handleManifestChallenge(
+              hubTrigger.challenge,
+              body,
+              url,
+              providerConfig
+            )
+            if (response && response.status === 200) {
+              logger.info(`[${requestId}] Hub verification successful for webhook ${wh.id}`)
+              return response
+            }
+          }
+        }
       }
 
-      if (token === verificationToken) {
-        logger.info(`[${requestId}] WhatsApp verification successful for webhook ${wh.id}`)
-        return new Response(challenge, {
-          status: 200,
-          headers: { 'Content-Type': 'text/plain' },
-        })
-      }
+      logger.warn(`[${requestId}] No matching hub verification token found`)
+      return new Response('Verification failed', { status: 403 })
     }
-
-    logger.warn(`[${requestId}] No matching WhatsApp verification token found`)
-    return new Response('Verification failed', { status: 403 })
   }
 
   return null
@@ -805,6 +488,11 @@ export async function findAllWebhooksForPath(
 
 /**
  * Verify webhook provider authentication and signatures.
+ *
+ * Uses manifest-driven AuthSpec for all providers that have trigger definitions.
+ * Falls through to legacy inline logic only for 'generic' (token + IP allowlist)
+ * and 'telegram' (logging only) which have special requirements.
+ *
  * Returns a Response with 401/403 if auth fails, null if auth passes.
  */
 export async function verifyProviderAuth(
@@ -829,383 +517,81 @@ export async function verifyProviderAuth(
   const rawProviderConfig = (foundWebhook.providerConfig as Record<string, any>) || {}
   const providerConfig = resolveProviderConfigEnvVars(rawProviderConfig, decryptedEnvVars)
 
-  // Microsoft Teams outgoing webhook HMAC verification
-  if (foundWebhook.provider === 'microsoft-teams') {
-    if (providerConfig.hmacSecret) {
-      const authHeader = request.headers.get('authorization')
+  // Step 3: Try manifest-driven auth verification
+  // Look up trigger(s) for this provider and check if any have an auth spec
+  const providerTriggers = manifestRegistry.getTriggersForProvider(foundWebhook.provider)
+  const triggerId = providerConfig.triggerId as string | undefined
 
-      if (!authHeader || !authHeader.startsWith('HMAC ')) {
-        logger.warn(
-          `[${requestId}] Microsoft Teams outgoing webhook missing HMAC authorization header`
-        )
-        return new Response('Unauthorized - Missing HMAC signature', { status: 401 })
-      }
+  // Find the specific trigger (by triggerId) or fall back to the first trigger for the provider
+  const trigger = triggerId
+    ? manifestRegistry.getTriggerById(triggerId)
+    : providerTriggers[0]
 
-      const isValidSignature = validateMicrosoftTeamsSignature(
-        providerConfig.hmacSecret,
-        authHeader,
-        rawBody
-      )
+  if (trigger?.auth) {
+    logger.debug(`[${requestId}] Using manifest auth for ${foundWebhook.provider}`, {
+      authType: trigger.auth.type,
+      triggerId: trigger.id,
+    })
 
-      if (!isValidSignature) {
-        logger.warn(`[${requestId}] Microsoft Teams HMAC signature verification failed`)
-        return new Response('Unauthorized - Invalid HMAC signature', { status: 401 })
-      }
-
-      logger.debug(`[${requestId}] Microsoft Teams HMAC signature verified successfully`)
-    }
-  }
-
-  // Provider-specific verification (inline, ported from verifyProviderWebhook)
-  {
-    const authHeader = request.headers.get('authorization')
-    const pConfig = (foundWebhook.providerConfig as Record<string, any>) || {}
-
-    switch (foundWebhook.provider) {
-      case 'github':
-        break
-      case 'stripe':
-        break
-      case 'gmail':
-        break
-      case 'telegram': {
-        const userAgent = request.headers.get('user-agent') || ''
-        logger.debug(
-          `[${requestId}] Telegram webhook request received with User-Agent: ${userAgent}`
-        )
-
-        if (!userAgent) {
-          logger.warn(
-            `[${requestId}] Telegram webhook request has empty User-Agent header. This may be blocked by middleware.`
-          )
-        }
-
-        const clientIp =
-          request.headers.get('x-forwarded-for')?.split(',')[0].trim() ||
-          request.headers.get('x-real-ip') ||
-          'unknown'
-
-        logger.debug(`[${requestId}] Telegram webhook request from IP: ${clientIp}`)
-
-        break
-      }
-      case 'microsoft-teams':
-        break
-      case 'generic':
-        if (pConfig.requireAuth) {
-          let isAuthenticated = false
-          if (pConfig.token) {
-            const bearerMatch = authHeader?.match(/^bearer\s+(.+)$/i)
-            const providedToken = bearerMatch ? bearerMatch[1] : null
-            if (providedToken === pConfig.token) {
-              isAuthenticated = true
-            }
-            if (!isAuthenticated && pConfig.secretHeaderName) {
-              const customHeaderValue = request.headers.get(pConfig.secretHeaderName)
-              if (customHeaderValue === pConfig.token) {
-                isAuthenticated = true
-              }
-            }
-            if (!isAuthenticated) {
-              logger.warn(`[${requestId}] Unauthorized webhook access attempt - invalid token`)
-              return new Response('Unauthorized - Invalid authentication token', { status: 401 })
-            }
-          }
-        }
-        // IP allowlist for generic webhooks
-        if (
-          pConfig.allowedIps &&
-          Array.isArray(pConfig.allowedIps) &&
-          pConfig.allowedIps.length > 0
-        ) {
-          const clientIp =
-            request.headers.get('x-forwarded-for')?.split(',')[0].trim() ||
-            request.headers.get('x-real-ip') ||
-            'unknown'
-
-          if (clientIp === 'unknown' || !pConfig.allowedIps.includes(clientIp)) {
-            logger.warn(
-              `[${requestId}] Forbidden webhook access attempt - IP not allowed: ${clientIp}`
-            )
-            return new Response('Forbidden - IP not allowed', { status: 403 })
-          }
-        }
-        break
-      default:
-        if (pConfig.token) {
-          const providedToken = authHeader?.startsWith('Bearer ')
-            ? authHeader.substring(7)
-            : null
-          if (!providedToken || providedToken !== pConfig.token) {
-            logger.warn(`[${requestId}] Unauthorized webhook access attempt - invalid token`)
-            return new Response('Unauthorized', { status: 401 })
-          }
-        }
-    }
-  }
-
-  // Google Forms shared-secret authentication (Apps Script forwarder)
-  if (foundWebhook.provider === 'google_forms') {
-    const expectedToken = providerConfig.token as string | undefined
-    const secretHeaderName = providerConfig.secretHeaderName as string | undefined
-
-    if (expectedToken) {
-      let isTokenValid = false
-
-      if (secretHeaderName) {
-        const headerValue = request.headers.get(secretHeaderName.toLowerCase())
-        if (headerValue === expectedToken) {
-          isTokenValid = true
-        }
-      } else {
-        const authHeader = request.headers.get('authorization')
-        if (authHeader?.toLowerCase().startsWith('bearer ')) {
-          const token = authHeader.substring(7)
-          if (token === expectedToken) {
-            isTokenValid = true
-          }
-        }
-      }
-
-      if (!isTokenValid) {
-        logger.warn(`[${requestId}] Google Forms webhook authentication failed`)
-        return new Response('Unauthorized - Invalid secret', { status: 401 })
-      }
-    }
-  }
-
-  // Twilio Voice webhook signature verification
-  if (foundWebhook.provider === 'twilio_voice') {
-    const authToken = providerConfig.authToken as string | undefined
-
-    if (authToken) {
-      const signature = request.headers.get('x-twilio-signature')
-
-      if (!signature) {
-        logger.warn(`[${requestId}] Twilio Voice webhook missing signature header`)
-        return new Response('Unauthorized - Missing Twilio signature', { status: 401 })
-      }
-
-      let params: Record<string, any> = {}
-      try {
-        if (typeof rawBody === 'string') {
-          const urlParams = new URLSearchParams(rawBody)
-          params = Object.fromEntries(urlParams.entries())
-        }
-      } catch (error) {
-        logger.error(
-          `[${requestId}] Error parsing Twilio webhook body for signature validation:`,
-          error
-        )
-        return new Response('Bad Request - Invalid body format', { status: 400 })
-      }
-
+    // Build extra context for custom auth handlers (e.g., Twilio needs request URL)
+    let extra: { requestUrl?: string; formParams?: Record<string, unknown> } | undefined
+    if (trigger.auth.type === 'custom') {
       const fullUrl = getExternalUrl(request)
-      const isValidSignature = validateTwilioSignature(authToken, signature, fullUrl, params)
-
-      if (!isValidSignature) {
-        logger.warn(`[${requestId}] Twilio Voice signature verification failed`, {
-          url: fullUrl,
-          signatureLength: signature.length,
-          paramsCount: Object.keys(params).length,
-          authTokenLength: authToken.length,
-        })
-        return new Response('Unauthorized - Invalid Twilio signature', { status: 401 })
+      let formParams: Record<string, unknown> | undefined
+      try {
+        if (request.headers.get('content-type')?.includes('application/x-www-form-urlencoded')) {
+          const urlParams = new URLSearchParams(rawBody)
+          formParams = Object.fromEntries(urlParams.entries())
+        }
+      } catch {
+        // Ignore parse errors for form params
       }
-
-      logger.debug(`[${requestId}] Twilio Voice signature verified successfully`)
+      extra = { requestUrl: fullUrl, formParams }
     }
-  }
 
-  // Typeform webhook signature verification
-  if (foundWebhook.provider === 'typeform') {
-    const secret = providerConfig.secret as string | undefined
+    const result = await verifyWebhookAuth(
+      trigger.auth,
+      providerConfig,
+      request.headers,
+      rawBody,
+      extra
+    )
 
-    if (secret) {
-      const signature = request.headers.get('Typeform-Signature')
-
-      if (!signature) {
-        logger.warn(`[${requestId}] Typeform webhook missing signature header`)
-        return new Response('Unauthorized - Missing Typeform signature', { status: 401 })
-      }
-
-      const isValidSignature = validateTypeformSignature(secret, signature, rawBody)
-
-      if (!isValidSignature) {
-        logger.warn(`[${requestId}] Typeform signature verification failed`, {
-          signatureLength: signature.length,
-          secretLength: secret.length,
-        })
-        return new Response('Unauthorized - Invalid Typeform signature', { status: 401 })
-      }
-
-      logger.debug(`[${requestId}] Typeform signature verified successfully`)
-    }
-  }
-
-  // Linear webhook signature verification
-  if (foundWebhook.provider === 'linear') {
-    const secret = providerConfig.secret as string | undefined
-
-    if (secret) {
-      const signature = request.headers.get('Linear-Signature')
-
-      if (!signature) {
-        logger.warn(`[${requestId}] Linear webhook missing signature header`)
-        return new Response('Unauthorized - Missing Linear signature', { status: 401 })
-      }
-
-      const isValidSignature = validateLinearSignature(secret, signature, rawBody)
-
-      if (!isValidSignature) {
-        logger.warn(`[${requestId}] Linear signature verification failed`, {
-          signatureLength: signature.length,
-          secretLength: secret.length,
-        })
-        return new Response('Unauthorized - Invalid Linear signature', { status: 401 })
-      }
-
-      logger.debug(`[${requestId}] Linear signature verified successfully`)
-    }
-  }
-
-  // Circleback webhook signature verification
-  if (foundWebhook.provider === 'circleback') {
-    const secret = providerConfig.webhookSecret as string | undefined
-
-    if (secret) {
-      const signature = request.headers.get('x-signature')
-
-      if (!signature) {
-        logger.warn(`[${requestId}] Circleback webhook missing signature header`)
-        return new Response('Unauthorized - Missing Circleback signature', { status: 401 })
-      }
-
-      const isValidSignature = validateCirclebackSignature(secret, signature, rawBody)
-
-      if (!isValidSignature) {
-        logger.warn(`[${requestId}] Circleback signature verification failed`, {
-          signatureLength: signature.length,
-          secretLength: secret.length,
-        })
-        return new Response('Unauthorized - Invalid Circleback signature', { status: 401 })
-      }
-
-      logger.debug(`[${requestId}] Circleback signature verified successfully`)
-    }
-  }
-
-  // Cal.com webhook signature verification
-  if (foundWebhook.provider === 'calcom') {
-    const secret = providerConfig.webhookSecret as string | undefined
-
-    if (secret) {
-      const signature = request.headers.get('X-Cal-Signature-256')
-
-      if (!signature) {
-        logger.warn(`[${requestId}] Cal.com webhook missing signature header`)
-        return new Response('Unauthorized - Missing Cal.com signature', { status: 401 })
-      }
-
-      const isValidSignature = validateCalcomSignature(secret, signature, rawBody)
-
-      if (!isValidSignature) {
-        logger.warn(`[${requestId}] Cal.com signature verification failed`, {
-          signatureLength: signature.length,
-          secretLength: secret.length,
-        })
-        return new Response('Unauthorized - Invalid Cal.com signature', { status: 401 })
-      }
-
-      logger.debug(`[${requestId}] Cal.com signature verified successfully`)
-    }
-  }
-
-  // Jira webhook signature verification
-  if (foundWebhook.provider === 'jira') {
-    const secret = providerConfig.secret as string | undefined
-
-    if (secret) {
-      const signature = request.headers.get('X-Hub-Signature')
-
-      if (!signature) {
-        logger.warn(`[${requestId}] Jira webhook missing signature header`)
-        return new Response('Unauthorized - Missing Jira signature', { status: 401 })
-      }
-
-      const isValidSignature = validateJiraSignature(secret, signature, rawBody)
-
-      if (!isValidSignature) {
-        logger.warn(`[${requestId}] Jira signature verification failed`, {
-          signatureLength: signature.length,
-          secretLength: secret.length,
-        })
-        return new Response('Unauthorized - Invalid Jira signature', { status: 401 })
-      }
-
-      logger.debug(`[${requestId}] Jira signature verified successfully`)
-    }
-  }
-
-  // GitHub webhook signature verification
-  if (foundWebhook.provider === 'github') {
-    const secret = providerConfig.secret as string | undefined
-
-    if (secret) {
-      // GitHub supports both SHA-256 (preferred) and SHA-1 (legacy)
-      const signature256 = request.headers.get('X-Hub-Signature-256')
-      const signature1 = request.headers.get('X-Hub-Signature')
-      const signature = signature256 || signature1
-
-      if (!signature) {
-        logger.warn(`[${requestId}] GitHub webhook missing signature header`)
-        return new Response('Unauthorized - Missing GitHub signature', { status: 401 })
-      }
-
-      const isValidSignature = validateGitHubSignature(secret, signature, rawBody)
-
-      if (!isValidSignature) {
-        logger.warn(`[${requestId}] GitHub signature verification failed`, {
-          signatureLength: signature.length,
-          secretLength: secret.length,
-          usingSha256: !!signature256,
-        })
-        return new Response('Unauthorized - Invalid GitHub signature', { status: 401 })
-      }
-
-      logger.debug(`[${requestId}] GitHub signature verified successfully`, {
-        usingSha256: !!signature256,
+    if (!result.valid) {
+      logger.warn(`[${requestId}] Manifest auth verification failed for ${foundWebhook.provider}`, {
+        error: result.error,
+        triggerId: trigger.id,
+      })
+      return new Response(`Unauthorized - ${result.error || 'Authentication failed'}`, {
+        status: 401,
       })
     }
+
+    logger.debug(`[${requestId}] Manifest auth verified for ${foundWebhook.provider}`)
   }
 
-  // Fireflies webhook signature verification
-  if (foundWebhook.provider === 'fireflies') {
-    const secret = providerConfig.webhookSecret as string | undefined
+  // Step 4: Provider-specific inline logic for providers that need special handling
+  // beyond what AuthSpec can express
 
-    if (secret) {
-      const signature = request.headers.get('x-hub-signature')
-
-      if (!signature) {
-        logger.warn(`[${requestId}] Fireflies webhook missing signature header`)
-        return new Response('Unauthorized - Missing Fireflies signature', { status: 401 })
-      }
-
-      const isValidSignature = validateFirefliesSignature(secret, signature, rawBody)
-
-      if (!isValidSignature) {
-        logger.warn(`[${requestId}] Fireflies signature verification failed`, {
-          signatureLength: signature.length,
-          secretLength: secret.length,
-        })
-        return new Response('Unauthorized - Invalid Fireflies signature', { status: 401 })
-      }
-
-      logger.debug(`[${requestId}] Fireflies signature verified successfully`)
+  // Telegram: logging only (no actual auth)
+  if (foundWebhook.provider === 'telegram') {
+    const userAgent = request.headers.get('user-agent') || ''
+    logger.debug(
+      `[${requestId}] Telegram webhook request received with User-Agent: ${userAgent}`
+    )
+    if (!userAgent) {
+      logger.warn(
+        `[${requestId}] Telegram webhook request has empty User-Agent header. This may be blocked by middleware.`
+      )
     }
+    const clientIp =
+      request.headers.get('x-forwarded-for')?.split(',')[0].trim() ||
+      request.headers.get('x-real-ip') ||
+      'unknown'
+    logger.debug(`[${requestId}] Telegram webhook request from IP: ${clientIp}`)
   }
 
-  // Generic webhook token-based auth (resolved env vars)
+  // Generic webhook: token + IP allowlist (special two-factor logic)
   if (foundWebhook.provider === 'generic') {
     if (providerConfig.requireAuth) {
       const configToken = providerConfig.token
@@ -1215,7 +601,9 @@ export async function verifyProviderAuth(
         let isTokenValid = false
 
         if (secretHeaderName) {
-          const headerValue = request.headers.get(secretHeaderName.toLowerCase())
+          const headerValue = request.headers.get(
+            (secretHeaderName as string).toLowerCase()
+          )
           if (headerValue === configToken) {
             isTokenValid = true
           }
@@ -1236,6 +624,40 @@ export async function verifyProviderAuth(
         return new Response('Unauthorized - Authentication required but not configured', {
           status: 401,
         })
+      }
+    }
+
+    // IP allowlist for generic webhooks
+    if (
+      providerConfig.allowedIps &&
+      Array.isArray(providerConfig.allowedIps) &&
+      (providerConfig.allowedIps as string[]).length > 0
+    ) {
+      const clientIp =
+        request.headers.get('x-forwarded-for')?.split(',')[0].trim() ||
+        request.headers.get('x-real-ip') ||
+        'unknown'
+
+      if (clientIp === 'unknown' || !(providerConfig.allowedIps as string[]).includes(clientIp)) {
+        logger.warn(
+          `[${requestId}] Forbidden webhook access attempt - IP not allowed: ${clientIp}`
+        )
+        return new Response('Forbidden - IP not allowed', { status: 403 })
+      }
+    }
+  }
+
+  // Default bearer token check for providers without manifest auth
+  if (!trigger?.auth && foundWebhook.provider !== 'generic' && foundWebhook.provider !== 'telegram') {
+    const pConfig = (foundWebhook.providerConfig as Record<string, any>) || {}
+    if (pConfig.token) {
+      const authHeader = request.headers.get('authorization')
+      const providedToken = authHeader?.startsWith('Bearer ')
+        ? authHeader.substring(7)
+        : null
+      if (!providedToken || providedToken !== pConfig.token) {
+        logger.warn(`[${requestId}] Unauthorized webhook access attempt - invalid token`)
+        return new Response('Unauthorized', { status: 401 })
       }
     }
   }

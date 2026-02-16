@@ -14,7 +14,7 @@
     "bgColor": "#5c0c5c",
     "icon": "ReductoIcon",
     "authMode": "api_key",
-    "hideFromToolbar": true,
+    "hideFromToolbar": false,
     "subBlocks": [
       {
         "id": "fileUpload",

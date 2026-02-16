@@ -114,5 +114,55 @@
         "operation": "whatsapp_send_message"
       }
     }
+  ],
+  "triggers": [
+    {
+      "id": "whatsapp_webhook",
+      "name": "WhatsApp Webhook",
+      "provider": "whatsapp",
+      "description": "Trigger workflow from WhatsApp messages and events via Business Platform webhooks",
+      "version": "1.0.0",
+      "webhook": {
+        "method": "POST"
+      },
+      "credentials": [
+        {
+          "id": "verificationToken",
+          "label": "Verification Token",
+          "type": "password",
+          "required": true,
+          "description": "Enter any secure token here. Provide the same token in your WhatsApp Business Platform dashboard.",
+          "placeholder": "Enter a verification token"
+        }
+      ],
+      "challenge": {
+        "type": "hub_verify",
+        "verifyTokenField": "verificationToken"
+      },
+      "instructions": "1. Go to Meta for Developers Apps page.\n2. Select your App, navigate to WhatsApp > Configuration.\n3. Click Edit in the Webhooks section.\n4. Paste the Webhook URL into the Callback URL field.\n5. Paste the Verification Token into the Verify token field.\n6. Click Verify and save.\n7. Click Manage next to Webhook fields and subscribe to messages.",
+      "outputs": {
+        "messageId": { "type": "string", "description": "Unique message identifier (wamid)" },
+        "from": { "type": "string", "description": "Phone number of the message sender" },
+        "phoneNumberId": { "type": "string", "description": "WhatsApp Business phone number ID" },
+        "text": { "type": "string", "description": "Message text content" },
+        "timestamp": { "type": "string", "description": "Message timestamp (Unix)" },
+        "messageType": { "type": "string", "description": "Type of message (text, image, audio, video, document, sticker, location, contacts)" },
+        "contact": {
+          "type": "object",
+          "description": "Contact information of the sender",
+          "properties": {
+            "wa_id": { "type": "string", "description": "WhatsApp ID (phone number with country code)" },
+            "profile": {
+              "type": "object",
+              "description": "Contact profile",
+              "properties": {
+                "name": { "type": "string", "description": "Contact display name" }
+              }
+            }
+          }
+        },
+        "raw": { "type": "object", "description": "Complete raw webhook payload from WhatsApp" }
+      }
+    }
   ]
 }

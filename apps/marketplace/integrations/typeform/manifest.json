@@ -358,5 +358,34 @@
         "operation": "typeform_update_form"
       }
     }
+  ],
+  "triggers": [
+    {
+      "id": "typeform_webhook",
+      "name": "Typeform Webhook",
+      "provider": "typeform",
+      "description": "Trigger workflow when a Typeform response is submitted",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        { "id": "apiKey", "label": "Personal Access Token", "type": "password", "required": true, "description": "Typeform Personal Access Token for API access", "placeholder": "tfp_..." },
+        { "id": "secret", "label": "Webhook Secret", "type": "password", "required": false, "description": "Secret for HMAC signature verification", "placeholder": "Enter webhook secret" }
+      ],
+      "auth": { "type": "hmac", "headerName": "Typeform-Signature", "secretField": "secret", "algorithm": "sha256", "encoding": "base64", "signaturePrefix": "sha256=" },
+      "outputs": {
+        "event_id": { "type": "string", "description": "Unique event ID" },
+        "event_type": { "type": "string", "description": "Event type (form_response)" },
+        "form_id": { "type": "string", "description": "Form ID" },
+        "token": { "type": "string", "description": "Response token" },
+        "submitted_at": { "type": "string", "description": "Submission timestamp" },
+        "landed_at": { "type": "string", "description": "Landing page timestamp" },
+        "answers": { "type": "array", "description": "Array of answers" },
+        "variables": { "type": "array", "description": "Typeform variables" },
+        "hidden": { "type": "object", "description": "Hidden fields" },
+        "calculated": { "type": "object", "description": "Calculated fields with score" },
+        "definition": { "type": "object", "description": "Form structure" },
+        "raw": { "type": "json", "description": "Complete original webhook payload" }
+      }
+    }
   ]
 }

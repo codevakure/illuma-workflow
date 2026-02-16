@@ -23,7 +23,15 @@ class ManifestRegistry {
   private integrations = new Map<string, IntegrationManifest>()
   private blocksByType = new Map<string, BlockManifest>()
   private toolsById = new Map<string, ToolManifest>()
-  private triggersByProvider = new Map<string, TriggerManifest>()
+
+  /** Trigger ID → TriggerManifest (e.g. "slack_webhook" → manifest) */
+  private triggersById = new Map<string, TriggerManifest>()
+
+  /** Provider → TriggerManifest[] (e.g. "github" → [github_push, github_pr, ...]) */
+  private triggersByProvider = new Map<string, TriggerManifest[]>()
+
+  /** Trigger ID → Integration ID (for reverse lookup) */
+  private triggerToIntegration = new Map<string, string>()
 
   /** Integration ID → manifest for tool-to-integration resolution */
   private toolToIntegration = new Map<string, string>()
@@ -92,7 +100,7 @@ class ManifestRegistry {
       skipped,
       blocks: this.blocksByType.size,
       tools: this.toolsById.size,
-      triggers: this.triggersByProvider.size,
+      triggers: this.triggersById.size,
     })
   }
 
@@ -138,6 +146,19 @@ class ManifestRegistry {
       }
     }
 
+    // Validate triggers array if present
+    if (manifest.triggers) {
+      if (!Array.isArray(manifest.triggers)) {
+        errors.push('triggers must be an array')
+      } else {
+        for (const trigger of manifest.triggers) {
+          if (!trigger.id) errors.push('Trigger missing id')
+          if (!trigger.name) errors.push(`Trigger ${trigger.id || '?'} missing name`)
+          if (!trigger.provider) errors.push(`Trigger ${trigger.id || '?'} missing provider`)
+        }
+      }
+    }
+
     if (manifest.id !== dirName) {
       errors.push(`Manifest id "${manifest.id}" does not match directory name "${dirName}"`)
     }
@@ -176,9 +197,14 @@ class ManifestRegistry {
       this.toolToIntegration.set(tool.id, manifest.id)
     }
 
-    // Trigger
-    if (manifest.trigger) {
-      this.triggersByProvider.set(manifest.trigger.provider, manifest.trigger)
+    // Triggers
+    for (const trigger of manifest.triggers ?? []) {
+      this.triggersById.set(trigger.id, trigger)
+      this.triggerToIntegration.set(trigger.id, manifest.id)
+
+      const existing = this.triggersByProvider.get(trigger.provider) ?? []
+      existing.push(trigger)
+      this.triggersByProvider.set(trigger.provider, existing)
     }
   }
 
@@ -210,12 +236,30 @@ class ManifestRegistry {
     return Array.from(this.toolsById.values())
   }
 
-  getTrigger(provider: string): TriggerManifest | undefined {
-    return this.triggersByProvider.get(provider)
+  /** Get a single trigger by its ID (e.g. "slack_webhook", "github_push") */
+  getTriggerById(triggerId: string): TriggerManifest | undefined {
+    return this.triggersById.get(triggerId)
   }
 
+  /** Get triggers for a provider (e.g. "github" → [github_push, github_pr, ...]) */
+  getTriggersForProvider(provider: string): TriggerManifest[] {
+    return this.triggersByProvider.get(provider) ?? []
+  }
+
+  /** Get triggers for a provider, returning the first match (used by /triggers/:provider route) */
+  getTrigger(provider: string): TriggerManifest | undefined {
+    return this.triggersByProvider.get(provider)?.[0]
+  }
+
+  /** Returns all registered trigger manifests */
   getAllTriggers(): TriggerManifest[] {
-    return Array.from(this.triggersByProvider.values())
+    return Array.from(this.triggersById.values())
+  }
+
+  /** Returns the integration manifest that owns a given trigger */
+  getIntegrationForTrigger(triggerId: string): IntegrationManifest | undefined {
+    const integrationId = this.triggerToIntegration.get(triggerId)
+    return integrationId ? this.integrations.get(integrationId) : undefined
   }
 
   /** Returns the integration manifest that owns a given tool */
@@ -247,7 +291,7 @@ class ManifestRegistry {
       integrations: this.integrations.size,
       blocks: this.blocksByType.size,
       tools: this.toolsById.size,
-      triggers: this.triggersByProvider.size,
+      triggers: this.triggersById.size,
     }
   }
 }

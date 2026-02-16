@@ -97,11 +97,25 @@ export interface ManifestParam {
   enum?: string[]
 }
 
+export interface ManifestCredential {
+  id: string
+  label: string
+  type: 'password' | 'text'
+  required?: boolean
+  placeholder?: string
+  description?: string
+}
+
 export interface ManifestTrigger {
   id: string
   name: string
   provider: string
-  outputs: Record<string, { type: string; description?: string }>
+  description?: string
+  version?: string
+  webhook?: { method?: string }
+  credentials?: ManifestCredential[]
+  instructions?: string
+  outputs: Record<string, { type: string; description?: string; properties?: Record<string, unknown>; items?: unknown }>
 }
 
 export interface ManifestIntegration {
@@ -112,7 +126,7 @@ export interface ManifestIntegration {
   icon: string
   block: ManifestBlock
   tools: ManifestTool[]
-  trigger?: ManifestTrigger
+  triggers?: ManifestTrigger[]
 }
 
 export interface RegistryState {

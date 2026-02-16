@@ -90,8 +90,8 @@ Every manifest.json must conform to this structure:
   // Tool definitions (one or more)
   "tools": [ ... ],
 
-  // Trigger definition (optional, for webhook-triggered workflows)
-  "trigger": { ... }
+  // Trigger definitions (optional, for webhook-triggered workflows)
+  "triggers": [ ... ]
 }
 ```
 
@@ -188,38 +188,42 @@ Each tool in the `tools` array defines one operation:
 }
 ```
 
-### Trigger Definition (Optional)
+### Trigger Definitions (Optional)
+
+Triggers are defined as an array at the root level of the manifest. Single-trigger integrations have one entry; multi-trigger integrations (like GitHub with 12 event types) have multiple entries.
 
 ```jsonc
 {
-  "trigger": {
-    "id": "myservice_webhook",
-    "name": "My Service Trigger",
-    "provider": "myservice",
-    "webhook": {
-      "method": "POST"
-    },
-    "credentials": [
-      {
-        "id": "webhookSecret",
-        "label": "Webhook Secret",
-        "type": "password",
-        "required": true,
-        "description": "Secret for verifying webhook signatures"
+  "triggers": [
+    {
+      "id": "myservice_webhook",
+      "name": "My Service Trigger",
+      "provider": "myservice",
+      "webhook": {
+        "method": "POST"
+      },
+      "credentials": [
+        {
+          "id": "webhookSecret",
+          "label": "Webhook Secret",
+          "type": "password",
+          "required": true,
+          "description": "Secret for verifying webhook signatures"
+        }
+      ],
+      "auth": {
+        "type": "hmac",
+        "headerName": "X-Signature",
+        "secretField": "webhookSecret",
+        "algorithm": "sha256"
+      },
+      "instructions": "1. Go to My Service settings\n2. Add webhook URL\n3. Copy the secret",
+      "outputs": {
+        "event": { "type": "json", "description": "The webhook event payload" },
+        "eventType": { "type": "string", "description": "Type of event" }
       }
-    ],
-    "auth": {
-      "type": "hmac",
-      "headerName": "X-Signature",
-      "secretField": "webhookSecret",
-      "algorithm": "sha256"
-    },
-    "instructions": "1. Go to My Service settings\n2. Add webhook URL\n3. Copy the secret",
-    "outputs": {
-      "event": { "type": "json", "description": "The webhook event payload" },
-      "eventType": { "type": "string", "description": "Type of event" }
     }
-  }
+  ]
 }
 ```
 
@@ -434,67 +438,78 @@ const ICON_MAP = {
 
 ### Step 5: Create the Tool Handler (Proxy Mode)
 
-For proxy-mode tools, create a handler in the API server at `apps/api/src/routes/tool-proxy/handlers/myservice.ts`:
+For proxy-mode tools, create a handler in the marketplace at `apps/marketplace/integrations/myservice/handler.ts`:
 
 ```typescript
-import type { Context } from 'hono'
-import { createLogger } from '@sim/logger'
+import type { ToolHandler } from '../../sdk/types'
 
-const logger = createLogger('MyServiceHandler')
+const handler: ToolHandler = {
+  operations: {
+    myservice_list: async (params, ctx) => {
+      const apiKey = (ctx.apiKey || params.apiKey) as string
+      if (!apiKey) {
+        return { success: false, output: {}, error: 'Missing required parameter: apiKey' }
+      }
 
-export default async function handler(c: Context) {
-  const body = await c.req.json()
-  const { operation, credential, ...params } = body
-
-  // Get API key from credential
-  const apiKey = credential // or decrypt from credential store
-
-  const baseUrl = 'https://api.myservice.com/v1'
-
-  switch (operation) {
-    case 'myservice_list': {
-      const response = await fetch(`${baseUrl}/items?limit=${params.limit || 50}`, {
+      const response = await fetch(`https://api.myservice.com/v1/items?limit=${params.limit || 50}`, {
         headers: { Authorization: `Bearer ${apiKey}` },
       })
       const data = await response.json()
-      return c.json({ success: true, output: { items: data.items, total: data.total } })
-    }
+      return { success: true, output: { items: data.items, total: data.total } }
+    },
 
-    case 'myservice_get': {
-      const response = await fetch(`${baseUrl}/items/${params.itemId}`, {
+    myservice_get: async (params, ctx) => {
+      const apiKey = (ctx.apiKey || params.apiKey) as string
+      if (!apiKey) {
+        return { success: false, output: {}, error: 'Missing required parameter: apiKey' }
+      }
+
+      const response = await fetch(`https://api.myservice.com/v1/items/${params.itemId}`, {
         headers: { Authorization: `Bearer ${apiKey}` },
       })
       const data = await response.json()
-      return c.json({ success: true, output: { item: data } })
-    }
+      return { success: true, output: { item: data } }
+    },
 
     // ... other operations
-
-    default:
-      return c.json({ success: false, error: `Unknown operation: ${operation}` }, 400)
-  }
+  },
 }
+
+export default handler
 ```
 
-Register the handler in `apps/api/src/routes/tool-proxy/index.ts`.
+The marketplace auto-discovers `handler.ts` files at startup. No registration step needed.
 
-### Step 6: Create Tool Definitions (for API Server)
+### Step 6: Create Tests
 
-For each tool, create a TypeScript definition in `apps/api/src/tools/myservice/`:
+Create `apps/marketplace/integrations/myservice/handler.test.ts`:
 
+```typescript
+/**
+ * @vitest-environment node
+ */
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { createMockContext, createMockFetch } from '../../sdk/testing'
+import handler from './handler'
+
+describe('myservice handler', () => {
+  beforeEach(() => { vi.restoreAllMocks() })
+
+  it('lists items', async () => {
+    vi.stubGlobal('fetch', createMockFetch([{
+      body: { items: [{ id: '1', name: 'Test' }], total: 1 }
+    }]))
+    const result = await handler.operations.myservice_list(
+      { apiKey: 'key' },
+      createMockContext()
+    )
+    expect(result.success).toBe(true)
+    expect(result.output.items).toHaveLength(1)
+  })
+})
 ```
-apps/api/src/tools/myservice/
-├── index.ts        # Barrel export
-├── types.ts        # Parameter and response types
-├── list.ts         # List items tool
-├── get.ts          # Get item tool
-├── create.ts       # Create item tool
-├── update.ts       # Update item tool
-├── delete.ts       # Delete item tool
-└── search.ts       # Search tool
-```
 
-Register in `apps/api/src/tools/registry.ts`.
+Run tests: `cd apps/marketplace && bunx vitest run integrations/myservice/`
 
 ---
 
@@ -709,31 +724,35 @@ Triggers allow integrations to start workflows via webhooks.
 
 ```json
 {
-  "trigger": {
-    "id": "github_webhook",
-    "name": "GitHub Webhook",
-    "provider": "github",
-    "webhook": { "method": "POST" },
-    "credentials": [
-      {
-        "id": "webhookSecret",
-        "label": "Webhook Secret",
-        "type": "password",
-        "required": true
+  "triggers": [
+    {
+      "id": "github_push",
+      "name": "GitHub Push",
+      "provider": "github",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        {
+          "id": "webhookSecret",
+          "label": "Webhook Secret",
+          "type": "password",
+          "required": true
+        }
+      ],
+      "auth": {
+        "type": "hmac",
+        "headerName": "X-Hub-Signature-256",
+        "secretField": "webhookSecret",
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "signaturePrefix": "sha256="
+      },
+      "instructions": "1. Go to your GitHub repository Settings > Webhooks\n2. Add a new webhook\n3. Set the Payload URL to the webhook URL shown above\n4. Set Content type to application/json\n5. Enter a secret and paste it here\n6. Select the events you want to trigger on",
+      "outputs": {
+        "event": { "type": "json", "description": "Full webhook event payload" },
+        "action": { "type": "string", "description": "Event action (created, updated, etc.)" }
       }
-    ],
-    "auth": {
-      "type": "hmac",
-      "headerName": "X-Hub-Signature-256",
-      "secretField": "webhookSecret",
-      "algorithm": "sha256"
-    },
-    "instructions": "1. Go to your GitHub repository Settings > Webhooks\n2. Add a new webhook\n3. Set the Payload URL to the webhook URL shown above\n4. Set Content type to application/json\n5. Enter a secret and paste it here\n6. Select the events you want to trigger on",
-    "outputs": {
-      "event": { "type": "json", "description": "Full webhook event payload" },
-      "action": { "type": "string", "description": "Event action (created, updated, etc.)" }
     }
-  }
+  ]
 }
 ```
 
@@ -836,8 +855,8 @@ Before submitting your integration:
 - [ ] All tool `outputs` have `type` and `description`
 - [ ] Conditional visibility (`condition`) works correctly for operation-specific fields
 - [ ] OAuth/API key requirements are properly declared
-- [ ] Tool handler exists in `apps/api/src/routes/tool-proxy/handlers/` (for proxy mode)
-- [ ] Tool definitions exist in `apps/api/src/tools/{service}/` and are registered
+- [ ] Tool handler exists in `apps/marketplace/integrations/{service}/handler.ts` (for proxy mode)
+- [ ] Handler tests exist in `apps/marketplace/integrations/{service}/handler.test.ts`
 - [ ] Integration loads without errors on marketplace startup
 - [ ] Block renders correctly in the web app
 - [ ] At least one tool execution succeeds end-to-end
@@ -860,7 +879,7 @@ See: `integrations/github/manifest.json`
 
 ### Integration with Trigger
 
-See: `integrations/slack/manifest.json` (has `trigger` section)
+See: `integrations/slack/manifest.json` (has `triggers` array)
 
 ### Direct-Mode Tool (No handler code needed)
 
@@ -871,6 +890,6 @@ See: `integrations/tavily/manifest.json` (for future direct-mode examples)
 ## Getting Help
 
 - Check existing manifests in `integrations/` for patterns
-- Look at the TypeScript types in `apps/marketplace/src/types.ts`
-- For tool handler questions, see `apps/api/src/routes/tool-proxy/handlers/`
-- For block definition patterns, see `apps/web/src/blocks/blocks/`
+- Look at the TypeScript types in `apps/marketplace/src/types.ts` and `apps/api/src/integrations/types.ts`
+- For tool handler patterns, see `apps/marketplace/integrations/wikipedia/handler.ts` or `apps/marketplace/integrations/slack/handler.ts`
+- For trigger patterns, see `apps/marketplace/integrations/github/manifest.json` (multi-trigger) or `apps/marketplace/integrations/stripe/manifest.json` (single-trigger with custom auth)

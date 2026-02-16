@@ -2050,5 +2050,281 @@
         "operation": "linear_update_workflow_state"
       }
     }
+  ],
+  "triggers": [
+    {
+      "id": "linear_issue_created",
+      "name": "Linear Issue Created",
+      "provider": "linear",
+      "description": "Trigger when a new issue is created in Linear",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        { "id": "webhookSecret", "label": "Webhook Secret", "type": "password", "required": false, "description": "Validates that webhook deliveries originate from Linear", "placeholder": "Enter a strong secret" }
+      ],
+      "auth": { "type": "hmac", "headerName": "Linear-Signature", "secretField": "webhookSecret", "algorithm": "sha256", "encoding": "hex" },
+      "outputs": {
+        "action": { "type": "string", "description": "Action performed (create)" },
+        "type": { "type": "string", "description": "Entity type (Issue)" },
+        "organizationId": { "type": "string", "description": "Organization ID" },
+        "actor": { "type": "object", "description": "User who performed the action" },
+        "data": { "type": "object", "description": "Issue data (id, title, description, identifier, priority, teamId, stateId, assigneeId, url, etc.)" },
+        "updatedFrom": { "type": "object", "description": "Previous values for changed fields" }
+      }
+    },
+    {
+      "id": "linear_issue_updated",
+      "name": "Linear Issue Updated",
+      "provider": "linear",
+      "description": "Trigger when an issue is updated in Linear",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        { "id": "webhookSecret", "label": "Webhook Secret", "type": "password", "required": false, "description": "Validates that webhook deliveries originate from Linear", "placeholder": "Enter a strong secret" }
+      ],
+      "auth": { "type": "hmac", "headerName": "Linear-Signature", "secretField": "webhookSecret", "algorithm": "sha256", "encoding": "hex" },
+      "outputs": {
+        "action": { "type": "string", "description": "Action performed (update)" },
+        "type": { "type": "string", "description": "Entity type (Issue)" },
+        "organizationId": { "type": "string", "description": "Organization ID" },
+        "actor": { "type": "object", "description": "User who performed the action" },
+        "data": { "type": "object", "description": "Issue data" },
+        "updatedFrom": { "type": "object", "description": "Previous values for changed fields" }
+      }
+    },
+    {
+      "id": "linear_issue_removed",
+      "name": "Linear Issue Removed",
+      "provider": "linear",
+      "description": "Trigger when an issue is removed in Linear",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        { "id": "webhookSecret", "label": "Webhook Secret", "type": "password", "required": false, "description": "Validates that webhook deliveries originate from Linear", "placeholder": "Enter a strong secret" }
+      ],
+      "auth": { "type": "hmac", "headerName": "Linear-Signature", "secretField": "webhookSecret", "algorithm": "sha256", "encoding": "hex" },
+      "outputs": {
+        "action": { "type": "string", "description": "Action performed (remove)" },
+        "type": { "type": "string", "description": "Entity type (Issue)" },
+        "data": { "type": "object", "description": "Issue data" }
+      }
+    },
+    {
+      "id": "linear_comment_created",
+      "name": "Linear Comment Created",
+      "provider": "linear",
+      "description": "Trigger when a comment is created on a Linear issue",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        { "id": "webhookSecret", "label": "Webhook Secret", "type": "password", "required": false, "description": "Validates that webhook deliveries originate from Linear", "placeholder": "Enter a strong secret" }
+      ],
+      "auth": { "type": "hmac", "headerName": "Linear-Signature", "secretField": "webhookSecret", "algorithm": "sha256", "encoding": "hex" },
+      "outputs": {
+        "action": { "type": "string", "description": "Action performed (create)" },
+        "type": { "type": "string", "description": "Entity type (Comment)" },
+        "actor": { "type": "object", "description": "User who performed the action" },
+        "data": { "type": "object", "description": "Comment data (id, body, url, issueId, userId)" }
+      }
+    },
+    {
+      "id": "linear_comment_updated",
+      "name": "Linear Comment Updated",
+      "provider": "linear",
+      "description": "Trigger when a comment is updated on a Linear issue",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        { "id": "webhookSecret", "label": "Webhook Secret", "type": "password", "required": false, "description": "Validates that webhook deliveries originate from Linear", "placeholder": "Enter a strong secret" }
+      ],
+      "auth": { "type": "hmac", "headerName": "Linear-Signature", "secretField": "webhookSecret", "algorithm": "sha256", "encoding": "hex" },
+      "outputs": {
+        "action": { "type": "string", "description": "Action performed (update)" },
+        "type": { "type": "string", "description": "Entity type (Comment)" },
+        "actor": { "type": "object", "description": "User who performed the action" },
+        "data": { "type": "object", "description": "Comment data" },
+        "updatedFrom": { "type": "object", "description": "Previous values" }
+      }
+    },
+    {
+      "id": "linear_project_created",
+      "name": "Linear Project Created",
+      "provider": "linear",
+      "description": "Trigger when a project is created in Linear",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        { "id": "webhookSecret", "label": "Webhook Secret", "type": "password", "required": false, "description": "Validates that webhook deliveries originate from Linear", "placeholder": "Enter a strong secret" }
+      ],
+      "auth": { "type": "hmac", "headerName": "Linear-Signature", "secretField": "webhookSecret", "algorithm": "sha256", "encoding": "hex" },
+      "outputs": {
+        "action": { "type": "string", "description": "Action performed (create)" },
+        "type": { "type": "string", "description": "Entity type (Project)" },
+        "actor": { "type": "object", "description": "User who performed the action" },
+        "data": { "type": "object", "description": "Project data (id, name, description, state, url, leadId, memberIds, teamIds, priority)" }
+      }
+    },
+    {
+      "id": "linear_project_updated",
+      "name": "Linear Project Updated",
+      "provider": "linear",
+      "description": "Trigger when a project is updated in Linear",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        { "id": "webhookSecret", "label": "Webhook Secret", "type": "password", "required": false, "description": "Validates that webhook deliveries originate from Linear", "placeholder": "Enter a strong secret" }
+      ],
+      "auth": { "type": "hmac", "headerName": "Linear-Signature", "secretField": "webhookSecret", "algorithm": "sha256", "encoding": "hex" },
+      "outputs": {
+        "action": { "type": "string", "description": "Action performed (update)" },
+        "type": { "type": "string", "description": "Entity type (Project)" },
+        "actor": { "type": "object", "description": "User who performed the action" },
+        "data": { "type": "object", "description": "Project data" },
+        "updatedFrom": { "type": "object", "description": "Previous values" }
+      }
+    },
+    {
+      "id": "linear_cycle_created",
+      "name": "Linear Cycle Created",
+      "provider": "linear",
+      "description": "Trigger when a cycle is created in Linear",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        { "id": "webhookSecret", "label": "Webhook Secret", "type": "password", "required": false, "description": "Validates that webhook deliveries originate from Linear", "placeholder": "Enter a strong secret" }
+      ],
+      "auth": { "type": "hmac", "headerName": "Linear-Signature", "secretField": "webhookSecret", "algorithm": "sha256", "encoding": "hex" },
+      "outputs": {
+        "action": { "type": "string", "description": "Action performed (create)" },
+        "type": { "type": "string", "description": "Entity type (Cycle)" },
+        "actor": { "type": "object", "description": "User who performed the action" },
+        "data": { "type": "object", "description": "Cycle data (id, number, name, description, teamId, startsAt, endsAt)" }
+      }
+    },
+    {
+      "id": "linear_cycle_updated",
+      "name": "Linear Cycle Updated",
+      "provider": "linear",
+      "description": "Trigger when a cycle is updated in Linear",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        { "id": "webhookSecret", "label": "Webhook Secret", "type": "password", "required": false, "description": "Validates that webhook deliveries originate from Linear", "placeholder": "Enter a strong secret" }
+      ],
+      "auth": { "type": "hmac", "headerName": "Linear-Signature", "secretField": "webhookSecret", "algorithm": "sha256", "encoding": "hex" },
+      "outputs": {
+        "action": { "type": "string", "description": "Action performed (update)" },
+        "type": { "type": "string", "description": "Entity type (Cycle)" },
+        "data": { "type": "object", "description": "Cycle data" },
+        "updatedFrom": { "type": "object", "description": "Previous values" }
+      }
+    },
+    {
+      "id": "linear_label_created",
+      "name": "Linear Label Created",
+      "provider": "linear",
+      "description": "Trigger when a label is created in Linear",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        { "id": "webhookSecret", "label": "Webhook Secret", "type": "password", "required": false, "description": "Validates that webhook deliveries originate from Linear", "placeholder": "Enter a strong secret" }
+      ],
+      "auth": { "type": "hmac", "headerName": "Linear-Signature", "secretField": "webhookSecret", "algorithm": "sha256", "encoding": "hex" },
+      "outputs": {
+        "action": { "type": "string", "description": "Action performed (create)" },
+        "type": { "type": "string", "description": "Entity type (IssueLabel)" },
+        "data": { "type": "object", "description": "Label data (id, name, description, color, teamId)" }
+      }
+    },
+    {
+      "id": "linear_label_updated",
+      "name": "Linear Label Updated",
+      "provider": "linear",
+      "description": "Trigger when a label is updated in Linear",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        { "id": "webhookSecret", "label": "Webhook Secret", "type": "password", "required": false, "description": "Validates that webhook deliveries originate from Linear", "placeholder": "Enter a strong secret" }
+      ],
+      "auth": { "type": "hmac", "headerName": "Linear-Signature", "secretField": "webhookSecret", "algorithm": "sha256", "encoding": "hex" },
+      "outputs": {
+        "action": { "type": "string", "description": "Action performed (update)" },
+        "type": { "type": "string", "description": "Entity type (IssueLabel)" },
+        "data": { "type": "object", "description": "Label data" },
+        "updatedFrom": { "type": "object", "description": "Previous values" }
+      }
+    },
+    {
+      "id": "linear_project_update_created",
+      "name": "Linear Project Update Created",
+      "provider": "linear",
+      "description": "Trigger when a project update is posted in Linear",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        { "id": "webhookSecret", "label": "Webhook Secret", "type": "password", "required": false, "description": "Validates that webhook deliveries originate from Linear", "placeholder": "Enter a strong secret" }
+      ],
+      "auth": { "type": "hmac", "headerName": "Linear-Signature", "secretField": "webhookSecret", "algorithm": "sha256", "encoding": "hex" },
+      "outputs": {
+        "action": { "type": "string", "description": "Action performed (create)" },
+        "type": { "type": "string", "description": "Entity type (ProjectUpdate)" },
+        "data": { "type": "object", "description": "Project update data (id, body, url, projectId, health)" }
+      }
+    },
+    {
+      "id": "linear_customer_request_created",
+      "name": "Linear Customer Request Created",
+      "provider": "linear",
+      "description": "Trigger when a customer request is created in Linear",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        { "id": "webhookSecret", "label": "Webhook Secret", "type": "password", "required": false, "description": "Validates that webhook deliveries originate from Linear", "placeholder": "Enter a strong secret" }
+      ],
+      "auth": { "type": "hmac", "headerName": "Linear-Signature", "secretField": "webhookSecret", "algorithm": "sha256", "encoding": "hex" },
+      "outputs": {
+        "action": { "type": "string", "description": "Action performed (create)" },
+        "type": { "type": "string", "description": "Entity type (CustomerNeed)" },
+        "data": { "type": "object", "description": "Customer request data (id, body, priority, customerId, issueId)" }
+      }
+    },
+    {
+      "id": "linear_customer_request_updated",
+      "name": "Linear Customer Request Updated",
+      "provider": "linear",
+      "description": "Trigger when a customer request is updated in Linear",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        { "id": "webhookSecret", "label": "Webhook Secret", "type": "password", "required": false, "description": "Validates that webhook deliveries originate from Linear", "placeholder": "Enter a strong secret" }
+      ],
+      "auth": { "type": "hmac", "headerName": "Linear-Signature", "secretField": "webhookSecret", "algorithm": "sha256", "encoding": "hex" },
+      "outputs": {
+        "action": { "type": "string", "description": "Action performed (update)" },
+        "type": { "type": "string", "description": "Entity type (CustomerNeed)" },
+        "data": { "type": "object", "description": "Customer request data" },
+        "updatedFrom": { "type": "object", "description": "Previous values" }
+      }
+    },
+    {
+      "id": "linear_webhook",
+      "name": "Linear Webhook (All Events)",
+      "provider": "linear",
+      "description": "Trigger on any Linear webhook event",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        { "id": "webhookSecret", "label": "Webhook Secret", "type": "password", "required": false, "description": "Validates that webhook deliveries originate from Linear", "placeholder": "Enter a strong secret" }
+      ],
+      "auth": { "type": "hmac", "headerName": "Linear-Signature", "secretField": "webhookSecret", "algorithm": "sha256", "encoding": "hex" },
+      "outputs": {
+        "action": { "type": "string", "description": "Action performed" },
+        "type": { "type": "string", "description": "Entity type" },
+        "organizationId": { "type": "string", "description": "Organization ID" },
+        "actor": { "type": "object", "description": "User who performed the action" },
+        "data": { "type": "object", "description": "Event data" },
+        "updatedFrom": { "type": "object", "description": "Previous values" }
+      }
+    }
   ]
 }

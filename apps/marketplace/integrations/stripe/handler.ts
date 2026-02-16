@@ -1,3 +1,4 @@
+import crypto from 'node:crypto'
 import type { ToolHandler } from '../../sdk/types'
 
 const STRIPE_API = 'https://api.stripe.com/v1'
@@ -1571,6 +1572,78 @@ const handler: ToolHandler = {
             has_more: data.has_more || false,
           },
         },
+      }
+    },
+
+    /**
+     * Verify Stripe webhook signature.
+     * Stripe uses: t=timestamp,v1=HMAC_SHA256(timestamp.body, secret)
+     * Called by the auth engine for custom auth verification.
+     */
+    stripe_verify_webhook: async (params) => {
+      const headers = params.headers as Record<string, string>
+      const body = params.body as string
+      const config = params.config as Record<string, unknown>
+
+      const webhookSecret = config.webhookSecret as string | undefined
+      if (!webhookSecret) {
+        return { success: true, output: { valid: true } }
+      }
+
+      const sigHeader = headers['stripe-signature']
+      if (!sigHeader) {
+        return {
+          success: true,
+          output: { valid: false, error: 'Missing Stripe-Signature header' },
+        }
+      }
+
+      // Parse the signature header: t=timestamp,v1=sig1[,v1=sig2...]
+      const elements = sigHeader.split(',')
+      let timestamp: string | undefined
+      const signatures: string[] = []
+
+      for (const element of elements) {
+        const [key, value] = element.split('=', 2)
+        if (key === 't') {
+          timestamp = value
+        } else if (key === 'v1') {
+          signatures.push(value)
+        }
+      }
+
+      if (!timestamp || signatures.length === 0) {
+        return {
+          success: true,
+          output: { valid: false, error: 'Invalid Stripe-Signature header format' },
+        }
+      }
+
+      // Reject requests older than 5 minutes to prevent replay attacks
+      const now = Math.floor(Date.now() / 1000)
+      if (Math.abs(now - Number(timestamp)) > 300) {
+        return {
+          success: true,
+          output: { valid: false, error: 'Request timestamp too old (possible replay attack)' },
+        }
+      }
+
+      // Compute expected signature
+      const signedPayload = `${timestamp}.${body}`
+      const expectedSignature = crypto
+        .createHmac('sha256', webhookSecret)
+        .update(signedPayload, 'utf8')
+        .digest('hex')
+
+      // Check if any v1 signature matches
+      const isValid = signatures.some((sig) => {
+        if (sig.length !== expectedSignature.length) return false
+        return crypto.timingSafeEqual(Buffer.from(sig), Buffer.from(expectedSignature))
+      })
+
+      return {
+        success: true,
+        output: { valid: isValid, error: isValid ? undefined : 'Invalid Stripe signature' },
       }
     },
   },

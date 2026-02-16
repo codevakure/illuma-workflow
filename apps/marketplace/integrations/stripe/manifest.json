@@ -1245,6 +1245,55 @@
         "handler": "stripe",
         "operation": "stripe_void_invoice"
       }
+    },
+    {
+      "id": "stripe_verify_webhook",
+      "name": "Stripe Verify Webhook",
+      "description": "Verify Stripe webhook signature (t=timestamp,v1=HMAC-SHA256)",
+      "version": "1.0.0",
+      "executionMode": "proxy",
+      "params": {},
+      "proxy": {
+        "handler": "stripe",
+        "operation": "stripe_verify_webhook"
+      }
+    }
+  ],
+  "triggers": [
+    {
+      "id": "stripe_webhook",
+      "name": "Stripe Webhook",
+      "provider": "stripe",
+      "description": "Trigger workflow from Stripe payment and subscription events",
+      "version": "1.0.0",
+      "webhook": {
+        "method": "POST"
+      },
+      "credentials": [
+        {
+          "id": "webhookSecret",
+          "label": "Webhook Signing Secret",
+          "type": "password",
+          "required": true,
+          "description": "The webhook signing secret from your Stripe dashboard (whsec_...)",
+          "placeholder": "whsec_..."
+        }
+      ],
+      "auth": {
+        "type": "custom",
+        "handler": "stripe_verify_webhook"
+      },
+      "outputs": {
+        "id": { "type": "string", "description": "Event ID" },
+        "type": { "type": "string", "description": "Event type (e.g., payment_intent.succeeded)" },
+        "object": { "type": "string", "description": "Object type (always 'event')" },
+        "api_version": { "type": "string", "description": "Stripe API version" },
+        "created": { "type": "number", "description": "Event creation timestamp (Unix)" },
+        "data": { "type": "json", "description": "Event data object containing the resource" },
+        "livemode": { "type": "boolean", "description": "Whether this is a live mode event" },
+        "pending_webhooks": { "type": "number", "description": "Number of pending webhooks" },
+        "request": { "type": "json", "description": "Request info (id, idempotency_key)" }
+      }
     }
   ]
 }

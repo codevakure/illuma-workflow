@@ -237,21 +237,49 @@ export interface CredentialField {
 }
 
 export type AuthSpec =
-  | { type: 'hmac'; headerName: string; secretField: string; algorithm: string }
+  | {
+      type: 'hmac'
+      headerName: string
+      secretField: string
+      algorithm: string
+      encoding?: 'hex' | 'base64'
+      signaturePrefix?: string
+      /** How the secret itself is encoded (default: utf8) */
+      secretEncoding?: 'utf8' | 'base64'
+    }
   | { type: 'bearer'; headerName: string; secretField: string }
   | { type: 'custom'; handler: string }
+
+export type ChallengeSpec =
+  | { type: 'body_echo'; field: string }
+  | { type: 'query_echo'; param: string; contentType?: string }
+  | { type: 'hub_verify'; verifyTokenField: string }
+
+export interface TriggerOutputDef {
+  type: OutputType
+  description?: string
+  properties?: Record<string, TriggerOutputDef>
+  items?: {
+    type: OutputType
+    description?: string
+    properties?: Record<string, TriggerOutputDef>
+  }
+}
 
 export interface TriggerManifest {
   id: string
   name: string
   provider: string
+  description?: string
+  version?: string
   webhook?: {
     method?: string
   }
   credentials: CredentialField[]
   auth?: AuthSpec
+  challenge?: ChallengeSpec
   instructions?: string
-  outputs: Record<string, { type: OutputType; description?: string }>
+  outputs: Record<string, TriggerOutputDef>
 }
 
 // ---------------------------------------------------------------------------
@@ -267,7 +295,7 @@ export interface IntegrationManifest {
 
   block: BlockManifest
   tools: ToolManifest[]
-  trigger?: TriggerManifest
+  triggers?: TriggerManifest[]
 
   /** Set at runtime by the manifest loader when a handler.ts file exists */
   hasHandler?: boolean

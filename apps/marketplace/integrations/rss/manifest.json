@@ -90,5 +90,41 @@
         "operation": "execute"
       }
     }
+  ],
+  "triggers": [
+    {
+      "id": "rss_poller",
+      "name": "RSS Feed",
+      "provider": "rss",
+      "description": "Trigger workflow when new items appear in an RSS feed",
+      "version": "1.0.0",
+      "credentials": [],
+      "outputs": {
+        "item": {
+          "type": "object",
+          "description": "RSS feed item",
+          "properties": {
+            "title": { "type": "string", "description": "Item title" },
+            "link": { "type": "string", "description": "Item URL" },
+            "pubDate": { "type": "string", "description": "Publication date" },
+            "guid": { "type": "string", "description": "Unique identifier" },
+            "summary": { "type": "string", "description": "Item summary" },
+            "content": { "type": "string", "description": "Full content" },
+            "author": { "type": "string", "description": "Item author" },
+            "categories": { "type": "array", "description": "Item categories" }
+          }
+        },
+        "feed": {
+          "type": "object",
+          "description": "Feed metadata",
+          "properties": {
+            "title": { "type": "string", "description": "Feed title" },
+            "link": { "type": "string", "description": "Feed URL" },
+            "feedDescription": { "type": "string", "description": "Feed description" }
+          }
+        },
+        "timestamp": { "type": "string", "description": "Event timestamp" }
+      }
+    }
   ]
 }

@@ -4,9 +4,9 @@ import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 import { logger } from 'hono/logger'
 import { initializeManifests } from './integrations/manifest-loader'
-import { auth } from './lib/auth/better-auth'
 import { seedDevSession } from './lib/auth/dev-seed'
 import { authMiddleware } from './middleware/auth'
+import { oauthCallbackRoutes } from './routes/oauth-callback'
 import { authRoutes } from './routes/auth'
 import { chatPublicRoutes } from './routes/chat-public'
 import { chatRoutes } from './routes/chat'
@@ -67,12 +67,8 @@ app.route('/api/webhooks', webhookTriggerRoutes)
 app.route('/api/chat', chatPublicRoutes)
 app.route('/api/form', formPublicRoutes)
 
-// better-auth handles only its own OAuth2 endpoints (link + callback)
-// Scoped to /api/auth/oauth2/* to avoid intercepting existing Hono auth routes
-app.on(['GET', 'POST'], '/api/auth/oauth2/*', (c) => auth.handler(c.req.raw))
-// better-auth session/user endpoints
-app.on(['GET', 'POST'], '/api/auth/get-session', (c) => auth.handler(c.req.raw))
-app.on(['GET', 'POST'], '/api/auth/sign-out', (c) => auth.handler(c.req.raw))
+// OAuth2 callback (public — browser redirected here by OAuth provider)
+app.route('/api/auth/oauth2', oauthCallbackRoutes)
 
 // API routes (with auth)
 const api = new Hono()

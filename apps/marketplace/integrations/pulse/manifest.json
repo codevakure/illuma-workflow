@@ -14,7 +14,7 @@
     "bgColor": "#E0E0E0",
     "icon": "PulseIcon",
     "authMode": "api_key",
-    "hideFromToolbar": true,
+    "hideFromToolbar": false,
     "subBlocks": [
       {
         "id": "fileUpload",

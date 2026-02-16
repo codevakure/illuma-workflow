@@ -1,12 +1,12 @@
 {
   "id": "google_slides",
-  "name": "Google Slides (Legacy)",
+  "name": "Google Slides",
   "version": "1.0.0",
   "description": "Read, write, and create presentations",
   "icon": "GoogleSlidesIcon",
   "block": {
     "type": "google_slides",
-    "name": "Google Slides (Legacy)",
+    "name": "Google Slides",
     "description": "Read, write, and create presentations",
     "longDescription": "Integrate Google Slides into the workflow. Can read, write, create presentations, replace text, add slides, add images, get thumbnails, get page details, delete objects, duplicate objects, reorder slides, create tables, create shapes, and insert text.",
     "docsLink": "https://docs.sim.ai/tools/google_slides",
@@ -14,7 +14,7 @@
     "bgColor": "#E0E0E0",
     "icon": "GoogleSlidesIcon",
     "authMode": "oauth",
-    "hideFromToolbar": true,
+    "hideFromToolbar": false,
     "subBlocks": [
       {
         "id": "operation",

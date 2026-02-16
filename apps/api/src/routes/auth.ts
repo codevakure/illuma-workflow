@@ -6,6 +6,7 @@ import { and, desc, eq } from 'drizzle-orm'
 import { jwtDecode } from 'jwt-decode'
 import { z } from 'zod'
 import { authorizeCredentialUse } from '@/lib/auth/credential-access'
+import { buildAuthorizationUrl } from '@/lib/auth/oauth-link'
 import {
   getCredential,
   getOAuthToken,
@@ -562,6 +563,47 @@ app.get('/oauth/connections', async (c) => {
   } catch (error) {
     logger.error(`[${requestId}] Error fetching OAuth connections`, error)
     return c.json({ error: 'Internal server error' }, 500)
+  }
+})
+
+// ─── POST /api/auth/oauth/link ───────────────────────────────────────
+
+/**
+ * Initiates an OAuth connection flow.
+ * Builds the authorization URL and returns it along with a signed state cookie.
+ */
+app.post('/oauth/link', async (c) => {
+  const requestId = generateRequestId()
+  const userId = c.get('userId')
+
+  try {
+    const body = await c.req.json<{ providerId: string; callbackURL: string }>()
+
+    if (!body.providerId) {
+      return c.json({ error: 'providerId is required' }, 400)
+    }
+    if (!body.callbackURL) {
+      return c.json({ error: 'callbackURL is required' }, 400)
+    }
+
+    const { url, stateToken } = await buildAuthorizationUrl(userId, body.providerId, body.callbackURL)
+
+    // Set the state token as an httpOnly cookie so the callback can verify it
+    c.header(
+      'Set-Cookie',
+      `__oauth_state=${stateToken}; Path=/; HttpOnly; SameSite=Lax; Max-Age=600`
+    )
+
+    logger.info(`[${requestId}] OAuth link initiated`, {
+      userId,
+      providerId: body.providerId,
+    })
+
+    return c.json({ url, redirect: true })
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Failed to initiate OAuth'
+    logger.error(`[${requestId}] OAuth link error:`, error)
+    return c.json({ error: message }, 400)
   }
 })
 

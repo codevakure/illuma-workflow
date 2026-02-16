@@ -325,5 +325,27 @@
         "operation": "google_forms_set_publish_settings"
       }
     }
+  ],
+  "triggers": [
+    {
+      "id": "google_forms_webhook",
+      "name": "Google Forms Webhook",
+      "provider": "google-forms",
+      "description": "Trigger workflow when a Google Form response is submitted",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        { "id": "sharedSecret", "label": "Shared Secret", "type": "password", "required": true, "description": "Token to validate webhook requests", "placeholder": "Enter a shared secret token" }
+      ],
+      "auth": { "type": "bearer", "headerName": "Authorization", "secretField": "sharedSecret" },
+      "outputs": {
+        "responseId": { "type": "string", "description": "Form response ID" },
+        "createTime": { "type": "string", "description": "Response creation time" },
+        "lastSubmittedTime": { "type": "string", "description": "Last submission time" },
+        "formId": { "type": "string", "description": "Google Form ID" },
+        "answers": { "type": "object", "description": "Map of question to answer" },
+        "raw": { "type": "json", "description": "Original Apps Script payload" }
+      }
+    }
   ]
 }

@@ -1,12 +1,12 @@
 {
   "id": "microsoft_excel",
-  "name": "Microsoft Excel (Legacy)",
+  "name": "Microsoft Excel",
   "version": "1.0.0",
   "description": "Read, write, and update data",
   "icon": "MicrosoftExcelIcon",
   "block": {
     "type": "microsoft_excel",
-    "name": "Microsoft Excel (Legacy)",
+    "name": "Microsoft Excel",
     "description": "Read, write, and update data",
     "longDescription": "Integrate Microsoft Excel into the workflow. Can read, write, update, add to table, and create new worksheets.",
     "docsLink": "https://docs.sim.ai/tools/microsoft_excel",
@@ -14,7 +14,7 @@
     "bgColor": "#E0E0E0",
     "icon": "MicrosoftExcelIcon",
     "authMode": "oauth",
-    "hideFromToolbar": true,
+    "hideFromToolbar": false,
     "subBlocks": [
       {
         "id": "operation",

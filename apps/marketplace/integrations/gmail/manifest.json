@@ -1,12 +1,12 @@
 {
   "id": "gmail",
-  "name": "Gmail (Legacy)",
+  "name": "Gmail",
   "version": "1.0.0",
   "description": "Send, read, search, and move Gmail messages or trigger workflows from Gmail events",
   "icon": "GmailIcon",
   "block": {
     "type": "gmail",
-    "name": "Gmail (Legacy)",
+    "name": "Gmail",
     "description": "Send, read, search, and move Gmail messages or trigger workflows from Gmail events",
     "longDescription": "Integrate Gmail into the workflow. Can send, read, search, and move emails. Can be used in trigger mode to trigger a workflow when a new email is received.",
     "docsLink": "https://docs.sim.ai/tools/gmail",
@@ -14,7 +14,7 @@
     "bgColor": "#E0E0E0",
     "icon": "GmailIcon",
     "authMode": "oauth",
-    "hideFromToolbar": true,
+    "hideFromToolbar": false,
     "subBlocks": [
       {
         "id": "operation",
@@ -266,6 +266,51 @@
         "canonicalParamId": "manageLabelId"
       },
       {
+        "id": "triggerCredentials",
+        "type": "oauth-input",
+        "title": "Gmail Account",
+        "placeholder": "Select Gmail account",
+        "mode": "trigger"
+      },
+      {
+        "id": "triggerLabelIds",
+        "type": "short-input",
+        "title": "Labels to Monitor",
+        "placeholder": "e.g. INBOX, CATEGORY_PERSONAL (comma-separated, leave empty for INBOX)",
+        "mode": "trigger"
+      },
+      {
+        "id": "triggerLabelFilterBehavior",
+        "type": "dropdown",
+        "title": "Label Filter Behavior",
+        "options": [
+          { "label": "Include", "value": "INCLUDE" },
+          { "label": "Exclude", "value": "EXCLUDE" }
+        ],
+        "mode": "trigger"
+      },
+      {
+        "id": "triggerSearchQuery",
+        "type": "short-input",
+        "title": "Search Query",
+        "placeholder": "Gmail search query (e.g. from:user@example.com subject:invoice)",
+        "mode": "trigger"
+      },
+      {
+        "id": "triggerMarkAsRead",
+        "type": "switch",
+        "title": "Mark as Read",
+        "default": false,
+        "mode": "trigger"
+      },
+      {
+        "id": "triggerIncludeAttachments",
+        "type": "switch",
+        "title": "Include Attachments",
+        "default": false,
+        "mode": "trigger"
+      },
+      {
         "id": "triggerSave",
         "type": "trigger-save",
         "title": "",
@@ -279,7 +324,7 @@
         "title": "Setup Instructions",
         "hideFromPreview": true,
         "mode": "trigger",
-        "default": "<div class='mb-3'><strong>1.</strong> Connect your Gmail account using OAuth above.</div><div class='mb-3'><strong>2.</strong> The trigger will poll for new emails periodically.</div>"
+        "default": "<div class='mb-3'><strong>1.</strong> Connect your Gmail account using OAuth above.</div><div class='mb-3'><strong>2.</strong> Select labels to monitor and configure filtering options.</div><div class='mb-3'><strong>3.</strong> The trigger will poll for new emails periodically.</div>"
       }
     ],
     "tools": {
@@ -307,9 +352,18 @@
       }
     },
     "outputs": {
-      "content": {
-        "type": "string"
-      }
+      "id": { "type": "string", "description": "Gmail message ID" },
+      "threadId": { "type": "string", "description": "Gmail thread ID" },
+      "labelIds": { "type": "array", "description": "Email label IDs" },
+      "from": { "type": "string", "description": "Sender" },
+      "to": { "type": "string", "description": "To" },
+      "subject": { "type": "string", "description": "Subject" },
+      "date": { "type": "string", "description": "Date" },
+      "body": { "type": "string", "description": "Email body text" },
+      "results": { "type": "json", "description": "Search/read summary results" },
+      "attachments": { "type": "file[]", "description": "Downloaded attachments (if enabled)" },
+      "draftId": { "type": "string", "description": "Draft ID" },
+      "messageId": { "type": "string", "description": "Gmail message ID for the draft" }
     },
     "triggers": {
       "enabled": true,
@@ -460,6 +514,37 @@
       "proxy": {
         "handler": "gmail",
         "operation": "gmail_unarchive"
+      }
+    }
+  ],
+  "triggers": [
+    {
+      "id": "gmail_poller",
+      "name": "Gmail Email",
+      "provider": "gmail",
+      "description": "Trigger workflow when new emails arrive in Gmail",
+      "version": "1.0.0",
+      "credentials": [],
+      "outputs": {
+        "email": {
+          "type": "object",
+          "description": "Email message",
+          "properties": {
+            "id": { "type": "string", "description": "Message ID" },
+            "threadId": { "type": "string", "description": "Thread ID" },
+            "subject": { "type": "string", "description": "Email subject" },
+            "from": { "type": "string", "description": "Sender address" },
+            "to": { "type": "string", "description": "Recipients" },
+            "cc": { "type": "string", "description": "CC recipients" },
+            "date": { "type": "string", "description": "Email date" },
+            "bodyText": { "type": "string", "description": "Plain text body" },
+            "bodyHtml": { "type": "string", "description": "HTML body" },
+            "labels": { "type": "array", "description": "Gmail labels" },
+            "hasAttachments": { "type": "boolean", "description": "Whether email has attachments" },
+            "attachments": { "type": "file[]", "description": "Email attachments" }
+          }
+        },
+        "timestamp": { "type": "string", "description": "Event timestamp" }
       }
     }
   ]

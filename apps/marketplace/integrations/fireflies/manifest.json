@@ -1,12 +1,12 @@
 {
   "id": "fireflies",
-  "name": "Fireflies (Legacy)",
+  "name": "Fireflies",
   "version": "1.0.0",
   "description": "Interact with Fireflies.ai meeting transcripts and recordings",
   "icon": "FirefliesIcon",
   "block": {
     "type": "fireflies",
-    "name": "Fireflies (Legacy)",
+    "name": "Fireflies",
     "description": "Interact with Fireflies.ai meeting transcripts and recordings",
     "longDescription": "Integrate Fireflies.ai into the workflow. Manage meeting transcripts, add bot to live meetings, create soundbites, and more. Can also trigger workflows when transcriptions complete.",
     "docsLink": "https://docs.sim.ai/tools/fireflies",
@@ -14,7 +14,7 @@
     "bgColor": "#100730",
     "icon": "FirefliesIcon",
     "authMode": "api_key",
-    "hideFromToolbar": true,
+    "hideFromToolbar": false,
     "subBlocks": [
       {
         "id": "operation",
@@ -386,6 +386,25 @@
       "proxy": {
         "handler": "fireflies",
         "operation": "fireflies_upload_audio"
+      }
+    }
+  ],
+  "triggers": [
+    {
+      "id": "fireflies_transcription_complete",
+      "name": "Fireflies Transcription Complete",
+      "provider": "fireflies",
+      "description": "Trigger workflow when a Fireflies meeting transcription is completed",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        { "id": "webhookSecret", "label": "Webhook Secret", "type": "password", "required": false, "description": "16-32 character secret for HMAC verification", "placeholder": "Enter webhook secret" }
+      ],
+      "auth": { "type": "hmac", "headerName": "x-hub-signature", "secretField": "webhookSecret", "algorithm": "sha256", "encoding": "hex", "signaturePrefix": "sha256=" },
+      "outputs": {
+        "meetingId": { "type": "string", "description": "ID of the transcribed meeting" },
+        "eventType": { "type": "string", "description": "Event type (Transcription completed)" },
+        "clientReferenceId": { "type": "string", "description": "Custom reference ID if set" }
       }
     }
   ]

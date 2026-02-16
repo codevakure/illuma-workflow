@@ -277,5 +277,33 @@
         "operation": "twilio_voice_make_call"
       }
     }
+  ],
+  "triggers": [
+    {
+      "id": "twilio_voice_webhook",
+      "name": "Twilio Voice Webhook",
+      "provider": "twilio-voice",
+      "description": "Trigger workflow from incoming Twilio voice calls",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        { "id": "accountSid", "label": "Account SID", "type": "string", "required": true, "description": "Twilio Account SID", "placeholder": "AC..." },
+        { "id": "authToken", "label": "Auth Token", "type": "password", "required": true, "description": "Twilio Auth Token for signature verification", "placeholder": "Enter your auth token" }
+      ],
+      "auth": { "type": "custom", "handler": "twilio_voice_verify_webhook" },
+      "outputs": {
+        "callSid": { "type": "string", "description": "Unique call identifier" },
+        "accountSid": { "type": "string", "description": "Twilio Account SID" },
+        "from": { "type": "string", "description": "Caller phone number" },
+        "to": { "type": "string", "description": "Called phone number" },
+        "callStatus": { "type": "string", "description": "Call status (ringing, in-progress, completed, etc.)" },
+        "direction": { "type": "string", "description": "Call direction (inbound/outbound)" },
+        "digits": { "type": "string", "description": "DTMF digits pressed" },
+        "speechResult": { "type": "string", "description": "Speech recognition result" },
+        "recordingUrl": { "type": "string", "description": "Recording URL (if recorded)" },
+        "callerName": { "type": "string", "description": "Caller name (if available)" },
+        "raw": { "type": "json", "description": "Full webhook payload" }
+      }
+    }
   ]
 }

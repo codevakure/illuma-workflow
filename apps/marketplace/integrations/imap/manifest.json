@@ -245,5 +245,39 @@
         "operation": "execute"
       }
     }
+  ],
+  "triggers": [
+    {
+      "id": "imap_poller",
+      "name": "IMAP Email",
+      "provider": "imap",
+      "description": "Trigger workflow when new emails arrive via IMAP",
+      "version": "1.0.0",
+      "credentials": [
+        { "id": "host", "label": "IMAP Host", "type": "string", "required": true, "description": "IMAP server hostname", "placeholder": "imap.gmail.com" },
+        { "id": "port", "label": "Port", "type": "string", "required": true, "description": "IMAP port (usually 993)", "placeholder": "993" },
+        { "id": "username", "label": "Username", "type": "string", "required": true, "description": "Email/username for IMAP login", "placeholder": "user@example.com" },
+        { "id": "password", "label": "Password", "type": "password", "required": true, "description": "Password or app password", "placeholder": "Enter password" }
+      ],
+      "outputs": {
+        "email": {
+          "type": "object",
+          "description": "Email message",
+          "properties": {
+            "messageId": { "type": "string", "description": "Email message ID" },
+            "subject": { "type": "string", "description": "Email subject" },
+            "from": { "type": "string", "description": "Sender address" },
+            "to": { "type": "string", "description": "Recipient address" },
+            "cc": { "type": "string", "description": "CC recipients" },
+            "date": { "type": "string", "description": "Email date" },
+            "bodyText": { "type": "string", "description": "Plain text body" },
+            "bodyHtml": { "type": "string", "description": "HTML body" },
+            "hasAttachments": { "type": "boolean", "description": "Whether email has attachments" },
+            "attachments": { "type": "file[]", "description": "Email attachments" }
+          }
+        },
+        "timestamp": { "type": "string", "description": "Event timestamp" }
+      }
+    }
   ]
 }

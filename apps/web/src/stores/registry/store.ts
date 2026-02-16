@@ -1,5 +1,6 @@
 import { createLogger } from '@sim/logger'
 import { create } from 'zustand'
+import { populateTriggerCache } from '@/triggers'
 import type {
   ManifestBlock,
   ManifestIntegration,
@@ -46,6 +47,9 @@ export const useRegistryStore = create<RegistryStore>()((set, get) => ({
           tools[tool.id] = tool
         }
       }
+
+      // Populate the trigger cache from integration trigger data
+      populateTriggerCache(integrations)
 
       logger.info('Registry loaded', {
         blocks: Object.keys(blocks).length,

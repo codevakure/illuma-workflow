@@ -1,7 +1,15 @@
+/**
+ * Trigger API — backed by registry store data fetched from the API.
+ *
+ * Reads trigger data from ManifestTrigger (JSON manifests served via
+ * /api/registry/integrations) and converts to TriggerConfig so all
+ * consumers see the same interface.
+ */
+
 import { generateMockPayloadFromOutputsDefinition } from '@/lib/workflows/triggers/trigger-utils'
 import type { SubBlockConfig } from '@/blocks/types'
-import { TRIGGER_REGISTRY } from '@/triggers/registry'
-import type { TriggerConfig } from '@/triggers/types'
+import type { ManifestTrigger } from '@/stores/registry/types'
+import type { TriggerConfig, TriggerOutput } from '@/triggers/types'
 
 /**
  * IDs that should NOT be namespaced because they are shared across triggers
@@ -15,41 +23,26 @@ const SHARED_SUBBLOCK_IDS = new Set(['selectedTriggerId'])
  * multiple triggers show different content for the same conceptual field.
  */
 function isDisplayOnlySubBlock(subBlock: SubBlockConfig): boolean {
-  // Text type is always display-only
   if (subBlock.type === 'text') {
     return true
   }
-
-  // ReadOnly inputs are display-only
   if (subBlock.readOnly === true) {
     return true
   }
-
   return false
 }
 
 /**
  * Namespaces a subBlock ID with the trigger ID to avoid conflicts when
  * multiple triggers are merged into a single block.
- *
- * Only namespaces display-only subBlocks (readOnly or text type) that have
- * a condition on selectedTriggerId. User-input fields are NOT namespaced
- * so their values persist when switching between triggers.
  */
 function namespaceSubBlockId(subBlock: SubBlockConfig, triggerId: string): SubBlockConfig {
-  // Don't namespace shared IDs
   if (SHARED_SUBBLOCK_IDS.has(subBlock.id)) {
     return subBlock
   }
-
-  // Only namespace display-only subBlocks to avoid content conflicts
-  // User-input fields should remain shared so values persist across trigger switches
   if (!isDisplayOnlySubBlock(subBlock)) {
     return subBlock
   }
-
-  // Only namespace if the subBlock has a condition on selectedTriggerId
-  // These are the ones that are trigger-specific and will conflict when merged
   const condition =
     typeof subBlock.condition === 'function' ? subBlock.condition() : subBlock.condition
   if (condition?.field === 'selectedTriggerId') {
@@ -58,20 +51,107 @@ function namespaceSubBlockId(subBlock: SubBlockConfig, triggerId: string): SubBl
       id: `${subBlock.id}_${triggerId}`,
     }
   }
-
   return subBlock
 }
 
 /**
- * Gets a trigger config and injects samplePayload subblock with condition.
- * Also namespaces subBlock IDs to avoid conflicts when multiple triggers
- * are merged into a single block (e.g., ...getTrigger('a').subBlocks, ...getTrigger('b').subBlocks).
+ * Converts a ManifestTrigger (JSON) to a TriggerConfig (runtime).
+ */
+function adaptManifestTrigger(manifest: ManifestTrigger): TriggerConfig {
+  const subBlocks: SubBlockConfig[] = []
+
+  if (manifest.credentials?.length) {
+    for (const cred of manifest.credentials) {
+      subBlocks.push({
+        id: cred.id,
+        title: cred.label,
+        type: 'short-input',
+        password: cred.type === 'password',
+        required: cred.required,
+        placeholder: cred.placeholder,
+        description: cred.description,
+        mode: 'trigger',
+        condition: {
+          field: 'selectedTriggerId',
+          value: manifest.id,
+        },
+      })
+    }
+  }
+
+  if (manifest.instructions) {
+    subBlocks.push({
+      id: 'triggerInstructions',
+      title: 'Setup Instructions',
+      type: 'text' as SubBlockConfig['type'],
+      hideFromPreview: true,
+      defaultValue: manifest.instructions,
+      mode: 'trigger',
+      condition: {
+        field: 'selectedTriggerId',
+        value: manifest.id,
+      },
+    })
+  }
+
+  const outputs: Record<string, TriggerOutput> = {}
+  if (manifest.outputs) {
+    for (const [key, def] of Object.entries(manifest.outputs)) {
+      outputs[key] = {
+        type: def.type,
+        description: def.description,
+      }
+    }
+  }
+
+  return {
+    id: manifest.id,
+    name: manifest.name,
+    provider: manifest.provider,
+    description: manifest.description || '',
+    version: manifest.version || '1.0.0',
+    subBlocks,
+    outputs,
+    webhook: manifest.webhook
+      ? { method: manifest.webhook.method as TriggerConfig['webhook'] extends { method?: infer M } ? M : never }
+      : undefined,
+  }
+}
+
+/**
+ * Cache of trigger manifests indexed by trigger ID.
+ * Populated when integrations are loaded from the API.
+ */
+const _triggerCache = new Map<string, ManifestTrigger>()
+let _triggerCacheVersion = 0
+let _integrationVersion = 0
+
+/**
+ * Populates the trigger cache from raw integration data.
+ * Called by the registry store after loading integrations.
+ */
+export function populateTriggerCache(integrations: Array<{ triggers?: ManifestTrigger[] }>): void {
+  _triggerCache.clear()
+  for (const integration of integrations) {
+    for (const trigger of integration.triggers ?? []) {
+      _triggerCache.set(trigger.id, trigger)
+    }
+  }
+  _integrationVersion++
+  _triggerCacheVersion = _integrationVersion
+}
+
+/**
+ * Gets a trigger config by ID from the trigger cache.
+ * Converts ManifestTrigger → TriggerConfig, injects samplePayload, namespaces subBlock IDs.
  */
 export function getTrigger(triggerId: string): TriggerConfig {
-  const trigger = TRIGGER_REGISTRY[triggerId]
-  if (!trigger) {
+  const manifest = _triggerCache.get(triggerId)
+  if (!manifest) {
     throw new Error(`Trigger not found: ${triggerId}`)
   }
+
+  const trigger = adaptManifestTrigger(manifest)
 
   // Clone and filter out deprecated trigger-save subblocks
   const subBlocks = trigger.subBlocks
@@ -115,21 +195,25 @@ export function getTrigger(triggerId: string): TriggerConfig {
 }
 
 export function getTriggersByProvider(provider: string): TriggerConfig[] {
-  return Object.values(TRIGGER_REGISTRY)
-    .filter((trigger) => trigger.provider === provider)
-    .map((trigger) => getTrigger(trigger.id))
+  const results: TriggerConfig[] = []
+  for (const [id, manifest] of _triggerCache) {
+    if (manifest.provider === provider) {
+      results.push(getTrigger(id))
+    }
+  }
+  return results
 }
 
 export function getAllTriggers(): TriggerConfig[] {
-  return Object.keys(TRIGGER_REGISTRY).map((triggerId) => getTrigger(triggerId))
+  return Array.from(_triggerCache.keys()).map((id) => getTrigger(id))
 }
 
 export function getTriggerIds(): string[] {
-  return Object.keys(TRIGGER_REGISTRY)
+  return Array.from(_triggerCache.keys())
 }
 
 export function isTriggerValid(triggerId: string): boolean {
-  return triggerId in TRIGGER_REGISTRY
+  return _triggerCache.has(triggerId)
 }
 
 export type { TriggerConfig, TriggerRegistry } from '@/triggers/types'
@@ -138,45 +222,17 @@ export type { TriggerConfig, TriggerRegistry } from '@/triggers/types'
  * Options for building trigger subBlocks
  */
 export interface BuildTriggerSubBlocksOptions {
-  /** The trigger ID (e.g., 'lemlist_email_replied') */
   triggerId: string
-  /** Dropdown options for selecting trigger type */
   triggerOptions: Array<{ label: string; id: string }>
-  /** Whether to include the trigger type dropdown (only for primary trigger) */
   includeDropdown?: boolean
-  /** HTML setup instructions to display */
   setupInstructions: string
-  /** Additional fields to insert before the save button (e.g., campaign filters) */
   extraFields?: SubBlockConfig[]
-  /** Webhook URL placeholder text */
   webhookPlaceholder?: string
 }
 
 /**
  * Generic builder for trigger subBlocks.
  * Creates a consistent structure: [dropdown?] -> webhookUrl -> extraFields -> save -> instructions
- *
- * Usage:
- * - Primary trigger: `buildTriggerSubBlocks({ ...options, includeDropdown: true })`
- * - Secondary triggers: `buildTriggerSubBlocks({ ...options })` (no dropdown)
- *
- * @example
- * ```typescript
- * // Primary trigger (with dropdown)
- * subBlocks: buildTriggerSubBlocks({
- *   triggerId: 'service_event_a',
- *   triggerOptions: serviceTriggerOptions,
- *   includeDropdown: true,
- *   setupInstructions: serviceSetupInstructions('eventA'),
- * })
- *
- * // Secondary trigger (no dropdown)
- * subBlocks: buildTriggerSubBlocks({
- *   triggerId: 'service_event_b',
- *   triggerOptions: serviceTriggerOptions,
- *   setupInstructions: serviceSetupInstructions('eventB'),
- * })
- * ```
  */
 export function buildTriggerSubBlocks(options: BuildTriggerSubBlocksOptions): SubBlockConfig[] {
   const {
@@ -190,7 +246,6 @@ export function buildTriggerSubBlocks(options: BuildTriggerSubBlocksOptions): Su
 
   const blocks: SubBlockConfig[] = []
 
-  // Only the primary trigger includes the dropdown
   if (includeDropdown) {
     blocks.push({
       id: 'selectedTriggerId',
@@ -203,8 +258,6 @@ export function buildTriggerSubBlocks(options: BuildTriggerSubBlocksOptions): Su
     })
   }
 
-  // Webhook URL display (common to all triggers)
-  // ID will be namespaced by getTrigger() when merged into blocks
   blocks.push({
     id: 'webhookUrlDisplay',
     title: 'Webhook URL',
@@ -217,13 +270,10 @@ export function buildTriggerSubBlocks(options: BuildTriggerSubBlocksOptions): Su
     condition: { field: 'selectedTriggerId', value: triggerId },
   })
 
-  // Insert any extra fields (campaign filters, event types, etc.)
   if (extraFields.length > 0) {
     blocks.push(...extraFields)
   }
 
-  // Setup instructions
-  // ID will be namespaced by getTrigger() when merged into blocks
   blocks.push({
     id: 'triggerInstructions',
     title: 'Setup Instructions',

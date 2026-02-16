@@ -313,5 +313,87 @@
         "operation": "telegram_send_video"
       }
     }
+  ],
+  "triggers": [
+    {
+      "id": "telegram_webhook",
+      "name": "Telegram Webhook",
+      "provider": "telegram",
+      "description": "Trigger workflow from Telegram bot messages and events",
+      "version": "1.0.0",
+      "webhook": {
+        "method": "POST"
+      },
+      "credentials": [
+        {
+          "id": "botToken",
+          "label": "Bot Token",
+          "type": "password",
+          "required": true,
+          "description": "Your Telegram Bot Token from BotFather",
+          "placeholder": "123456789:ABCdefGHIjklMNOpqrsTUVwxyz"
+        }
+      ],
+      "instructions": "1. Message /newbot to @BotFather in Telegram to create a bot and copy its token.\n2. Enter your Bot Token above.\n3. Any message sent to your bot will trigger the workflow once deployed.",
+      "outputs": {
+        "message": {
+          "type": "object",
+          "description": "Telegram message data",
+          "properties": {
+            "id": { "type": "number", "description": "Telegram message ID" },
+            "text": { "type": "string", "description": "Message text content" },
+            "date": { "type": "number", "description": "Date sent (Unix timestamp)" },
+            "messageType": { "type": "string", "description": "Content type: text, photo, document, audio, video, voice, sticker, location, contact, poll" },
+            "raw": {
+              "type": "object",
+              "description": "Raw Telegram message object",
+              "properties": {
+                "message_id": { "type": "number", "description": "Original message_id" },
+                "date": { "type": "number", "description": "Original date (Unix timestamp)" },
+                "text": { "type": "string", "description": "Original text" },
+                "caption": { "type": "string", "description": "Original caption" },
+                "chat": {
+                  "type": "object",
+                  "description": "Chat information",
+                  "properties": {
+                    "id": { "type": "number", "description": "Chat identifier" },
+                    "username": { "type": "string", "description": "Chat username" },
+                    "first_name": { "type": "string", "description": "First name" },
+                    "last_name": { "type": "string", "description": "Last name" },
+                    "title": { "type": "string", "description": "Chat title (groups/channels)" }
+                  }
+                },
+                "from": {
+                  "type": "object",
+                  "description": "Sender information",
+                  "properties": {
+                    "id": { "type": "number", "description": "Sender user ID" },
+                    "is_bot": { "type": "boolean", "description": "Whether sender is a bot" },
+                    "first_name": { "type": "string", "description": "Sender first name" },
+                    "last_name": { "type": "string", "description": "Sender last name" },
+                    "username": { "type": "string", "description": "Sender username" },
+                    "language_code": { "type": "string", "description": "Sender language code" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "sender": {
+          "type": "object",
+          "description": "Sender information",
+          "properties": {
+            "id": { "type": "number", "description": "Sender user ID" },
+            "username": { "type": "string", "description": "Sender username" },
+            "firstName": { "type": "string", "description": "Sender first name" },
+            "lastName": { "type": "string", "description": "Sender last name" },
+            "languageCode": { "type": "string", "description": "Sender language code" },
+            "isBot": { "type": "boolean", "description": "Whether sender is a bot" }
+          }
+        },
+        "updateId": { "type": "number", "description": "Update ID for this webhook delivery" },
+        "updateType": { "type": "string", "description": "Type of update: message, edited_message, channel_post, edited_channel_post, unknown" }
+      }
+    }
   ]
 }

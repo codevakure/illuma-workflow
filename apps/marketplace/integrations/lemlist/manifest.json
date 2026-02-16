@@ -258,5 +258,233 @@
         "operation": "lemlist_send_email"
       }
     }
+  ],
+  "triggers": [
+    {
+      "id": "lemlist_email_replied",
+      "name": "Lemlist Email Replied",
+      "provider": "lemlist",
+      "description": "Trigger when an email is replied to",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        {
+          "id": "apiKey",
+          "label": "API Key",
+          "type": "password",
+          "required": true,
+          "description": "Lemlist API Key",
+          "placeholder": "Enter API key"
+        }
+      ],
+      "outputs": {
+        "_id": { "type": "string", "description": "Activity ID" },
+        "type": { "type": "string", "description": "Activity type (emailsReplied)" },
+        "createdAt": { "type": "string", "description": "ISO 8601 timestamp" },
+        "teamId": { "type": "string", "description": "Team ID" },
+        "leadId": { "type": "string", "description": "Lead ID" },
+        "campaignId": { "type": "string", "description": "Campaign ID" },
+        "email": { "type": "string", "description": "Lead email" },
+        "firstName": { "type": "string", "description": "Lead first name" },
+        "lastName": { "type": "string", "description": "Lead last name" },
+        "subject": { "type": "string", "description": "Email subject" },
+        "text": { "type": "string", "description": "Reply text" }
+      }
+    },
+    {
+      "id": "lemlist_linkedin_replied",
+      "name": "Lemlist LinkedIn Replied",
+      "provider": "lemlist",
+      "description": "Trigger when a LinkedIn message is replied to",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        {
+          "id": "apiKey",
+          "label": "API Key",
+          "type": "password",
+          "required": true,
+          "description": "Lemlist API Key",
+          "placeholder": "Enter API key"
+        }
+      ],
+      "outputs": {
+        "_id": { "type": "string", "description": "Activity ID" },
+        "type": { "type": "string", "description": "Activity type (linkedinReplied)" },
+        "createdAt": { "type": "string", "description": "ISO 8601 timestamp" },
+        "text": { "type": "string", "description": "Reply text" }
+      }
+    },
+    {
+      "id": "lemlist_interested",
+      "name": "Lemlist Lead Interested",
+      "provider": "lemlist",
+      "description": "Trigger when a lead is marked as interested",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        {
+          "id": "apiKey",
+          "label": "API Key",
+          "type": "password",
+          "required": true,
+          "description": "Lemlist API Key",
+          "placeholder": "Enter API key"
+        }
+      ],
+      "outputs": {
+        "_id": { "type": "string", "description": "Activity ID" },
+        "type": { "type": "string", "description": "Activity type (interested)" },
+        "createdAt": { "type": "string", "description": "ISO 8601 timestamp" },
+        "email": { "type": "string", "description": "Lead email" }
+      }
+    },
+    {
+      "id": "lemlist_not_interested",
+      "name": "Lemlist Lead Not Interested",
+      "provider": "lemlist",
+      "description": "Trigger when a lead is marked as not interested",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        {
+          "id": "apiKey",
+          "label": "API Key",
+          "type": "password",
+          "required": true,
+          "description": "Lemlist API Key",
+          "placeholder": "Enter API key"
+        }
+      ],
+      "outputs": {
+        "_id": { "type": "string", "description": "Activity ID" },
+        "type": { "type": "string", "description": "Activity type (notInterested)" },
+        "createdAt": { "type": "string", "description": "ISO 8601 timestamp" },
+        "email": { "type": "string", "description": "Lead email" }
+      }
+    },
+    {
+      "id": "lemlist_email_opened",
+      "name": "Lemlist Email Opened",
+      "provider": "lemlist",
+      "description": "Trigger when an email is opened",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        {
+          "id": "apiKey",
+          "label": "API Key",
+          "type": "password",
+          "required": true,
+          "description": "Lemlist API Key",
+          "placeholder": "Enter API key"
+        }
+      ],
+      "outputs": {
+        "_id": { "type": "string", "description": "Activity ID" },
+        "type": { "type": "string", "description": "Activity type (emailsOpened)" },
+        "createdAt": { "type": "string", "description": "ISO 8601 timestamp" },
+        "email": { "type": "string", "description": "Lead email" }
+      }
+    },
+    {
+      "id": "lemlist_email_clicked",
+      "name": "Lemlist Email Clicked",
+      "provider": "lemlist",
+      "description": "Trigger when an email link is clicked",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        {
+          "id": "apiKey",
+          "label": "API Key",
+          "type": "password",
+          "required": true,
+          "description": "Lemlist API Key",
+          "placeholder": "Enter API key"
+        }
+      ],
+      "outputs": {
+        "_id": { "type": "string", "description": "Activity ID" },
+        "type": { "type": "string", "description": "Activity type (emailsClicked)" },
+        "createdAt": { "type": "string", "description": "ISO 8601 timestamp" },
+        "email": { "type": "string", "description": "Lead email" },
+        "clickedUrl": { "type": "string", "description": "URL that was clicked" }
+      }
+    },
+    {
+      "id": "lemlist_email_bounced",
+      "name": "Lemlist Email Bounced",
+      "provider": "lemlist",
+      "description": "Trigger when an email bounces",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        {
+          "id": "apiKey",
+          "label": "API Key",
+          "type": "password",
+          "required": true,
+          "description": "Lemlist API Key",
+          "placeholder": "Enter API key"
+        }
+      ],
+      "outputs": {
+        "_id": { "type": "string", "description": "Activity ID" },
+        "type": { "type": "string", "description": "Activity type (emailsBounced)" },
+        "createdAt": { "type": "string", "description": "ISO 8601 timestamp" },
+        "email": { "type": "string", "description": "Lead email" },
+        "errorMessage": { "type": "string", "description": "Bounce error message" }
+      }
+    },
+    {
+      "id": "lemlist_email_sent",
+      "name": "Lemlist Email Sent",
+      "provider": "lemlist",
+      "description": "Trigger when an email is sent",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        {
+          "id": "apiKey",
+          "label": "API Key",
+          "type": "password",
+          "required": true,
+          "description": "Lemlist API Key",
+          "placeholder": "Enter API key"
+        }
+      ],
+      "outputs": {
+        "_id": { "type": "string", "description": "Activity ID" },
+        "type": { "type": "string", "description": "Activity type (emailsSent)" },
+        "createdAt": { "type": "string", "description": "ISO 8601 timestamp" },
+        "email": { "type": "string", "description": "Lead email" },
+        "subject": { "type": "string", "description": "Email subject" }
+      }
+    },
+    {
+      "id": "lemlist_webhook",
+      "name": "Lemlist Webhook (All Events)",
+      "provider": "lemlist",
+      "description": "Trigger on any Lemlist webhook event",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        {
+          "id": "apiKey",
+          "label": "API Key",
+          "type": "password",
+          "required": true,
+          "description": "Lemlist API Key",
+          "placeholder": "Enter API key"
+        }
+      ],
+      "outputs": {
+        "_id": { "type": "string", "description": "Activity ID" },
+        "type": { "type": "string", "description": "Activity type" },
+        "createdAt": { "type": "string", "description": "ISO 8601 timestamp" },
+        "teamId": { "type": "string", "description": "Team ID" }
+      }
+    }
   ]
 }

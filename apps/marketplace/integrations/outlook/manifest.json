@@ -232,6 +232,44 @@
         "canonicalParamId": "copyDestinationId"
       },
       {
+        "id": "triggerCredentials",
+        "type": "oauth-input",
+        "title": "Microsoft Account",
+        "placeholder": "Select Microsoft account",
+        "mode": "trigger"
+      },
+      {
+        "id": "triggerFolderIds",
+        "type": "short-input",
+        "title": "Folders to Monitor",
+        "placeholder": "e.g. inbox, sentitems (comma-separated, leave empty for inbox)",
+        "mode": "trigger"
+      },
+      {
+        "id": "triggerFolderFilterBehavior",
+        "type": "dropdown",
+        "title": "Folder Filter Behavior",
+        "options": [
+          { "label": "Include", "value": "INCLUDE" },
+          { "label": "Exclude", "value": "EXCLUDE" }
+        ],
+        "mode": "trigger"
+      },
+      {
+        "id": "triggerMarkAsRead",
+        "type": "switch",
+        "title": "Mark as Read",
+        "default": false,
+        "mode": "trigger"
+      },
+      {
+        "id": "triggerIncludeAttachments",
+        "type": "switch",
+        "title": "Include Attachments",
+        "default": false,
+        "mode": "trigger"
+      },
+      {
         "id": "triggerSave",
         "type": "trigger-save",
         "title": "",
@@ -245,7 +283,7 @@
         "title": "Setup Instructions",
         "hideFromPreview": true,
         "mode": "trigger",
-        "default": "<div class='mb-3'><strong>1.</strong> Connect your Outlook account using OAuth above.</div><div class='mb-3'><strong>2.</strong> The trigger will poll for new emails periodically.</div>"
+        "default": "<div class='mb-3'><strong>1.</strong> Connect your Microsoft account using OAuth above.</div><div class='mb-3'><strong>2.</strong> Select folders to monitor and configure filtering options.</div><div class='mb-3'><strong>3.</strong> The trigger will poll for new emails periodically.</div>"
       }
     ],
     "tools": {
@@ -387,6 +425,38 @@
       "proxy": {
         "handler": "outlook",
         "operation": "outlook_send"
+      }
+    }
+  ],
+  "triggers": [
+    {
+      "id": "outlook_poller",
+      "name": "Outlook Email",
+      "provider": "outlook",
+      "description": "Trigger workflow when new emails arrive in Outlook",
+      "version": "1.0.0",
+      "credentials": [],
+      "outputs": {
+        "email": {
+          "type": "object",
+          "description": "Email message",
+          "properties": {
+            "id": { "type": "string", "description": "Message ID" },
+            "conversationId": { "type": "string", "description": "Conversation ID" },
+            "subject": { "type": "string", "description": "Email subject" },
+            "from": { "type": "string", "description": "Sender address" },
+            "to": { "type": "string", "description": "Recipients" },
+            "cc": { "type": "string", "description": "CC recipients" },
+            "date": { "type": "string", "description": "Email date" },
+            "bodyText": { "type": "string", "description": "Plain text body" },
+            "bodyHtml": { "type": "string", "description": "HTML body" },
+            "hasAttachments": { "type": "boolean", "description": "Whether email has attachments" },
+            "attachments": { "type": "file[]", "description": "Email attachments" },
+            "isRead": { "type": "boolean", "description": "Whether email has been read" },
+            "folderId": { "type": "string", "description": "Folder ID" }
+          }
+        },
+        "timestamp": { "type": "string", "description": "Event timestamp" }
       }
     }
   ]

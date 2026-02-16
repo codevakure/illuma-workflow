@@ -1,12 +1,12 @@
 {
   "id": "github",
-  "name": "GitHub (Legacy)",
+  "name": "GitHub",
   "version": "1.0.0",
   "description": "Interact with GitHub or trigger workflows from GitHub events",
   "icon": "GithubIcon",
   "block": {
     "type": "github",
-    "name": "GitHub (Legacy)",
+    "name": "GitHub",
     "description": "Interact with GitHub or trigger workflows from GitHub events",
     "longDescription": "Integrate Github into the workflow. Can get get PR details, create PR comment, get repository info, and get latest commit. Can be used in trigger mode to trigger a workflow when a PR is created, commented on, or a commit is pushed.",
     "docsLink": "https://docs.sim.ai/tools/github",
@@ -2687,6 +2687,233 @@
       "proxy": {
         "handler": "github",
         "operation": "github_update_release"
+      }
+    }
+  ],
+  "triggers": [
+    {
+      "id": "github_issue_opened",
+      "name": "GitHub Issue Opened",
+      "provider": "github",
+      "description": "Trigger when a new issue is opened",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        { "id": "webhookSecret", "label": "Webhook Secret", "type": "password", "required": false, "description": "Secret for validating webhook signatures", "placeholder": "Enter webhook secret" }
+      ],
+      "auth": { "type": "hmac", "headerName": "X-Hub-Signature-256", "secretField": "webhookSecret", "algorithm": "sha256", "encoding": "hex", "signaturePrefix": "sha256=" },
+      "outputs": {
+        "action": { "type": "string", "description": "Action (opened)" },
+        "issue": { "type": "object", "description": "Issue object", "properties": { "number": { "type": "number", "description": "Issue number" }, "title": { "type": "string", "description": "Issue title" }, "body": { "type": "string", "description": "Issue body" }, "state": { "type": "string", "description": "Issue state" }, "html_url": { "type": "string", "description": "Issue URL" }, "user": { "type": "object", "description": "Issue author" }, "labels": { "type": "array", "description": "Issue labels" }, "assignees": { "type": "array", "description": "Assigned users" } } },
+        "repository": { "type": "object", "description": "Repository info" },
+        "sender": { "type": "object", "description": "User who triggered the event" }
+      }
+    },
+    {
+      "id": "github_issue_closed",
+      "name": "GitHub Issue Closed",
+      "provider": "github",
+      "description": "Trigger when an issue is closed",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        { "id": "webhookSecret", "label": "Webhook Secret", "type": "password", "required": false, "description": "Secret for validating webhook signatures", "placeholder": "Enter webhook secret" }
+      ],
+      "auth": { "type": "hmac", "headerName": "X-Hub-Signature-256", "secretField": "webhookSecret", "algorithm": "sha256", "encoding": "hex", "signaturePrefix": "sha256=" },
+      "outputs": {
+        "action": { "type": "string", "description": "Action (closed)" },
+        "issue": { "type": "object", "description": "Issue object" },
+        "repository": { "type": "object", "description": "Repository info" },
+        "sender": { "type": "object", "description": "User who triggered the event" }
+      }
+    },
+    {
+      "id": "github_issue_comment",
+      "name": "GitHub Issue Comment",
+      "provider": "github",
+      "description": "Trigger when a comment is added to an issue",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        { "id": "webhookSecret", "label": "Webhook Secret", "type": "password", "required": false, "description": "Secret for validating webhook signatures", "placeholder": "Enter webhook secret" }
+      ],
+      "auth": { "type": "hmac", "headerName": "X-Hub-Signature-256", "secretField": "webhookSecret", "algorithm": "sha256", "encoding": "hex", "signaturePrefix": "sha256=" },
+      "outputs": {
+        "action": { "type": "string", "description": "Action (created)" },
+        "comment": { "type": "object", "description": "Comment object", "properties": { "body": { "type": "string", "description": "Comment body" }, "html_url": { "type": "string", "description": "Comment URL" }, "user": { "type": "object", "description": "Comment author" } } },
+        "issue": { "type": "object", "description": "Issue the comment belongs to" },
+        "repository": { "type": "object", "description": "Repository info" },
+        "sender": { "type": "object", "description": "User who triggered the event" }
+      }
+    },
+    {
+      "id": "github_pr_opened",
+      "name": "GitHub PR Opened",
+      "provider": "github",
+      "description": "Trigger when a pull request is opened",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        { "id": "webhookSecret", "label": "Webhook Secret", "type": "password", "required": false, "description": "Secret for validating webhook signatures", "placeholder": "Enter webhook secret" }
+      ],
+      "auth": { "type": "hmac", "headerName": "X-Hub-Signature-256", "secretField": "webhookSecret", "algorithm": "sha256", "encoding": "hex", "signaturePrefix": "sha256=" },
+      "outputs": {
+        "action": { "type": "string", "description": "Action (opened)" },
+        "pull_request": { "type": "object", "description": "Pull request object", "properties": { "number": { "type": "number", "description": "PR number" }, "title": { "type": "string", "description": "PR title" }, "body": { "type": "string", "description": "PR body" }, "state": { "type": "string", "description": "PR state" }, "html_url": { "type": "string", "description": "PR URL" }, "head": { "type": "object", "description": "Head branch info" }, "base": { "type": "object", "description": "Base branch info" }, "user": { "type": "object", "description": "PR author" }, "merged": { "type": "boolean", "description": "Whether PR is merged" } } },
+        "repository": { "type": "object", "description": "Repository info" },
+        "sender": { "type": "object", "description": "User who triggered the event" }
+      }
+    },
+    {
+      "id": "github_pr_closed",
+      "name": "GitHub PR Closed",
+      "provider": "github",
+      "description": "Trigger when a pull request is closed (not merged)",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        { "id": "webhookSecret", "label": "Webhook Secret", "type": "password", "required": false, "description": "Secret for validating webhook signatures", "placeholder": "Enter webhook secret" }
+      ],
+      "auth": { "type": "hmac", "headerName": "X-Hub-Signature-256", "secretField": "webhookSecret", "algorithm": "sha256", "encoding": "hex", "signaturePrefix": "sha256=" },
+      "outputs": {
+        "action": { "type": "string", "description": "Action (closed)" },
+        "pull_request": { "type": "object", "description": "Pull request object" },
+        "repository": { "type": "object", "description": "Repository info" },
+        "sender": { "type": "object", "description": "User who triggered the event" }
+      }
+    },
+    {
+      "id": "github_pr_merged",
+      "name": "GitHub PR Merged",
+      "provider": "github",
+      "description": "Trigger when a pull request is merged",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        { "id": "webhookSecret", "label": "Webhook Secret", "type": "password", "required": false, "description": "Secret for validating webhook signatures", "placeholder": "Enter webhook secret" }
+      ],
+      "auth": { "type": "hmac", "headerName": "X-Hub-Signature-256", "secretField": "webhookSecret", "algorithm": "sha256", "encoding": "hex", "signaturePrefix": "sha256=" },
+      "outputs": {
+        "action": { "type": "string", "description": "Action (closed with merged=true)" },
+        "pull_request": { "type": "object", "description": "Pull request object" },
+        "repository": { "type": "object", "description": "Repository info" },
+        "sender": { "type": "object", "description": "User who triggered the event" }
+      }
+    },
+    {
+      "id": "github_pr_comment",
+      "name": "GitHub PR Comment",
+      "provider": "github",
+      "description": "Trigger when a comment is added to a pull request",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        { "id": "webhookSecret", "label": "Webhook Secret", "type": "password", "required": false, "description": "Secret for validating webhook signatures", "placeholder": "Enter webhook secret" }
+      ],
+      "auth": { "type": "hmac", "headerName": "X-Hub-Signature-256", "secretField": "webhookSecret", "algorithm": "sha256", "encoding": "hex", "signaturePrefix": "sha256=" },
+      "outputs": {
+        "action": { "type": "string", "description": "Action (created)" },
+        "comment": { "type": "object", "description": "Comment object" },
+        "issue": { "type": "object", "description": "PR (as issue) the comment belongs to" },
+        "repository": { "type": "object", "description": "Repository info" },
+        "sender": { "type": "object", "description": "User who triggered the event" }
+      }
+    },
+    {
+      "id": "github_pr_reviewed",
+      "name": "GitHub PR Reviewed",
+      "provider": "github",
+      "description": "Trigger when a pull request review is submitted",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        { "id": "webhookSecret", "label": "Webhook Secret", "type": "password", "required": false, "description": "Secret for validating webhook signatures", "placeholder": "Enter webhook secret" }
+      ],
+      "auth": { "type": "hmac", "headerName": "X-Hub-Signature-256", "secretField": "webhookSecret", "algorithm": "sha256", "encoding": "hex", "signaturePrefix": "sha256=" },
+      "outputs": {
+        "action": { "type": "string", "description": "Action (submitted)" },
+        "review": { "type": "object", "description": "Review object", "properties": { "state": { "type": "string", "description": "Review state (approved, changes_requested, commented)" }, "body": { "type": "string", "description": "Review body" }, "user": { "type": "object", "description": "Reviewer" } } },
+        "pull_request": { "type": "object", "description": "Pull request object" },
+        "repository": { "type": "object", "description": "Repository info" },
+        "sender": { "type": "object", "description": "User who triggered the event" }
+      }
+    },
+    {
+      "id": "github_push",
+      "name": "GitHub Push",
+      "provider": "github",
+      "description": "Trigger when commits are pushed to a repository",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        { "id": "webhookSecret", "label": "Webhook Secret", "type": "password", "required": false, "description": "Secret for validating webhook signatures", "placeholder": "Enter webhook secret" }
+      ],
+      "auth": { "type": "hmac", "headerName": "X-Hub-Signature-256", "secretField": "webhookSecret", "algorithm": "sha256", "encoding": "hex", "signaturePrefix": "sha256=" },
+      "outputs": {
+        "ref": { "type": "string", "description": "Git ref (e.g., refs/heads/main)" },
+        "before": { "type": "string", "description": "Previous HEAD commit SHA" },
+        "after": { "type": "string", "description": "New HEAD commit SHA" },
+        "commits": { "type": "array", "description": "Array of commit objects" },
+        "head_commit": { "type": "object", "description": "Head commit object" },
+        "pusher": { "type": "object", "description": "User who pushed" },
+        "repository": { "type": "object", "description": "Repository info" },
+        "sender": { "type": "object", "description": "User who triggered the event" }
+      }
+    },
+    {
+      "id": "github_release_published",
+      "name": "GitHub Release Published",
+      "provider": "github",
+      "description": "Trigger when a release is published",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        { "id": "webhookSecret", "label": "Webhook Secret", "type": "password", "required": false, "description": "Secret for validating webhook signatures", "placeholder": "Enter webhook secret" }
+      ],
+      "auth": { "type": "hmac", "headerName": "X-Hub-Signature-256", "secretField": "webhookSecret", "algorithm": "sha256", "encoding": "hex", "signaturePrefix": "sha256=" },
+      "outputs": {
+        "action": { "type": "string", "description": "Action (published)" },
+        "release": { "type": "object", "description": "Release object", "properties": { "tag_name": { "type": "string", "description": "Release tag" }, "name": { "type": "string", "description": "Release name" }, "body": { "type": "string", "description": "Release notes" }, "html_url": { "type": "string", "description": "Release URL" }, "prerelease": { "type": "boolean", "description": "Whether this is a prerelease" }, "draft": { "type": "boolean", "description": "Whether this is a draft" } } },
+        "repository": { "type": "object", "description": "Repository info" },
+        "sender": { "type": "object", "description": "User who triggered the event" }
+      }
+    },
+    {
+      "id": "github_workflow_run",
+      "name": "GitHub Workflow Run",
+      "provider": "github",
+      "description": "Trigger when a GitHub Actions workflow run completes",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        { "id": "webhookSecret", "label": "Webhook Secret", "type": "password", "required": false, "description": "Secret for validating webhook signatures", "placeholder": "Enter webhook secret" }
+      ],
+      "auth": { "type": "hmac", "headerName": "X-Hub-Signature-256", "secretField": "webhookSecret", "algorithm": "sha256", "encoding": "hex", "signaturePrefix": "sha256=" },
+      "outputs": {
+        "action": { "type": "string", "description": "Action (completed, requested)" },
+        "workflow_run": { "type": "object", "description": "Workflow run object", "properties": { "name": { "type": "string", "description": "Workflow name" }, "status": { "type": "string", "description": "Run status" }, "conclusion": { "type": "string", "description": "Run conclusion (success, failure, etc.)" }, "html_url": { "type": "string", "description": "Run URL" } } },
+        "workflow": { "type": "object", "description": "Workflow definition" },
+        "repository": { "type": "object", "description": "Repository info" },
+        "sender": { "type": "object", "description": "User who triggered the event" }
+      }
+    },
+    {
+      "id": "github_webhook",
+      "name": "GitHub Webhook (All Events)",
+      "provider": "github",
+      "description": "Trigger on any GitHub webhook event",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        { "id": "webhookSecret", "label": "Webhook Secret", "type": "password", "required": false, "description": "Secret for validating webhook signatures", "placeholder": "Enter webhook secret" }
+      ],
+      "auth": { "type": "hmac", "headerName": "X-Hub-Signature-256", "secretField": "webhookSecret", "algorithm": "sha256", "encoding": "hex", "signaturePrefix": "sha256=" },
+      "outputs": {
+        "event": { "type": "string", "description": "GitHub event type from X-GitHub-Event header" },
+        "action": { "type": "string", "description": "Event action (if applicable)" },
+        "payload": { "type": "json", "description": "Full webhook payload" },
+        "repository": { "type": "object", "description": "Repository info" },
+        "sender": { "type": "object", "description": "User who triggered the event" }
       }
     }
   ]

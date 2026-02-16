@@ -1,6 +1,5 @@
 import { createLogger } from '@sim/logger'
 import { keepPreviousData, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { client } from '@/lib/auth/auth-client'
 import { OAUTH_PROVIDERS, type OAuthServiceConfig } from '@/lib/oauth'
 
 const logger = createLogger('OAuthConnectionsQuery')
@@ -151,10 +150,23 @@ export function useConnectOAuthService() {
         return { success: true }
       }
 
-      await client.oauth2.link({
-        providerId,
-        callbackURL,
+      // Call our custom OAuth link endpoint (avoids better-auth session requirement)
+      const response = await fetch('/api/auth/oauth/link', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ providerId, callbackURL }),
       })
+
+      if (!response.ok) {
+        const data = await response.json().catch(() => ({}))
+        throw new Error(data.error || 'Failed to initiate OAuth connection')
+      }
+
+      const { url } = await response.json()
+      if (url) {
+        window.location.href = url
+      }
 
       return { success: true }
     },

@@ -109,5 +109,105 @@
         "operation": "execute"
       }
     }
+  ],
+  "triggers": [
+    {
+      "id": "circleback_meeting_completed",
+      "name": "Circleback Meeting Completed",
+      "provider": "circleback",
+      "description": "Trigger when a meeting is completed and processed",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        {
+          "id": "webhookSecret",
+          "label": "Webhook Secret",
+          "type": "password",
+          "required": false,
+          "description": "Secret for signature verification",
+          "placeholder": "Enter webhook secret"
+        }
+      ],
+      "auth": {
+        "type": "hmac",
+        "headerName": "x-signature",
+        "secretField": "webhookSecret",
+        "algorithm": "sha256",
+        "encoding": "hex"
+      },
+      "outputs": {
+        "id": { "type": "number", "description": "Meeting ID" },
+        "name": { "type": "string", "description": "Meeting title" },
+        "url": { "type": "string", "description": "Virtual meeting URL" },
+        "createdAt": { "type": "string", "description": "Creation timestamp" },
+        "duration": { "type": "number", "description": "Duration in seconds" },
+        "attendees": { "type": "array", "description": "Attendees (name, email)" },
+        "notes": { "type": "string", "description": "Meeting notes (Markdown)" },
+        "actionItems": { "type": "array", "description": "Action items (title, description, assignee, status)" },
+        "transcript": { "type": "array", "description": "Transcript entries (speaker, text, timestamp)" }
+      }
+    },
+    {
+      "id": "circleback_meeting_notes",
+      "name": "Circleback Meeting Notes",
+      "provider": "circleback",
+      "description": "Trigger when meeting notes are ready",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        {
+          "id": "webhookSecret",
+          "label": "Webhook Secret",
+          "type": "password",
+          "required": false,
+          "description": "Secret for signature verification",
+          "placeholder": "Enter webhook secret"
+        }
+      ],
+      "auth": {
+        "type": "hmac",
+        "headerName": "x-signature",
+        "secretField": "webhookSecret",
+        "algorithm": "sha256",
+        "encoding": "hex"
+      },
+      "outputs": {
+        "id": { "type": "number", "description": "Meeting ID" },
+        "name": { "type": "string", "description": "Meeting title" },
+        "notes": { "type": "string", "description": "Meeting notes (Markdown)" },
+        "actionItems": { "type": "array", "description": "Action items" },
+        "transcript": { "type": "array", "description": "Transcript entries" }
+      }
+    },
+    {
+      "id": "circleback_webhook",
+      "name": "Circleback Webhook (All Events)",
+      "provider": "circleback",
+      "description": "Trigger on any Circleback webhook event",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        {
+          "id": "webhookSecret",
+          "label": "Webhook Secret",
+          "type": "password",
+          "required": false,
+          "description": "Secret for signature verification",
+          "placeholder": "Enter webhook secret"
+        }
+      ],
+      "auth": {
+        "type": "hmac",
+        "headerName": "x-signature",
+        "secretField": "webhookSecret",
+        "algorithm": "sha256",
+        "encoding": "hex"
+      },
+      "outputs": {
+        "id": { "type": "number", "description": "Meeting ID" },
+        "name": { "type": "string", "description": "Meeting title" },
+        "meeting": { "type": "object", "description": "Full meeting data" }
+      }
+    }
   ]
 }

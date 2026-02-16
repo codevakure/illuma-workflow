@@ -211,5 +211,21 @@
         "operation": "airtable_update_record"
       }
     }
+  ],
+  "triggers": [
+    {
+      "id": "airtable_webhook",
+      "name": "Airtable Webhook",
+      "provider": "airtable",
+      "description": "Trigger workflow when Airtable records are created, updated, or deleted",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [],
+      "outputs": {
+        "payloads": { "type": "array", "description": "Array of Airtable change payloads" },
+        "latestPayload": { "type": "object", "description": "Most recent change payload with actionMetadata and changedTablesById" },
+        "airtableChanges": { "type": "array", "description": "Simplified changes with tableId, recordId, changeType, cellValuesByFieldId" }
+      }
+    }
   ]
 }

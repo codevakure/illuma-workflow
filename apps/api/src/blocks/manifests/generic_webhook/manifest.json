@@ -94,5 +94,27 @@
         "operation": "execute"
       }
     }
+  ],
+  "triggers": [
+    {
+      "id": "generic_webhook",
+      "name": "Generic Webhook",
+      "provider": "generic",
+      "description": "Receive webhooks from any service or API",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        {
+          "id": "token",
+          "label": "Authentication Token",
+          "type": "password",
+          "required": false,
+          "description": "Token used to authenticate webhook requests via Bearer token or custom header",
+          "placeholder": "Enter an auth token"
+        }
+      ],
+      "instructions": "1. Copy the webhook URL and use it in your external service.\n2. Configure your service to send webhooks to this URL.\n3. If authentication is enabled, include the token in requests using the custom header or Authorization: Bearer TOKEN.",
+      "outputs": {}
+    }
   ]
 }

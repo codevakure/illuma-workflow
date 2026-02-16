@@ -410,5 +410,89 @@
         "operation": "microsoft_teams_write_chat"
       }
     }
+  ],
+  "triggers": [
+    {
+      "id": "microsoftteams_webhook",
+      "name": "Microsoft Teams Channel",
+      "provider": "microsoft-teams",
+      "description": "Trigger workflow from Microsoft Teams channel messages via outgoing webhooks",
+      "version": "1.0.0",
+      "webhook": {
+        "method": "POST"
+      },
+      "credentials": [
+        {
+          "id": "hmacSecret",
+          "label": "HMAC Secret",
+          "type": "password",
+          "required": true,
+          "description": "The security token provided by Teams when creating an outgoing webhook.",
+          "placeholder": "Enter HMAC secret from Teams"
+        }
+      ],
+      "auth": {
+        "type": "custom",
+        "handler": "microsoft_teams_verify_webhook"
+      },
+      "instructions": "1. Open Microsoft Teams and go to the team where you want to add the webhook.\n2. Click the three dots next to the team name and select Manage team.\n3. Go to the Apps tab and click Create an outgoing webhook.\n4. Provide a name, description, and profile picture.\n5. Set the callback URL to your Sim webhook URL.\n6. Copy the HMAC security token and paste it into the HMAC Secret field.\n7. Click Create to finish setup.",
+      "outputs": {
+        "from": {
+          "type": "object",
+          "description": "Sender information",
+          "properties": {
+            "id": { "type": "string", "description": "Sender ID" },
+            "name": { "type": "string", "description": "Sender name" },
+            "aadObjectId": { "type": "string", "description": "AAD Object ID" }
+          }
+        },
+        "message": {
+          "type": "object",
+          "description": "Message data",
+          "properties": {
+            "text": { "type": "string", "description": "Message text content" },
+            "messageType": { "type": "string", "description": "Message type" },
+            "channelId": { "type": "string", "description": "Channel ID" },
+            "timestamp": { "type": "string", "description": "Timestamp" }
+          }
+        },
+        "activity": { "type": "object", "description": "Activity payload" },
+        "conversation": {
+          "type": "object",
+          "description": "Conversation info",
+          "properties": {
+            "id": { "type": "string", "description": "Conversation ID" },
+            "isGroup": { "type": "boolean", "description": "Is group conversation" },
+            "tenantId": { "type": "string", "description": "Tenant ID" },
+            "conversationType": { "type": "string", "description": "Conversation type" }
+          }
+        }
+      }
+    },
+    {
+      "id": "microsoftteams_chat_subscription",
+      "name": "Microsoft Teams Chat",
+      "provider": "microsoft-teams",
+      "description": "Trigger workflow from new messages in Microsoft Teams chats via Microsoft Graph subscriptions",
+      "version": "1.0.0",
+      "webhook": {
+        "method": "POST"
+      },
+      "credentials": [],
+      "challenge": {
+        "type": "query_echo",
+        "param": "validationToken",
+        "contentType": "text/plain"
+      },
+      "instructions": "<div class='mb-3'><strong>1.</strong> Connect your Microsoft Teams account and grant the required permissions.</div><div class='mb-3'><strong>2.</strong> Enter the Chat ID of the Teams chat you want to monitor.</div><div class='mb-3'><strong>3.</strong> We will create a Microsoft Graph change notification subscription that delivers chat message events to your Sim webhook URL.</div>",
+      "outputs": {
+        "message_id": { "type": "string", "description": "Message ID" },
+        "chat_id": { "type": "string", "description": "Chat ID" },
+        "from_name": { "type": "string", "description": "Sender display name" },
+        "text": { "type": "string", "description": "Message body (HTML or text)" },
+        "created_at": { "type": "string", "description": "Message timestamp" },
+        "attachments": { "type": "file[]", "description": "Uploaded attachments as files" }
+      }
+    }
   ]
 }

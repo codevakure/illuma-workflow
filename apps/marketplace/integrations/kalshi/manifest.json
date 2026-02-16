@@ -1,12 +1,12 @@
 {
   "id": "kalshi",
-  "name": "Kalshi (Legacy)",
+  "name": "Kalshi",
   "version": "1.0.0",
   "description": "Access prediction markets and trade on Kalshi",
   "icon": "KalshiIcon",
   "block": {
     "type": "kalshi",
-    "name": "Kalshi (Legacy)",
+    "name": "Kalshi",
     "description": "Access prediction markets and trade on Kalshi",
     "longDescription": "Integrate Kalshi prediction markets into the workflow. Can get markets, market, events, event, balance, positions, orders, orderbook, trades, candlesticks, fills, series, exchange status, and place/cancel/amend trades.",
     "docsLink": "https://docs.sim.ai/tools/kalshi",
@@ -14,7 +14,7 @@
     "bgColor": "#09C285",
     "icon": "KalshiIcon",
     "authMode": "api_key",
-    "hideFromToolbar": true,
+    "hideFromToolbar": false,
     "subBlocks": [
       {
         "id": "operation",

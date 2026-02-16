@@ -1,12 +1,12 @@
 {
   "id": "video_generator",
-  "name": "Video Generator (Legacy)",
+  "name": "Video Generator",
   "version": "1.0.0",
   "description": "Generate videos from text using AI",
   "icon": "VideoIcon",
   "block": {
     "type": "video_generator",
-    "name": "Video Generator (Legacy)",
+    "name": "Video Generator",
     "description": "Generate videos from text using AI",
     "longDescription": "Generate high-quality videos from text prompts using leading AI providers. Supports multiple models, aspect ratios, resolutions, and provider-specific features like world consistency, camera controls, and audio generation.",
     "docsLink": "https://docs.sim.ai/tools/video-generator",
@@ -14,7 +14,7 @@
     "bgColor": "#181C1E",
     "icon": "VideoIcon",
     "authMode": "api_key",
-    "hideFromToolbar": true,
+    "hideFromToolbar": false,
     "subBlocks": [
       {
         "id": "provider",

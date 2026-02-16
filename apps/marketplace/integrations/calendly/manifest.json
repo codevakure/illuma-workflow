@@ -307,5 +307,106 @@
         "operation": "calendly_list_scheduled_events"
       }
     }
+  ],
+  "triggers": [
+    {
+      "id": "calendly_invitee_created",
+      "name": "Calendly Invitee Created",
+      "provider": "calendly",
+      "description": "Trigger when a new invitee is created for a Calendly event",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        {
+          "id": "apiKey",
+          "label": "Personal Access Token",
+          "type": "password",
+          "required": true,
+          "description": "Calendly Personal Access Token",
+          "placeholder": "Enter your token"
+        }
+      ],
+      "outputs": {
+        "event": { "type": "string", "description": "Event type (invitee.created)" },
+        "created_at": { "type": "string", "description": "Event creation timestamp" },
+        "created_by": { "type": "string", "description": "Calendly user URI" },
+        "payload": {
+          "type": "object",
+          "description": "Invitee data (uri, email, name, first_name, last_name, status, timezone, event, questions_and_answers, tracking, cancel_url, reschedule_url)"
+        }
+      }
+    },
+    {
+      "id": "calendly_invitee_canceled",
+      "name": "Calendly Invitee Canceled",
+      "provider": "calendly",
+      "description": "Trigger when an invitee cancels a Calendly event",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        {
+          "id": "apiKey",
+          "label": "Personal Access Token",
+          "type": "password",
+          "required": true,
+          "description": "Calendly Personal Access Token",
+          "placeholder": "Enter your token"
+        }
+      ],
+      "outputs": {
+        "event": { "type": "string", "description": "Event type (invitee.canceled)" },
+        "created_at": { "type": "string", "description": "Event creation timestamp" },
+        "payload": { "type": "object", "description": "Invitee data with cancellation details" }
+      }
+    },
+    {
+      "id": "calendly_routing_form_submitted",
+      "name": "Calendly Routing Form Submitted",
+      "provider": "calendly",
+      "description": "Trigger when a routing form is submitted",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        {
+          "id": "apiKey",
+          "label": "Personal Access Token",
+          "type": "password",
+          "required": true,
+          "description": "Calendly Personal Access Token",
+          "placeholder": "Enter your token"
+        }
+      ],
+      "outputs": {
+        "event": { "type": "string", "description": "Event type (routing_form_submission.created)" },
+        "created_at": { "type": "string", "description": "Event creation timestamp" },
+        "payload": {
+          "type": "object",
+          "description": "Routing form data (uri, routing_form, submitter, questions_and_answers, result)"
+        }
+      }
+    },
+    {
+      "id": "calendly_webhook",
+      "name": "Calendly Webhook (All Events)",
+      "provider": "calendly",
+      "description": "Trigger on any Calendly webhook event",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [
+        {
+          "id": "apiKey",
+          "label": "Personal Access Token",
+          "type": "password",
+          "required": true,
+          "description": "Calendly Personal Access Token",
+          "placeholder": "Enter your token"
+        }
+      ],
+      "outputs": {
+        "event": { "type": "string", "description": "Event type" },
+        "created_at": { "type": "string", "description": "Event creation timestamp" },
+        "payload": { "type": "object", "description": "Event data (varies by event type)" }
+      }
+    }
   ]
 }

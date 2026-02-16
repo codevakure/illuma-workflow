@@ -236,5 +236,67 @@
         "operation": "webflow_update_item"
       }
     }
+  ],
+  "triggers": [
+    {
+      "id": "webflow_collection_item_created",
+      "name": "Webflow Item Created",
+      "provider": "webflow",
+      "description": "Trigger when a collection item is created in Webflow",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [],
+      "outputs": {
+        "siteId": { "type": "string", "description": "Webflow site ID" },
+        "collectionId": { "type": "string", "description": "Collection ID" },
+        "payload": { "type": "object", "description": "Item data with id, cmsLocaleId, lastPublished, lastUpdated, createdOn, isArchived, isDraft, fieldData" }
+      }
+    },
+    {
+      "id": "webflow_collection_item_changed",
+      "name": "Webflow Item Changed",
+      "provider": "webflow",
+      "description": "Trigger when a collection item is updated in Webflow",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [],
+      "outputs": {
+        "siteId": { "type": "string", "description": "Webflow site ID" },
+        "collectionId": { "type": "string", "description": "Collection ID" },
+        "payload": { "type": "object", "description": "Item data with id, cmsLocaleId, lastPublished, lastUpdated, createdOn, isArchived, isDraft, fieldData" }
+      }
+    },
+    {
+      "id": "webflow_collection_item_deleted",
+      "name": "Webflow Item Deleted",
+      "provider": "webflow",
+      "description": "Trigger when a collection item is deleted in Webflow",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [],
+      "outputs": {
+        "siteId": { "type": "string", "description": "Webflow site ID" },
+        "collectionId": { "type": "string", "description": "Collection ID" },
+        "payload": { "type": "object", "description": "Deleted item data with id, deletedOn" }
+      }
+    },
+    {
+      "id": "webflow_form_submission",
+      "name": "Webflow Form Submission",
+      "provider": "webflow",
+      "description": "Trigger when a form is submitted on a Webflow site",
+      "version": "1.0.0",
+      "webhook": { "method": "POST" },
+      "credentials": [],
+      "outputs": {
+        "siteId": { "type": "string", "description": "Webflow site ID" },
+        "formId": { "type": "string", "description": "Form ID" },
+        "name": { "type": "string", "description": "Form name" },
+        "id": { "type": "string", "description": "Submission ID" },
+        "submittedAt": { "type": "string", "description": "Submission timestamp" },
+        "data": { "type": "object", "description": "Form submission field data" },
+        "schema": { "type": "array", "description": "Form structure" }
+      }
+    }
   ]
 }

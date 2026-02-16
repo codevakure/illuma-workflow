@@ -1,12 +1,12 @@
 {
   "id": "mistral_parse",
-  "name": "Mistral Parser (Legacy)",
+  "name": "Mistral Parser",
   "version": "1.0.0",
   "description": "Extract text from PDF documents",
   "icon": "MistralIcon",
   "block": {
     "type": "mistral_parse",
-    "name": "Mistral Parser (Legacy)",
+    "name": "Mistral Parser",
     "description": "Extract text from PDF documents",
     "longDescription": "Integrate Mistral Parse into the workflow. Can extract text from uploaded PDF documents, or from a URL.",
     "docsLink": "https://docs.sim.ai/tools/mistral_parse",
@@ -14,33 +14,23 @@
     "bgColor": "#000000",
     "icon": "MistralIcon",
     "authMode": "api_key",
-    "hideFromToolbar": true,
+    "hideFromToolbar": false,
     "subBlocks": [
-      {
-        "id": "inputMethod",
-        "type": "dropdown",
-        "title": "Select Input Method",
-        "options": [
-          {
-            "label": "url",
-            "value": "url"
-          },
-          {
-            "label": "upload",
-            "value": "upload"
-          }
-        ]
-      },
-      {
-        "id": "filePath",
-        "type": "short-input",
-        "title": "PDF Document URL",
-        "placeholder": "Enter full URL to a PDF document (https://example.com/document.pdf)"
-      },
       {
         "id": "fileUpload",
         "type": "file-upload",
-        "title": "Upload PDF"
+        "title": "PDF Document",
+        "placeholder": "Upload a PDF document",
+        "mode": "basic",
+        "canonicalParamId": "document"
+      },
+      {
+        "id": "fileReference",
+        "type": "short-input",
+        "title": "File Reference",
+        "placeholder": "File reference from previous block",
+        "mode": "advanced",
+        "canonicalParamId": "document"
       },
       {
         "id": "resultType",
@@ -48,15 +38,15 @@
         "title": "Output Format",
         "options": [
           {
-            "label": "markdown",
+            "label": "Markdown",
             "value": "markdown"
           },
           {
-            "label": "text",
+            "label": "Plain Text",
             "value": "text"
           },
           {
-            "label": "json",
+            "label": "JSON",
             "value": "json"
           }
         ]
@@ -84,21 +74,23 @@
       }
     },
     "inputs": {
-      "inputMethod": {
-        "type": "string"
-      }
+      "document": { "type": "json", "description": "Document input (file upload or file reference)" },
+      "apiKey": { "type": "string", "description": "Mistral API key" },
+      "resultType": { "type": "string", "description": "Output format type" },
+      "pages": { "type": "string", "description": "Page selection" }
     },
     "outputs": {
-      "content": {
-        "type": "string"
-      }
+      "pages": { "type": "array", "description": "Array of page objects from Mistral OCR" },
+      "model": { "type": "string", "description": "Mistral OCR model identifier" },
+      "usage_info": { "type": "json", "description": "Usage statistics from the API" },
+      "document_annotation": { "type": "string", "description": "Structured annotation data" }
     }
   },
   "tools": [
     {
       "id": "mistral_parser",
       "name": "Mistral Parser",
-      "description": "Mistral Parser (Legacy) parser operation",
+      "description": "Extract text from PDF documents using Mistral OCR",
       "version": "1.0.0",
       "executionMode": "proxy",
       "params": {},

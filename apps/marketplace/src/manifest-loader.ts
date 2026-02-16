@@ -137,8 +137,8 @@ class ManifestRegistry {
       this.toolToIntegration.set(tool.id, manifest.id)
     }
 
-    if (manifest.trigger) {
-      this.triggersByProvider.set(manifest.trigger.provider, manifest.trigger)
+    for (const trigger of manifest.triggers ?? []) {
+      this.triggersByProvider.set(trigger.provider, trigger)
     }
   }
 

@@ -1,12 +1,12 @@
 {
   "id": "vision",
-  "name": "Vision (Legacy)",
+  "name": "Vision",
   "version": "1.0.0",
   "description": "Analyze images with vision models",
   "icon": "EyeIcon",
   "block": {
     "type": "vision",
-    "name": "Vision (Legacy)",
+    "name": "Vision",
     "description": "Analyze images with vision models",
     "longDescription": "Integrate Vision into the workflow. Can analyze images with vision models.",
     "docsLink": "https://docs.sim.ai/tools/vision",
@@ -14,7 +14,7 @@
     "bgColor": "#4D5FFF",
     "icon": "EyeIcon",
     "authMode": "api_key",
-    "hideFromToolbar": true,
+    "hideFromToolbar": false,
     "subBlocks": [
       {
         "id": "imageFile",

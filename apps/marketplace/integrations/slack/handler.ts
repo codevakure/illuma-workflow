@@ -1,3 +1,4 @@
+import crypto from 'node:crypto'
 import type { ToolHandler } from '../../sdk/types'
 
 const SLACK_API = 'https://slack.com/api'
@@ -599,6 +600,54 @@ const handler: ToolHandler = {
             permalink: file.permalink,
           },
         },
+      }
+    },
+
+    /**
+     * Verify Slack webhook signature using v0:timestamp:body HMAC-SHA256.
+     * Called by the auth engine for custom auth verification.
+     */
+    slack_verify_webhook: async (params) => {
+      const headers = params.headers as Record<string, string>
+      const body = params.body as string
+      const config = params.config as Record<string, unknown>
+
+      const signingSecret = config.signingSecret as string | undefined
+      if (!signingSecret) {
+        return { success: true, output: { valid: true } }
+      }
+
+      const timestamp = headers['x-slack-request-timestamp']
+      const signature = headers['x-slack-signature']
+
+      if (!timestamp || !signature) {
+        return {
+          success: true,
+          output: { valid: false, error: 'Missing X-Slack-Request-Timestamp or X-Slack-Signature header' },
+        }
+      }
+
+      // Reject requests older than 5 minutes to prevent replay attacks
+      const now = Math.floor(Date.now() / 1000)
+      if (Math.abs(now - Number(timestamp)) > 300) {
+        return {
+          success: true,
+          output: { valid: false, error: 'Request timestamp too old (possible replay attack)' },
+        }
+      }
+
+      const sigBaseString = `v0:${timestamp}:${body}`
+      const computed = 'v0=' + crypto
+        .createHmac('sha256', signingSecret)
+        .update(sigBaseString, 'utf8')
+        .digest('hex')
+
+      const isValid = computed.length === signature.length &&
+        crypto.timingSafeEqual(Buffer.from(computed), Buffer.from(signature))
+
+      return {
+        success: true,
+        output: { valid: isValid, error: isValid ? undefined : 'Invalid Slack signature' },
       }
     },
   },

@@ -14,7 +14,7 @@
     "bgColor": "linear-gradient(135deg, #055F4E 0%, #56C0A7 100%)",
     "icon": "TextractIcon",
     "authMode": "api_key",
-    "hideFromToolbar": true,
+    "hideFromToolbar": false,
     "subBlocks": [
       {
         "id": "processingMode",

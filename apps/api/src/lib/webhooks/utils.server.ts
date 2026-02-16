@@ -1037,7 +1037,7 @@ export async function formatWebhookInput(
 
   if (foundWebhook.provider === 'jira') {
     const { extractIssueData, extractCommentData, extractWorklogData } = await import(
-      '@/triggers/jira/utils'
+      '@/lib/webhooks/event-matching/jira'
     )
 
     const providerConfig = (foundWebhook.providerConfig as Record<string, unknown>) || {}

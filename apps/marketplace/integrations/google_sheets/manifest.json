@@ -1,12 +1,12 @@
 {
   "id": "google_sheets",
-  "name": "Google Sheets (Legacy)",
+  "name": "Google Sheets",
   "version": "1.0.0",
   "description": "Read, write, and update data",
   "icon": "GoogleSheetsIcon",
   "block": {
     "type": "google_sheets",
-    "name": "Google Sheets (Legacy)",
+    "name": "Google Sheets",
     "description": "Read, write, and update data",
     "longDescription": "Integrate Google Sheets into the workflow. Can read, write, append, and update data.",
     "docsLink": "https://docs.sim.ai/tools/google_sheets",
@@ -14,7 +14,7 @@
     "bgColor": "#E0E0E0",
     "icon": "GoogleSheetsIcon",
     "authMode": "oauth",
-    "hideFromToolbar": true,
+    "hideFromToolbar": false,
     "subBlocks": [
       {
         "id": "operation",
