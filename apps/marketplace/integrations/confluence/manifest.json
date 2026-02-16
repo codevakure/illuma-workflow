@@ -155,7 +155,8 @@
         "id": "credential",
         "type": "oauth-input",
         "title": "Confluence Account",
-        "placeholder": "Select Confluence account"
+        "placeholder": "Select Confluence account",
+        "serviceId": "confluence"
       },
       {
         "id": "domain",

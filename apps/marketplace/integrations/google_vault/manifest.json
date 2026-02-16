@@ -54,7 +54,8 @@
         "id": "credential",
         "type": "oauth-input",
         "title": "Google Vault Account",
-        "placeholder": "Select Google Vault account"
+        "placeholder": "Select Google Vault account",
+        "serviceId": "google-vault"
       },
       {
         "id": "matterId",

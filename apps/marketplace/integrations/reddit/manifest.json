@@ -74,7 +74,8 @@
         "id": "credential",
         "type": "oauth-input",
         "title": "Reddit Account",
-        "placeholder": "Select Reddit account"
+        "placeholder": "Select Reddit account",
+        "serviceId": "reddit"
       },
       {
         "id": "subreddit",

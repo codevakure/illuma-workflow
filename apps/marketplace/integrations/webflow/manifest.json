@@ -52,7 +52,8 @@
         "id": "credential",
         "type": "oauth-input",
         "title": "Webflow Account",
-        "placeholder": "Select Webflow account"
+        "placeholder": "Select Webflow account",
+        "serviceId": "webflow"
       },
       {
         "id": "siteSelector",

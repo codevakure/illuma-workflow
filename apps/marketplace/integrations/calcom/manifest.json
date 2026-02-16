@@ -108,7 +108,8 @@
         "id": "credential",
         "type": "oauth-input",
         "title": "Cal.com Account",
-        "placeholder": "Select Cal.com account"
+        "placeholder": "Select Cal.com account",
+        "serviceId": "calcom"
       },
       {
         "id": "eventTypeId",

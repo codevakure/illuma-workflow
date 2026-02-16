@@ -108,7 +108,8 @@
         "id": "credential",
         "type": "oauth-input",
         "title": "Slack Account",
-        "placeholder": "Select Slack workspace"
+        "placeholder": "Select Slack workspace",
+        "serviceId": "slack"
       },
       {
         "id": "botToken",

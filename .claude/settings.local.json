@@ -19,7 +19,8 @@
       "Bash(# Check what the web actually gets from the proxy curl -s http://localhost:5173/api/registry/integrations)",
       "Bash(node:*)",
       "Bash(python3:*)",
-      "Bash(bunx vitest:*)"
+      "Bash(bunx vitest:*)",
+      "Bash(grep:*)"
     ]
   }
 }

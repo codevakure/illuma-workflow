@@ -67,7 +67,8 @@
         "id": "credential",
         "type": "oauth-input",
         "title": "Google Calendar Account",
-        "placeholder": "Select Google Calendar account"
+        "placeholder": "Select Google Calendar account",
+        "serviceId": "google-calendar"
       },
       {
         "id": "calendarId",

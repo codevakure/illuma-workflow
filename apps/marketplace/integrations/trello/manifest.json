@@ -50,7 +50,8 @@
         "id": "credential",
         "type": "oauth-input",
         "title": "Trello Account",
-        "placeholder": "Select Trello account"
+        "placeholder": "Select Trello account",
+        "serviceId": "trello"
       },
       {
         "id": "boardId",

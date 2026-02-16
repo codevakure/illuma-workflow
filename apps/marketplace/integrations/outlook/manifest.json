@@ -62,7 +62,8 @@
         "id": "credential",
         "type": "oauth-input",
         "title": "Microsoft Account",
-        "placeholder": "Select Microsoft account"
+        "placeholder": "Select Microsoft account",
+        "serviceId": "outlook"
       },
       {
         "id": "to",
@@ -236,6 +237,7 @@
         "type": "oauth-input",
         "title": "Microsoft Account",
         "placeholder": "Select Microsoft account",
+        "serviceId": "outlook",
         "mode": "trigger"
       },
       {

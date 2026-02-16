@@ -58,7 +58,8 @@
         "id": "credential",
         "type": "oauth-input",
         "title": "Microsoft Account",
-        "placeholder": "Select Microsoft account"
+        "placeholder": "Select Microsoft account",
+        "serviceId": "sharepoint"
       },
       {
         "id": "siteSelector",

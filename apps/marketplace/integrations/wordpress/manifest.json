@@ -130,7 +130,8 @@
         "id": "credential",
         "type": "oauth-input",
         "title": "WordPress Account",
-        "placeholder": "Select WordPress account"
+        "placeholder": "Select WordPress account",
+        "serviceId": "wordpress"
       },
       {
         "id": "siteId",

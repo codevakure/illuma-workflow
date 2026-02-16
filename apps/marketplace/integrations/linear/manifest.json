@@ -344,7 +344,8 @@
         "id": "credential",
         "type": "oauth-input",
         "title": "Linear Account",
-        "placeholder": "Select Linear account"
+        "placeholder": "Select Linear account",
+        "serviceId": "linear"
       },
       {
         "id": "teamId",

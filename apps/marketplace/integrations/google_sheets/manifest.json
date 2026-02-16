@@ -43,7 +43,8 @@
         "id": "credential",
         "type": "oauth-input",
         "title": "Google Account",
-        "placeholder": "Select Google account"
+        "placeholder": "Select Google account",
+        "serviceId": "google-sheets"
       },
       {
         "id": "spreadsheetId",

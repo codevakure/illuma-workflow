@@ -90,7 +90,8 @@
         "id": "credential",
         "type": "oauth-input",
         "title": "Google Groups Account",
-        "placeholder": "Select Google Workspace account"
+        "placeholder": "Select Google Workspace account",
+        "serviceId": "google-groups"
       },
       {
         "id": "customer",

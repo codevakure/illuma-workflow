@@ -63,7 +63,8 @@
         "id": "credential",
         "type": "oauth-input",
         "title": "Notion Account",
-        "placeholder": "Select Notion account"
+        "placeholder": "Select Notion account",
+        "serviceId": "notion"
       },
       {
         "id": "pageId",

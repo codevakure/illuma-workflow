@@ -130,7 +130,8 @@
         "id": "credential",
         "type": "oauth-input",
         "title": "Jira Account",
-        "placeholder": "Select Jira account"
+        "placeholder": "Select Jira account",
+        "serviceId": "jira"
       },
       {
         "id": "projectId",

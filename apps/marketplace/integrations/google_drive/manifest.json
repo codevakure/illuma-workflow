@@ -82,7 +82,8 @@
         "id": "credential",
         "type": "oauth-input",
         "title": "Google Drive Account",
-        "placeholder": "Select Google Drive account"
+        "placeholder": "Select Google Drive account",
+        "serviceId": "google-drive"
       },
       {
         "id": "fileName",

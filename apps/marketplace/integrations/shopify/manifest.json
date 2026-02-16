@@ -110,7 +110,8 @@
         "id": "credential",
         "type": "oauth-input",
         "title": "Shopify Account",
-        "placeholder": "Select Shopify account"
+        "placeholder": "Select Shopify account",
+        "serviceId": "shopify"
       },
       {
         "id": "shopDomain",

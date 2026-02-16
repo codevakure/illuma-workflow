@@ -50,7 +50,8 @@
         "id": "credential",
         "type": "oauth-input",
         "title": "Wealthbox Account",
-        "placeholder": "Select Wealthbox account"
+        "placeholder": "Select Wealthbox account",
+        "serviceId": "wealthbox"
       },
       {
         "id": "noteId",

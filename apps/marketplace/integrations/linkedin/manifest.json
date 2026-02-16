@@ -34,7 +34,8 @@
         "id": "credential",
         "type": "oauth-input",
         "title": "LinkedIn Account",
-        "placeholder": "Select LinkedIn account"
+        "placeholder": "Select LinkedIn account",
+        "serviceId": "linkedin"
       },
       {
         "id": "text",

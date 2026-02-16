@@ -42,7 +42,8 @@
         "id": "credential",
         "type": "oauth-input",
         "title": "Airtable Account",
-        "placeholder": "Select Airtable account"
+        "placeholder": "Select Airtable account",
+        "serviceId": "airtable"
       },
       {
         "id": "baseId",

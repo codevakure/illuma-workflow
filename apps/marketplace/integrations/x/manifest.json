@@ -42,7 +42,8 @@
         "id": "credential",
         "type": "oauth-input",
         "title": "X Account",
-        "placeholder": "Select X account"
+        "placeholder": "Select X account",
+        "serviceId": "x"
       },
       {
         "id": "text",

@@ -98,7 +98,8 @@
         "id": "credential",
         "type": "oauth-input",
         "title": "Pipedrive Account",
-        "placeholder": "Select Pipedrive account"
+        "placeholder": "Select Pipedrive account",
+        "serviceId": "pipedrive"
       },
       {
         "id": "status",

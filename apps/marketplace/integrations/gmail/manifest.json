@@ -75,7 +75,8 @@
         "id": "credential",
         "type": "oauth-input",
         "title": "Gmail Account",
-        "placeholder": "Select Gmail account"
+        "placeholder": "Select Gmail account",
+        "serviceId": "gmail"
       },
       {
         "id": "to",
@@ -270,6 +271,7 @@
         "type": "oauth-input",
         "title": "Gmail Account",
         "placeholder": "Select Gmail account",
+        "serviceId": "gmail",
         "mode": "trigger"
       },
       {

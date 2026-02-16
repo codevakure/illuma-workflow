@@ -66,7 +66,8 @@
         "id": "credential",
         "type": "oauth-input",
         "title": "HubSpot Account",
-        "placeholder": "Select HubSpot account"
+        "placeholder": "Select HubSpot account",
+        "serviceId": "hubspot"
       },
       {
         "id": "contactId",

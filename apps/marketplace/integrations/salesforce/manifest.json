@@ -166,7 +166,8 @@
         "id": "credential",
         "type": "oauth-input",
         "title": "Salesforce Account",
-        "placeholder": "Select Salesforce account"
+        "placeholder": "Select Salesforce account",
+        "serviceId": "salesforce"
       },
       {
         "id": "fields",

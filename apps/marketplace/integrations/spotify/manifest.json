@@ -626,7 +626,8 @@
       {
         "id": "credential",
         "type": "oauth-input",
-        "title": "Spotify Account"
+        "title": "Spotify Account",
+        "serviceId": "spotify"
       },
       {
         "id": "query",
